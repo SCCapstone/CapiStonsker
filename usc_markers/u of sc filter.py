@@ -19,15 +19,25 @@ for marker in data:
     if isinstance(marker['gps'], list):
         new_data.append(marker)
 data = new_data
-print(len(data))
 
-# filter
-usc_markers = []
-for marker in data:
-    print(marker['gps'])
-    if lat_range[0] < float(marker['gps'][0]) < lat_range[1] and \
-            long_range[0] < float(marker['gps'][1]) < long_range[1]:
-        usc_markers.append(marker)
+# County Sort
+uniqueValues = set()
+for dic in data:
+    uniqueValues.add(dic['county'])
+for county in sorted(uniqueValues):
+    c = 0;
+    for d in data:
+        if(d['county'] == county):
+            c = c+1
+    print(county + ': ' + str(c))
 
-with open(out_filename, 'w') as outfile:
-    json.dump(usc_markers, outfile, indent=4)
+# # filter
+# usc_markers = []
+# for marker in data:
+#     #print(marker['gps'])
+#     if lat_range[0] < float(marker['gps'][0]) < lat_range[1] and \
+#             long_range[0] < float(marker['gps'][1]) < long_range[1]:
+#         usc_markers.append(marker)
+#
+# with open(out_filename, 'w') as outfile:
+#     json.dump(usc_markers, outfile, indent=4)
