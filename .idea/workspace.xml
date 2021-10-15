@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acfd755b-e4a4-42b1-b582-420e325c71a9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/usc_markers/u of sc filter.py" beforeDir="false" afterPath="$PROJECT_DIR$/usc_markers/u of sc filter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +33,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/usc_markers/u of sc filter.py" />
   </component>
-  <component name="RunManager" selected="Python.usc">
+  <component name="RunManager">
     <configuration name="scrape" type="PythonConfigurationType" factoryName="Python">
       <module name="CapiStonsker" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -76,12 +76,23 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="Python.scrape" />
-      <item itemvalue="Python.usc" />
-    </list>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="acfd755b-e4a4-42b1-b582-420e325c71a9" name="Changes" comment="" />
@@ -97,14 +108,21 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="376" y="264" key="com.intellij.ide.util.TipDialog" timestamp="1634328135778">
+      <screen x="0" y="23" width="1440" height="812" />
+    </state>
+    <state x="376" y="264" key="com.intellij.ide.util.TipDialog/0.23.1440.812@0.23.1440.812" timestamp="1634328135778" />
   </component>
 </project>
