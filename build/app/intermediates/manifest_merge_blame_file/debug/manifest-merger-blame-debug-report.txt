@@ -12,50 +12,50 @@
 12         to allow setting breakpoints, to provide hot reload, etc.
 13    -->
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\debug\AndroidManifest.xml:6:5-66
-14-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\debug\AndroidManifest.xml:6:22-64
+14-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\debug\AndroidManifest.xml:6:5-66
+14-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\debug\AndroidManifest.xml:6:22-64
 15    <!-- Include required permissions for Google Maps API to run. -->
 16    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-16-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\davis\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:23:5-79
-16-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\davis\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:23:22-76
+16-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\josep\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:23:5-79
+16-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\josep\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:23:22-76
 17
 18    <uses-feature
-18-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\davis\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:26:5-28:35
+18-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\josep\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:26:5-28:35
 19        android:glEsVersion="0x00020000"
-19-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\davis\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:27:9-41
+19-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\josep\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:27:9-41
 20        android:required="true" />
-20-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\davis\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:28:9-32
+20-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\josep\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:28:9-32
 21
 22    <application
-22-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:3:4-44:19
+22-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:3:4-44:19
 23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-23-->[androidx.core:core:1.1.0] C:\Users\davis\.gradle\caches\transforms-2\files-2.1\2e94107f30f39be366a17347c2bf100b\core-1.1.0\AndroidManifest.xml:24:18-86
+23-->[androidx.core:core:1.1.0] C:\Users\josep\.gradle\caches\transforms-2\files-2.1\2e94107f30f39be366a17347c2bf100b\core-1.1.0\AndroidManifest.xml:24:18-86
 24        android:debuggable="true"
 25        android:icon="@mipmap/ic_launcher"
-25-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:5:9-43
+25-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:5:9-43
 26        android:label="capi_stonsker" >
-26-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:4:9-38
+26-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:4:9-38
 27        <meta-data
-27-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:7:8-8:69
+27-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:7:8-8:69
 28            android:name="com.google.android.geo.API_KEY"
-28-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:7:19-64
+28-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:7:19-64
 29            android:value="AIzaSyAGJX3nETmfgk0xCQGneMKV4Tb8zPCFY-U" />
-29-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:8:12-67
+29-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:8:12-67
 30
 31        <activity
-31-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:10:9-38:20
+31-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:10:9-38:20
 32            android:name="com.example.capi_stonsker.MainActivity"
-32-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:11:13-41
+32-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:11:13-41
 33            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-33-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:14:13-163
+33-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:14:13-163
 34            android:hardwareAccelerated="true"
-34-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:15:13-47
+34-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:15:13-47
 35            android:launchMode="singleTop"
-35-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:12:13-43
+35-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:12:13-43
 36            android:theme="@style/LaunchTheme"
-36-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:13:13-47
+36-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:13:13-47
 37            android:windowSoftInputMode="adjustResize" >
-37-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:16:13-55
+37-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:16:13-55
 38
 39            <!--
 40                 Specifies an Android theme to apply to this Activity as soon as
@@ -64,11 +64,11 @@
 43                 to determine the Window background behind the Flutter UI.
 44            -->
 45            <meta-data
-45-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:21:13-24:17
+45-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:21:13-24:17
 46                android:name="io.flutter.embedding.android.NormalTheme"
-46-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:22:15-70
+46-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:22:15-70
 47                android:resource="@style/NormalTheme" />
-47-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:23:15-52
+47-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:23:15-52
 48            <!--
 49                 Displays an Android View that continues showing the launch screen
 50                 Drawable until Flutter paints its first frame, then this splash
@@ -77,21 +77,21 @@
 53                 Flutter's first frame.
 54            -->
 55            <meta-data
-55-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:30:13-33:17
+55-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:30:13-33:17
 56                android:name="io.flutter.embedding.android.SplashScreenDrawable"
-56-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:31:15-79
+56-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:31:15-79
 57                android:resource="@drawable/launch_background" />
-57-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:32:15-61
+57-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:32:15-61
 58
 59            <intent-filter>
-59-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:34:13-37:29
+59-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:34:13-37:29
 60                <action android:name="android.intent.action.MAIN" />
-60-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:35:17-68
-60-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:35:25-66
+60-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:35:17-68
+60-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:35:25-66
 61
 62                <category android:name="android.intent.category.LAUNCHER" />
-62-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:36:17-76
-62-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:36:27-74
+62-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:36:17-76
+62-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:36:27-74
 63            </intent-filter>
 64        </activity>
 65        <!--
@@ -99,34 +99,34 @@
 67             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
 68        -->
 69        <meta-data
-69-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:41:9-43:33
+69-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:41:9-43:33
 70            android:name="flutterEmbedding"
-70-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:42:13-44
+70-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:42:13-44
 71            android:value="2" />
-71-->C:\Users\davis\OneDrive\F21\capstone_project\CapiStonsker\android\app\src\main\AndroidManifest.xml:43:13-30
+71-->C:\Users\josep\Desktop\USC\CAPI_STK\CapiStonsker\android\app\src\main\AndroidManifest.xml:43:13-30
 72        <!-- Needs to be explicitly declared on P+ -->
 73        <uses-library
-73-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\davis\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:33:9-35:40
+73-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\josep\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:33:9-35:40
 74            android:name="org.apache.http.legacy"
-74-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\davis\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:34:13-50
+74-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\josep\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:34:13-50
 75            android:required="false" />
-75-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\davis\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:35:13-37
+75-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\josep\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:35:13-37
 76
 77        <activity
-77-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\davis\.gradle\caches\transforms-2\files-2.1\7c879cb157fab2c9a5d74c3d70fd64e3\jetified-play-services-base-17.0.0\AndroidManifest.xml:23:9-26:75
+77-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\josep\.gradle\caches\transforms-2\files-2.1\7c879cb157fab2c9a5d74c3d70fd64e3\jetified-play-services-base-17.0.0\AndroidManifest.xml:23:9-26:75
 78            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-78-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\davis\.gradle\caches\transforms-2\files-2.1\7c879cb157fab2c9a5d74c3d70fd64e3\jetified-play-services-base-17.0.0\AndroidManifest.xml:24:13-79
+78-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\josep\.gradle\caches\transforms-2\files-2.1\7c879cb157fab2c9a5d74c3d70fd64e3\jetified-play-services-base-17.0.0\AndroidManifest.xml:24:13-79
 79            android:exported="false"
-79-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\davis\.gradle\caches\transforms-2\files-2.1\7c879cb157fab2c9a5d74c3d70fd64e3\jetified-play-services-base-17.0.0\AndroidManifest.xml:25:13-37
+79-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\josep\.gradle\caches\transforms-2\files-2.1\7c879cb157fab2c9a5d74c3d70fd64e3\jetified-play-services-base-17.0.0\AndroidManifest.xml:25:13-37
 80            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-80-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\davis\.gradle\caches\transforms-2\files-2.1\7c879cb157fab2c9a5d74c3d70fd64e3\jetified-play-services-base-17.0.0\AndroidManifest.xml:26:13-72
+80-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\josep\.gradle\caches\transforms-2\files-2.1\7c879cb157fab2c9a5d74c3d70fd64e3\jetified-play-services-base-17.0.0\AndroidManifest.xml:26:13-72
 81
 82        <meta-data
-82-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\davis\.gradle\caches\transforms-2\files-2.1\3c8e7eb3d21ac94d08f658f6d8a1c9f3\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
+82-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\josep\.gradle\caches\transforms-2\files-2.1\3c8e7eb3d21ac94d08f658f6d8a1c9f3\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
 83            android:name="com.google.android.gms.version"
-83-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\davis\.gradle\caches\transforms-2\files-2.1\3c8e7eb3d21ac94d08f658f6d8a1c9f3\jetified-play-services-basement-17.0.0\AndroidManifest.xml:24:13-58
+83-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\josep\.gradle\caches\transforms-2\files-2.1\3c8e7eb3d21ac94d08f658f6d8a1c9f3\jetified-play-services-basement-17.0.0\AndroidManifest.xml:24:13-58
 84            android:value="@integer/google_play_services_version" />
-84-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\davis\.gradle\caches\transforms-2\files-2.1\3c8e7eb3d21ac94d08f658f6d8a1c9f3\jetified-play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
+84-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\josep\.gradle\caches\transforms-2\files-2.1\3c8e7eb3d21ac94d08f658f6d8a1c9f3\jetified-play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
 85    </application>
 86
 87</manifest>
