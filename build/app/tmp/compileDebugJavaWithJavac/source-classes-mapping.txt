@@ -1,4 +1,0 @@
-io/flutter/plugins/GeneratedPluginRegistrant.java
- io.flutter.plugins.GeneratedPluginRegistrant
-com/example/capi_stonsker/BuildConfig.java
- com.example.capi_stonsker.BuildConfig
