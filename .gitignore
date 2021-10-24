@@ -2,3 +2,4 @@
 .idea/
 ios/
 android/
+*.json
