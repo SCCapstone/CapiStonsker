@@ -3,3 +3,5 @@
 ios/
 android/
 *.json
+build/
+.*
