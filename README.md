@@ -26,7 +26,10 @@ flutter run
 
 ## Deployment
 
-Open up the project using Android Studio. Select an emulator from the drop-down menu. If no emulators are created, go into AVD Manager and create a new emulator. Then, with the emulator selected, click the 'Run' button to run the app.
+1. Open up the project using Android Studio. 
+2. Select an emulator from the drop-down menu. 
+    - If no emulators are created, go into AVD Manager and create a new emulator. 
+3. With the emulator selected, click the 'Run' button to run the app.
 
 
 ## Testing
