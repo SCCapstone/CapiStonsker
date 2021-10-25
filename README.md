@@ -14,13 +14,14 @@ In order to build this project you first have to install:
 ## Running
 
 In your command line, use the following commands to run the project.
-    flutter create testApp
-    cd testApp
-    #flutter emulators
-        -This command brings up a list of available emulators. Select one 	and use it's ID in the following command.
-    flutter emulators --launch <emulator id>
-    flutter run
-
+```
+flutter create testApp
+cd testApp
+# flutter emulators
+    # -This command brings up a list of available emulators. Select one and use it's ID in the following command.
+flutter emulators --launch <emulator id>
+flutter run
+```
 
 ## Deployment
 
