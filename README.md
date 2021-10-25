@@ -1,16 +1,32 @@
-# capi_stonsker
+# SC Interactive Historical Map by CapiStonsker
 
-App to explore the historical markers in SC
+This project will be an app, primarily targeting mobile platforms, that will provide an interactive method to easily access information about the historical markers of South Carolina. More information about the app can be found on our GitHub Wiki, at https://github.com/SCCapstone/CapiStonsker/wiki.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## External Requirements
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+In order to build this project you first have to install:
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+* [Android Studio](https://developer.android.com/studio)
+* [Flutter](https://flutter.dev/docs/get-started/install/windows)
+
+
+## Running
+
+In your command line, use the following commands to run the project.
+flutter create testApp
+cd testApp
+flutter emulators
+	-This command brings up a list of available emulators. Select one 	and use it's ID in the following command.
+flutter emulators --launch <emulator id>
+flutter run
+
+
+# Authors
+
+Lauren Hodges, lehodges@email.sc.edu
+Matt Duggan, mtduggan@email.sc.edu
+Ian Urton, iurton@email.sc.edu
+James Davis, daviscommajames12@gmail.com
+Joseph Cammarata, cammarj@email.sc.edu
