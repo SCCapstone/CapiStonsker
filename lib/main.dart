@@ -46,7 +46,61 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text('Local Historical Markers'),
         backgroundColor: Colors.blueGrey,
       ),
-      body: MapPage()
+      body: //Column(
+        //children: <Widget> [
+      //Container(
+
+          //child:
+      Column(
+            children: [
+              Container(
+                  height: MediaQuery.of(context).size.height * 0.75,
+                  width: MediaQuery.of(context).size.width,
+                  child: MapPage()),
+              Row(
+                children: [
+                Column(
+                  children: [
+                    RaisedButton(
+                      onPressed: () {},
+                      child: const Icon(Icons.navigation),
+                    ),
+
+                  ],
+                ),
+                Column(
+                  children: [
+                    RaisedButton(
+                      onPressed: () {},
+                      child: const Icon(Icons.navigation),
+                    ),
+
+                  ],
+               )
+              ]
+              )
+            ],
+          ),
+        //),
+        //new RaisedButton()
+      //   //]
+      // //),
+      //   floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     // Add your onPressed code here!
+      //   },
+      //   child: const Icon(Icons.navigation),
+      //   backgroundColor: Colors.green,
+      //     heroTag: 1,
+      // ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     // Add your onPressed code here!
+      //   },
+      //   child: const Icon(Icons.navigation),
+      //   backgroundColor: Colors.green,
+      //   heroTag: 2,
+      // ),
     );
   }
 }
