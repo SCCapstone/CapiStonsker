@@ -1,4 +1,6 @@
 /*
+  Written by Joe Cammarata, James Davis, Matt Duggan, Lauren Hodges, and Ian Urton
+
   Test Application that is designed to illustrate the 3 tasks assigned as POC.
   - Receive the users current location in GPS coordinates
   - Sidebar Navigation
@@ -6,12 +8,11 @@
   - Achievements Page
  */
 
-//Change to Main by Joe for Source Control Milestone.
-
 import 'package:capi_stonsker/Widgets/map_page.dart';
 import 'package:flutter/material.dart';
-//import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'Widgets/bottom-nav-bar.dart';
+import 'Widgets/marker_list_page.dart';
 import 'src/locations.dart' as locations;
 import 'dart:async';
 
@@ -65,10 +66,10 @@ class _MyHomePageState extends State<MyHomePage> {
       //Container(
 
       //child:
-      Column(
+      Stack(
         children: [
           Container(
-              height: MediaQuery.of(context).size.height-136,
+              height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: MapPage()),
         ],
@@ -76,43 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       drawer: SideMenu(),
 
-
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.blueGrey,
-        child: IconTheme(
-          data: const IconThemeData(color: Colors.white),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              IconButton(
-                tooltip: 'Open Menu',
-                icon: const Icon(Icons.menu),
-                iconSize: 40,
-                onPressed: () => {
-                  // TODO: Show the side menu,
-                },
-              ),
-
-              Expanded(
-                child: Container(
-                  // TODO: Make Sizing of bottom bar and map not magic
-                  height: 80,
-                  width: 100,
-                ),
-              ),
-
-              IconButton(
-                tooltip: 'List View',
-                icon: const Icon(Icons.list),
-                iconSize: 40,
-                onPressed: () {
-                  // TODO: Go to List View State?
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }
