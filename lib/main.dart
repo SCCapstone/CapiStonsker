@@ -48,7 +48,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  //final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
       Column(
         children: [
           Container(
-              height: MediaQuery.of(context).size.height*.8,
+              height: MediaQuery.of(context).size.height-136,
               width: MediaQuery.of(context).size.width,
               child: MapPage()),
         ],
@@ -87,13 +87,26 @@ class _MyHomePageState extends State<MyHomePage> {
               IconButton(
                 tooltip: 'Open Menu',
                 icon: const Icon(Icons.menu),
-                onPressed: () => {},
+                iconSize: 40,
+                onPressed: () => {
+                  // TODO: Show the side menu,
+                },
+              ),
+
+              Expanded(
+                child: Container(
+                  // TODO: Make Sizing of bottom bar and map not magic
+                  height: 80,
+                  width: 100,
+                ),
               ),
 
               IconButton(
                 tooltip: 'List View',
                 icon: const Icon(Icons.list),
+                iconSize: 40,
                 onPressed: () {
+                  // TODO: Go to List View State?
                 },
               ),
             ],
