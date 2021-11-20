@@ -56,14 +56,31 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: const Text('Local Historical Markers'),
         backgroundColor: Colors.blueGrey,
-        centerTitle: true,
+        title: Container(
+          width: MediaQuery.of(context).size.width*(2/3),
+          height: 40,
+          decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(5)),
+          child: Center(
+            child: TextField(
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.search),
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.clear),
+                  onPressed: () {
+                    /* Clear the search field */
+                  },
+                ),
+                hintText: 'Search...',
+                border: InputBorder.none),
+            ),
+          ),
+        ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_outlined , color: Colors.blueGrey), onPressed: () {  },
-        )
+          icon: Icon(null), onPressed: () {  },
+        ),
       ),
-
 
       body:Stack(
         children: [
