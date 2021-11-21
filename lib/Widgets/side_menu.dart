@@ -1,6 +1,11 @@
+import 'package:capi_stonsker/Widgets/plan_route_page.dart';
+import 'package:capi_stonsker/Widgets/wishlist_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'account_page.dart';
+import 'friends_page.dart';
+import 'help_page.dart';
 import 'marker_list_page.dart';
 
 class SideMenu extends StatefulWidget {
@@ -21,11 +26,56 @@ class _SideMenuState extends State<SideMenu> {
         // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
+          DrawerHeader(
             decoration: BoxDecoration(
               color: Colors.blueGrey,
             ),
-            child: Text("USER NAME"),
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                    radius: 45,
+                )
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                      "The Capistonsker",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20
+                      )
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight + Alignment(0,0.45),
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                            text: "Novice ",
+                            style: TextStyle(
+                                color: Colors.white54,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w900
+                            )
+                        ),
+                        TextSpan(
+                            text: "(7/4131)",
+                            style: TextStyle(
+                                color: Colors.white54,
+                                fontSize: 16
+                            )
+                        ),
+                      ],
+                    ),
+
+                  ),
+                )
+              ],
+            )
           ),
           ListTile(
             title: const Text('HOME'),
@@ -46,6 +96,76 @@ class _SideMenuState extends State<SideMenu> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => MarkerListPage()
+                  )
+              );
+            },
+          ),
+          ListTile(
+            title: const Text('PLAN ROUTE'),
+            onTap: () {
+              // Update the state of the app
+              // ...
+              // Then close the drawer
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => PlanRoutePage()
+                  )
+              );
+            },
+          ),
+          ListTile(
+            title: const Text('WISHLIST'),
+            onTap: () {
+              // Update the state of the app
+              // ...
+              // Then close the drawer
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => WishListPage()
+                  )
+              );
+            },
+          ),
+          ListTile(
+            title: const Text('FRIENDS'),
+            onTap: () {
+              // Update the state of the app
+              // ...
+              // Then close the drawer
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => FriendsPage()
+                  )
+              );
+            },
+          ),
+          ListTile(
+            title: const Text('ACCOUNT'),
+            onTap: () {
+              // Update the state of the app
+              // ...
+              // Then close the drawer
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AccountPage()
+                  )
+              );
+            },
+          ),
+          ListTile(
+            title: const Text('HELP'),
+            onTap: () {
+              // Update the state of the app
+              // ...
+              // Then close the drawer
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HelpPage()
                   )
               );
             },
