@@ -49,24 +49,40 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //key: _scaffoldKey,
+      key: _scaffoldKey,
       appBar: AppBar(
-        title: const Text('Local Historical Markers'),
         backgroundColor: Colors.blueGrey,
+        title: Container(
+          width: MediaQuery.of(context).size.width*(2/3),
+          height: 40,
+          decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(5)),
+          child: Center(
+            child: TextField(
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.search),
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.clear),
+                  onPressed: () {
+                    /* Clear the search field */
+                  },
+                ),
+                hintText: 'Search...',
+                border: InputBorder.none),
+            ),
+          ),
+        ),
+        leading: IconButton(
+          icon: Icon(null), onPressed: () {  },
+        ),
       ),
 
-
-      body: //Column(
-      //children: <Widget> [
-      //Container(
-
-      //child:
-      Stack(
+      body:Stack(
         children: [
           Container(
               height: MediaQuery.of(context).size.height,
@@ -77,7 +93,46 @@ class _MyHomePageState extends State<MyHomePage> {
 
       drawer: SideMenu(),
 
-      bottomNavigationBar: BottomNavBar(),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.blueGrey,
+        // const Color.fromRGBO(40, 60, 80, 0.5),
+        child: IconTheme(
+          data: const IconThemeData(color: Colors.white),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              IconButton(
+                tooltip: 'Open Menu',
+                icon: const Icon(Icons.menu),
+                iconSize: 40,
+                onPressed: () => {
+                _scaffoldKey.currentState!.openDrawer()},
+              ),
+
+              Expanded(
+                child: Container(
+                  height: MediaQuery.of(context).size.height*.1,
+                  width: MediaQuery.of(context).size.width,
+                ),
+              ),
+
+              IconButton(
+                tooltip: 'List View',
+                icon: const Icon(Icons.list),
+                iconSize: 40,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MarkerListPage()
+                      )
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
