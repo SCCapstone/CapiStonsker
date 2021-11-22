@@ -8,6 +8,10 @@ import 'friends_page.dart';
 import 'help_page.dart';
 import 'marker_list_page.dart';
 
+/* TODO pull user name, level, avatar, etc from Firebase to display at the top of the header.
+ * Include default values for cases when a user is not logged in
+ */
+
 class SideMenu extends StatefulWidget {
   const SideMenu({Key? key}) : super(key: key);
 
