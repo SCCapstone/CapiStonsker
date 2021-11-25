@@ -28,7 +28,6 @@ class _MapPageState extends State<MapPage> {
 
             }
         ),
-        //TODO adjust marker class to correctly have gps coordinates, then call them in LatLng line
         MarkerLayerOptions(
           markers: locs.markers.map((m) =>
               Marker(width: 45.0,
@@ -49,24 +48,6 @@ class _MapPageState extends State<MapPage> {
                 )
               ).toList()
           ),
-          /*[
-            Marker(
-              width: 45.0,
-              height: 45.0,
-              point: latLng.LatLng(34.0007, -81.0348),
-              builder: (ctx) =>
-              new Container(
-                child: IconButton(
-                  icon: Icon(Icons.location_on),
-                  color: Colors.red,
-                  iconSize: 45,
-                  onPressed: (){
-                    print('My Marker');
-                  },
-                ),
-              ),
-            ),
-          ],*/
       ]
     );
   }
