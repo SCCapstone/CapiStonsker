@@ -39,7 +39,7 @@ class AccountPage extends StatelessWidget {
           child: Text("Go back home"),
         ),
       ),
-      bottomNavigationBar: BottomNavBar(),
+      //bottomNavigationBar: BottomNavBar(),
     );
   }
 }

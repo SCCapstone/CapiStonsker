@@ -34,7 +34,7 @@ class _MarkerListPageState extends State<MarkerListPage> {
         backgroundColor: Colors.blueGrey,
       ),
       body: locs.buildMarkers(),
-      bottomNavigationBar: BottomNavBar(),
+      //bottomNavigationBar: BottomNavBar(),
     );
   }
 
