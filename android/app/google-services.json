@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "783071374527",
-    "project_id": "capistonsker-b84a0",
-    "storage_bucket": "capistonsker-b84a0.appspot.com"
+    "project_number": "148847013854",
+    "project_id": "capistonsker-7d09e",
+    "storage_bucket": "capistonsker-7d09e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:783071374527:android:7109544e54b19ea2e0ea0a",
+        "mobilesdk_app_id": "1:148847013854:android:f2153d02657bd5096d374f",
         "android_client_info": {
           "package_name": "com.example.capi_stonsker"
         }
       },
       "oauth_client": [
         {
-          "client_id": "783071374527-hkdckpju758j3bl30128asgc9a0vtcaq.apps.googleusercontent.com",
+          "client_id": "148847013854-slp9di2gr2n5qi6p1d62bapp0tanr0i3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBFe8S_VldvSKgdGS9XsLMUgD12acNtiBg"
+          "current_key": "AIzaSyAesllWmJTpcqIGqfq8IYTwIGRLNpxK6bs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "783071374527-hkdckpju758j3bl30128asgc9a0vtcaq.apps.googleusercontent.com",
+              "client_id": "148847013854-slp9di2gr2n5qi6p1d62bapp0tanr0i3.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

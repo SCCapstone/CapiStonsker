@@ -1,10 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:convert';
+import 'dart:async';
+import 'package:flutter/services.dart';
 
+
+import '../src/marker.dart';
+import '../src/locations.dart' as locs;
 import 'bottom-nav-bar.dart';
 
-class MarkerListPage extends StatelessWidget {
+class MarkerListPage extends StatefulWidget {
+  //const MarkerListPage({Key? key}) : super(key: key)
   const MarkerListPage({Key? key}) : super(key: key);
+
+  @override
+  State<MarkerListPage> createState() => _MarkerListPageState();
+}
+
+class _MarkerListPageState extends State<MarkerListPage> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,16 +33,10 @@ class MarkerListPage extends StatelessWidget {
         title: Text("Marker List Page"),
         backgroundColor: Colors.blueGrey,
       ),
-      body: Center(
-        child: ElevatedButton(
-          //color: Colors.blueGrey,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text("Go back home"),
-        ),
-      ),
-        bottomNavigationBar: BottomNavBar(),
+      body: locs.buildMarkers(),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
+
+
 }
