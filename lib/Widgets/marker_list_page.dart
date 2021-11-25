@@ -13,15 +13,7 @@ class MarkerListPage extends StatelessWidget {
         title: Text("Marker List Page"),
         backgroundColor: Colors.blueGrey,
       ),
-      body: Center(
-        child: ElevatedButton(
-          //color: Colors.blueGrey,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text("Go back home"),
-        ),
-      ),
+
         bottomNavigationBar: BottomNavBar(),
     );
   }
