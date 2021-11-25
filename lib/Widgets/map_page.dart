@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart' as latLng;
 import '../src/locations.dart' as locs;
+import 'full_info.dart';
 
-import 'load_markers.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -76,8 +76,14 @@ class _MapPageState extends State<MapPage> {
                                           TextButton(
                                             child: const Text('SHOW MORE'),
                                             onPressed: () {
-                                              //TODO add this
-                                              /* ... */
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) => FullInfoPage(
+                                                        sentMarker: m,
+                                                      )
+                                                  )
+                                              );
                                             },
                                           ),
                                           const SizedBox(width: 8),
@@ -85,7 +91,7 @@ class _MapPageState extends State<MapPage> {
                                       ),
                                     ],
                                   ),
-                                ),//Card component
+                                ),
                               );
                             }
                         );

@@ -1,10 +1,12 @@
 import 'dart:convert';
 //Imports only items used for creating the ListView
 import 'package:flutter/cupertino.dart' show Widget, ListView, Text, EdgeInsets;
-import 'package:flutter/material.dart' show ListTile, Divider;
+import 'package:flutter/material.dart' show ListTile, Divider, BuildContext, Navigator, MaterialPageRoute;
 import 'package:flutter/services.dart' show rootBundle;
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'marker.dart';
+import '../Widgets/full_info.dart';
 
 //This class should be imported using the suffix 'as locs'
 
@@ -45,14 +47,14 @@ getMarkers() async {
 }
 
 //Build methods are moved into this class because of the assumption that these calls will be more commonly used
-Widget buildMarkers() {
+Widget buildMarkers(BuildContext context) {
   return ListView.builder(
       itemCount: markers.length,
       padding: const EdgeInsets.all(16.0),
       itemBuilder: (context, i) {
         if (i.isOdd) return const Divider();
         final index = i ~/ 2;
-        return _buildRow(markers.elementAt(i));
+        return _buildRow(context, markers.elementAt(i));
       }
   );
 }
@@ -68,9 +70,21 @@ Widget buildMarkers() {
    */
 
 //Creates ListTile widget from given Marker
-Widget _buildRow(Marker m) {
+Widget _buildRow(BuildContext context, Marker m) {
   return ListTile(
       title: Text(m.name),
-      subtitle: Text(m.county)
+      subtitle: Text(m.county),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => FullInfoPage(
+                sentMarker: m,
+              )
+          )
+        );
+      },
   );
 }
+
+

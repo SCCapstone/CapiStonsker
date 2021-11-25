@@ -1,13 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:convert';
-import 'dart:async';
-import 'package:flutter/services.dart';
 
-
-import '../src/marker.dart';
+import 'full_info.dart';
 import '../src/locations.dart' as locs;
 import 'bottom-nav-bar.dart';
 
@@ -32,7 +26,7 @@ class _MarkerListPageState extends State<MarkerListPage> {
         title: Text("Marker List Page"),
         backgroundColor: Colors.blueGrey,
       ),
-      body: locs.buildMarkers(),
+      body: locs.buildMarkers(context),
       //bottomNavigationBar: BottomNavBar(),
     );
   }
