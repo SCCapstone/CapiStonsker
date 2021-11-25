@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart' as latLng;
+import '../src/locations.dart' as locs;
 
 import 'load_markers.dart';
 
@@ -17,8 +18,8 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return FlutterMap(
-      options: new MapOptions(
-        minZoom: 13.0,
+      options: MapOptions(
+        minZoom: 15.0,
         center: latLng.LatLng(34.0007, -81.0348),
         zoom: 13.0,
       ),
@@ -31,26 +32,26 @@ class _MapPageState extends State<MapPage> {
 
             }
         ),
-        new MarkerLayerOptions(
-          markers: [
-            Marker(
-              width: 45.0,
-              height: 45.0,
-              point: latLng.LatLng(34.0007, -81.0348),
-              builder: (ctx) =>
-              new Container(
-                child: IconButton(
-                  icon: Icon(Icons.location_on),
-                  color: Colors.red,
-                  iconSize: 45,
-                  onPressed: (){
-                    print('My Marker');
-                  },
-                ),
-              ),
-            ),
-          ],
-        )
+        MarkerLayerOptions(
+          markers: locs.markers.map((m) =>
+              Marker(width: 45.0,
+                height: 45.0,
+                point: latLng.LatLng(m.gps.first, m.gps.last * -1),
+                builder: (ctx) =>
+                  Container(
+                    child: IconButton(
+                      icon: Icon(Icons.location_on),
+                      color: Colors.red,
+                      iconSize: 45,
+                      onPressed: (){
+                        //TODO add different action on pressed
+                        //print('My Marker');
+                      },
+                    ),
+                  ),
+                )
+              ).toList()
+          ),
       ]
     );
   }

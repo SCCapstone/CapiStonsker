@@ -24,8 +24,15 @@ import 'package:flutter/services.dart';
 
 import '/Widgets/map_page.dart';
 import '/Widgets/side_menu.dart';
+import '/src/locations.dart' as locs;
 
-void main() => runApp(MyApp());
+void main() async {
+  //Ensures Firebase connection initialized
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await locs.getMarkers();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
 
