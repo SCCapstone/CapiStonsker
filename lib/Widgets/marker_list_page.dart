@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'full_info.dart';
 import '../src/locations.dart' as locs;
 import 'bottom-nav-bar.dart';
 

@@ -1,5 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
-
 /*
   The Marker class was put into its own file because it will be more
   commonly imported, so this cuts down on extra content that's imported
