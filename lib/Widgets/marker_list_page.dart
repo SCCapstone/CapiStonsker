@@ -12,7 +12,6 @@ import '../src/locations.dart' as locs;
 import 'bottom-nav-bar.dart';
 
 class MarkerListPage extends StatefulWidget {
-  //const MarkerListPage({Key? key}) : super(key: key)
   const MarkerListPage({Key? key}) : super(key: key);
 
   @override

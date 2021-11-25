@@ -44,8 +44,51 @@ class _MapPageState extends State<MapPage> {
                       color: Colors.red,
                       iconSize: 45,
                       onPressed: (){
-                        //TODO add different action on pressed
-                        //print('My Marker');
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return SizedBox(
+                                height: 150,
+                                child: Card(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      const SizedBox(height: 8),
+                                      SizedBox(
+                                        height: 80,
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            children: <Widget>[
+                                              ListTile(
+                                                leading: Icon(Icons.location_on),
+                                                title: Text(m.name),
+                                                subtitle: Text(m.rel_loc),
+                                                isThreeLine: true,
+                                              ),
+                                            ],
+                                          ),
+                                          padding: const EdgeInsets.all(8),
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: <Widget>[
+                                          TextButton(
+                                            child: const Text('SHOW MORE'),
+                                            onPressed: () {
+                                              //TODO add this
+                                              /* ... */
+                                            },
+                                          ),
+                                          const SizedBox(width: 8),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),//Card component
+                              );
+                            }
+                        );
                       },
                     ),
                   ),
