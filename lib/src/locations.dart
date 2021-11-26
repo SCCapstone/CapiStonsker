@@ -14,6 +14,8 @@ import '../Widgets/full_info.dart';
 final db = FirebaseFirestore.instance.collection('Markers');
 int len = 0;
 List<Marker> markers = [];
+List<Marker> visited = [];
+List<Marker> wishlist = [];
 
 //Loads marker information from the JSON file, asynchronous because of file reading
 loadJsonLocal() async {
@@ -38,6 +40,46 @@ markersToFirebase() {
   }
 }
 
+addToWish(Marker m) {
+  //Eventually this will upload to Firebase using associated user auth id as the doc id
+  //Then we'll have a StreamBuilder for those collections to listen and update a local list
+  //For now, just update the local list
+
+  //Check for duplicates (not necessary if buttons are designed correctly but just in case)
+  if (!wishDupe(m)) {
+    wishlist.add(m);
+  }
+}
+
+bool wishDupe(Marker m) {
+  for (Marker e in wishlist) {
+    if (e == m) {
+      return true;
+    }
+  } //Dupe is true if there is already that marker in the list
+  return false;
+}
+
+addToVisited(Marker m) {
+  //Eventually this will upload to Firebase using associated user auth id as the doc id
+  //Then we'll have a StreamBuilder for those collections to listen and update a local list
+  //For now, just update the local list
+
+  //Check for duplicates (not necessary if buttons are designed correctly but just in case)
+  bool dupe = false;
+  for (Marker e in wishlist) {
+    if (e == m) {
+      dupe = true;
+      break;
+    }
+  } //Dupe is true if there is already that marker in the list
+
+  if (!dupe) {
+    wishlist.add(m);
+  }
+}
+
+
 getMarkers() async {
   QuerySnapshot snapshot = await db.get();
   snapshot.docs.forEach((doc) {
@@ -55,6 +97,20 @@ Widget buildMarkers(BuildContext context) {
         if (i.isOdd) return const Divider();
         final index = i ~/ 2;
         return _buildRow(context, markers.elementAt(i));
+      }
+  );
+}
+
+//May be able to merge with above by passing a selection parameter
+Widget buildWishList(BuildContext context) {
+  //Add display for if list is empty?
+  return ListView.builder(
+      itemCount: wishlist.length,
+      padding: const EdgeInsets.all(16.0),
+      itemBuilder: (context, i) {
+        if (i.isOdd) return const Divider();
+        final index = i ~/ 2;
+        return _buildRow(context, wishlist.elementAt(i));
       }
   );
 }

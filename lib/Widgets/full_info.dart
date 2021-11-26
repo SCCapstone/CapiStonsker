@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../src/marker.dart';
+import '../src/fav_button.dart';
 
 class FullInfoPage extends StatelessWidget {
   final Marker sentMarker;
@@ -24,21 +24,7 @@ class FullInfoPage extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 scrollDirection: Axis.vertical,
                 children: [
-                  Card(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    color: Color(0xFFF5F5F5),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                      child: Text(
-                        sentMarker.county,
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold
-                        ),//FlutterFlowTheme.title1,
-                      ),
-                    ),
-                  ),
+
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
                     child: Card(
@@ -112,7 +98,52 @@ class FullInfoPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                  )
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                    child: Card(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      color: Color(0xFFF5F5F5),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                        child: Text(
+                          sentMarker.county,
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold
+                          ),//FlutterFlowTheme.title1,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                    child: Card(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      color: Color(0xFFF5F5F5),
+                      child: Align(
+                        alignment: AlignmentDirectional(0, 0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              Text(
+                                'Add to Wishlist',
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold
+                                ),
+                              ),
+                              FavButton(sentM: sentMarker),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             )
