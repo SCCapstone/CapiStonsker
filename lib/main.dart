@@ -13,14 +13,9 @@ import 'package:flutter/material.dart';
 
 import 'Widgets/bottom-nav-bar.dart';
 import 'Widgets/marker_list_page.dart';
-import 'src/locations.dart' as locations;
-import 'dart:async';
 
 //Import firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:convert';
-import 'package:flutter/services.dart';
 
 import '/Widgets/map_page.dart';
 import '/Widgets/side_menu.dart';
