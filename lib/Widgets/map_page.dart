@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart' as latLng;
-import '../src/locations.dart' as locs;
-
-import 'load_markers.dart';
+import 'package:capi_stonsker/src/locations.dart' as locs;
+import 'package:capi_stonsker/src/marker_box.dart' as mBox;
 
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -14,6 +13,14 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
 
+  //Creates list of a single boolean for use in the generated toggle button for each marker
+  List<List<bool>> isSelectedTop = List.filled(locs.markers.length,
+      List<bool>.filled(1, false));
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,24 +41,9 @@ class _MapPageState extends State<MapPage> {
         ),
         MarkerLayerOptions(
           markers: locs.markers.map((m) =>
-              Marker(width: 45.0,
-                height: 45.0,
-                point: latLng.LatLng(m.gps.first, m.gps.last * -1),
-                builder: (ctx) =>
-                  Container(
-                    child: IconButton(
-                      icon: Icon(Icons.location_on),
-                      color: Colors.red,
-                      iconSize: 45,
-                      onPressed: (){
-                        //TODO add different action on pressed
-                        //print('My Marker');
-                      },
-                    ),
-                  ),
-                )
-              ).toList()
-          ),
+              mBox.createMapMarker(context, m)
+          ).toList()
+        ),
       ]
     );
   }
