@@ -9,13 +9,20 @@
  */
 
 
-import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'Widgets/bottom-nav-bar.dart';
+import 'Widgets/bottom_nav_bar.dart';
 import 'Widgets/marker_list_page.dart';
-import 'package:capi_stonsker/Widgets/map_page.dart';
-import 'package:capi_stonsker/Widgets/side_menu.dart';
-import 'package:capi_stonsker/src/locations.dart' as locs;
+import 'dart:async';
+
+//Import firebase_core plugin
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
+
+import '/Widgets/map_page.dart';
+import '/Widgets/side_menu.dart';
+import '/src/locations.dart' as locs;
 
 void main() async {
   //Ensures Firebase connection initialized

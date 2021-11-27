@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'bottom-nav-bar.dart';
+import 'bottom_nav_bar.dart';
+import 'side_menu.dart';
+
 class HelpPage extends StatelessWidget {
-  const HelpPage({Key? key}) : super(key: key);
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text("Help Page"),
         backgroundColor: Colors.blueGrey,
@@ -21,7 +24,8 @@ class HelpPage extends StatelessWidget {
           child: Text("Go back home"),
         ),
       ),
-      //bottomNavigationBar: BottomNavBar(),
+      drawer: SideMenu(),
+      bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
   }
 }

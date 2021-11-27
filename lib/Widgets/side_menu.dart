@@ -1,3 +1,4 @@
+import 'package:capi_stonsker/Widgets/home_page.dart';
 import 'package:capi_stonsker/Widgets/my_markers_page.dart';
 import 'package:capi_stonsker/Widgets/plan_route_page.dart';
 import 'package:capi_stonsker/Widgets/wishlist_page.dart';
@@ -88,7 +89,12 @@ class _SideMenuState extends State<SideMenu> {
               // Update the state of the app
               // ...
               // Then close the drawer
-              Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomePage()
+                  )
+              );
             },
           ),
           ListTile(
