@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/src/locations.dart' as locs;
-import 'bottom-nav-bar.dart';
+import 'bottom_nav_bar.dart';
 import 'side_menu.dart';
 
 class WishListPage extends StatelessWidget {
@@ -16,8 +16,9 @@ class WishListPage extends StatelessWidget {
         title: Text("Wishlist Page"),
         backgroundColor: Colors.blueGrey,
       ),
-      body: locs.buildWishList(context)
-      //bottomNavigationBar: BottomNavBar(),
+      body: locs.buildWishList(context),
+      drawer: SideMenu(),
+      bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
   }
 }
