@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'bottom-nav-bar.dart';
+import 'bottom_nav_bar.dart';
 import 'achievement_county.dart';
+import 'side_menu.dart';
 class MyMarkersPage extends StatelessWidget {
   int _counter = 0;
 
@@ -12,6 +13,7 @@ class MyMarkersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -19,6 +21,7 @@ class MyMarkersPage extends StatelessWidget {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text("My Markers Page"),
         backgroundColor: Colors.blueGrey,
@@ -83,8 +86,8 @@ class MyMarkersPage extends StatelessWidget {
             ],
           )
       ),
-
-      //bottomNavigationBar: BottomNavBar(),// This trailing comma makes auto-formatting nicer for build methods.
+      drawer: SideMenu(),
+      bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
   }
 }

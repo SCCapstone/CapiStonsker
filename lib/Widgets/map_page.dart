@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart' as latLng;
 import '../src/locations.dart' as locs;
-import 'full_info.dart';
 
+import 'load_markers.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -44,57 +44,8 @@ class _MapPageState extends State<MapPage> {
                       color: Colors.red,
                       iconSize: 45,
                       onPressed: (){
-                        showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return SizedBox(
-                                height: 150,
-                                child: Card(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      const SizedBox(height: 8),
-                                      SizedBox(
-                                        height: 80,
-                                        child: SingleChildScrollView(
-                                          child: Column(
-                                            children: <Widget>[
-                                              ListTile(
-                                                leading: Icon(Icons.location_on),
-                                                title: Text(m.name),
-                                                subtitle: Text(m.rel_loc),
-                                                isThreeLine: true,
-                                              ),
-                                            ],
-                                          ),
-                                          padding: const EdgeInsets.all(8),
-                                        ),
-                                      ),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: <Widget>[
-                                          TextButton(
-                                            child: const Text('SHOW MORE'),
-                                            onPressed: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) => FullInfoPage(
-                                                        sentMarker: m,
-                                                      )
-                                                  )
-                                              );
-                                            },
-                                          ),
-                                          const SizedBox(width: 8),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }
-                        );
+                        //TODO add different action on pressed
+                        //print('My Marker');
                       },
                     ),
                   ),

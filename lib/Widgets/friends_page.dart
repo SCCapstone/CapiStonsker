@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'bottom-nav-bar.dart';
+import 'bottom_nav_bar.dart';
+import 'side_menu.dart';
 
 class FriendsPage extends StatelessWidget {
-  const FriendsPage({Key? key}) : super(key: key);
+  FriendsPage({Key? key}) : super(key: key);
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text("Friends Page"),
         backgroundColor: Colors.blueGrey,
@@ -22,7 +25,8 @@ class FriendsPage extends StatelessWidget {
           child: Text("Go back home"),
         ),
       ),
-      //bottomNavigationBar: BottomNavBar(),
+      drawer: SideMenu(),
+      bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
   }
 }
