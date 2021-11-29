@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart' as latLng;
+import 'package:latlong2/latlong.dart';
 import 'package:capi_stonsker/src/locations.dart' as locs;
 import 'package:capi_stonsker/src/marker_box.dart' as mBox;
 import 'package:user_location/user_location.dart';
@@ -9,6 +9,7 @@ class MapPage extends StatelessWidget {
   MapController mapController = MapController();
   late UserLocationOptions userLocationOptions;
   List<Marker> markers = []; //likely need to adjust how markers are gotten
+  LatLng userPos = LatLng(0,0);
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +18,15 @@ class MapPage extends StatelessWidget {
         mapController: mapController,
         markers: markers,
         updateMapLocationOnPositionChange: false,
+        onLocationUpdate: (LatLng pos, double? speed) {
+          userPos = pos;
+        },
         //showMoveToCurrentLocationFloatingActionButton: true,
       );
     return FlutterMap(
         options: MapOptions(
           minZoom: 15.0,
-          center: latLng.LatLng(34.0007, -81.0348),
+          center: LatLng(34.0007, -81.0348),
           zoom: 13.0,
           plugins: [ UserLocationPlugin(), ],
         ),
