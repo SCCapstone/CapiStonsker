@@ -106,8 +106,7 @@ Widget buildWishList(BuildContext context) {
       itemCount: wishlist.length,
       padding: const EdgeInsets.all(16.0),
       itemBuilder: (context, i) {
-        if (i.isOdd) return const Divider();
-        final index = i ~/ 2;
+        final index = i;
         return _buildRow(wishlist.elementAt(i));
       }
   );
