@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 // import '../main.dart';
 import 'account_page.dart';
+import 'account_creation_page.dart';
 
 // TODO add firebase, including email + password and Google login capabilities
-//FirebaseAuth auth = FirebaseAuth.instance;
+FirebaseAuth auth = FirebaseAuth.instance;
 
 class LogIn extends StatefulWidget {
   @override
@@ -47,15 +49,26 @@ class _LogIn extends State<LogIn> {
                     hintText: 'Enter secure password'),
               ),
             ),
-            FlatButton(
-              onPressed: (){
-                //TODO FORGOT PASSWORD SCREEN GOES HERE
-              },
-              child: Text(
-                'Forgot Password',
-                style: TextStyle(color: Colors.blueGrey, fontSize: 15),
-              ),
-            ),
+            RichText(
+                text: TextSpan(children: [
+                  TextSpan(
+                      text: 'Forgot Password?',
+                      style: TextStyle(
+                          color: Colors.blueGrey,
+                          fontSize: 15),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder:
+                                (context) => const AccountScreen()),
+                          ); //TODO integrate forgot password screen
+                        }
+                  ),
+
+
+                ]
+                )),
             Container(
               height: 50,
               width: 250,
@@ -75,7 +88,26 @@ class _LogIn extends State<LogIn> {
             SizedBox(
               height: 130,
             ),
-            Text('New User? Create Account')
+            RichText(
+                text: TextSpan(children: [
+                  TextSpan(
+                      text: 'New User? Create Account',
+                      style: TextStyle(
+                          color: Colors.blueGrey,
+                          fontSize: 15),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder:
+                                (context) => const AccountCreation()),
+                          );
+                        }
+                  ),
+
+
+                ]
+                ))
             // TODO add link to create account page + Log in with Google, etc
           ],
         ),
@@ -83,6 +115,9 @@ class _LogIn extends State<LogIn> {
     );
   }
 }
+
+
+
 // FirebaseAuth.instance.authStateChanges().listen((User? user) {
 //   if (user == null) {
 //     print('User is currently signed out!');
