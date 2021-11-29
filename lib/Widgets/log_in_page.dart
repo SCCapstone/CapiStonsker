@@ -61,7 +61,7 @@ class _LogIn extends State<LogIn> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder:
-                                (context) => const AccountScreen()),
+                                (context) => AccountPage()),
                           ); //TODO integrate forgot password screen
                         }
                   ),

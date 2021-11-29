@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
                       /* Clear the search field */
                     },
                   ),
-                  hintText: 'Search...',
+                  hintText: 'Search...this is home_page.dart',
                   border: InputBorder.none),
             ),
           ),

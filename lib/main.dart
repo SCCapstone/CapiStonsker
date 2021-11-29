@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     /* Clear the search field */
                   },
                 ),
-                hintText: 'Search...',
+                hintText: 'Search...this is main.dart',
                 border: InputBorder.none),
             ),
           ),
