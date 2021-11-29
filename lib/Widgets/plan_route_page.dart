@@ -15,6 +15,7 @@ class PlanRoutePage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Plan Route Page"),
         backgroundColor: Colors.blueGrey,
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: ElevatedButton(

@@ -15,6 +15,7 @@ class AccountPage extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text("Account Page"),
         backgroundColor: Colors.blueGrey,
         actions: <Widget>[

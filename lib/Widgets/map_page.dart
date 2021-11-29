@@ -4,6 +4,7 @@ import 'package:latlong2/latlong.dart' as latLng;
 import 'package:capi_stonsker/src/locations.dart' as locs;
 import 'package:capi_stonsker/src/marker_box.dart' as mBox;
 
+
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
 

@@ -25,6 +25,7 @@ class MyMarkersPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("My Markers Page"),
         backgroundColor: Colors.blueGrey,
+        automaticallyImplyLeading: false,
       ),
 
       body: Center(
