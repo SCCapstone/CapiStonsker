@@ -46,6 +46,8 @@ dependencies:
   firebase_auth: ^3.2.0
   geolocator: ^8.0.0
   location: ^4.3.0
+  syncfusion_flutter_maps: ^19.2.51-beta
+  firebase_database: ^7.1.2
 
 dev_dependencies:
   flutter_test:
