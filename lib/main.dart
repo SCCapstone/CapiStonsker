@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
         title: Container(
-          width: MediaQuery.of(context).size.width*(2/3),
+          width: MediaQuery.of(context).size.width,
           height: 40,
           decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(5)),
@@ -82,9 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ),
-        leading: IconButton(
-          icon: Icon(null), onPressed: () {  },
-        ),
+        automaticallyImplyLeading: false,
       ),
 
       body:Stack(

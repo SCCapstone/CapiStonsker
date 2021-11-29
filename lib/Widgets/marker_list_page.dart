@@ -35,6 +35,7 @@ class _MarkerListPageState extends State<MarkerListPage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text("Marker List Page"),
         backgroundColor: Colors.blueGrey,
       ),

@@ -17,6 +17,7 @@ class _State extends State<AccountCreation>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.indigo[900],
         foregroundColor: Colors.white,
         shadowColor: Colors.blueGrey,
