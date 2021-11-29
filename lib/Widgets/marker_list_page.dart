@@ -11,7 +11,6 @@ import 'package:flutter/services.dart';
 import '../main.dart';
 import '../src/marker.dart';
 import '../src/locations.dart' as locs;
-import 'bottom_nav_bar.dart';
 
 class MarkerListPage extends StatefulWidget {
   //const MarkerListPage({Key? key}) : super(key: key)

@@ -9,7 +9,6 @@
  */
 
 
-import 'Widgets/bottom_nav_bar.dart';
 import 'Widgets/marker_list_page.dart';
 import 'dart:async';
 
