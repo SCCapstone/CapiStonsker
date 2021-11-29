@@ -89,12 +89,7 @@ class _SideMenuState extends State<SideMenu> {
               // Update the state of the app
               // ...
               // Then close the drawer
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => HomePage()
-                  )
-              );
+              Navigator.of(context).popUntil((route) => route.isFirst);
             },
           ),
           ListTile(
