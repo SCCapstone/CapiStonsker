@@ -3,7 +3,50 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart' as latLng;
 import 'package:capi_stonsker/src/locations.dart' as locs;
 import 'package:capi_stonsker/src/marker_box.dart' as mBox;
+import 'package:user_location/user_location.dart';
 
+class MapPage extends StatelessWidget {
+  MapController mapController = MapController();
+  late UserLocationOptions userLocationOptions;
+  List<Marker> markers = []; //likely need to adjust how markers are gotten
+
+  @override
+  Widget build(BuildContext context) {
+    userLocationOptions = UserLocationOptions(
+        context: context,
+        mapController: mapController,
+        markers: markers,
+        updateMapLocationOnPositionChange: false,
+        //showMoveToCurrentLocationFloatingActionButton: true,
+      );
+    return FlutterMap(
+        options: MapOptions(
+          minZoom: 15.0,
+          center: latLng.LatLng(34.0007, -81.0348),
+          zoom: 13.0,
+          plugins: [ UserLocationPlugin(), ],
+        ),
+        layers: [
+          TileLayerOptions(
+              urlTemplate: "https://api.mapbox.com/styles/v1/mtduggan/ckukb9uuk6wcz18p9dxyqd1ps/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibXRkdWdnYW4iLCJhIjoiY2t1a2I4MTV5MWE2MzJ3b2YycGl0djRnZyJ9.Sx7oMnrNlA1yWBO42iSAOQ",
+              additionalOptions: {
+                'accessToken': 'pk.eyJ1IjoibXRkdWdnYW4iLCJhIjoiY2t1a2I4MTV5MWE2MzJ3b2YycGl0djRnZyJ9.Sx7oMnrNlA1yWBO42iSAOQ',
+                'id': 'mapbox.satellite',
+              }
+          ),
+          MarkerLayerOptions(
+              markers: locs.markers.map((m) =>
+                  mBox.createMapMarker(context, m)
+              ).toList()
+          ),
+          userLocationOptions,
+        ],
+        mapController: mapController,
+    );
+  }
+}
+
+/*
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
 
@@ -13,9 +56,6 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
 
-  //Creates list of a single boolean for use in the generated toggle button for each marker
-  List<List<bool>> isSelectedTop = List.filled(locs.markers.length,
-      List<bool>.filled(1, false));
 
   @override
   void initState() {
@@ -48,3 +88,4 @@ class _MapPageState extends State<MapPage> {
     );
   }
 }
+*/

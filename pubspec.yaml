@@ -37,13 +37,17 @@ dependencies:
   google_maps_flutter_web: ^0.3.2
   google_maps_flutter: ^2.0.11
   http: ^0.13.4
-  json_serializable: ^5.0.2
+  #json_serializable: ^5.0.2
   # Adds dependency for Firebase Core Flutter SDK
   firebase_core: ^1.7.0
   #Adds dependency for Firebase products
   cloud_firestore: ^2.5.3
-  flutter_map: ^0.14.0
+  flutter_map: ^0.13.0
   firebase_auth: ^3.2.0
+  #geolocator: ^8.0.0
+  user_location:
+    git:
+      url: https://github.com/igaurab/user_location_plugin.git
 
 dev_dependencies:
   flutter_test:
