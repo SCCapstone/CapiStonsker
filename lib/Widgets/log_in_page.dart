@@ -49,15 +49,26 @@ class _LogIn extends State<LogIn> {
                     hintText: 'Enter secure password'),
               ),
             ),
-            FlatButton(
-              onPressed: (){
-                //TODO FORGOT PASSWORD SCREEN GOES HERE
-              },
-              child: Text(
-                'Forgot Password',
-                style: TextStyle(color: Colors.blueGrey, fontSize: 15),
-              ),
-            ),
+            RichText(
+                text: TextSpan(children: [
+                  TextSpan(
+                      text: 'Forgot Password?',
+                      style: TextStyle(
+                          color: Colors.blueGrey,
+                          fontSize: 15),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder:
+                                (context) => const AccountScreen()),
+                          ); //TODO integrate forgot password screen
+                        }
+                  ),
+
+
+                ]
+                )),
             Container(
               height: 50,
               width: 250,
