@@ -6,13 +6,13 @@ import 'account_page.dart';
 
 // TODO add firebase, including email + password and Google login capabilities
 FirebaseAuth auth = FirebaseAuth.instance;
-class AccountScreen extends StatefulWidget {
-  const AccountScreen({Key? key}) : super(key: key);
+class AccountCreation extends StatefulWidget {
+  const AccountCreation({Key? key}) : super(key: key);
 
   @override
   _State createState() => _State();
 }
-class _State extends State<AccountScreen>{
+class _State extends State<AccountCreation>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(

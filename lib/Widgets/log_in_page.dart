@@ -100,7 +100,7 @@ class _LogIn extends State<LogIn> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder:
-                                (context) => const AccountScreen()),
+                                (context) => const AccountCreation()),
                           );
                         }
                   ),
@@ -115,7 +115,7 @@ class _LogIn extends State<LogIn> {
     );
   }
 }
-            // TODO add link to create account page + Log in with Google, etc
+
 
 
 // FirebaseAuth.instance.authStateChanges().listen((User? user) {
