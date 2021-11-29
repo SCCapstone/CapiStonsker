@@ -13,7 +13,7 @@ class PlanRoutePage extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text("Plane Route Page"),
+        title: Text("Plan Route Page"),
         backgroundColor: Colors.blueGrey,
       ),
       body: Center(

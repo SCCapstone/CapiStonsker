@@ -1,6 +1,6 @@
 import 'dart:convert';
 //Imports only items used for creating the ListView
-import 'package:flutter/cupertino.dart' show Widget, ListView, Text, EdgeInsets;
+import 'package:flutter/cupertino.dart' show BuildContext, EdgeInsets, ListView, Text, Widget;
 import 'package:flutter/material.dart' show ListTile, Divider;
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -108,7 +108,7 @@ Widget buildWishList(BuildContext context) {
       itemBuilder: (context, i) {
         if (i.isOdd) return const Divider();
         final index = i ~/ 2;
-        return _buildRow(context, wishlist.elementAt(i));
+        return _buildRow(wishlist.elementAt(i));
       }
   );
 }

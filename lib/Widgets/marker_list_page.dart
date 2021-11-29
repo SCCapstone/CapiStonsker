@@ -8,6 +8,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 
+import '../main.dart';
 import '../src/marker.dart';
 import '../src/locations.dart' as locs;
 import 'bottom_nav_bar.dart';
@@ -39,7 +40,47 @@ class _MarkerListPageState extends State<MarkerListPage> {
       ),
       body: locs.buildMarkers(),
       drawer: SideMenu(),
-      bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.blueGrey,
+        // const Color.fromRGBO(40, 60, 80, 0.5),
+        child: IconTheme(
+          data: const IconThemeData(color: Colors.white),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              IconButton(
+                tooltip: 'Open Menu',
+                icon: const Icon(Icons.menu),
+                iconSize: 40,
+                onPressed: () => {
+                  _scaffoldKey.currentState!.openDrawer()},
+              ),
+
+              Expanded(
+                child: Container(
+                  height: MediaQuery.of(context).size.height*.1,
+                  width: MediaQuery.of(context).size.width,
+                ),
+              ),
+
+              IconButton(
+                tooltip: 'List View',
+                icon: const Icon(Icons.list),
+                iconSize: 40,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MyHomePage()
+                      )
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+      //bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
   }
 
