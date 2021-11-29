@@ -1,10 +1,10 @@
-import 'package:capi_stonsker/Widgets/home_page.dart';
 import 'package:capi_stonsker/Widgets/my_markers_page.dart';
 import 'package:capi_stonsker/Widgets/plan_route_page.dart';
 import 'package:capi_stonsker/Widgets/wishlist_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../main.dart';
 import 'account_page.dart';
 import 'friends_page.dart';
 import 'help_page.dart';
