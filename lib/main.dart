@@ -24,6 +24,8 @@ import '/Widgets/map_page.dart';
 import '/Widgets/side_menu.dart';
 import '/src/locations.dart' as locs;
 
+//import 'package:geolocator/geolocator.dart';
+
 void main() async {
   //Ensures Firebase connection initialized
   WidgetsFlutterBinding.ensureInitialized();
@@ -77,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     /* Clear the search field */
                   },
                 ),
-                hintText: 'Search...this is main.dart',
+                hintText: 'Search...',
                 border: InputBorder.none),
             ),
           ),

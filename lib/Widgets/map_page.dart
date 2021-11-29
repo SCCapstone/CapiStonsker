@@ -37,7 +37,6 @@ class _MapPageState extends State<MapPage> {
             additionalOptions: {
               'accessToken': 'pk.eyJ1IjoibXRkdWdnYW4iLCJhIjoiY2t1a2I4MTV5MWE2MzJ3b2YycGl0djRnZyJ9.Sx7oMnrNlA1yWBO42iSAOQ',
               'id': 'mapbox.satellite',
-
             }
         ),
         MarkerLayerOptions(

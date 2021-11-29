@@ -90,6 +90,7 @@ class _SideMenuState extends State<SideMenu> {
               // ...
               // Then close the drawer
               Navigator.of(context).popUntil((route) => route.isFirst);
+              Navigator.of(context).pop();
             },
           ),
           ListTile(
