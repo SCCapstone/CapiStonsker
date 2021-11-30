@@ -17,7 +17,7 @@ class WishListPage extends StatelessWidget {
         title: Text("Wishlist Page"),
         backgroundColor: Colors.blueGrey,
       ),
-      body: locs.buildWishList(context),
+      body: locs.buildListDisplay(context, 1),
       drawer: SideMenu(),
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
