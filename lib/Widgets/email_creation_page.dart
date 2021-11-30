@@ -26,12 +26,16 @@ class _AccountCreation extends State<AccountCreation> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: new IconButton(
+            icon: const Icon(Icons.arrow_back),
+            color: Colors.white,
+            onPressed: () {
+              Navigator.of(context).pop();
+            }
+        ),
         backgroundColor: Colors.blueGrey,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Colors.black,size: 30,),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
       ),
       body: isloading
           ? Center(

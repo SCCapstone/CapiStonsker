@@ -1,4 +1,5 @@
 import 'package:capi_stonsker/Widgets/marker_list_page.dart';
+import 'package:capi_stonsker/Widgets/side_menu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -75,7 +76,13 @@ class _BottomNavBarHomeState extends State<BottomNavBarHome> {
               icon: const Icon(Icons.menu),
               iconSize: 40,
               onPressed: () => {
-                widget.scaffoldKey.currentState!.openDrawer()},
+                widget.scaffoldKey.currentState!.openDrawer()
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => SideMenu()
+                //   )
+              },
             ),
 
             Expanded(
