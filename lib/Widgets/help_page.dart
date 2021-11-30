@@ -10,6 +10,7 @@ class HelpPage extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text("Help Page"),
         backgroundColor: Colors.blueGrey,
       ),
