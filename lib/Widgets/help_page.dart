@@ -3,7 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'side_menu.dart';
 
-class HelpPage extends StatelessWidget {
+class HelpPage extends StatefulWidget {
+  const HelpPage({Key? key}) : super(key: key);
+
+  @override
+  _HelpPageState createState() => _HelpPageState();
+}
+
+class _HelpPageState extends State<HelpPage> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
@@ -21,6 +28,92 @@ class HelpPage extends StatelessWidget {
         ),
         title: Text("Help Page"),
         backgroundColor: Colors.blueGrey,
+      ),
+      body: Container(
+          child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+                  child: Text(
+                    "Frequently Asked Questions",
+                    style: TextStyle(
+                      color: Colors.blueGrey,
+                      fontSize: 30.0,
+                    ),
+                  ),
+                ),
+                const ExpansionTile(
+                  title: Text(
+                      'Question 1....',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                      ),
+                  ),
+                  // subtitle: Text('Some other text...'),
+                  children: <Widget>[
+                    ListTile(
+                        title: Text(
+                            'Answer to question 1',
+                            style: TextStyle(
+                              fontSize: 15.0,
+                            ),
+                        ),
+                    ),
+                  ],
+                ),
+                const ExpansionTile(
+                  title: Text(
+                      'Question 2....',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                      ),
+                  ),
+                  // subtitle: Text('Some other text...'),
+                  children: <Widget>[
+                    ListTile(
+                        title: Text(
+                            'Answer to question 2',
+                            style: TextStyle(
+                              fontSize: 15.0,
+                            ),
+                        ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+                  child: Text(
+                    "TODO: Add a way to access the tutorial",
+                    style: TextStyle(
+                      color: Colors.blueGrey,
+                      fontSize: 30.0,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+                  child: ButtonTheme(
+                      // TODO figure out how to make button the width of the screen
+                      minWidth: MediaQuery.of(context).size.width,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
+                        ),
+                        onPressed: () {
+                          // TODO create a link to send an email asking for help
+                        },
+                        child: Text(
+                            "ASK FOR HELP",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30.0,
+                            ),
+                        ),
+                    ),
+                  ),
+                ),
+              ]
+          )
       ),
       drawer: SideMenu(),
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
