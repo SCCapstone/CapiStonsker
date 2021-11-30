@@ -55,26 +55,18 @@ class _MarkerListPageState extends State<MarkerListPage> {
                 onPressed: () => {
                   _scaffoldKey.currentState!.openDrawer()},
               ),
-
               Expanded(
                 child: Container(
                   height: MediaQuery.of(context).size.height*.1,
                   width: MediaQuery.of(context).size.width,
                 ),
               ),
-
               IconButton(
                 tooltip: 'List View',
                 icon: const Icon(Icons.map),
                 iconSize: 40,
                 onPressed: () {
                   Navigator.of(context).pop();
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => MyHomePage()
-                  //     )
-                  // );
                 },
               ),
             ],

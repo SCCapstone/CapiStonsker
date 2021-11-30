@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../main.dart';
 import 'side_menu.dart';
 
 class FriendsPage extends StatelessWidget {
@@ -32,12 +33,25 @@ class FriendsPage extends StatelessWidget {
                 onPressed: () => {
                   _scaffoldKey.currentState!.openDrawer()},
               ),
-
               Expanded(
                 child: Container(
                   height: MediaQuery.of(context).size.height*.1,
                   width: MediaQuery.of(context).size.width,
                 ),
+              ),
+              IconButton(
+                tooltip: 'List View',
+                icon: const Icon(Icons.map),
+                iconSize: 40,
+                onPressed: () {
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => MyHomePage()
+                  //     )
+                  // );
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                },
               ),
             ],
           ),

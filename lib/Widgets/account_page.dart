@@ -2,6 +2,7 @@ import 'package:capi_stonsker/Widgets/side_menu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../main.dart';
 import 'log_in_page.dart';
 
 class AccountPage extends StatelessWidget {
@@ -34,15 +35,6 @@ class AccountPage extends StatelessWidget {
           )
         ],
       ),
-      body: Center(
-        child: ElevatedButton(
-          //color: Colors.blueGrey,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text("Go back home"),
-        ),
-      ),
       drawer: SideMenu(),
       bottomNavigationBar: BottomAppBar(
         color: Colors.blueGrey,
@@ -59,12 +51,25 @@ class AccountPage extends StatelessWidget {
                 onPressed: () => {
                   _scaffoldKey.currentState!.openDrawer()},
               ),
-
               Expanded(
                 child: Container(
                   height: MediaQuery.of(context).size.height*.1,
                   width: MediaQuery.of(context).size.width,
                 ),
+              ),
+              IconButton(
+                tooltip: 'List View',
+                icon: const Icon(Icons.map),
+                iconSize: 40,
+                onPressed: () {
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => MyHomePage()
+                  //     )
+                  // );
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                },
               ),
             ],
           ),
