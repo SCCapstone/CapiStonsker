@@ -1,9 +1,11 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 // import '../main.dart';
 import 'account_page.dart';
+import 'log_in_page.dart';
 
 // TODO add firebase, including email + password and Google login capabilities
 final _formKey = GlobalKey<FormState>();
@@ -142,7 +144,7 @@ class AccountState extends State<AccountForm> {
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: TextFormField(
-                        controller: emailC,
+                        controller: passwordC,
                         decoration: InputDecoration(
                           labelText: 'Password',
                           enabledBorder: OutlineInputBorder(
@@ -188,6 +190,9 @@ class AccountState extends State<AccountForm> {
     );
   }
 }
+
+
+
 
 
 
