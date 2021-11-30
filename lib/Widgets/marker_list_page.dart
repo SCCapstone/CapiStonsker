@@ -64,11 +64,11 @@ class _MarkerListPageState extends State<MarkerListPage> {
               ),
 
               IconButton(
-                tooltip: 'List View',
+                tooltip: 'Map View',
                 icon: const Icon(Icons.map),
                 iconSize: 40,
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.of(context).popUntil((route) => route.isFirst);
                   // Navigator.push(
                   //     context,
                   //     MaterialPageRoute(

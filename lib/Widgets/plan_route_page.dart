@@ -38,6 +38,21 @@ class PlanRoutePage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                 ),
               ),
+
+              IconButton(
+                tooltip: 'Map View',
+                icon: const Icon(Icons.map),
+                iconSize: 40,
+                onPressed: () {
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => MyHomePage()
+                  //     )
+                  // );
+                },
+              ),
             ],
           ),
         ),
