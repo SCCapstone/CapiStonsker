@@ -48,6 +48,9 @@ dependencies:
   location: ^4.3.0
   syncfusion_flutter_maps: ^19.2.51-beta
   firebase_database: ^7.1.2
+  user_location:
+    git:
+      url: https://github.com/igaurab/user_location_plugin.git
 
 dev_dependencies:
   flutter_test:
