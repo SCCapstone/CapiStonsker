@@ -11,6 +11,7 @@ class HelpPage extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text("Help Page"),
         backgroundColor: Colors.blueGrey,
       ),
@@ -37,16 +38,10 @@ class HelpPage extends StatelessWidget {
                 ),
               ),
               IconButton(
-                tooltip: 'List View',
+                tooltip: 'Map View',
                 icon: const Icon(Icons.map),
                 iconSize: 40,
                 onPressed: () {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => MyHomePage()
-                  //     )
-                  // );
                   Navigator.of(context).popUntil((route) => route.isFirst);
                 },
               ),
