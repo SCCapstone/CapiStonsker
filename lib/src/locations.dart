@@ -1,14 +1,14 @@
 import 'dart:convert';
-//Imports only items used for creating the ListView
+// Imports only items used for creating the ListView
 import 'package:flutter/cupertino.dart' show BuildContext, EdgeInsets, ListView, Text, Widget;
 import 'package:flutter/material.dart' show ListTile, Divider;
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'marker.dart';
 
-//This class should be imported using the suffix 'as locs'
+// This class should be imported using the suffix 'as locs'
 
-//Instance definition of Markers collection
+// Instance definition of Markers collection
 final db = FirebaseFirestore.instance.collection('Markers');
 int len = 0;
 List<Marker> markers = [];

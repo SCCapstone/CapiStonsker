@@ -1,14 +1,11 @@
 import 'package:capi_stonsker/Widgets/side_menu.dart';
+import 'package:capi_stonsker/nav/bottom_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
-// import '../main.dart';
 import 'account_page.dart';
 import 'account_creation_page.dart';
 
-// TODO add firebase, including email + password and Google login capabilities
 FirebaseAuth auth = FirebaseAuth.instance;
 
 class LogIn extends StatefulWidget {
@@ -115,50 +112,11 @@ class _LogIn extends State<LogIn> {
 
                 ]
                 ))
-            // TODO add link to create account page + Log in with Google, etc
           ],
         ),
       ),
       drawer: SideMenu(),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.blueGrey,
-        // const Color.fromRGBO(40, 60, 80, 0.5),
-        child: IconTheme(
-          data: const IconThemeData(color: Colors.white),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              IconButton(
-                tooltip: 'Open Menu',
-                icon: const Icon(Icons.menu),
-                iconSize: 40,
-                onPressed: () => {
-                  _scaffoldKey.currentState!.openDrawer()},
-              ),
-              Expanded(
-                child: Container(
-                  height: MediaQuery.of(context).size.height*.1,
-                  width: MediaQuery.of(context).size.width,
-                ),
-              ),
-              IconButton(
-                tooltip: 'List View',
-                icon: const Icon(Icons.map),
-                iconSize: 40,
-                onPressed: () {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => MyHomePage()
-                  //     )
-                  // );
-                  Navigator.of(context).popUntil((route) => route.isFirst);
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
+      bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
   }
 }
