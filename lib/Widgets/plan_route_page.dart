@@ -12,9 +12,16 @@ class PlanRoutePage extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: new IconButton(
+            icon: const Icon(Icons.arrow_back),
+            color: Colors.white,
+            onPressed: () {
+              Navigator.of(context).pop();
+            }
+        ),
         title: Text("Plan Route Page"),
         backgroundColor: Colors.blueGrey,
-        automaticallyImplyLeading: false,
       ),
       drawer: SideMenu(),
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),

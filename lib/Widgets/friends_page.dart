@@ -13,6 +13,13 @@ class FriendsPage extends StatelessWidget {
       key: _scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        leading: new IconButton(
+            icon: const Icon(Icons.arrow_back),
+            color: Colors.white,
+            onPressed: () {
+              Navigator.of(context).pop();
+            }
+        ),
         title: Text("Friends Page"),
         backgroundColor: Colors.blueGrey,
       ),

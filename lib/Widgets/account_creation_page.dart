@@ -16,6 +16,13 @@ class _State extends State<AccountCreation>{
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        leading: new IconButton(
+            icon: const Icon(Icons.arrow_back),
+            color: Colors.white,
+            onPressed: () {
+              Navigator.of(context).pop();
+            }
+        ),
         backgroundColor: Colors.indigo[900],
         foregroundColor: Colors.white,
         shadowColor: Colors.blueGrey,
