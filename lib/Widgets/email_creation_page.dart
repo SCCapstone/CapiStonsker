@@ -1,11 +1,8 @@
+import 'package:capi_stonsker/Widgets/side_menu.dart';
+import 'package:capi_stonsker/nav/bottom_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 
-// import '../main.dart';
-import 'account_page.dart';
-
-// TODO add firebase, including email + password and Google login capabilities
 final _formKey = GlobalKey<FormState>();
 FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 //DatabaseReference dbRef = FirebaseDatabase.instance.reference().child("Users");
@@ -15,16 +12,18 @@ TextEditingController lnameC = TextEditingController();
 TextEditingController passwordC = TextEditingController();
 
 class AccountCreation extends StatefulWidget {
-  const AccountCreation({Key? key}) : super(key: key);
+  AccountCreation({Key? key}) : super(key: key);
 
   @override
   _State createState() => _State();
 }
 class _State extends State<AccountCreation>{
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
         foregroundColor: Colors.white,
@@ -43,17 +42,11 @@ class _State extends State<AccountCreation>{
               AccountForm(),
             ])
         ),
-
-
-
-
-
-
       ),
+      drawer: SideMenu(),
+      bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
-
   }
-
 }
 
 class AccountForm extends StatefulWidget {

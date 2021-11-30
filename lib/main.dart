@@ -1,26 +1,9 @@
-/*
-  Written by Joe Cammarata, James Davis, Matt Duggan, Lauren Hodges, and Ian Urton
-
-  Test Application that is designed to illustrate the 3 tasks assigned as POC.
-  - Receive the users current location in GPS coordinates
-  - Sidebar Navigation
-  - Bottom Menu
-  - Achievements Page
- */
-
-
-import 'Widgets/marker_list_page.dart';
-import 'dart:async';
-
-//Import firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
 import '/Widgets/map_page.dart';
 import '/Widgets/side_menu.dart';
 import '/src/locations.dart' as locs;
-
-//import 'package:geolocator/geolocator.dart';
+import 'nav/bottom_nav_bar.dart';
 
 void main() async {
   //Ensures Firebase connection initialized
@@ -93,47 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
 
       drawer: SideMenu(),
-
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.blueGrey,
-        // const Color.fromRGBO(40, 60, 80, 0.5),
-        child: IconTheme(
-          data: const IconThemeData(color: Colors.white),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              IconButton(
-                tooltip: 'Open Menu',
-                icon: const Icon(Icons.menu),
-                iconSize: 40,
-                onPressed: () => {
-                _scaffoldKey.currentState!.openDrawer()},
-              ),
-
-              Expanded(
-                child: Container(
-                  height: MediaQuery.of(context).size.height*.1,
-                  width: MediaQuery.of(context).size.width,
-                ),
-              ),
-
-              IconButton(
-                tooltip: 'List View',
-                icon: const Icon(Icons.list),
-                iconSize: 40,
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MarkerListPage()
-                      )
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
+      bottomNavigationBar: BottomNavBarHome(scaffoldKey: _scaffoldKey,),
     );
   }
 }

@@ -1,16 +1,19 @@
+import 'package:capi_stonsker/Widgets/side_menu.dart';
+import 'package:capi_stonsker/nav/bottom_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../src/marker.dart';
 import '../src/fav_button.dart';
 
 class FullInfoPage extends StatelessWidget {
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   final Marker sentMarker;
-
-  const FullInfoPage({Key? key, required this.sentMarker}) : super(key: key);
+  FullInfoPage({Key? key, required this.sentMarker}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(sentMarker.name),
         backgroundColor: Colors.blueGrey,
@@ -150,6 +153,8 @@ class FullInfoPage extends StatelessWidget {
           ],
         ),
       ),
+      drawer: SideMenu(),
+      bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
   }
 }

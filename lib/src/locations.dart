@@ -7,9 +7,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'marker.dart';
 import 'package:capi_stonsker/Widgets/full_info.dart';
 
-//This class should be imported using the suffix 'as locs'
+// This class should be imported using the suffix 'as locs'
 
-//Instance definition of Markers collection
+// Instance definition of Markers collection
 final db = FirebaseFirestore.instance.collection('Markers');
 int len = 0;
 List<Marker> markers = [];
