@@ -14,6 +14,7 @@ class AccountCreation extends StatefulWidget {
 
 class _AccountCreation extends State<AccountCreation> {
   final formkey = GlobalKey<FormState>();
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   final _auth = FirebaseAuth.instance;
   String email = '';
   String password = '';
