@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'bottom-nav-bar.dart';
-import 'log_in_page.dart';
+import 'sign_up_page.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -23,7 +23,7 @@ class AccountPage extends StatelessWidget {
               // TODO add conditional logic here to go to login page if user not logged in or log out page if user is logged in
               Navigator.push(context,
                   MaterialPageRoute(
-                    builder: (context) => LogIn()
+                    builder: (context) => SignUp()
                   )
               );
             },

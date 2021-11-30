@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,7 @@ import 'account_creation_page.dart';
 FirebaseAuth auth = FirebaseAuth.instance;
 
 class LogIn extends StatefulWidget {
+
   @override
   _LogIn createState() => _LogIn();
 }
@@ -61,7 +63,7 @@ class _LogIn extends State<LogIn> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder:
-                                (context) => const AccountScreen()),
+                                (context) => const AccountCreation()),
                           ); //TODO integrate forgot password screen
                         }
                   ),
@@ -115,7 +117,6 @@ class _LogIn extends State<LogIn> {
     );
   }
 }
-
 
 
 // FirebaseAuth.instance.authStateChanges().listen((User? user) {

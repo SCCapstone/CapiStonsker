@@ -6,6 +6,10 @@ import 'account_page.dart';
 
 // TODO add firebase, including email + password and Google login capabilities
 FirebaseAuth auth = FirebaseAuth.instance;
+TextEditingController fName = TextEditingController();
+TextEditingController lName = TextEditingController();
+TextEditingController email = TextEditingController();
+TextEditingController password = TextEditingController();
 class AccountCreation extends StatefulWidget {
   const AccountCreation({Key? key}) : super(key: key);
 
@@ -13,6 +17,7 @@ class AccountCreation extends StatefulWidget {
   _State createState() => _State();
 }
 class _State extends State<AccountCreation>{
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,6 +76,7 @@ class AccountState extends State<AccountForm> {
                 padding: const EdgeInsets.symmetric(
                     horizontal: 8, vertical: 16),
                 child: TextFormField(
+                  controller: fName,
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
                     labelText: 'First Name',
@@ -89,6 +95,7 @@ class AccountState extends State<AccountForm> {
                 padding: const EdgeInsets.symmetric(
                     horizontal: 8, vertical: 16),
                 child: TextFormField(
+                  controller: lName,
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
                     labelText: 'Last Name',
@@ -107,10 +114,12 @@ class AccountState extends State<AccountForm> {
                 padding: const EdgeInsets.symmetric(
                     horizontal: 8, vertical: 16),
                 child: TextFormField(
+                  controller: email,
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
                     labelText: 'Email',
                     hintText: 'Enter your email address',
+
                   ),
 
                   validator: (value) {
@@ -132,6 +141,7 @@ class AccountState extends State<AccountForm> {
                 padding: const EdgeInsets.symmetric(
                     horizontal: 8, vertical: 16),
                 child: TextFormField(
+                  controller: password,
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
                     labelText: 'Password',
@@ -153,6 +163,7 @@ class AccountState extends State<AccountForm> {
                     color: Colors.blueGrey, borderRadius: BorderRadius.circular(20)),
                 child: FlatButton(
                   onPressed: () {
+                    createUserWithEmailAndPassword();
                     Navigator.pop(
                         context, MaterialPageRoute(builder: (_) => AccountPage()));
                   },
@@ -170,3 +181,22 @@ class AccountState extends State<AccountForm> {
 }
 
 //TODO create account creation form, implement firebase logging and storing
+
+void createUserWithEmailAndPassword() async {
+   try {
+     UserCredential userCredential = await FirebaseAuth.instance
+         .createUserWithEmailAndPassword(
+         email: email.text,
+         password: password.text
+     );
+   } on FirebaseAuthException catch (e) {
+     if (e.code == 'weak-password') {
+       print('The password provided is too weak.');
+     } else if (e.code == 'email-already-in-use') {
+       print('The account already exists for that email.');
+     }
+   } catch (e) {
+     print(e);
+   }
+}
+
