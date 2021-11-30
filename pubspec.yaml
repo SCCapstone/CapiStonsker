@@ -51,6 +51,7 @@ dependencies:
   user_location:
     git:
       url: https://github.com/igaurab/user_location_plugin.git
+  tutorial_coach_mark: ^1.2.0
 
 dev_dependencies:
   flutter_test:

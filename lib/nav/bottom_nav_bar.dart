@@ -53,7 +53,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
 class BottomNavBarHome extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
-  const BottomNavBarHome({Key? key, required this.scaffoldKey}) : super(key: key);
+  GlobalKey menu_button = GlobalKey();
+  GlobalKey marker_list = GlobalKey();
+  BottomNavBarHome({Key? key, required this.scaffoldKey,
+    Key? key1, required this.menu_button,
+    Key? key2, required this.marker_list})
+      : super(key: key);
 
   @override
   _BottomNavBarHomeState createState() => _BottomNavBarHomeState();
@@ -72,6 +77,7 @@ class _BottomNavBarHomeState extends State<BottomNavBarHome> {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             IconButton(
+              key: widget.menu_button,
               tooltip: 'Open Menu',
               icon: const Icon(Icons.menu),
               iconSize: 40,
@@ -84,15 +90,14 @@ class _BottomNavBarHomeState extends State<BottomNavBarHome> {
                 //   )
               },
             ),
-
             Expanded(
               child: Container(
                 height: MediaQuery.of(context).size.height*.1,
                 width: MediaQuery.of(context).size.width,
               ),
             ),
-
             IconButton(
+              key: widget.marker_list,
               tooltip: 'List View',
               icon: const Icon(Icons.list),
               iconSize: 40,
