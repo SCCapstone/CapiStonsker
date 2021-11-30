@@ -1,24 +1,24 @@
-import 'package:capi_stonsker/Widgets/side_menu.dart';
-import 'package:capi_stonsker/nav/bottom_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 
-final _formKey = GlobalKey<FormState>();
-FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-//DatabaseReference dbRef = FirebaseDatabase.instance.reference().child("Users");
-TextEditingController emailC = TextEditingController();
-TextEditingController fnameC = TextEditingController();
-TextEditingController lnameC = TextEditingController();
-TextEditingController passwordC = TextEditingController();
+// import '../main.dart';
+import 'account_page.dart';
+import 'log_in_page.dart';
 
 class AccountCreation extends StatefulWidget {
-  AccountCreation({Key? key}) : super(key: key);
-
   @override
-  _State createState() => _State();
+  _AccountCreation createState() => _AccountCreation();
 }
-class _State extends State<AccountCreation>{
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
+class _AccountCreation extends State<AccountCreation> {
+  final formkey = GlobalKey<FormState>();
+  final _auth = FirebaseAuth.instance;
+  String email = '';
+  String password = '';
+  bool isloading = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,183 +26,189 @@ class _State extends State<AccountCreation>{
       key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
-        foregroundColor: Colors.white,
-        shadowColor: Colors.blueGrey,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(35),
-            )
-        ),
-        title: const Text('Account Creation'),
-      ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: const <Widget>[
-              AccountForm(),
-            ])
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Colors.black,size: 30,),
+          onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      drawer: SideMenu(),
-      bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
+      body: isloading
+          ? Center(
+        child: CircularProgressIndicator(),
+      )
+          : Form(
+        key: formkey,
+        child: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.light,
+          child: Stack(
+            children: [
+              Container(
+                height: double.infinity,
+                width: double.infinity,
+                color: Colors.grey[200],
+                child: SingleChildScrollView(
+                  padding:
+                  EdgeInsets.symmetric(horizontal: 25, vertical: 120),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Hero(
+                        tag: '1',
+                        child: Text(
+                          "Sign up",
+                          style: TextStyle(
+                              fontSize: 30,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      SizedBox(height: 30),
+                      TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        onChanged: (value) {
+                          email = value.toString().trim();
+                        },
+                        validator: (value) => (value!.isEmpty)
+                            ? ' Please enter email'
+                            : null,
+                        textAlign: TextAlign.center,
+                        decoration: kTextFieldDecoration.copyWith(
+                          hintText: 'Enter Your Email',
+                          prefixIcon: Icon(
+                            Icons.email,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 30),
+                      TextFormField(
+                        obscureText: true,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please enter Password";
+                          }
+                        },
+                        onChanged: (value) {
+                          password = value;
+                        },
+                        textAlign: TextAlign.center,
+                        decoration: kTextFieldDecoration.copyWith(
+                            hintText: 'Choose a Password',
+                            prefixIcon: Icon(
+                              Icons.lock,
+                              color: Colors.black,
+                            )),
+                      ),
+                      SizedBox(height: 80),
+                      LoginSignupButton(
+                        title: 'Register',
+                        ontapp: () async {
+                          if (formkey.currentState!.validate()) {
+                            setState(() {
+                              isloading = true;
+                            });
+                            try {
+                              await _auth.createUserWithEmailAndPassword(
+                                  email: email, password: password);
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  backgroundColor: Colors.blueGrey,
+                                  content: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                        'Sucessfully Register.You Can Login Now'),
+                                  ),
+                                  duration: Duration(seconds: 5),
+                                ),
+                              );
+                              Navigator.of(context).pop();
+
+                              setState(() {
+                                isloading = false;
+                              });
+                            } on FirebaseAuthException catch (e) {
+                              showDialog(
+                                context: context,
+                                builder: (ctx) => AlertDialog(
+                                  title:
+                                  Text('Registration Failed. Try again.'),
+                                  content: Text('${e.message}'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(ctx).pop();
+                                      },
+                                      child: Text('Okay'),
+                                    )
+                                  ],
+                                ),
+                              );
+                            }
+                            setState(() {
+                              isloading = false;
+                            });
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
 
-class AccountForm extends StatefulWidget {
-  const AccountForm({Key? key}) : super(key: key);
+class LoginSignupButton extends StatelessWidget {
+  final String title;
+  final dynamic  ontapp;
 
-  @override
-  AccountState createState() => AccountState();
-}
-
-class AccountState extends State<AccountForm> {
-
+  LoginSignupButton({required this.title, required this.ontapp});
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-        child: SingleChildScrollView(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: TextFormField(
-                      controller: fnameC,
-                      decoration: InputDecoration(
-                        labelText: 'First Name',
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                      ),
-
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your first name.';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: TextFormField(
-                      controller: lnameC,
-                      decoration: InputDecoration(
-                        labelText: 'Last Name',
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                      ),
-
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your last name.';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: TextFormField(
-                      controller: emailC,
-                      decoration: InputDecoration(
-                          labelText: 'Email',
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-
-                      ),
-
-                      validator: (value) {
-                        bool sym;
-                        if (value != null && value.contains('@')) {
-                          sym = true;
-                        }
-                        else {
-                          sym = false;
-                        }
-                        if (value == null || value.isEmpty || !sym) {
-                          return 'Please enter a valid email address.';
-                        }
-                        return null;
-                      },
-
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: TextFormField(
-                        controller: emailC,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-
-                        ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter a password.';
-                        }
-                        return null;
-                      },
-                    )
-
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Container(
-                      height: 50,
-                      width: 500,
-                      decoration: BoxDecoration(
-                          color: Colors.blueGrey,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: TextButton(
-                        onPressed: () {
-                          if(_formKey.currentState!.validate()){
-                            createUserWithEmailAndPassword();
-                          }
-                          },
-                        child: Text(
-                          'Sign Up',
-                          style: TextStyle(color: Colors.white, fontSize: 25),
-                        ),
-                      ),
-                    ),
-                  ),
-
-
-                ]
-            )
-        )
+    return Container(
+      width: double.infinity,
+      child: SizedBox(
+        height: 45,
+        child: ElevatedButton(
+          onPressed:
+          ontapp,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              title,
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.blueGrey),
+          ),
+        ),
+      ),
     );
   }
 }
 
-
-
-//TODO create account creation form, implement firebase logging and storing
-
-void createUserWithEmailAndPassword() async {
-   try {
-     UserCredential userCredential = await FirebaseAuth.instance
-         .createUserWithEmailAndPassword(
-         email: emailC.text,
-         password: passwordC.text
-     );
-   } on FirebaseAuthException catch (e) {
-     if (e.code == 'weak-password') {
-       print('The password provided is too weak.');
-     } else if (e.code == 'email-already-in-use') {
-       print('The account already exists for that email.');
-     }
-   } catch (e) {
-     print(e);
-   }
-}
-
+const kTextFieldDecoration = InputDecoration(
+  hintText: 'Enter a value',
+  hintStyle: TextStyle(color: Colors.black),
+  contentPadding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+  border: OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(7)),
+  ),
+  enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.black, width: 1.0),
+    borderRadius: BorderRadius.all(Radius.circular(7.0)),
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.black, width: 1.5),
+    borderRadius: BorderRadius.all(Radius.circular(7)),
+  ),
+);
 
 

@@ -1,118 +1,169 @@
-import 'package:capi_stonsker/Widgets/side_menu.dart';
-import 'package:capi_stonsker/nav/bottom_nav_bar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'account_page.dart';
-import 'account_creation_page.dart';
+import 'sign_up_page.dart';
 
-FirebaseAuth auth = FirebaseAuth.instance;
 
-class LogIn extends StatefulWidget {
-
+class LoginScreen extends StatefulWidget {
   @override
-  _LogIn createState() => _LogIn();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LogIn extends State<LogIn> {
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+class _LoginScreenState extends State<LoginScreen> {
+  final formkey = GlobalKey<FormState>();
+  final _auth = FirebaseAuth.instance;
+  String email = '';
+  String password = '';
+  bool isloading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text("Login Page"),
+
+        title: Text("Log In"),
         backgroundColor: Colors.blueGrey,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              // TODO consider changing these static padding dynamic values to dynamic?
-              padding: const EdgeInsets.only(left:15.0,right: 15.0,top:15.0,bottom: 0),
-              child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Email',
-                    hintText: 'Enter valid email id as abc@gmail.com'),
-              ),
-            ),
-            Padding(
-              // TODO consider changing these static padding dynamic values to dynamic?
-              padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 15.0, bottom: 0),
-              //padding: EdgeInsets.symmetric(horizontal: 15),
-              child: TextField(
+      body: isloading
+          ? Center(
+        child: CircularProgressIndicator(),
+      )
+          : Form(
+        key: formkey,
+        child: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.light,
+          child: Stack(
+            children: [
+              Container(
+                height: double.infinity,
+                width: double.infinity,
+                color: Colors.grey[200],
+                child: SingleChildScrollView(
+                  padding:
+                  EdgeInsets.symmetric(horizontal: 25, vertical: 120),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Log In",
+                        style: TextStyle(
+                            fontSize: 50,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 30),
+                      TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        onChanged: (value) {
+                          email = value;
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please enter Email";
+                          }
+                        },
+                        textAlign: TextAlign.center,
+                        decoration: kTextFieldDecoration.copyWith(
+                          hintText: 'Email',
+                          prefixIcon: Icon(
+                            Icons.email,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 30),
+                      TextFormField(
+                        obscureText: true,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please enter Password";
+                          }
+                        },
+                        onChanged: (value) {
+                          password = value;
+                        },
+                        textAlign: TextAlign.center,
+                        decoration: kTextFieldDecoration.copyWith(
+                            hintText: 'Password',
+                            prefixIcon: Icon(
+                              Icons.lock,
+                              color: Colors.black,
+                            )),
+                      ),
+                      SizedBox(height: 80),
+                      LoginSignupButton(
+                        title: 'Login',
+                        ontapp: () async {
+                          if (formkey.currentState!.validate()) {
+                            setState(() {
+                              isloading = true;
+                            });
+                            try {
+                              await _auth.signInWithEmailAndPassword(
+                                  email: email, password: password);
 
-                obscureText: true,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Password',
-                    hintText: 'Enter secure password'),
-              ),
-            ),
-            RichText(
-                text: TextSpan(children: [
-                  TextSpan(
-                      text: 'Forgot Password?',
-                      style: TextStyle(
-                          color: Colors.blueGrey,
-                          fontSize: 15),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder:
-                                //(context) => AccountPage()),
-                                (context) => const AccountCreation()),
-                          ); //TODO integrate forgot password screen
-                        }
+                              await Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (contex) => AccountPage(),
+                                ),
+                              );
+
+
+                              setState(() {
+                                isloading = false;
+                              });
+                            } on FirebaseAuthException catch (e) {
+                              showDialog(
+                                context: context,
+                                builder: (ctx) => AlertDialog(
+                                  title: Text("Login Failed. Please try again."),
+                                  content: Text('${e.message}'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(ctx).pop();
+                                      },
+                                      child: Text('Okay'),
+                                    )
+                                  ],
+                                ),
+                              );
+                              print(e);
+                            }
+                            setState(() {
+                              isloading = false;
+                            });
+                          }
+                        },
+                      ),
+                      SizedBox(height: 30),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              child: Text("Don't have an account? Create one.",
+                                  style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              color: Colors.blue)),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SignUp()),
+                      );
+                    })
+                  ]
+                        ),
+
+                    ],
                   ),
 
-
-                ]
-                )),
-            Container(
-              height: 50,
-              width: 250,
-              decoration: BoxDecoration(
-                  color: Colors.blueGrey, borderRadius: BorderRadius.circular(20)),
-              child: FlatButton(
-                onPressed: () {
-                  Navigator.pop(
-                      context, MaterialPageRoute(builder: (_) => AccountPage()));
-                },
-                child: Text(
-                  'Login',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 130,
-            ),
-            RichText(
-                text: TextSpan(children: [
-                  TextSpan(
-                      text: 'New User? Create Account',
-                      style: TextStyle(
-                          color: Colors.blueGrey,
-                          fontSize: 15),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder:
-                                (context) => const AccountCreation()),
-                          );
-                        }
-                  ),
-
-
-                ]
-                ))
-          ],
+              )
+            ],
+          ),
         ),
       ),
       drawer: SideMenu(),
@@ -122,61 +173,53 @@ class _LogIn extends State<LogIn> {
 }
 
 
-// FirebaseAuth.instance.authStateChanges().listen((User? user) {
-//   if (user == null) {
-//     print('User is currently signed out!');
-//   } else {
-//     print('User is signed in!');
-//   }
-// });
-//
-// FirebaseAuth.instance.idTokenChanges().listen((User? user) {
-//   if (user == null) {
-//     print('User is currently signed out!');
-//   } else {
-//     print('User is signed in!');
-//   }
-// });
-//
-// FirebaseAuth.instance.userChanges().listen((User? user) {
-//   if (user == null) {
-//     print('User is currently signed out!');
-//   } else {
-//     print('User is signed in!');
-//   }
-// });
-//
-// UserCredential userCredential = await FirebaseAuth.instance.signInAnonymously();
-//
-// void createUserWithEmailAndPassword() async {
-//   try {
-//     UserCredential userCredential = await FirebaseAuth.instance
-//         .createUserWithEmailAndPassword(
-//         email: "barry.allen@example.com",
-//         password: "SuperSecretPassword!"
-//     );
-//   } on FirebaseAuthException catch (e) {
-//     if (e.code == 'weak-password') {
-//       print('The password provided is too weak.');
-//     } else if (e.code == 'email-already-in-use') {
-//       print('The account already exists for that email.');
-//     }
-//   } catch (e) {
-//     print(e);
-//   }
-// }
-//
-// void signInWithEmailAndPassword() async {
-//   try {
-//     UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-//         email: "barry.allen@example.com",
-//         password: "SuperSecretPassword!"
-//     );
-//   } on FirebaseAuthException catch (e) {
-//     if (e.code == 'user-not-found') {
-//       print('No user found for that email.');
-//     } else if (e.code == 'wrong-password') {
-//       print('Wrong password provided for that user.');
-//     }
-//   }
-// }
+
+
+const kTextFieldDecoration = InputDecoration(
+  hintText: 'Enter a value',
+  hintStyle: TextStyle(color: Colors.black),
+  contentPadding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+  border: OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(7)),
+  ),
+  enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.black, width: 1.0),
+    borderRadius: BorderRadius.all(Radius.circular(7.0)),
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.black, width: 1.5),
+    borderRadius: BorderRadius.all(Radius.circular(7)),
+  ),
+);
+
+
+class LoginSignupButton extends StatelessWidget {
+  final String title;
+  final dynamic  ontapp;
+
+  LoginSignupButton({required this.title, required this.ontapp});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      child: SizedBox(
+        height: 45,
+        child: ElevatedButton(
+          onPressed:
+          ontapp,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              title,
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.blueGrey),
+          ),
+        ),
+      ),
+    );
+  }
+}

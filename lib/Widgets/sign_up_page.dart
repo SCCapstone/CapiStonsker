@@ -1,5 +1,3 @@
-import 'package:capi_stonsker/Widgets/side_menu.dart';
-import 'package:capi_stonsker/nav/bottom_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'account_page.dart';
@@ -33,10 +31,10 @@ class _SignUp extends State<SignUp> {
             Padding(
               padding: EdgeInsets.all(10.0),
               child: Text("Sign Up",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      fontFamily: 'Roboto')),
+                style: TextStyle(
+                    fontSize: 50,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold)),
             ),
             Padding(
               padding: EdgeInsets.all(10.0),
@@ -94,7 +92,8 @@ class _SignUp extends State<SignUp> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => LogIn()),
+
+                            builder: (context) => LoginScreen()),
                       );
                     }))
           ]),
