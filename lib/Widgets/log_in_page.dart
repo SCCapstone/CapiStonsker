@@ -1,5 +1,6 @@
 import 'package:capi_stonsker/Widgets/side_menu.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,7 @@ import 'account_creation_page.dart';
 FirebaseAuth auth = FirebaseAuth.instance;
 
 class LogIn extends StatefulWidget {
+
   @override
   _LogIn createState() => _LogIn();
 }
@@ -65,7 +67,8 @@ class _LogIn extends State<LogIn> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder:
-                                (context) => AccountPage()),
+                                //(context) => AccountPage()),
+                                (context) => const AccountCreation()),
                           ); //TODO integrate forgot password screen
                         }
                   ),
@@ -159,3 +162,63 @@ class _LogIn extends State<LogIn> {
     );
   }
 }
+
+
+// FirebaseAuth.instance.authStateChanges().listen((User? user) {
+//   if (user == null) {
+//     print('User is currently signed out!');
+//   } else {
+//     print('User is signed in!');
+//   }
+// });
+//
+// FirebaseAuth.instance.idTokenChanges().listen((User? user) {
+//   if (user == null) {
+//     print('User is currently signed out!');
+//   } else {
+//     print('User is signed in!');
+//   }
+// });
+//
+// FirebaseAuth.instance.userChanges().listen((User? user) {
+//   if (user == null) {
+//     print('User is currently signed out!');
+//   } else {
+//     print('User is signed in!');
+//   }
+// });
+//
+// UserCredential userCredential = await FirebaseAuth.instance.signInAnonymously();
+//
+// void createUserWithEmailAndPassword() async {
+//   try {
+//     UserCredential userCredential = await FirebaseAuth.instance
+//         .createUserWithEmailAndPassword(
+//         email: "barry.allen@example.com",
+//         password: "SuperSecretPassword!"
+//     );
+//   } on FirebaseAuthException catch (e) {
+//     if (e.code == 'weak-password') {
+//       print('The password provided is too weak.');
+//     } else if (e.code == 'email-already-in-use') {
+//       print('The account already exists for that email.');
+//     }
+//   } catch (e) {
+//     print(e);
+//   }
+// }
+//
+// void signInWithEmailAndPassword() async {
+//   try {
+//     UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+//         email: "barry.allen@example.com",
+//         password: "SuperSecretPassword!"
+//     );
+//   } on FirebaseAuthException catch (e) {
+//     if (e.code == 'user-not-found') {
+//       print('No user found for that email.');
+//     } else if (e.code == 'wrong-password') {
+//       print('Wrong password provided for that user.');
+//     }
+//   }
+// }
