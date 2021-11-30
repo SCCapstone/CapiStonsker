@@ -131,7 +131,7 @@ class _AccountCreation extends State<AccountCreation> {
                                 context: context,
                                 builder: (ctx) => AlertDialog(
                                   title:
-                                  Text(' Ops! Registration Failed'),
+                                  Text('Registration Failed. Try again.'),
                                   content: Text('${e.message}'),
                                   actions: [
                                     TextButton(
