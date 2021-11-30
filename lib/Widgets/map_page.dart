@@ -82,6 +82,7 @@ class _MapPageState extends State<MapPage> {
       updateMapLocationOnPositionChange: false,
       onLocationUpdate: (LatLng pos, double? speed) {
         setState(() {
+          //onLocationUpdate is where several different features are going to stem from, likely want to pass into different functinons
           userPos = pos;
         });
       },
