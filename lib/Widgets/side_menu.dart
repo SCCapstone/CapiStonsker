@@ -3,11 +3,9 @@ import 'package:capi_stonsker/Widgets/plan_route_page.dart';
 import 'package:capi_stonsker/Widgets/wishlist_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'account_page.dart';
 import 'friends_page.dart';
 import 'help_page.dart';
-import 'marker_list_page.dart';
 
 /* TODO pull user name, level, avatar, etc from Firebase to display at the top of the header.
  * Include default values for cases when a user is not logged in
@@ -89,6 +87,8 @@ class _SideMenuState extends State<SideMenu> {
               // ...
               // Then close the drawer
               Navigator.pop(context);
+              Navigator.of(context).popUntil((route) => route.isFirst);
+              //Navigator.of(context).pop();
             },
           ),
           ListTile(
@@ -97,6 +97,7 @@ class _SideMenuState extends State<SideMenu> {
               // Update the state of the app
               // ...
               // Then close the drawer
+              Navigator.pop(context);
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -111,6 +112,7 @@ class _SideMenuState extends State<SideMenu> {
               // Update the state of the app
               // ...
               // Then close the drawer
+              Navigator.pop(context);
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -125,6 +127,7 @@ class _SideMenuState extends State<SideMenu> {
               // Update the state of the app
               // ...
               // Then close the drawer
+              Navigator.pop(context);
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -139,6 +142,7 @@ class _SideMenuState extends State<SideMenu> {
               // Update the state of the app
               // ...
               // Then close the drawer
+              Navigator.pop(context);
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -153,6 +157,7 @@ class _SideMenuState extends State<SideMenu> {
               // Update the state of the app
               // ...
               // Then close the drawer
+              Navigator.pop(context);
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -167,6 +172,7 @@ class _SideMenuState extends State<SideMenu> {
               // Update the state of the app
               // ...
               // Then close the drawer
+              Navigator.pop(context);
               Navigator.push(
                   context,
                   MaterialPageRoute(

@@ -20,7 +20,9 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
+
         title: Text("Log In"),
         backgroundColor: Colors.blueGrey,
       ),
@@ -108,6 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               );
 
+
                               setState(() {
                                 isloading = false;
                               });
@@ -156,15 +159,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     ],
                   ),
+
                 ),
               )
             ],
           ),
         ),
       ),
+      drawer: SideMenu(),
+      bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
   }
 }
+
 
 
 

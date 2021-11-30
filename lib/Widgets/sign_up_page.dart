@@ -1,8 +1,5 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-// import '../main.dart';
 import 'account_page.dart';
 import 'email_creation_page.dart';
 import 'log_in_page.dart';
@@ -17,10 +14,14 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUp extends State<SignUp> {
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text("Sign Up"),
           backgroundColor: Colors.blueGrey,
         ),
@@ -91,9 +92,13 @@ class _SignUp extends State<SignUp> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
+
                             builder: (context) => LoginScreen()),
                       );
                     }))
           ]),
-        ));
+        ),
+        drawer: SideMenu(),
+        bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
+    );
   }}

@@ -1,25 +1,20 @@
+import 'package:capi_stonsker/Widgets/side_menu.dart';
+import 'package:capi_stonsker/nav/bottom_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:convert';
-import 'dart:async';
-import 'package:flutter/services.dart';
-
-
-import '../src/marker.dart';
 import '../src/locations.dart' as locs;
-import 'bottom-nav-bar.dart';
 
 class MarkerListPage extends StatefulWidget {
   //const MarkerListPage({Key? key}) : super(key: key)
-  const MarkerListPage({Key? key}) : super(key: key);
+  MarkerListPage({Key? key}) : super(key: key);
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
   State<MarkerListPage> createState() => _MarkerListPageState();
 }
 
 class _MarkerListPageState extends State<MarkerListPage> {
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
   void initState() {
@@ -29,12 +24,15 @@ class _MarkerListPageState extends State<MarkerListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text("Marker List Page"),
         backgroundColor: Colors.blueGrey,
       ),
-      body: locs.buildMarkers(),
-      //bottomNavigationBar: BottomNavBar(),
+      body: locs.buildListDisplay(context, 0),
+      drawer: SideMenu(),
+      bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
   }
 

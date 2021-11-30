@@ -1,16 +1,20 @@
+import 'package:capi_stonsker/Widgets/side_menu.dart';
+import 'package:capi_stonsker/nav/bottom_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'bottom-nav-bar.dart';
 import 'sign_up_page.dart';
 
 class AccountPage extends StatelessWidget {
-  const AccountPage({Key? key}) : super(key: key);
+  AccountPage({Key? key}) : super(key: key);
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text("Account Page"),
         backgroundColor: Colors.blueGrey,
         actions: <Widget>[
@@ -30,16 +34,8 @@ class AccountPage extends StatelessWidget {
           )
         ],
       ),
-      body: Center(
-        child: ElevatedButton(
-          //color: Colors.blueGrey,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text("Go back home"),
-        ),
-      ),
-      //bottomNavigationBar: BottomNavBar(),
+      drawer: SideMenu(),
+      bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
   }
 }
