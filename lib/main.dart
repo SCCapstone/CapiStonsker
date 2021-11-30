@@ -9,7 +9,6 @@
  */
 
 
-import 'Widgets/bottom_nav_bar.dart';
 import 'Widgets/marker_list_page.dart';
 import 'dart:async';
 
@@ -20,6 +19,8 @@ import 'package:flutter/material.dart';
 import '/Widgets/map_page.dart';
 import '/Widgets/side_menu.dart';
 import '/src/locations.dart' as locs;
+
+//import 'package:geolocator/geolocator.dart';
 
 void main() async {
   //Ensures Firebase connection initialized
@@ -60,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
         title: Container(
-          width: MediaQuery.of(context).size.width*(2/3),
+          width: MediaQuery.of(context).size.width,
           height: 40,
           decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(5)),
@@ -74,14 +75,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     /* Clear the search field */
                   },
                 ),
-                hintText: 'Search...this is main.dart',
+                hintText: 'Search...',
                 border: InputBorder.none),
             ),
           ),
         ),
-        leading: IconButton(
-          icon: Icon(null), onPressed: () {  },
-        ),
+        automaticallyImplyLeading: false,
       ),
 
       body:Stack(

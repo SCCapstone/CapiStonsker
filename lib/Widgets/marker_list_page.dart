@@ -11,7 +11,6 @@ import 'package:flutter/services.dart';
 import '../main.dart';
 import '../src/marker.dart';
 import '../src/locations.dart' as locs;
-import 'bottom_nav_bar.dart';
 
 class MarkerListPage extends StatefulWidget {
   //const MarkerListPage({Key? key}) : super(key: key)
@@ -35,6 +34,7 @@ class _MarkerListPageState extends State<MarkerListPage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text("Marker List Page"),
         backgroundColor: Colors.blueGrey,
       ),
@@ -55,25 +55,18 @@ class _MarkerListPageState extends State<MarkerListPage> {
                 onPressed: () => {
                   _scaffoldKey.currentState!.openDrawer()},
               ),
-
               Expanded(
                 child: Container(
                   height: MediaQuery.of(context).size.height*.1,
                   width: MediaQuery.of(context).size.width,
                 ),
               ),
-
               IconButton(
-                tooltip: 'List View',
-                icon: const Icon(Icons.list),
+                tooltip: 'Map View',
+                icon: const Icon(Icons.map),
                 iconSize: 40,
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MyHomePage()
-                      )
-                  );
+                  Navigator.of(context).popUntil((route) => route.isFirst);
                 },
               ),
             ],

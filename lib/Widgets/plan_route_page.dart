@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'bottom_nav_bar.dart';
+import '../main.dart';
 import 'side_menu.dart';
 
 class PlanRoutePage extends StatelessWidget {
@@ -15,18 +14,42 @@ class PlanRoutePage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Plan Route Page"),
         backgroundColor: Colors.blueGrey,
-      ),
-      body: Center(
-        child: ElevatedButton(
-          //color: Colors.blueGrey,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text("Go back home"),
-        ),
+        automaticallyImplyLeading: false,
       ),
       drawer: SideMenu(),
-      bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.blueGrey,
+        // const Color.fromRGBO(40, 60, 80, 0.5),
+        child: IconTheme(
+          data: const IconThemeData(color: Colors.white),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              IconButton(
+                tooltip: 'Open Menu',
+                icon: const Icon(Icons.menu),
+                iconSize: 40,
+                onPressed: () => {
+                  _scaffoldKey.currentState!.openDrawer()},
+              ),
+              Expanded(
+                child: Container(
+                  height: MediaQuery.of(context).size.height*.1,
+                  width: MediaQuery.of(context).size.width,
+                ),
+              ),
+              IconButton(
+                tooltip: 'Map View',
+                icon: const Icon(Icons.map),
+                iconSize: 40,
+                onPressed: () {
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
