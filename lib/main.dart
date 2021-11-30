@@ -14,9 +14,6 @@ import 'dart:async';
 
 //Import firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:convert';
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 import '/Widgets/map_page.dart';
