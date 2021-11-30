@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 // import '../main.dart';
 import 'account_page.dart';
-import 'account_creation_page.dart';
+import 'email_creation_page.dart';
 
 // TODO add firebase, including email + password and Google login capabilities
 FirebaseAuth auth = FirebaseAuth.instance;
@@ -43,9 +43,11 @@ class _SignUp extends State<SignUp> {
                     borderRadius: BorderRadius.circular(20)),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pop(
-                        context,
-                        MaterialPageRoute(builder: (_) => AccountPage()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AccountCreation()),
+                    );
                   },
                   child: Text(
                     'Sign up with Email',
