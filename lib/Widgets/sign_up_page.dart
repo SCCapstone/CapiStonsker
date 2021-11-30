@@ -1,3 +1,5 @@
+import 'package:capi_stonsker/Widgets/side_menu.dart';
+import 'package:capi_stonsker/nav/bottom_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'account_page.dart';
