@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import '/Widgets/map_page.dart';
 import '/Widgets/side_menu.dart';
 import '/src/locations.dart' as locs;
@@ -35,13 +36,25 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late TutorialCoachMark tutorialCoachMark;
+  List<TargetFocus> targets = <TargetFocus>[];
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  GlobalKey menu_button = GlobalKey();
+  GlobalKey marker_list = GlobalKey();
+  GlobalKey search_bar = GlobalKey();
+
+  @override
+  void initState() {
+    Future.delayed(Duration.zero, showTutorial);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.blueGrey,
         title: Container(
           width: MediaQuery.of(context).size.width,
@@ -49,6 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
           decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(5)),
           child: Center(
+            key: search_bar,
             child: TextField(
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.search),
@@ -59,11 +73,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
                 hintText: 'Search...',
-                border: InputBorder.none),
+                border: InputBorder.none
+              ),
             ),
           ),
         ),
-        automaticallyImplyLeading: false,
       ),
 
       body:Stack(
@@ -76,7 +90,140 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
 
       drawer: SideMenu(),
-      bottomNavigationBar: BottomNavBarHome(scaffoldKey: _scaffoldKey,),
+      bottomNavigationBar: BottomNavBarHome(
+        scaffoldKey: _scaffoldKey,
+        menu_button: menu_button,
+        marker_list: marker_list,
+      ),
+    );
+  }
+
+  void showTutorial() {
+    initTargets();
+    tutorialCoachMark = TutorialCoachMark(
+      context,
+      targets: targets,
+      colorShadow: Colors.brown,
+      textSkip: "SKIP TUTORIAL",
+      textStyleSkip: const TextStyle(
+        color: Colors.white,
+        fontSize: 20.0,
+      ),
+      paddingFocus: 10,
+      opacityShadow: 0.8,
+      onFinish: () {
+        print("finish");
+      },
+      onClickTarget: (target) {
+        print('onClickTarget: $target');
+      },
+      onClickOverlay: (target) {
+        print('onClickOverlay: $target');
+      },
+      onSkip: () {
+        print("skip tutorial");
+      },
+    )..show();
+  }
+
+  void initTargets() {
+    targets.clear();
+    targets.add(
+      TargetFocus(
+        identify: "Target 1: Menu button",
+        keyTarget: menu_button,
+        alignSkip: Alignment.bottomCenter,
+        enableOverlayTab: true,
+        contents: [
+          TargetContent(
+            align: ContentAlign.top,
+            builder: (context, controller) {
+              return Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Tap here from any page to access the menu.",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 30.0),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+    targets.add(
+      TargetFocus(
+        identify: "Target 2: List button",
+        keyTarget: marker_list,
+        alignSkip: Alignment.bottomCenter,
+        enableOverlayTab: true,
+        contents: [
+          TargetContent(
+            align: ContentAlign.top,
+            builder: (context, controller) {
+              return Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Tap here for a list view of the markers. On other pages, tap here to return to the map.",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 30.0,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          )
+        ],
+      ),
+    );
+    targets.add(
+      TargetFocus(
+        identify: "Target 3: Search bar",
+        keyTarget: search_bar,
+        alignSkip: Alignment.bottomCenter,
+        enableOverlayTab: true,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            builder: (context, controller) {
+              return Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height*0.5,
+                      ),
+                      child:Text(
+                        "Use this search bar to find markers.",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 30.0,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          )
+        ],
+      ),
     );
   }
 }
