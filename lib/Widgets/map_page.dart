@@ -34,8 +34,9 @@ class _MapPageState extends State<MapPage> {
       updateMapLocationOnPositionChange: false,
       onLocationUpdate: (LatLng pos, double? speed) {
         setState(() {
-          //onLocationUpdate is where several different features are going to stem from, likely want to pass into different functinons
-          userPos = pos;
+          //onLocationUpdate is where several different features are going to stem from, likely want to pass into different functions
+          userPos = pos; //Updates variable
+          locs.calcDist(userPos); //Updates userDist for markers list
         });
       },
       //showMoveToCurrentLocationFloatingActionButton: true,
@@ -56,6 +57,7 @@ class _MapPageState extends State<MapPage> {
               'id': 'mapbox.satellite',
             }
         ),
+        //TODO This currently works, but let's try to find a way to have persistent lists instead of reconstructing every build
         MarkerLayerOptions(
             markers: locs.markers.map((m) => mBox.createMapMarker(context, m)).toList() +
                       List<Marker>.filled(1,
