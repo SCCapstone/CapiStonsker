@@ -2,6 +2,7 @@ import 'package:capi_stonsker/nav/bottom_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'log_in_page.dart';
 import 'side_menu.dart';
 import 'sign_up_page.dart';
 
@@ -36,9 +37,10 @@ class LogoutPage extends StatelessWidget {
               FirebaseAuth.instance.signOut();
               //Navigator.of(context).popUntil(ModalRoute.withName("/account"));
 
+              Navigator.pop(context);
               Navigator.push(context,
                   MaterialPageRoute(
-                      builder: (context) => SignUp()
+                      builder: (context) => LoginScreen()
                   )
               );
             }
