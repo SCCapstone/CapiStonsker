@@ -1,7 +1,8 @@
 import 'dart:convert';
 //Imports only items used for creating the ListView
-import 'package:flutter/cupertino.dart' show BuildContext, ListView, Navigator, Text, Widget;
-import 'package:flutter/material.dart' show ListTile, MaterialPageRoute;
+import 'package:capi_stonsker/Widgets/navigation_page.dart';
+import 'package:flutter/cupertino.dart' show BuildContext, Icon, ListView, Navigator, Text, Widget;
+import 'package:flutter/material.dart' show IconButton, Icons, ListTile, MaterialPageRoute;
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:latlong2/latlong.dart';
@@ -143,6 +144,19 @@ Widget buildListDisplay(BuildContext context, int num) {
 //Creates ListTile widget from given Marker
 Widget _buildRow(BuildContext context, Marker m, double d) {
   return ListTile(
+    trailing: IconButton(
+      icon: const Icon(Icons.directions),
+      onPressed: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => NavPage(
+                  sentMarker: m,
+                )
+            )
+        );
+      },
+    ),
       title: Text(m.name),
       //if userDist is default then display county instead of distance
       subtitle: d == 0.0 ? Text(m.county) : Text(d.toStringAsFixed(2) + " mi."),
