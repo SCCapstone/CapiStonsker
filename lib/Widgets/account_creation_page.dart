@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'account_page.dart';
 
 // TODO add firebase, including email + password and Google login capabilities
-FirebaseAuth auth = FirebaseAuth.instance;
 class AccountCreation extends StatefulWidget {
   const AccountCreation({Key? key}) : super(key: key);
 

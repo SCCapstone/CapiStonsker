@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:capi_stonsker/src/marker.dart';
 import 'package:capi_stonsker/Widgets/full_info.dart';
+import 'package:capi_stonsker/src/fire_auth.dart';
 
 
 // This class should be imported using the suffix 'as locs'
@@ -52,6 +53,20 @@ getMarkers() async {
   });
 }
 
+getWish() async {
+  if (FireAuth.auth.currentUser != null) {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(FireAuth.auth.currentUser!.uid)
+        .collection('wishlist')
+        .get();
+    snapshot.docs.forEach((doc) {
+      Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
+      wishlist.add(Marker.fromJson(data));
+    });
+  }
+}
+
 updatePos(LatLng pos) {
   userPos = pos;
 }
@@ -76,21 +91,37 @@ addToWish(Marker m) {
   //Check for duplicates (not necessary if buttons are designed correctly but just in case)
   if (!wishDupe(m)) {
     //Reference username to get collection name
+    if (FireAuth.auth.currentUser != null) {
+      //.doc.set is used to prevent duplicates: if doc of that name does not exist, one is created; if it does, it is updated
+      //Below needs update to reflect structure of username collections
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(FireAuth.auth.currentUser!.uid)
+          .collection('wishlist')
+          .doc(m.name)
+          .set(<String, dynamic>{
+            'name': m.name,
+            'rel_loc': m.rel_loc,
+            'desc': m.desc,
+            'gps': m.gps,
+            'county': m.county,
+      });
 
-    //.doc.set is used to prevent duplicates: if doc of that name does not exist, one is created; if it does, it is updated
-    //Below needs update to reflect structure of username collections
-    /*
-    FirebaseFirestore.instance.collection('Users').doc(username).collection('wishlist').set(<String, dynamic>{
-      'name': m.name,
-      'rel_loc': m.rel_loc,
-      'desc': m.desc,
-      'gps': m.gps,
-      'county': m.county,
-    });
-    */
-    
-    wishlist.add(m);
+      wishlist.add(m);
+    }
   }
+}
+
+removeWishFirebase(Marker m) {
+  //Remove from Firebase
+  FirebaseFirestore.instance
+      .collection('Users')
+      .doc(FireAuth.auth.currentUser!.uid)
+      .collection('wishlist')
+      .doc(m.name)
+      .delete();
+  //Remove from local list
+  wishlist.remove(m);
 }
 
 bool wishDupe(Marker m) {
