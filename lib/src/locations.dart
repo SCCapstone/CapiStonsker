@@ -70,10 +70,11 @@ addToWish(Marker m) {
   //Check for duplicates (not necessary if buttons are designed correctly but just in case)
   if (!wishDupe(m)) {
     //Reference username to get collection name
-    /*
+
     //.doc.set is used to prevent duplicates: if doc of that name does not exist, one is created; if it does, it is updated
     //Below needs update to reflect structure of username collections
-    FirebaseFirestore.instance.collection(username).doc(m.name).set(<String, dynamic>{
+    /*
+    FirebaseFirestore.instance.collection('Users').doc(username).collection('wishlist').set(<String, dynamic>{
       'name': m.name,
       'rel_loc': m.rel_loc,
       'desc': m.desc,
@@ -81,6 +82,7 @@ addToWish(Marker m) {
       'county': m.county,
     });
     */
+    
     wishlist.add(m);
   }
 }

@@ -117,10 +117,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
                               await Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (contex) => AccountPage(),
+                                  builder: (context) => AccountPage(),
                                 ),
                               );
-
 
                               setState(() {
                                 isloading = false;
