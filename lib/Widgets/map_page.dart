@@ -15,7 +15,6 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   MapController mapController = MapController();
   late UserLocationOptions userLocationOptions;
-  LatLng userPos = LatLng(0,0);
   List<Marker> markers = []; //likely need to adjust how markers are gotten?
 
 
@@ -35,8 +34,7 @@ class _MapPageState extends State<MapPage> {
       onLocationUpdate: (LatLng pos, double? speed) {
         setState(() {
           //onLocationUpdate is where several different features are going to stem from, likely want to pass into different functions
-          userPos = pos; //Updates variable
-          locs.calcDist(userPos); //Updates userDist for markers list
+          locs.updatePos(pos); //Updates userPos variable
         });
       },
       //showMoveToCurrentLocationFloatingActionButton: true,
@@ -64,7 +62,7 @@ class _MapPageState extends State<MapPage> {
                           Marker(
                             width: 45.0,
                             height: 45.0,
-                            point: userPos,
+                            point: locs.userPos,
                             builder: (ctx) =>
                                 Container(
                                   child: IconButton(

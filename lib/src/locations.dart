@@ -17,6 +17,7 @@ int len = 0;
 List<Marker> markers = [];
 List<Marker> visited = [];
 List<Marker> wishlist = [];
+LatLng userPos = LatLng(0,0);
 var distance = Distance();
 
 //Loads marker information from the JSON file, asynchronous because of file reading
@@ -50,7 +51,11 @@ getMarkers() async {
   });
 }
 
-calcDist(LatLng userPos) {
+updatePos(LatLng pos) {
+  userPos = pos;
+}
+
+calcDist() {
   //Recalculates distance to userPos for each element
   markers.forEach((element) {
     element.userDist = LengthUnit.Meter.to(
@@ -121,6 +126,7 @@ Widget buildListDisplay(BuildContext context, int num) {
   else if (num == 1) { pass = wishlist; }
   else if (num == 2) { pass = visited; }
   else if (num == 3) {
+    calcDist(); //Updates userDist for markers list
     //Duplicates markers list
     pass = List.from(markers);
     //Sorts new list by closest distance
