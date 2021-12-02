@@ -30,36 +30,6 @@ class AccountPage extends StatelessWidget {
         ),
         title: Text("Account Page"),
         backgroundColor: Colors.blueGrey,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.account_circle,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              var user = FireAuth.auth.currentUser;
-              if(user != null){ //user is logged in
-                Navigator.push(context,
-                    MaterialPageRoute(
-                        settings: RouteSettings(name: "/logout"),
-                        builder: (context) => LogoutPage()
-                            //TODO in real life this would take you to a log out page.
-                    )
-                );
-              }
-              else {
-                //no user is signed in
-                Navigator.push(context,
-                    MaterialPageRoute(
-                        settings: RouteSettings(name: "/signup"),
-                        builder: (context) => SignUp()
-                    )
-                );
-              }
-
-            },
-          )
-        ],
       ),
       drawer: SideMenu(),
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),

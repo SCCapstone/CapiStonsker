@@ -1,5 +1,4 @@
 import 'package:capi_stonsker/Widgets/marker_list_page.dart';
-import 'package:capi_stonsker/Widgets/side_menu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
