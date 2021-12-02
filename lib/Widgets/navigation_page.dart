@@ -24,7 +24,7 @@ class _NavPageState extends State<NavPage> {
   @override
   void initState() {
     super.initState();
-
+    initialize();
   }
 
 
@@ -49,7 +49,7 @@ class _NavPageState extends State<NavPage> {
     if (!mounted) return;
 
     _directions = MapBoxNavigation(onRouteEvent: _onRouteEvent);
-    
+
   }
 
   @override
