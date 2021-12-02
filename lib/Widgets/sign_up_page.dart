@@ -96,13 +96,15 @@ class _SignUp extends State<SignUp> {
                 child: GestureDetector(
                     child: Text("Already a user? Log In",
                         style: TextStyle(
+                            fontSize: 20,
                             decoration: TextDecoration.underline,
                             color: Colors.blue)),
                     onTap: () {
+                      //popUntil account
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-
+                            settings: RouteSettings(name: "/login"),
                             builder: (context) => LoginScreen()),
                       );
                     }))
