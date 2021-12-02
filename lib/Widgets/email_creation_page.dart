@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'fire_auth.dart';
+import '../src/fire_auth.dart';
 
 class AccountCreation extends StatefulWidget {
   @override

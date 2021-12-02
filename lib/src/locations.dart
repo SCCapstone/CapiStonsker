@@ -17,6 +17,7 @@ int len = 0;
 List<Marker> markers = [];
 List<Marker> visited = [];
 List<Marker> wishlist = [];
+LatLng userPos = LatLng(0,0);
 var distance = Distance();
 
 //Loads marker information from the JSON file, asynchronous because of file reading
@@ -50,7 +51,11 @@ getMarkers() async {
   });
 }
 
-calcDist(LatLng userPos) {
+updatePos(LatLng pos) {
+  userPos = pos;
+}
+
+calcDist() {
   //Recalculates distance to userPos for each element
   markers.forEach((element) {
     element.userDist = LengthUnit.Meter.to(
@@ -70,10 +75,11 @@ addToWish(Marker m) {
   //Check for duplicates (not necessary if buttons are designed correctly but just in case)
   if (!wishDupe(m)) {
     //Reference username to get collection name
-    /*
+
     //.doc.set is used to prevent duplicates: if doc of that name does not exist, one is created; if it does, it is updated
     //Below needs update to reflect structure of username collections
-    FirebaseFirestore.instance.collection(username).doc(m.name).set(<String, dynamic>{
+    /*
+    FirebaseFirestore.instance.collection('Users').doc(username).collection('wishlist').set(<String, dynamic>{
       'name': m.name,
       'rel_loc': m.rel_loc,
       'desc': m.desc,
@@ -81,6 +87,7 @@ addToWish(Marker m) {
       'county': m.county,
     });
     */
+    
     wishlist.add(m);
   }
 }
@@ -119,6 +126,7 @@ Widget buildListDisplay(BuildContext context, int num) {
   else if (num == 1) { pass = wishlist; }
   else if (num == 2) { pass = visited; }
   else if (num == 3) {
+    calcDist(); //Updates userDist for markers list
     //Duplicates markers list
     pass = List.from(markers);
     //Sorts new list by closest distance

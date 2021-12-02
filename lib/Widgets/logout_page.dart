@@ -34,7 +34,8 @@ class LogoutPage extends StatelessWidget {
             title: 'Log Out',
             ontapp: () {
               FirebaseAuth.instance.signOut();
-              Navigator.of(context).pop();
+              //Navigator.of(context).popUntil(ModalRoute.withName("/account"));
+
               Navigator.push(context,
                   MaterialPageRoute(
                       builder: (context) => SignUp()

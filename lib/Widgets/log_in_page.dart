@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'account_page.dart';
 import 'sign_up_page.dart';
-import 'fire_auth.dart';
+import '../src/fire_auth.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -17,7 +17,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final formkey = GlobalKey<FormState>();
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  final _auth = FirebaseAuth.instance;
+  //final _auth = FirebaseAuth.instance;
   String email = '';
   String password = '';
   bool isloading = false;
@@ -120,7 +120,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   builder: (context) => AccountPage(),
                                 ),
                               );
-
 
                               setState(() {
                                 isloading = false;

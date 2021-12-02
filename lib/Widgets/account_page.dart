@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'sign_up_page.dart';
 import 'logout_page.dart';
+import 'package:capi_stonsker/src/fire_auth.dart';
 
-final _auth = FirebaseAuth.instance;
+
+
+//final _auth = FirebaseAuth.instance;
 class AccountPage extends StatelessWidget {
   AccountPage({Key? key}) : super(key: key);
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
