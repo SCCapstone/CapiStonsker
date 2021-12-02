@@ -11,6 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await locs.getMarkers();
+  await locs.getWish();
   runApp(MyApp());
 }
 

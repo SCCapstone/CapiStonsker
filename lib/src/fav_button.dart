@@ -23,8 +23,7 @@ class _FavButtonState extends State<FavButton> {
             locs.addToWish(widget.sentM);
           }
           else {
-            //Remove from wishlist
-            locs.wishlist.remove(widget.sentM);
+            locs.removeWishFirebase(widget.sentM);
           }
           //print(locs.wishlist.toString());
         });
