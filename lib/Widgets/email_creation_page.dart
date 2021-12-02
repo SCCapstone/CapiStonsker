@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
+import 'fire_auth.dart';
 
 // import '../main.dart';
 import 'account_page.dart';
@@ -113,8 +114,7 @@ class _AccountCreation extends State<AccountCreation> {
                               isloading = true;
                             });
                             try {
-                              await _auth.createUserWithEmailAndPassword(
-                                  email: email, password: password);
+                              await FireAuth.registerUsingEmailPassword(email: email, password: password);
 
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -122,11 +122,12 @@ class _AccountCreation extends State<AccountCreation> {
                                   content: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
-                                        'Sucessfully Register.You Can Login Now'),
+                                        'Sucessfully Registered. You are now logged in.'),
                                   ),
                                   duration: Duration(seconds: 5),
                                 ),
                               );
+                              Navigator.of(context).pop();
                               Navigator.of(context).pop();
 
                               setState(() {
