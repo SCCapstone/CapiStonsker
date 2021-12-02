@@ -49,19 +49,7 @@ class _NavPageState extends State<NavPage> {
     if (!mounted) return;
 
     _directions = MapBoxNavigation(onRouteEvent: _onRouteEvent);
-
-
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await _directions.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
+    
   }
 
   @override
@@ -103,6 +91,7 @@ class _NavPageState extends State<NavPage> {
                           await _directions.startNavigation(
                               wayPoints: wayPoints,
                               options: MapBoxOptions(
+                                  zoom: 15.0,
                                   mode: MapBoxNavigationMode.walking,
                                   simulateRoute: false,
                                   language: "en",
@@ -152,8 +141,6 @@ class _NavPageState extends State<NavPage> {
               color: Colors.grey,
               child: MapBoxNavigationView(
                   options: MapBoxOptions(
-                      initialLatitude: 36.1175275,
-                      initialLongitude: -115.1839524,
                       zoom: 15.0,
                       tilt: 0.0,
                       bearing: 0.0,
