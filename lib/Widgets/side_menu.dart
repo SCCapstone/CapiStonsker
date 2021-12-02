@@ -171,16 +171,48 @@ class _SideMenuState extends State<SideMenu> {
           ListTile(
             title: const Text('ACCOUNT'),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => AccountPage()
-                  )
-              );
+              var user = _auth.currentUser;
+              if(user != null){ //user is logged in
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AccountPage()
+                    )
+                );
+              }
+              else {
+                //no user is signed in
+                showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text('You are not logged in'),
+                      content: SingleChildScrollView(
+                        child: ListBody(
+                          children: const <Widget>[
+                            Text('Please log in to continue to the account page.'),
+                          ],
+                        ),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          child: const Text(
+                              'OK',
+                              style: TextStyle(
+                                color: Colors.blueGrey,
+                              ),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                  ),
+                );
+              }
             },
           ),
           ListTile(
