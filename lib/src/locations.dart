@@ -203,3 +203,34 @@ Widget _buildRow(BuildContext context, Marker m, double d) {
       },
   );
 }
+
+Widget buildSearch(BuildContext context, searchString) {
+  List<Marker> pass = List<Marker>.empty();
+  calcDist();
+  pass = markers.where((s) => s.name.toLowerCase().contains(searchString.toLowerCase())).toList();
+  pass.sort((a,b) { return a.userDist.compareTo(b.userDist); });
+
+  return ListView(
+    children: pass.map((m) {
+      return _buildSearch(context, m, m.userDist);
+    }).toList(),
+  );
+}
+
+Widget _buildSearch(BuildContext context, Marker m, double d) {
+  return ListTile(
+    title: Text(m.name),
+    //if userDist is default then display county instead of distance
+    subtitle: d == 0.0 ? Text(m.county) : Text(d.toStringAsFixed(2) + " mi."),
+    onTap: () {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => FullInfoPage(
+                sentMarker: m,
+              )
+          )
+      );
+    },
+  );
+}
