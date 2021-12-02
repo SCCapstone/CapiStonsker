@@ -4,7 +4,8 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_mapbox_navigation/library.dart';
 import '../src/marker.dart';
-import 'package:user_location/user_location.dart';
+import 'package:capi_stonsker/src/locations.dart' as locs;
+
 
 class NavPage extends StatefulWidget {
   final Marker sentMarker;
@@ -96,7 +97,7 @@ class _NavPageState extends State<NavPage> {
                         child: Text("Start Directions"),
                         onPressed: () async {
                           var wayPoints = <WayPoint>[];
-                          wayPoints.add(WayPoint(name: "marker", latitude:  widget.sentMarker.gps.first, longitude:  -widget.sentMarker.gps.last));
+                          wayPoints.add(WayPoint(name: "origin", latitude:  locs.userPos.latitude, longitude:  locs.userPos.longitude));
                           wayPoints.add(WayPoint(name: "marker", latitude: widget.sentMarker.gps.first, longitude:  -widget.sentMarker.gps.last));
 
                           await _directions.startNavigation(
@@ -125,7 +126,7 @@ class _NavPageState extends State<NavPage> {
                           children: <Widget>[
                             Text("Duration Remaining: "),
                             Text(_durationRemaining != null
-                                ? "${(_durationRemaining / 60).toStringAsFixed(0)} minutes"
+                                ? "${(_durationRemaining / 60).toStringAsFixed(2)} minutes"
                                 : "---")
                           ],
                         ),
@@ -133,7 +134,7 @@ class _NavPageState extends State<NavPage> {
                           children: <Widget>[
                             Text("Distance Remaining: "),
                             Text(_distanceRemaining != null
-                                ? "${(_distanceRemaining * 0.000621371).toStringAsFixed(1)} miles"
+                                ? "${(_distanceRemaining * 0.000621371).toStringAsFixed(2)} miles "
                                 : "---")
                           ],
                         ),
