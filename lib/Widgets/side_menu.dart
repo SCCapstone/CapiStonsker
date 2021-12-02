@@ -200,13 +200,30 @@ class _SideMenuState extends State<SideMenu> {
                       actions: <Widget>[
                         TextButton(
                           child: const Text(
-                              'OK',
-                              style: TextStyle(
-                                color: Colors.blueGrey,
-                              ),
+                            'Log in',
+                            style: TextStyle(
+                              color: Colors.blueGrey,
+                            ),
                           ),
                           onPressed: () {
-                            Navigator.of(context).pop();
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                            Navigator.push(context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen()
+                                )
+                            );
+                          },
+                        ),
+                        TextButton(
+                          child: const Text(
+                            'Dismiss',
+                            style: TextStyle(
+                              color: Colors.blueGrey,
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
                           },
                         ),
                       ],
@@ -235,7 +252,9 @@ class _SideMenuState extends State<SideMenu> {
             child: RaisedButton.icon(
               onPressed: () {
                 var user = _auth.currentUser;
-                if(user != null){ //user is logged in
+                if(user != null){
+                  // user is logged in
+                  Navigator.pop(context);
                   Navigator.push(context,
                       MaterialPageRoute(
                           builder: (context) => LogoutPage()
@@ -244,6 +263,7 @@ class _SideMenuState extends State<SideMenu> {
                 }
                 else {
                   //no user is signed in
+                  Navigator.pop(context);
                   Navigator.push(context,
                       MaterialPageRoute(
                           builder: (context) => LoginScreen()
