@@ -161,6 +161,7 @@ class _SideMenuState extends State<SideMenu> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
+                      settings: RouteSettings(name: "/account"),
                       builder: (context) => AccountPage()
                   )
               );

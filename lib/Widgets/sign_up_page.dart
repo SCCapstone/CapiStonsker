@@ -100,10 +100,11 @@ class _SignUp extends State<SignUp> {
                             decoration: TextDecoration.underline,
                             color: Colors.blue)),
                     onTap: () {
+                      //popUntil account
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-
+                            settings: RouteSettings(name: "/login"),
                             builder: (context) => LoginScreen()),
                       );
                     }))

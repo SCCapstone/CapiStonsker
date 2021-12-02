@@ -5,13 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'sign_up_page.dart';
 import 'logout_page.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'wishlist_page.dart';
+import 'package:capi_stonsker/src/fire_auth.dart';
 
 
 
-
-final _auth = FirebaseAuth.instance;
+//final _auth = FirebaseAuth.instance;
 class AccountPage extends StatelessWidget {
   AccountPage({Key? key}) : super(key: key);
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
@@ -39,10 +37,11 @@ class AccountPage extends StatelessWidget {
               color: Colors.white,
             ),
             onPressed: () {
-              var user = _auth.currentUser;
+              var user = FireAuth.auth.currentUser;
               if(user != null){ //user is logged in
                 Navigator.push(context,
                     MaterialPageRoute(
+                        settings: RouteSettings(name: "/logout"),
                         builder: (context) => LogoutPage()
                             //TODO in real life this would take you to a log out page.
                     )
@@ -52,6 +51,7 @@ class AccountPage extends StatelessWidget {
                 //no user is signed in
                 Navigator.push(context,
                     MaterialPageRoute(
+                        settings: RouteSettings(name: "/signup"),
                         builder: (context) => SignUp()
                     )
                 );
