@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'sign_up_page.dart';
+import 'logout_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'wishlist_page.dart';
 
@@ -42,7 +43,7 @@ class AccountPage extends StatelessWidget {
               if(user != null){ //user is logged in
                 Navigator.push(context,
                     MaterialPageRoute(
-                        builder: (context) => WishListPage()
+                        builder: (context) => LogoutPage()
                             //TODO in real life this would take you to a log out page.
                     )
                 );
