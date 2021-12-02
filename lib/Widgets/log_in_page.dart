@@ -115,11 +115,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             try {
                               await FireAuth.signInUsingEmailPassword(email: email, password: password, context: context) ;
 
-                              await Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => AccountPage(),
-                                ),
-                              );
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
+
+
 
 
                               setState(() {

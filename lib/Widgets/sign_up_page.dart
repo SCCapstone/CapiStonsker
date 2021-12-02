@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'account_page.dart';
 import 'email_creation_page.dart';
+import 'fire_auth.dart';
 import 'log_in_page.dart';
 
 // TODO add firebase, including email + password and Google login capabilities
@@ -77,13 +78,35 @@ class _SignUp extends State<SignUp> {
                     color: Colors.blueGrey,
                     borderRadius: BorderRadius.circular(20)),
                 child: TextButton(
-                  onPressed: () {
-                    Navigator.pop(
-                        context,
-                        MaterialPageRoute(builder: (_) => AccountPage()));
-                  },
+                  onPressed: () async {
+                try {
+                await FireAuth.signInWithGoogle(context: context) ;
+
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                
+                } on FirebaseAuthException catch (e) {
+                  showDialog(
+                    context: context,
+                    builder: (ctx) =>
+                        AlertDialog(
+                          title: Text("Login Failed. Please try again."),
+                          content: Text('${e.message}'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(ctx).pop();
+                              },
+                              child: Text('Okay'),
+                            )
+                          ],
+                        ),
+                  );
+                  print(e);
+                }
+                },
                   child: Text(
-                    'Sign up with Google',
+                    'Log in with Google',
                     style: TextStyle(color: Colors.white, fontSize: 25),
                   ),
                 ),

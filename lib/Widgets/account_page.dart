@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'sign_up_page.dart';
 import 'logout_page.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'wishlist_page.dart';
 
 
 
