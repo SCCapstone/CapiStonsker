@@ -1,16 +1,21 @@
 import 'package:capi_stonsker/Widgets/my_markers_page.dart';
 import 'package:capi_stonsker/Widgets/plan_route_page.dart';
+import 'package:capi_stonsker/Widgets/sign_up_page.dart';
 import 'package:capi_stonsker/Widgets/wishlist_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'account_page.dart';
 import 'friends_page.dart';
 import 'help_page.dart';
+import 'log_in_page.dart';
+import 'logout_page.dart';
 
 /* TODO pull user name, level, avatar, etc from Firebase to display at the top of the header.
  * Include default values for cases when a user is not logged in
  */
 
+final _auth = FirebaseAuth.instance;
 class SideMenu extends StatefulWidget {
   const SideMenu({Key? key}) : super(key: key);
 
@@ -20,6 +25,18 @@ class SideMenu extends StatefulWidget {
 
 class _SideMenuState extends State<SideMenu> {
   @override
+
+  // get text for log in/ log out button
+  String getText() {
+    var user = _auth.currentUser;
+    if(user != null){
+      // user is logged in
+      return "Log out";
+    }
+    // else, no user is logged in
+    return "Log in";
+  }
+
   Widget build(BuildContext context) {
     return Drawer(
       // Add a ListView to the drawer. This ensures the user can scroll
@@ -180,6 +197,36 @@ class _SideMenuState extends State<SideMenu> {
                   )
               );
             },
+          ),
+          FractionallySizedBox(
+            widthFactor: 0.9, // means 100%, you can change this to 0.8 (80%)
+            child: RaisedButton.icon(
+              onPressed: () {
+                var user = _auth.currentUser;
+                if(user != null){ //user is logged in
+                  Navigator.push(context,
+                      MaterialPageRoute(
+                          builder: (context) => LogoutPage()
+                      )
+                  );
+                }
+                else {
+                  //no user is signed in
+                  Navigator.push(context,
+                      MaterialPageRoute(
+                          builder: (context) => LoginScreen()
+                      )
+                  );
+                }
+
+              },
+              color: Colors.blueGrey,
+              label: Text(
+                  getText(),
+                  style: TextStyle(color: Colors.white)
+              ),
+              icon: Icon(Icons.account_circle, color: Colors.white),
+            ),
           ),
         ],
       ),
