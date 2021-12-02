@@ -121,6 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   builder: (context) => AccountPage(),
                                 ),
                               );
+                              //Navigator.of(context).pop();
 
                               setState(() {
                                 isloading = false;

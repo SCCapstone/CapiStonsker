@@ -54,6 +54,7 @@ dependencies:
   tutorial_coach_mark: ^1.2.0
   latlong2: ^0.8.1
   flutter_mapbox_navigation: ^0.0.26
+  google_sign_in: ^5.2.1
 
 dev_dependencies:
   flutter_test:
