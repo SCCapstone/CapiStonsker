@@ -53,6 +53,7 @@ dependencies:
       url: https://github.com/igaurab/user_location_plugin.git
   tutorial_coach_mark: ^1.2.0
   latlong2: ^0.8.1
+  google_sign_in: ^5.2.1
 
 dev_dependencies:
   flutter_test:
