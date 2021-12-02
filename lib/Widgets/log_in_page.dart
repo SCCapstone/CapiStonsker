@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'account_page.dart';
 import 'sign_up_page.dart';
+import 'fire_auth.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -112,12 +113,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               isloading = true;
                             });
                             try {
-                              await _auth.signInWithEmailAndPassword(
-                                  email: email, password: password);
+                              await FireAuth.signInUsingEmailPassword(email: email, password: password, context: context) ;
 
                               await Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (contex) => AccountPage(),
+                                  builder: (context) => AccountPage(),
                                 ),
                               );
 

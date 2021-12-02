@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'side_menu.dart';
+import 'sign_up_page.dart';
 
 //TODO this is quite literally just a page to log out, for testing purposes.
 // It is basic functionality. It will be improved in the beta release
@@ -33,6 +34,12 @@ class LogoutPage extends StatelessWidget {
             title: 'Log Out',
             ontapp: () {
               FirebaseAuth.instance.signOut();
+              Navigator.of(context).pop();
+              Navigator.push(context,
+                  MaterialPageRoute(
+                      builder: (context) => SignUp()
+                  )
+              );
             }
 
           ),
