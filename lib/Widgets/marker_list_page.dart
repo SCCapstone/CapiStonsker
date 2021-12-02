@@ -37,7 +37,7 @@ class _MarkerListPageState extends State<MarkerListPage> {
         title: Text("Marker List Page"),
         backgroundColor: Colors.blueGrey,
       ),
-      body: locs.buildCloseList(context),
+      body: locs.buildListDisplay(context, 3),
       drawer: SideMenu(),
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );

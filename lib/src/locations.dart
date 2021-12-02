@@ -62,37 +62,6 @@ calcDist(LatLng userPos) {
   });
 }
 
-Widget buildCloseList(BuildContext context) {
-  //Duplicates markers list
-  List<Marker> markersClose = List.from(markers);
-  //Sorts new list by closest distance
-  markersClose.sort((a,b) { return a.userDist.compareTo(b.userDist); });
-  //Builds list
-  return ListView(
-    children: markersClose.map((m) {
-      return _buildRowDist(context, m, m.userDist);
-    }).toList(),
-  );
-}
-
-//Unique buildRow that displays the Marker's userDist instead of county
-Widget _buildRowDist(BuildContext context, Marker m, double d) {
-  return ListTile(
-    title: Text(m.name),
-    subtitle: Text(d.toStringAsFixed(2) + " mi."),
-    onTap: () {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => FullInfoPage(
-                sentMarker: m,
-              )
-          )
-      );
-    },
-  );
-}
-
 addToWish(Marker m) {
   //Eventually this will upload to Firebase using associated user auth id as the doc id
   //Then we'll have a StreamBuilder for those collections to listen and update a local list
@@ -149,19 +118,26 @@ Widget buildListDisplay(BuildContext context, int num) {
   if (num == 0) { pass = markers; }
   else if (num == 1) { pass = wishlist; }
   else if (num == 2) { pass = visited; }
+  else if (num == 3) {
+    //Duplicates markers list
+    pass = List.from(markers);
+    //Sorts new list by closest distance
+    pass.sort((a,b) { return a.userDist.compareTo(b.userDist); });
+  }
 
   return ListView(
     children: pass.map((m) {
-      return _buildRow(context, m);
+      return _buildRow(context, m, m.userDist);
     }).toList(),
   );
 }
 
 //Creates ListTile widget from given Marker
-Widget _buildRow(BuildContext context, Marker m) {
+Widget _buildRow(BuildContext context, Marker m, double d) {
   return ListTile(
       title: Text(m.name),
-      subtitle: Text(m.county),
+      //if userDist is default then display county instead of distance
+      subtitle: d == 0.0 ? Text(m.county) : Text(d.toStringAsFixed(2) + " mi."),
       onTap: () {
         Navigator.push(
             context,

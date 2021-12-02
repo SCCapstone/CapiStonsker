@@ -57,7 +57,7 @@ class _MapPageState extends State<MapPage> {
               'id': 'mapbox.satellite',
             }
         ),
-        //TODO This currently works, but let's try to find a way to have persistent lists instead of reconstructing every build
+        //TODO This currently works, but let's try to find a way to have persistent lists instead of reconstructing every build call
         MarkerLayerOptions(
             markers: locs.markers.map((m) => mBox.createMapMarker(context, m)).toList() +
                       List<Marker>.filled(1,
