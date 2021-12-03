@@ -2,12 +2,10 @@ import 'package:capi_stonsker/Widgets/side_menu.dart';
 import 'package:capi_stonsker/nav/bottom_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'sign_up_page.dart';
-import 'logout_page.dart';
 import 'package:capi_stonsker/src/fire_auth.dart';
+import 'package:capi_stonsker/src/locations.dart' as locs;
 
-//final _auth = FirebaseAuth.instance;
+
 class AccountPage extends StatelessWidget {
   AccountPage({Key? key}) : super(key: key);
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
@@ -57,15 +55,26 @@ class AccountPage extends StatelessWidget {
                     alignment: AlignmentDirectional(0, 0),
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                      child: Text(
-                        'UserName',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 25,
+                      child:
+                        FutureBuilder(
+                          future: FireAuth.getEmail(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.done) {
+                              return Text(
+                                "${snapshot.data}",
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 25,
+                                ),
+                              );
+                            }
+                            else {
+                              return CircularProgressIndicator();
+                            }
+                            }
                         ),
                       ),
                     ),
-                  ),
                   Align(
                     alignment: AlignmentDirectional(0.7, 0),
                     child: Padding(
@@ -118,13 +127,13 @@ class AccountPage extends StatelessWidget {
                     ),
                     ListTile(
                       title: Text(
-                        'MY FAVORITES',
+                        'MY WISHLIST',
                         style: TextStyle(
                             fontSize: 20
                         ),
                       ),
                       subtitle: Text(
-                        '2 saved',
+                        "${locs.wishlist.length.toString()} saved",
                         style: TextStyle(
                             fontSize: 20
                         ),
@@ -139,13 +148,13 @@ class AccountPage extends StatelessWidget {
                     ),
                     ListTile(
                       title: Text(
-                        'PLACES TO VISIT',
+                        'PLACES I\'VE VISITED',
                         style: TextStyle(
                             fontSize: 20
                         ),
                       ),
                       subtitle: Text(
-                        '4 saved',
+                        "${locs.visited.length.toString()} saved",
                         style: TextStyle(
                             fontSize: 20
                         ),
@@ -166,7 +175,7 @@ class AccountPage extends StatelessWidget {
                         ),
                       ),
                       subtitle: Text(
-                        '0 friends',
+                        '0 friends', //TODO implement friends list
                         style: TextStyle(
                             fontSize: 20
                         ),
