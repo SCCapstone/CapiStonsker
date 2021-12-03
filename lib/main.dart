@@ -1,10 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import '/Widgets/map_page.dart';
 import '/Widgets/side_menu.dart';
 import '/src/locations.dart' as locs;
+import 'Widgets/full_info.dart';
+import 'Widgets/search_results.dart';
 import 'nav/bottom_nav_bar.dart';
+import '../src/marker.dart';
 
 void main() async {
   //Ensures Firebase connection initialized
@@ -52,6 +56,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    //String search_val = "";
+    //String searchKey;
+    //Stream streamQuery;
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -61,23 +68,51 @@ class _MyHomePageState extends State<MyHomePage> {
           width: MediaQuery.of(context).size.width,
           height: 40,
           decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(5)),
-          child: Center(
-            key: search_bar,
-            child: TextField(
-              decoration: InputDecoration(
-                prefixIcon: Icon(Icons.search),
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.clear),
-                  onPressed: () {
-                    /* Clear the search field */
-                  },
+            color: Colors.white, borderRadius: BorderRadius.circular(5),
+          ),
+          //child: Center(
+            //key: search_bar,
+            child: FractionallySizedBox(
+              //widthFactor: 0.9, // means 100%, you can change this to 0.8 (80%)
+              child: RaisedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SearchResultsPage()
+                      )
+                  );
+                },
+                color: Colors.white,
+                label: Text(
+                    "Search for a marker by name...",
+                    style: TextStyle(color: Colors.grey)
                 ),
-                hintText: 'Search...',
-                border: InputBorder.none
+                icon: Icon(Icons.search, color: Colors.grey),
               ),
             ),
-          ),
+            // child: TextField(
+            //   onChanged: (value) {
+            //     Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //           builder: (context) => SearchResultsPage()
+            //         )
+            //     );
+            //   },
+            //   decoration: InputDecoration(
+            //     prefixIcon: Icon(Icons.search),
+            //     suffixIcon: IconButton(
+            //       icon: Icon(Icons.clear),
+            //       onPressed: () {
+            //         /* Clear the search field */
+            //       },
+            //     ),
+            //     hintText: 'Search...',
+            //     border: InputBorder.none,
+            //   ),
+            // ),
+          //),
         ),
       ),
 
@@ -86,7 +121,8 @@ class _MyHomePageState extends State<MyHomePage> {
           Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: MapPage()),
+              child: MapPage()
+          ),
         ],
       ),
 

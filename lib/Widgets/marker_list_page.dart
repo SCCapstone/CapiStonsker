@@ -5,15 +5,14 @@ import 'package:flutter/material.dart';
 import '../src/locations.dart' as locs;
 
 class MarkerListPage extends StatefulWidget {
-  //const MarkerListPage({Key? key}) : super(key: key)
   MarkerListPage({Key? key}) : super(key: key);
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
   State<MarkerListPage> createState() => _MarkerListPageState();
 }
 
 class _MarkerListPageState extends State<MarkerListPage> {
+  String text = "";
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
@@ -42,6 +41,4 @@ class _MarkerListPageState extends State<MarkerListPage> {
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
   }
-
-
 }
