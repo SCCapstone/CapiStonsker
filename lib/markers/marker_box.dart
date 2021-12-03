@@ -1,9 +1,16 @@
+/*
+ * This file creates a marker preview pane that is opened when a marker
+ * is tapped from the map view. A user can see some information from here
+ * and add the marker to their wishlist, or click "SHOW MORE" to go to
+ * the full info page for the given marker
+ */
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart' as f_map;
 import 'package:latlong2/latlong.dart' as latLng;
-import 'package:capi_stonsker/Widgets/full_info.dart';
+import 'package:capi_stonsker/markers/full_info.dart';
 import 'marker.dart';
-import 'fav_button.dart';
+import '../user_collections/fav_button.dart';
 
 class MarkerBox extends StatelessWidget {
   MarkerBox(this.sentM);

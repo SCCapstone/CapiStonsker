@@ -1,10 +1,15 @@
-import 'package:capi_stonsker/nav/bottom_nav_bar.dart';
+/*
+ * This page displays the current user's wishlist, as saved on Firebase
+ */
+
+import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'side_menu.dart';
+import 'package:capi_stonsker/markers/locations.dart' as locs;
+import 'package:capi_stonsker/app_nav/side_menu.dart';
 
-class PlanRoutePage extends StatelessWidget {
-  PlanRoutePage({Key? key}) : super(key: key);
+class WishListPage extends StatelessWidget {
+  WishListPage({Key? key}) : super(key: key);
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
@@ -20,14 +25,12 @@ class PlanRoutePage extends StatelessWidget {
               Navigator.of(context).pop();
             }
         ),
-        title: Text("Plan Route Page"),
+        title: Text("Wishlist Page"),
         backgroundColor: Colors.blueGrey,
       ),
+      body: locs.buildListDisplay(context, 1),
       drawer: SideMenu(),
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
   }
 }
-
-
-

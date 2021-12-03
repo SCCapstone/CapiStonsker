@@ -1,7 +1,14 @@
+/*
+ * This page implements a button to add or remove a marker to/from a
+ * user-specific wishlist
+ *
+ * This is implemented on the marker preview pane as well as the full info page
+ */
+
 import 'package:flutter/material.dart';
-import 'marker.dart';
-import 'locations.dart' as locs;
-import 'package:capi_stonsker/src/fire_auth.dart';
+import '../markers/marker.dart';
+import '../markers/locations.dart' as locs;
+import 'package:capi_stonsker/auth/fire_auth.dart';
 
 class FavButton extends StatefulWidget {
   final Marker sentM;
@@ -56,7 +63,6 @@ class _FavButtonState extends State<FavButton> {
               ),
             );
           }
-          //print(locs.wishlist.toString());
         });
       },
     );

@@ -1,8 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
+/*
+ * This page allows a user to create an account using an email and password
+ *
+ * TODO is this a duplicate to the email_creation_page?
+ */
+
 import 'package:flutter/material.dart';
 import 'account_page.dart';
 
-// TODO add firebase, including email + password and Google login capabilities
 class AccountCreation extends StatefulWidget {
   const AccountCreation({Key? key}) : super(key: key);
 

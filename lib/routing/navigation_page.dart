@@ -1,11 +1,17 @@
+/*
+ * This page adds functionality for a user to navigate to a given marker,
+ * accessible from the marker_list page
+ *
+ * This is a bit buggy and will need to be improved in later releases
+ *
+ * TODO make nav functionality accessible from full info and other pages as well
+ */
+
 import 'package:flutter/material.dart';
 import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:flutter_mapbox_navigation/library.dart';
-import '../src/marker.dart';
-import 'package:capi_stonsker/src/locations.dart' as locs;
-
+import '../markers/marker.dart';
+import 'package:capi_stonsker/markers/locations.dart' as locs;
 
 class NavPage extends StatefulWidget {
   final Marker sentMarker;
@@ -17,17 +23,12 @@ class NavPage extends StatefulWidget {
 class _NavPageState extends State<NavPage> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   String _platformVersion = 'Unknown';
-
-
-
   String _instruction = "";
   @override
   void initState() {
     super.initState();
     initialize();
   }
-
-
 
    MapBoxNavigation _directions = new MapBoxNavigation();
 
@@ -37,24 +38,17 @@ class _NavPageState extends State<NavPage> {
   bool _routeBuilt = false;
   bool _isNavigating = false;
 
-
-
-
-
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initialize() async {
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
     if (!mounted) return;
-
     _directions = MapBoxNavigation(onRouteEvent: _onRouteEvent);
-
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(

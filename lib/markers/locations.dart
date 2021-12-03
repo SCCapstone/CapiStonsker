@@ -1,17 +1,22 @@
+/*
+ * This class provides the functionality to pull markers from Firebase
+ * and perform operations on them, which includes putting the markers
+ * in list or map view, calculating distance, and searching by marker name
+ *
+ * This class should be imported using the suffix 'as locs'
+ */
+
 import 'dart:convert';
 //Imports only items used for creating the ListView
-import 'package:capi_stonsker/Widgets/navigation_page.dart';
+import 'package:capi_stonsker/routing/navigation_page.dart';
 import 'package:flutter/cupertino.dart' show BuildContext, Icon, ListView, Navigator, Text, Widget;
 import 'package:flutter/material.dart' show IconButton, Icons, ListTile, MaterialPageRoute;
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:capi_stonsker/src/marker.dart';
-import 'package:capi_stonsker/Widgets/full_info.dart';
-import 'package:capi_stonsker/src/fire_auth.dart';
-
-
-// This class should be imported using the suffix 'as locs'
+import 'package:capi_stonsker/markers/marker.dart';
+import 'package:capi_stonsker/markers/full_info.dart';
+import 'package:capi_stonsker/auth/fire_auth.dart';
 
 // Instance definition of Markers collection
 final db = FirebaseFirestore.instance.collection('Markers');
@@ -53,6 +58,7 @@ getMarkers() async {
   });
 }
 
+// Get a user's wishlist
 getWish() async {
   if (FireAuth.auth.currentUser != null) {
     QuerySnapshot snapshot = await FirebaseFirestore.instance
@@ -204,6 +210,7 @@ Widget _buildRow(BuildContext context, Marker m, double d) {
   );
 }
 
+// The following two methods return search results given a search string
 Widget buildSearch(BuildContext context, searchString) {
   List<Marker> pass = List<Marker>.empty();
   calcDist();

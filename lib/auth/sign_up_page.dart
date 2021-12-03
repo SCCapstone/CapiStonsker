@@ -1,13 +1,16 @@
-import 'package:capi_stonsker/Widgets/side_menu.dart';
-import 'package:capi_stonsker/nav/bottom_nav_bar.dart';
+/*
+ * The sign up page connects to Firebase and allows the user to create an account
+ */
+
+import 'package:capi_stonsker/app_nav/side_menu.dart';
+import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
+import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'account_page.dart';
 import 'email_creation_page.dart';
-import 'package:capi_stonsker/src/fire_auth.dart';
 import 'log_in_page.dart';
 
-
+FirebaseAuth auth = FirebaseAuth.instance;
 class SignUp extends StatefulWidget {
 
   @override
@@ -42,7 +45,9 @@ class _SignUp extends State<SignUp> {
                 style: TextStyle(
                     fontSize: 50,
                     color: Colors.black,
-                    fontWeight: FontWeight.bold)),
+                    fontWeight: FontWeight.bold
+                )
+              ),
             ),
             Padding(
               padding: EdgeInsets.all(10.0),

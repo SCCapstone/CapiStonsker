@@ -1,22 +1,29 @@
-
+/*
+ * This page provides Firebase user authentication functionality,
+ * which includes signing in or creating an account using
+ * an email and password as well as Google sign in
+ *
+ * These functions are implemented on the log_in_page and
+ * account_creation_page
+ */
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:capi_stonsker/src/locations.dart' as locs;
+import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:google_sign_in/google_sign_in.dart';
+
 FirebaseAuth auth = FirebaseAuth.instance;
 GoogleSignIn googleSignIn = GoogleSignIn();
-
 
 class FireAuth {
   static FirebaseAuth auth = FirebaseAuth.instance;
   static User? user;
 
+  // This method allows a new user to sign up with email and password
   static Future<User?> registerUsingEmailPassword({
     required String email,
     required String password,
   }) async {
-    //User? user;
     try {
       UserCredential userCred = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -35,15 +42,12 @@ class FireAuth {
     return user;
   }
 
-
+  // This method allows a returning user to sign in using their email and password
   static Future<User?> signInUsingEmailPassword({
     required String email,
     required String password,
     required BuildContext context,
   }) async {
-    //FirebaseAuth auth = FirebaseAuth.instance;
-    //User? user;
-
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
         email: email,
@@ -62,6 +66,7 @@ class FireAuth {
     return user;
   }
 
+  // This method allows a user to sign in using their Google account
   static Future<User?> signInWithGoogle({required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
@@ -97,10 +102,8 @@ class FireAuth {
 
     return user;
   }
-
   static Future<String> getEmail() async {
     return (await auth.currentUser)!.email!;
   }
 
 }
-

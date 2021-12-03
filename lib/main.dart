@@ -1,14 +1,22 @@
+/*
+ * This app was written by Matt Duggan, Joe Cammarata, James Davis,
+ * Lauren Hodges, and Ian Urton
+ *
+ * We are currently in the Proof of Concept stage of app development
+ *
+ * This page is the one that opens on startup and contains a search bar,
+ * map that displays historical markers, a tutorial for new users, and a
+ * bottom navigation bar with links to a side menu and a list view of the markers
+ */
+
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
-import '/Widgets/map_page.dart';
-import '/Widgets/side_menu.dart';
-import '/src/locations.dart' as locs;
-import 'Widgets/full_info.dart';
-import 'Widgets/search_results.dart';
-import 'nav/bottom_nav_bar.dart';
-import '../src/marker.dart';
+import 'src/map_page.dart';
+import 'app_nav/side_menu.dart';
+import 'markers/locations.dart' as locs;
+import 'src/search_results.dart';
+import 'app_nav/bottom_nav_bar.dart';
 
 void main() async {
   //Ensures Firebase connection initialized

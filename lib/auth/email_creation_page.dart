@@ -1,7 +1,13 @@
+/*
+ * This page allows a user to create an account using an email and password
+ *
+ * TODO is this a duplicate to the account_creation_page?
+ */
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../src/fire_auth.dart';
+import 'fire_auth.dart';
 
 class AccountCreation extends StatefulWidget {
   @override

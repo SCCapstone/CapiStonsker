@@ -1,7 +1,9 @@
 /*
-  The Marker class was put into its own file because it will be more
-  commonly imported, so this cuts down on extra content that's imported
-*/
+ * This class creates a marker object that is used throughout the app
+ *
+ * The Marker class was put into its own file because it will be
+ * frequently imported, so this cuts down on extra content that is imported
+ */
 
 class Marker {
   //Marker attributes

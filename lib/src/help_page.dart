@@ -1,7 +1,15 @@
-import 'package:capi_stonsker/nav/bottom_nav_bar.dart';
+/*
+ * This page provides a list of FAQs and their answers
+ *
+ * We plan to implement the ability to access the tutorial from this page
+ * and to email a system admin with additional issues, but as of the
+ * Proof of Concept milestone, these features are not yet implemented
+ */
+
+import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'side_menu.dart';
+import 'package:capi_stonsker/app_nav/side_menu.dart';
 
 class HelpPage extends StatefulWidget {
   const HelpPage({Key? key}) : super(key: key);

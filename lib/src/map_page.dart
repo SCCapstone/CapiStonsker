@@ -1,8 +1,13 @@
+/*
+ * The MapPage Widget acts as the body of main.dart,
+ * displaying markers on the home page
+ */
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:capi_stonsker/src/locations.dart' as locs;
-import 'package:capi_stonsker/src/marker_box.dart' as mBox;
+import 'package:capi_stonsker/markers/locations.dart' as locs;
+import 'package:capi_stonsker/markers/marker_box.dart' as mBox;
 import 'package:user_location/user_location.dart';
 
 class MapPage extends StatefulWidget {

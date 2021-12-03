@@ -1,15 +1,17 @@
-import 'package:capi_stonsker/nav/bottom_nav_bar.dart';
+/*
+ * This is a filler page that will eventually connect to firebase and display
+ * the markers a user has visited
+ *
+ * TODO delete achievement_county.dart once we add the actual functionality
+ */
+
+import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'achievement_county.dart';
-import 'side_menu.dart';
+import '../app_nav/side_menu.dart';
 
 class MyMarkersPage extends StatelessWidget {
-  int _counter = 0;
-
-  void _incrementCounter() {
-      _counter++;
-  }
 
   @override
   Widget build(BuildContext context) {
