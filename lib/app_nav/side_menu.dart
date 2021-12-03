@@ -1,19 +1,21 @@
-import 'package:capi_stonsker/Widgets/my_markers_page.dart';
-import 'package:capi_stonsker/Widgets/plan_route_page.dart';
-import 'package:capi_stonsker/Widgets/sign_up_page.dart';
-import 'package:capi_stonsker/Widgets/wishlist_page.dart';
+/*
+ * The side menu, accessible at all times from the menu button at the
+ * left of the bottom menu bar, allows a user to navigate throughout the app
+ *
+ * TODO pull user name, level, avatar, etc from Firebase to display at the top of the header.
+ */
+
+import 'package:capi_stonsker/user_collections/my_markers_page.dart';
+import 'package:capi_stonsker/routing/plan_route_page.dart';
+import 'package:capi_stonsker/user_collections/wishlist_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'account_page.dart';
-import 'friends_page.dart';
-import 'help_page.dart';
-import 'log_in_page.dart';
-import 'logout_page.dart';
-
-/* TODO pull user name, level, avatar, etc from Firebase to display at the top of the header.
- * Include default values for cases when a user is not logged in
- */
+import '../auth/account_page.dart';
+import '../user_collections/friends_page.dart';
+import '../src/help_page.dart';
+import '../auth/log_in_page.dart';
+import '../auth/logout_page.dart';
 
 final _auth = FirebaseAuth.instance;
 class SideMenu extends StatefulWidget {

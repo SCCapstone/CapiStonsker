@@ -1,8 +1,15 @@
-import 'package:capi_stonsker/Widgets/side_menu.dart';
-import 'package:capi_stonsker/nav/bottom_nav_bar.dart';
+/*
+ * This file creates a page with search results from searching for a marker
+ * by name and sorting the results by distance from the user.
+ *
+ * This is a little janky and will need to be improved in future releases
+ */
+
+import 'package:capi_stonsker/app_nav/side_menu.dart';
+import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../src/locations.dart' as locs;
+import 'package:capi_stonsker/markers/locations.dart' as locs;
 
 class SearchResultsPage extends StatefulWidget {
   SearchResultsPage({Key? key}) : super(key: key);

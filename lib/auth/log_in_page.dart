@@ -1,11 +1,15 @@
-import 'package:capi_stonsker/Widgets/side_menu.dart';
-import 'package:capi_stonsker/nav/bottom_nav_bar.dart';
+/*
+ * This page allows a user to log in to an existing account in Firebase
+ */
+
+import 'package:capi_stonsker/app_nav/side_menu.dart';
+import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'account_page.dart';
 import 'sign_up_page.dart';
-import '../src/fire_auth.dart';
+import 'fire_auth.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -121,7 +125,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   builder: (context) => AccountPage(),
                                 ),
                               );
-                              //Navigator.of(context).pop();
 
                               setState(() {
                                 isloading = false;
@@ -158,7 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: Text("Don't have an account? Create one.",
                                   style: TextStyle(
                               decoration: TextDecoration.underline,
-                              color: Colors.blue)),
+                              color: Colors.blueGrey)),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -168,10 +171,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     })
                   ]
                         ),
-
                     ],
                   ),
-
                 ),
               )
             ],
@@ -183,9 +184,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
-
-
 
 const kTextFieldDecoration = InputDecoration(
   hintText: 'Enter a value',
@@ -203,7 +201,6 @@ const kTextFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(7)),
   ),
 );
-
 
 class LoginSignupButton extends StatelessWidget {
   final String title;

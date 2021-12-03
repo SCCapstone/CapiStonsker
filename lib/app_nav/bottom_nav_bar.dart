@@ -1,7 +1,17 @@
-import 'package:capi_stonsker/Widgets/marker_list_page.dart';
+/*
+ * This page implements a bottom navigation bar BottomNavBar
+ * to allow easy navigation to the home page and side menu from every page.
+ *
+ * This page also implements a similar nav bar, BottomNavBarHome
+ * so the home page can easily jump to the marker_list page,
+ * which is a list view of the same marker information on the home map
+ */
+
+import 'package:capi_stonsker/markers/marker_list_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// Navigation bar for every page except the home page
 class BottomNavBar extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   const BottomNavBar({Key? key, required this.scaffoldKey}) : super(key: key);
@@ -16,7 +26,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget build(BuildContext context) {
     return BottomAppBar(
       color: Colors.blueGrey,
-      // const Color.fromRGBO(40, 60, 80, 0.5),
       child: IconTheme(
         data: const IconThemeData(color: Colors.white),
         child: Row(
@@ -50,6 +59,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 }
 
+// Navigation bar for the home page
 class BottomNavBarHome extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   GlobalKey menu_button = GlobalKey();
@@ -69,7 +79,6 @@ class _BottomNavBarHomeState extends State<BottomNavBarHome> {
   Widget build(BuildContext context) {
     return BottomAppBar(
       color: Colors.blueGrey,
-      // const Color.fromRGBO(40, 60, 80, 0.5),
       child: IconTheme(
         data: const IconThemeData(color: Colors.white),
         child: Row(
@@ -82,11 +91,6 @@ class _BottomNavBarHomeState extends State<BottomNavBarHome> {
               iconSize: 40,
               onPressed: () => {
                 widget.scaffoldKey.currentState!.openDrawer()
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => SideMenu()
-                //   )
               },
             ),
             Expanded(
@@ -114,8 +118,4 @@ class _BottomNavBarHomeState extends State<BottomNavBarHome> {
       ),
     );
   }
-}
-
-showMenu() {
-
 }

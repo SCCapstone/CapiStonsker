@@ -1,3 +1,10 @@
+/*
+ * This provides some functionality for the filler my_markers_page.
+ * Eventually, this page will show visited markers, perhaps by county, but
+ * for now it just allows a user to click on a county name to increment
+ * the number below it
+ */
+
 import 'package:flutter/material.dart';
 
 class CountyMark extends StatefulWidget {

@@ -1,11 +1,16 @@
-import 'package:capi_stonsker/Widgets/side_menu.dart';
-import 'package:capi_stonsker/nav/bottom_nav_bar.dart';
+/*
+ * This page displays a user's account information, pulled from Firebase.
+ * Users will not be able to access this page unless they are logged in
+ */
+
+import 'package:capi_stonsker/app_nav/side_menu.dart';
+import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'sign_up_page.dart';
 import 'logout_page.dart';
-import 'package:capi_stonsker/src/fire_auth.dart';
+import 'package:capi_stonsker/auth/fire_auth.dart';
 
 //final _auth = FirebaseAuth.instance;
 class AccountPage extends StatelessWidget {

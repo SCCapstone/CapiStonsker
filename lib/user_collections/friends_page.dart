@@ -1,11 +1,18 @@
-import 'package:capi_stonsker/nav/bottom_nav_bar.dart';
+/*
+ * This page will display the current user's friends
+ *
+ * This page may also implement the ability to search for new friends
+ *
+ * As of the Proof of Concept, this page has not been implemented yet
+ */
+
+import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:capi_stonsker/src/locations.dart' as locs;
-import 'side_menu.dart';
+import '../app_nav/side_menu.dart';
 
-class WishListPage extends StatelessWidget {
-  WishListPage({Key? key}) : super(key: key);
+class FriendsPage extends StatelessWidget {
+  FriendsPage({Key? key}) : super(key: key);
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
@@ -21,10 +28,9 @@ class WishListPage extends StatelessWidget {
               Navigator.of(context).pop();
             }
         ),
-        title: Text("Wishlist Page"),
+        title: Text("Friends Page"),
         backgroundColor: Colors.blueGrey,
       ),
-      body: locs.buildListDisplay(context, 1),
       drawer: SideMenu(),
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );

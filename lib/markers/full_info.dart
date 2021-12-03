@@ -1,9 +1,18 @@
-import 'package:capi_stonsker/Widgets/side_menu.dart';
-import 'package:capi_stonsker/nav/bottom_nav_bar.dart';
+/*
+ * This page displays marker name, description, and county information
+ * and also allows a user to add/ remove the marker from their wishlist
+ * via fav_button.
+ *
+ * This page is accessible from the marker_box preview page or from the
+ * marker_list page
+ */
+
+import 'package:capi_stonsker/app_nav/side_menu.dart';
+import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../src/marker.dart';
-import '../src/fav_button.dart';
+import 'marker.dart';
+import '../user_collections/fav_button.dart';
 
 class FullInfoPage extends StatelessWidget {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
