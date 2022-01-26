@@ -13,7 +13,7 @@ import '../app_nav/side_menu.dart';
 
 class LogoutPage extends StatelessWidget {
   LogoutPage({Key? key}) : super(key: key);
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class LogoutPage extends StatelessWidget {
       key: _scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        leading: new IconButton(
+        leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             color: Colors.white,
             onPressed: () {

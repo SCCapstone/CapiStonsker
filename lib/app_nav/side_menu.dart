@@ -26,18 +26,18 @@ class SideMenu extends StatefulWidget {
 }
 
 class _SideMenuState extends State<SideMenu> {
-  @override
-
   // get text for log in/ log out button
   String getText() {
     var user = _auth.currentUser;
-    if(user != null){
+    if (user != null) {
       // user is logged in
       return "Log out";
     }
     // else, no user is logged in
     return "Log in";
   }
+
+  @override
 
   Widget build(BuildContext context) {
     return Drawer(
@@ -244,7 +244,7 @@ class _SideMenuState extends State<SideMenu> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => HelpPage()
+                      builder: (context) => const HelpPage()
                   )
               );
             },
@@ -277,9 +277,9 @@ class _SideMenuState extends State<SideMenu> {
               color: Colors.blueGrey,
               label: Text(
                   getText(),
-                  style: TextStyle(color: Colors.white)
+                  style: const TextStyle(color: Colors.white)
               ),
-              icon: Icon(Icons.account_circle, color: Colors.white),
+              icon: const Icon(Icons.account_circle, color: Colors.white),
             ),
           ),
         ],
