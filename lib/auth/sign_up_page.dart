@@ -18,7 +18,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUp extends State<SignUp> {
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {

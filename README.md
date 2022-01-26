@@ -1,11 +1,11 @@
 # SC Interactive Historical Map by CapiStonsker
 
-This project will be an app, primarily targeting mobile platforms, that will provide an interactive method to easily access information about the historical markers of South Carolina. More information about the app can be found on our GitHub Wiki, at https://github.com/SCCapstone/CapiStonsker/wiki.
+This project will be an app, primarily targeting mobile platforms, that will provide an interactive method to easily access information about the historical markers of South Carolina. More information about the app can be found on our [GitHub Wiki](https://github.com/SCCapstone/CapiStonsker/wiki).
 
 
 ## External Requirements
 
-In order to build this project you first have to install:
+Before building this project, install the following:
 
 * [Android Studio](https://developer.android.com/studio)
 * [Flutter](https://flutter.dev/docs/get-started/install/windows)
@@ -34,7 +34,8 @@ flutter run
 
 ## Testing
 
-* This is where our testing scripts will be placed. This section will be updated in CSCE 492.
+* TODO: add commands needed to run tests
+* Tests can be found in the `tests` folder
 
 
 ## Authors

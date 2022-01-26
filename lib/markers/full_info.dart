@@ -15,7 +15,7 @@ import 'marker.dart';
 import '../user_collections/fav_button.dart';
 
 class FullInfoPage extends StatelessWidget {
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   final Marker sentMarker;
   FullInfoPage({Key? key, required this.sentMarker}) : super(key: key);
 
@@ -25,7 +25,7 @@ class FullInfoPage extends StatelessWidget {
       key: _scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        leading: new IconButton(
+        leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             color: Colors.white,
             onPressed: () {
@@ -46,27 +46,27 @@ class FullInfoPage extends StatelessWidget {
                 children: [
 
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
                     child: Card(
                       clipBehavior: Clip.antiAliasWithSaveLayer,
-                      color: Color(0xFFF5F5F5),
+                      color: const Color(0xFFF5F5F5),
                       child: Align(
-                        alignment: AlignmentDirectional(0, 0),
+                        alignment: const AlignmentDirectional(0, 0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                           child: ListTile(
-                            leading: Icon(
+                            leading: const Icon(
                               Icons.compare_arrows,
                             ),
                             title: Text(
                               sentMarker.rel_loc,
                               textAlign: TextAlign.end,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 20.0,
                                   fontWeight: FontWeight.bold
                               ),
                             ),
-                            subtitle: Text(
+                            subtitle: const Text(
                               'Relative Location',
                               textAlign: TextAlign.end,
                               style: TextStyle(
@@ -74,7 +74,7 @@ class FullInfoPage extends StatelessWidget {
                                   fontWeight: FontWeight.normal
                               ),
                             ),
-                            tileColor: Color(0xFFF5F5F5),
+                            tileColor: const Color(0xFFF5F5F5),
                             dense: false,
                           ),
                         ),
@@ -82,16 +82,16 @@ class FullInfoPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
                     child: Card(
                       clipBehavior: Clip.antiAliasWithSaveLayer,
-                      color: Color(0xFFF5F5F5),
+                      color: const Color(0xFFF5F5F5),
                       child: Align(
-                        alignment: AlignmentDirectional(0, 0),
+                        alignment: const AlignmentDirectional(0, 0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                           child: ListTile(
-                            title: Text(
+                            title: const Text(
                               'Description',
                               textAlign: TextAlign.start,
                               style: TextStyle(
@@ -102,17 +102,17 @@ class FullInfoPage extends StatelessWidget {
                             subtitle: Text(
                               sentMarker.desc,
                               textAlign: TextAlign.start,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.normal
                               ),
                             ),
-                            trailing: Icon(
+                            trailing: const Icon(
                               Icons.article_outlined,
                               color: Color(0xFF303030),
                               size: 20,
                             ),
-                            tileColor: Color(0xFFF5F5F5),
+                            tileColor: const Color(0xFFF5F5F5),
                             dense: false,
                           ),
                         ),
@@ -120,16 +120,16 @@ class FullInfoPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
                     child: Card(
                       clipBehavior: Clip.antiAliasWithSaveLayer,
-                      color: Color(0xFFF5F5F5),
+                      color: const Color(0xFFF5F5F5),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                        padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                         child: Text(
                           sentMarker.county,
                           textAlign: TextAlign.start,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold
                           ),//FlutterFlowTheme.title1,
@@ -138,18 +138,18 @@ class FullInfoPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
                     child: Card(
                       clipBehavior: Clip.antiAliasWithSaveLayer,
-                      color: Color(0xFFF5F5F5),
+                      color: const Color(0xFFF5F5F5),
                       child: Align(
-                        alignment: AlignmentDirectional(0, 0),
+                        alignment: const AlignmentDirectional(0, 0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
-                              Text(
+                              const Text(
                                 'Add to Wishlist',
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
@@ -170,7 +170,7 @@ class FullInfoPage extends StatelessWidget {
           ],
         ),
       ),
-      drawer: SideMenu(),
+      drawer: const SideMenu(),
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
   }
