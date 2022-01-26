@@ -34,8 +34,9 @@ flutter run
 
 ## Testing
 
-* TODO: add commands needed to run tests
-* Tests can be found in the `tests` folder
+### Run tests
+* To run unit test for full_info page, run the following command: `flutter test tests/full_info_test.dart`
+### Tests can be found in the `tests` folder
 
 
 ## Authors
