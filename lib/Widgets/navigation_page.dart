@@ -9,13 +9,17 @@ import 'package:capi_stonsker/src/locations.dart' as locs;
 
 class NavPage extends StatefulWidget {
   final Marker sentMarker;
-  const NavPage({Key? key, required this.sentMarker}) : super(key: key);
+  final double distance;
+  const NavPage({Key? key, required this.sentMarker, required this.distance}) : super(key: key);
   @override
-  _NavPageState createState() => _NavPageState();
+  _NavPageState createState() => _NavPageState(
+    
+  );
 }
 
 class _NavPageState extends State<NavPage> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  
   String _platformVersion = 'Unknown';
 
 
@@ -36,7 +40,7 @@ class _NavPageState extends State<NavPage> {
   late MapBoxNavigationViewController _controller;
   bool _routeBuilt = false;
   bool _isNavigating = false;
-
+  
 
 
 
@@ -51,7 +55,7 @@ class _NavPageState extends State<NavPage> {
     _directions = MapBoxNavigation(onRouteEvent: _onRouteEvent);
 
   }
-
+  
   @override
   Widget build(BuildContext context) {
 
@@ -113,17 +117,9 @@ class _NavPageState extends State<NavPage> {
                       children: <Widget>[
                         Row(
                           children: <Widget>[
-                            Text("Duration Remaining: "),
-                            Text(_durationRemaining != null
-                                ? "${(_durationRemaining / 60).toStringAsFixed(2)} minutes"
-                                : "---")
-                          ],
-                        ),
-                        Row(
-                          children: <Widget>[
                             Text("Distance Remaining: "),
                             Text(_distanceRemaining != null
-                                ? "${(_distanceRemaining * 0.000621371).toStringAsFixed(2)} miles "
+                                ? "${widget.distance.toStringAsFixed(2)} miles "
                                 : "---")
                           ],
                         ),
