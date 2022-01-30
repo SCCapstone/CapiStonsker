@@ -41,6 +41,7 @@ dependencies:
   latlong2: ^0.8.1
   flutter_mapbox_navigation: ^0.0.26
   google_sign_in: ^5.2.1
+  permission_handler: ^8.3.0
 
 dev_dependencies:
   flutter_test:

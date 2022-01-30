@@ -41,6 +41,7 @@ class _SideMenuState extends State<SideMenu> {
 
   Widget build(BuildContext context) {
     return Drawer(
+      key: const Key('drawer'),
       // Add a ListView to the drawer. This ensures the user can scroll
       // through the options in the drawer if there isn't enough vertical
       // space to fit everything.
@@ -201,6 +202,7 @@ class _SideMenuState extends State<SideMenu> {
                       ),
                       actions: <Widget>[
                         TextButton(
+                          key: const Key('login'),
                           child: const Text(
                             'Log in',
                             style: TextStyle(

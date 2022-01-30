@@ -159,17 +159,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             GestureDetector(
+                              key: const Key('makeAccount'),
                               child: Text("Don't have an account? Create one.",
                                   style: TextStyle(
                               decoration: TextDecoration.underline,
                               color: Colors.blueGrey)),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SignUp()),
-                      );
-                    })
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SignUp()),
+                                );
+                              }
+                    )
                   ]
                         ),
                     ],
