@@ -18,6 +18,7 @@ import 'markers/locations.dart' as locs;
 import 'src/search_results.dart';
 import 'app_nav/bottom_nav_bar.dart';
 
+
 void main() async {
   //Ensures Firebase connection initialized
   WidgetsFlutterBinding.ensureInitialized();

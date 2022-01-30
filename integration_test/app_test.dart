@@ -6,6 +6,7 @@ import 'package:capi_stonsker/main.dart' as app;
 
 import 'package:permission_handler/permission_handler.dart';
 
+
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 

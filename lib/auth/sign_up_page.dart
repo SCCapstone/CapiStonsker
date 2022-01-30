@@ -58,6 +58,7 @@ class _SignUp extends State<SignUp> {
                     color: Colors.blueGrey,
                     borderRadius: BorderRadius.circular(20)),
                 child: TextButton(
+                  key: const Key('emailSignUp'),
                   onPressed: () {
                     Navigator.push(
                       context,
