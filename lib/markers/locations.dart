@@ -179,6 +179,13 @@ Widget buildListDisplay(BuildContext context, int num) {
     calcDist(); //Updates userDist for markers list
     //Duplicates markers list
     pass = List.from(markers);
+    /*
+      TODO may want to create a "sorted" list like wishlist/markers
+      so the list does not need to be recreated, and small adjustments will not
+      result in reordering the entire list
+      Worst case of all items being resorted will only occur if user's
+      coordinates jump a far distance (or during output testing)
+     */
     //Sorts new list by closest distance
     pass.sort((a,b) { return a.userDist.compareTo(b.userDist); });
   }

@@ -36,6 +36,7 @@ flutter run
 
 ### Run tests
 * To run unit test for full_info page, run the following command: `flutter test tests/full_info_test.dart`
+* To run unit test for calcDist method, run the following command: `flutter test tests/loc_calcdist_test.dart`
 ### Tests can be found in the `tests` folder
 
 
