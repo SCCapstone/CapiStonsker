@@ -32,6 +32,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             IconButton(
+              key: const Key('menuview'),
               tooltip: 'Open Menu',
               icon: const Icon(Icons.menu),
               iconSize: 40,
@@ -45,6 +46,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               ),
             ),
             IconButton(
+              key: const Key('mapview'),
               tooltip: 'Map View',
               icon: const Icon(Icons.map),
               iconSize: 40,
