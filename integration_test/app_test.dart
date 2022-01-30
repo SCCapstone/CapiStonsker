@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:capi_stonsker/main.dart' as app;
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
-import 'package:permission_handler/permission_handler.dart';
+//import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -14,14 +15,14 @@ void main() {
             (WidgetTester tester) async {
           app.main();
           await tester.pumpAndSettle();
-          
+
           // Finds the menu button to open the drawer.
-          final Finder menu = find.byTooltip('Open Menu');
+          final Finder menu = find.byType(TargetFocus, skipOffstage: false);
 
           // Emulate a tap on the floating action button.
-          await tester.tap(menu);
+         // await tester.widget(menu);
 
-          expect(find.byKey(const Key('drawer')), findsOneWidget);
+          expect(find.byType(TargetFocus), findsWidgets);
 
           // Trigger a frame.
           //await tester.pumpAndSettle();
