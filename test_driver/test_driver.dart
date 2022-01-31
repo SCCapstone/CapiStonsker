@@ -5,8 +5,11 @@ import 'package:integration_test/integration_test_driver.dart';
 
 
 Future<void> main() async {
-
-  await Process.run('C:/Users/ralph/AppData/Local/Android/Sdk/platform-tools/adb.exe' , ['shell' ,'pm', 'grant', 'com.example', 'android.permission.ACCESS_FINE_LOCATION']);
-  await Process.run('C:/Users/ralph/AppData/Local/Android/Sdk/platform-tools/adb.exe' , ['shell' ,'pm', 'grant', 'com.example', 'android.permission.ACCESS_COARSE_LOCATION']);
+  final Map<String, String> envVars = Platform.environment;
+  String loc = envVars['LOCALAPPDATA']!;
+  
+  print(loc+'/Android/Sdk/platform-tools/adb.exe');
+  await Process.run(loc+'/Android/Sdk/platform-tools/adb.exe' , ['shell' ,'pm', 'grant', 'capi.ston.sker', 'android.permission.ACCESS_FINE_LOCATION']);
+  await Process.run(loc+'/Android/Sdk/platform-tools/adb.exe' , ['shell' ,'pm', 'grant', 'capi.ston.sker', 'android.permission.ACCESS_COARSE_LOCATION']);
   await integrationDriver();
 }

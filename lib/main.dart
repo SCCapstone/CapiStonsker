@@ -59,8 +59,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    Future.delayed(Duration.zero, showTutorial);
-    super.initState();
+    //Future.delayed(Duration.zero, showTutorial);
+    //super.initState();
   }
 
   @override
