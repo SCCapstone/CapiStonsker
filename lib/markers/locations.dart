@@ -73,16 +73,28 @@ getWish() async {
   }
 }
 
+//Stores user position
 updatePos(LatLng pos) {
   userPos = pos;
 }
 
-calcDist() {
+//How can we avoid calculating the full list?
+calcDist({double lat = 0.0, double long = 0.0}) {
+  //Allows current userPos to be overriden by passing coordinates in, passing none will use userPos
+  //Added for functionality and unit testing
+  //TODO in-place recalculation of the markers' distance causes issues with unit testing
+  LatLng pos;
+  if (lat == 0.0 && long == 0.0) {
+    pos = userPos;
+  }
+  else {
+    pos = LatLng(lat,long);
+  }
   //Recalculates distance to userPos for each element
   markers.forEach((element) {
     element.userDist = LengthUnit.Meter.to(
       LengthUnit.Mile, distance(
-        userPos,
+        pos,
         LatLng(element.gps[0], -1.00 * element.gps[1])
       )
     );
@@ -167,6 +179,13 @@ Widget buildListDisplay(BuildContext context, int num) {
     calcDist(); //Updates userDist for markers list
     //Duplicates markers list
     pass = List.from(markers);
+    /*
+      TODO may want to create a "sorted" list like wishlist/markers
+      so the list does not need to be recreated, and small adjustments will not
+      result in reordering the entire list
+      Worst case of all items being resorted will only occur if user's
+      coordinates jump a far distance (or during output testing)
+     */
     //Sorts new list by closest distance
     pass.sort((a,b) { return a.userDist.compareTo(b.userDist); });
   }
