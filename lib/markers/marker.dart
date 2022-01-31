@@ -12,7 +12,7 @@ class Marker {
   final String desc;
   final List gps;
   final String county;
-  double userDist;
+  double userDist = 0.0;
 
   //Constructor
   Marker(this.name, this.rel_loc, this.desc, this.gps, this.county, {this.userDist = 0.0});
