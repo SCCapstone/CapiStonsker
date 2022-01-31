@@ -34,10 +34,12 @@ flutter run
 
 ## Testing
 
-### Run tests
+### Run unit tests
 * To run unit test for full_info page, run the following command: `flutter test tests/full_info_test.dart`
-### Tests can be found in the `tests` folder
-
+### Unit Tests can be found in the `tests` folder
+### Run Behavorial/Integration tests
+* To run unit test for full_info page, run the following command: `flutter drive --driver=test_driver/test_diver.dart --target=integration_test/app_test.dart`
+### Unit Tests can be found in the `integration_test` folder
 
 ## Authors
 
