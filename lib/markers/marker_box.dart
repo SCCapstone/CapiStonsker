@@ -11,6 +11,7 @@ import 'package:latlong2/latlong.dart' as latLng;
 import 'package:capi_stonsker/markers/full_info.dart';
 import 'marker.dart';
 import '../user_collections/fav_button.dart';
+import 'package:capi_stonsker/markers/locations.dart' as locs;
 
 class MarkerBox extends StatelessWidget {
   MarkerBox(this.sentM);
@@ -79,7 +80,7 @@ f_map.Marker createMapMarker(BuildContext context, Marker m) {
         Container(
           child: IconButton(
             icon: Icon(Icons.location_on),
-            color: Colors.red,
+            color: locs.visited.contains(m) ? Colors.green : Colors.red, //If visited list contains Marker, set to green
             iconSize: 45,
             onPressed: (){
               showModalBottomSheet(

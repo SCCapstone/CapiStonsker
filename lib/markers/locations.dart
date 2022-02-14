@@ -27,7 +27,7 @@ List<Marker> wishlist = [];
 List<Marker> nearby = [];
 LatLng userPos = LatLng(0,0);
 LatLng lastRecalc = LatLng(0,0);
-var distance = Distance();
+var distance = Distance(roundResult: false);
 
 //Loads marker information from the JSON file, asynchronous because of file reading
 loadJsonLocal() async {
@@ -52,45 +52,26 @@ markersToFirebase() {
   }
 }
 
-getMarkers() async {
-  QuerySnapshot snapshot = await db.get();
-  snapshot.docs.forEach((doc) {
-    Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
-    markers.add(Marker.fromJson(data));
-  });
-}
-
-// Get a user's wishlist
-getWish() async {
-  if (FireAuth.auth.currentUser != null) {
-    QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection('Users')
-        .doc(FireAuth.auth.currentUser!.uid)
-        .collection('wishlist')
-        .get();
-    snapshot.docs.forEach((doc) {
-      Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
-      wishlist.add(Marker.fromJson(data));
-    });
-  }
-}
-
 //Stores user position
 updatePos(LatLng pos) {
   //Only update userPos if pos is > 60ft (20m) difference (subject to change)
   if (distance(pos, userPos) >= 20) {
     userPos = pos;
-    //Sort nearby list by userDist
-    nearby.sort((a,b) { return a.userDist.compareTo(b.userDist); });
+
     //Check for nearby markers to add to visited
     nearby.forEach((element) {
+      //Calculate updated userDist (only for Markers in nearby - minimizes unnecessary calculations)
+      element.userDist = distance.as(LengthUnit.Mile,
+          userPos,
+          LatLng(element.gps[0], -1.00 * element.gps[1]));
       //Markers within 50m are marked as visited
       if (LengthUnit.Mile.to(LengthUnit.Meter, element.userDist) < 50) {
         //Add to visited list
         addToVisited(element);
       }
     });
-    
+    //Sort nearby list by userDist
+    nearby.sort((a,b) { return a.userDist.compareTo(b.userDist); });
     //
   }
   //Recalculate distances to construct the nearby list every change in 2km (adjust this)
@@ -122,6 +103,44 @@ calcDist({double lat = 0.0, double long = 0.0}) {
       nearby.add(element);
     }
   });
+}
+
+getMarkers() async {
+  QuerySnapshot snapshot = await db.get();
+  snapshot.docs.forEach((doc) {
+    Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
+    markers.add(Marker.fromJson(data));
+  });
+}
+
+// Get a user's wishlist
+getWish() async {
+  if (FireAuth.auth.currentUser != null) {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(FireAuth.auth.currentUser!.uid)
+        .collection('wishlist')
+        .get();
+    snapshot.docs.forEach((doc) {
+      Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
+      wishlist.add(Marker.fromJson(data));
+    });
+  }
+}
+
+// Get a user's visited list
+getVis() async {
+  if (FireAuth.auth.currentUser != null) {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(FireAuth.auth.currentUser!.uid)
+        .collection('visited')
+        .get();
+    snapshot.docs.forEach((doc) {
+      Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
+      wishlist.add(Marker.fromJson(data));
+    });
+  }
 }
 
 addToWish(Marker m) {
@@ -179,6 +198,8 @@ addToVisited(Marker m) {
   //Then we'll have a StreamBuilder for those collections to listen and update a local list
   //For now, just update the local list
 
+  //TODO add ability to upload if marker is visited before logging in OR add check so visited is not added to unless logged in
+
   if (!visitedDupe(m)) {
     //Reference username to get collection name
     if (FireAuth.auth.currentUser != null) {
@@ -200,6 +221,19 @@ addToVisited(Marker m) {
       visited.add(m);
     }
   }
+}
+
+//Likely not used but added for functionality in case
+removeVisFirebase(Marker m) {
+  //Remove from Firebase
+  FirebaseFirestore.instance
+      .collection('Users')
+      .doc(FireAuth.auth.currentUser!.uid)
+      .collection('visited')
+      .doc(m.name)
+      .delete();
+  //Remove from local list
+  visited.remove(m);
 }
 
 bool visitedDupe(Marker m) {

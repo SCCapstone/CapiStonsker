@@ -25,6 +25,7 @@ void main() async {
   await Firebase.initializeApp();
   await locs.getMarkers();
   await locs.getWish();
+  await locs.getVis();
   runApp(MyApp());
 }
 

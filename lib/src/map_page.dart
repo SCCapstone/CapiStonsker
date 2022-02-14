@@ -63,22 +63,22 @@ class _MapPageState extends State<MapPage> {
         //TODO This currently works, but let's try to find a way to have persistent lists instead of reconstructing every build call
         MarkerLayerOptions(
             markers: locs.markers.map((m) => mBox.createMapMarker(context, m)).toList() +
-                      List<Marker>.filled(1,
-                          Marker(
-                            width: 45.0,
-                            height: 45.0,
-                            point: locs.userPos,
-                            builder: (ctx) =>
-                                Container(
-                                  child: IconButton(
-                                    icon: Icon(Icons.location_on),
-                                    color: Colors.blue,
-                                    iconSize: 45,
-                                    onPressed: (){},
-                                  ),
-                                ),
-                          )
-                      ),
+                List<Marker>.filled(1,
+                    Marker(
+                      width: 45.0,
+                      height: 45.0,
+                      point: locs.userPos,
+                      builder: (ctx) =>
+                          Container(
+                            child: IconButton(
+                              icon: Icon(Icons.location_on),
+                              color: Colors.blue,
+                              iconSize: 45,
+                              onPressed: (){},
+                            ),
+                          ),
+                    )
+                ),
         ),
         userLocationOptions,
       ],
