@@ -11,6 +11,8 @@ import 'package:capi_stonsker/markers/marker_list_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+final double icon_size = 30;
+
 // Navigation bar for every page except the home page
 class BottomNavBar extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -25,35 +27,43 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      color: Colors.blueGrey,
+      color: Colors.transparent,//const Color(0x00000000),//Colors.blueGrey,
       child: IconTheme(
         data: const IconThemeData(color: Colors.white),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            IconButton(
-              key: const Key('menuview'),
-              tooltip: 'Open Menu',
-              icon: const Icon(Icons.menu),
-              iconSize: 40,
-              onPressed: () => {
-                widget.scaffoldKey.currentState!.openDrawer()},
-            ),
+          CircleAvatar(
+            backgroundColor: Colors.blueGrey,
+            radius: icon_size,
+            child: IconButton(
+                key: const Key('menuview'),
+                tooltip: 'Open Menu',
+                icon: const Icon(Icons.menu, color: Colors.white),
+                iconSize: icon_size,
+                onPressed: () => {
+                  widget.scaffoldKey.currentState!.openDrawer()},
+              ),
+          ),
             Expanded(
               child: Container(
                 height: MediaQuery.of(context).size.height*.1,
                 width: MediaQuery.of(context).size.width,
               ),
             ),
-            IconButton(
-              key: const Key('mapview'),
-              tooltip: 'Map View',
-              icon: const Icon(Icons.map),
-              iconSize: 40,
-              onPressed: () {
-                Navigator.of(context).popUntil((route) => route.isFirst);
-              },
-            ),
+          CircleAvatar(
+            backgroundColor: Colors.blueGrey,
+            radius: icon_size,
+            child: IconButton(
+                key: const Key('mapview'),
+                tooltip: 'Map View',
+                icon: const Icon(Icons.map, color: Colors.white),
+                iconSize: icon_size,
+                onPressed: () {
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                },
+              ),
+          ),
           ],
         ),
       ),
@@ -80,20 +90,24 @@ class _BottomNavBarHomeState extends State<BottomNavBarHome> {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      color: Colors.blueGrey,
+      color: Colors.transparent,//const Color(0x00000000),//Colors.blueGrey,
       child: IconTheme(
         data: const IconThemeData(color: Colors.white),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            IconButton(
-              key: widget.menu_button,
-              tooltip: 'Open Menu',
-              icon: const Icon(Icons.menu),
-              iconSize: 40,
-              onPressed: () => {
-                widget.scaffoldKey.currentState!.openDrawer()
-              },
+            CircleAvatar(
+              backgroundColor: Colors.blueGrey,
+              radius: icon_size,
+              child: IconButton(
+                key: widget.menu_button,
+                tooltip: 'Open Menu',
+                icon: const Icon(Icons.menu, color: Colors.white),
+                iconSize: icon_size,
+                onPressed: () => {
+                  widget.scaffoldKey.currentState!.openDrawer()
+                },
+              ),
             ),
             Expanded(
               child: Container(
@@ -101,19 +115,23 @@ class _BottomNavBarHomeState extends State<BottomNavBarHome> {
                 width: MediaQuery.of(context).size.width,
               ),
             ),
-            IconButton(
-              key: widget.marker_list,
-              tooltip: 'List View',
-              icon: const Icon(Icons.list),
-              iconSize: 40,
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MarkerListPage()
-                    )
-                );
-              },
+            CircleAvatar(
+              backgroundColor: Colors.blueGrey,
+              radius: icon_size,
+              child: IconButton(
+                key: widget.marker_list,
+                tooltip: 'List View',
+                icon: const Icon(Icons.list, color: Colors.white),
+                iconSize: icon_size,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MarkerListPage()
+                      )
+                  );
+                },
+              ),
             ),
           ],
         ),

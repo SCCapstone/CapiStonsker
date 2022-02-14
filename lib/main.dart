@@ -69,6 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //String searchKey;
     //Stream streamQuery;
     return Scaffold(
+      extendBody: true,
       key: _scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
