@@ -24,8 +24,10 @@ int len = 0;
 List<Marker> markers = [];
 List<Marker> visited = [];
 List<Marker> wishlist = [];
+List<Marker> nearby = [];
 LatLng userPos = LatLng(0,0);
-var distance = Distance();
+LatLng lastRecalc = LatLng(0,0);
+var distance = Distance(roundResult: false);
 
 //Loads marker information from the JSON file, asynchronous because of file reading
 loadJsonLocal() async {
@@ -48,6 +50,59 @@ markersToFirebase() {
       'county': markers[count].county,
     });
   }
+}
+
+//Stores user position
+updatePos(LatLng pos) {
+  //Only update userPos if pos is > 60ft (20m) difference (subject to change)
+  if (distance(pos, userPos) >= 20) {
+    userPos = pos;
+
+    //Check for nearby markers to add to visited
+    nearby.forEach((element) {
+      //Calculate updated userDist (only for Markers in nearby - minimizes unnecessary calculations)
+      element.userDist = distance.as(LengthUnit.Mile,
+          userPos,
+          LatLng(element.gps[0], -1.00 * element.gps[1]));
+      //Markers within 50m are marked as visited
+      if (LengthUnit.Mile.to(LengthUnit.Meter, element.userDist) < 50) {
+        //Add to visited list
+        addToVisited(element);
+      }
+    });
+    //Sort nearby list by userDist
+    nearby.sort((a,b) { return a.userDist.compareTo(b.userDist); });
+    //
+  }
+  //Recalculate distances to construct the nearby list every change in 2km (adjust this)
+  if (distance(pos, lastRecalc) >= 2000) { //Default initialization of 0,0 means this will run on first update
+    lastRecalc = pos;
+    calcDist();
+  }
+}
+
+//How can we avoid calculating the full list?
+calcDist({double lat = 0.0, double long = 0.0}) {
+  //Allows current userPos to be overriden by passing coordinates in, passing none will use userPos
+  //Added for functionality and unit testing
+  //TODO in-place recalculation of the markers' distance causes issues with true unit testing
+  LatLng pos;
+  if (lat == 0.0 && long == 0.0) {
+    pos = userPos;
+  }
+  else {
+    pos = LatLng(lat,long);
+  }
+  //Recalculates distance to userPos for each element
+  markers.forEach((element) {
+    element.userDist = distance.as(LengthUnit.Mile,
+        pos,
+        LatLng(element.gps[0], -1.00 * element.gps[1]));
+    //if userDist is less than 25 miles, add it to the nearby list
+    if (element.userDist < 25) {
+      nearby.add(element);
+    }
+  });
 }
 
 getMarkers() async {
@@ -73,32 +128,19 @@ getWish() async {
   }
 }
 
-//Stores user position
-updatePos(LatLng pos) {
-  userPos = pos;
-}
-
-//How can we avoid calculating the full list?
-calcDist({double lat = 0.0, double long = 0.0}) {
-  //Allows current userPos to be overriden by passing coordinates in, passing none will use userPos
-  //Added for functionality and unit testing
-  //TODO in-place recalculation of the markers' distance causes issues with unit testing
-  LatLng pos;
-  if (lat == 0.0 && long == 0.0) {
-    pos = userPos;
+// Get a user's visited list
+getVis() async {
+  if (FireAuth.auth.currentUser != null) {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(FireAuth.auth.currentUser!.uid)
+        .collection('visited')
+        .get();
+    snapshot.docs.forEach((doc) {
+      Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
+      wishlist.add(Marker.fromJson(data));
+    });
   }
-  else {
-    pos = LatLng(lat,long);
-  }
-  //Recalculates distance to userPos for each element
-  markers.forEach((element) {
-    element.userDist = LengthUnit.Meter.to(
-      LengthUnit.Mile, distance(
-        pos,
-        LatLng(element.gps[0], -1.00 * element.gps[1])
-      )
-    );
-  });
 }
 
 addToWish(Marker m) {
@@ -111,7 +153,7 @@ addToWish(Marker m) {
     //Reference username to get collection name
     if (FireAuth.auth.currentUser != null) {
       //.doc.set is used to prevent duplicates: if doc of that name does not exist, one is created; if it does, it is updated
-      //Below needs update to reflect structure of username collections
+      //TODO CHECK FOLLOWING: Below needs update to reflect structure of username collections
       FirebaseFirestore.instance
           .collection('Users')
           .doc(FireAuth.auth.currentUser!.uid)
@@ -156,9 +198,42 @@ addToVisited(Marker m) {
   //Then we'll have a StreamBuilder for those collections to listen and update a local list
   //For now, just update the local list
 
+  //TODO add ability to upload if marker is visited before logging in OR add check so visited is not added to unless logged in
+
   if (!visitedDupe(m)) {
-    visited.add(m);
+    //Reference username to get collection name
+    if (FireAuth.auth.currentUser != null) {
+      //.doc.set is used to prevent duplicates: if doc of that name does not exist, one is created; if it does, it is updated
+      //TODO CHECK FOLLOWING: Below needs update to reflect structure of username collections
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(FireAuth.auth.currentUser!.uid)
+          .collection('visited')
+          .doc(m.name)
+          .set(<String, dynamic>{
+        'name': m.name,
+        'rel_loc': m.rel_loc,
+        'desc': m.desc,
+        'gps': m.gps,
+        'county': m.county,
+      });
+
+      visited.add(m);
+    }
   }
+}
+
+//Likely not used but added for functionality in case
+removeVisFirebase(Marker m) {
+  //Remove from Firebase
+  FirebaseFirestore.instance
+      .collection('Users')
+      .doc(FireAuth.auth.currentUser!.uid)
+      .collection('visited')
+      .doc(m.name)
+      .delete();
+  //Remove from local list
+  visited.remove(m);
 }
 
 bool visitedDupe(Marker m) {
