@@ -101,14 +101,14 @@ getWish() async {
         .collection('wishlist')
         .get();
     snapshot.docs.forEach((doc) {
-      visitedID.add(doc.id);
+      wishlistID.add(doc.id);
       //Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
       //wishlist.add(Marker.fromJson(data));
     });
 
     //Match each ID to marker (only one match, no dupe IDs) and add marker to list
-    visitedID.forEach((id) {
-      visited.add(
+    wishlistID.forEach((id) {
+      wishlist.add(
           markers.singleWhere(
                   (element) => element.id == id
           )
@@ -118,7 +118,7 @@ getWish() async {
 }
 
 //TODO Swap to ID: done
-// Get a user's visited list
+// Get a user's visited
 getVis() async {
   if (FireAuth.auth.currentUser != null) {
     QuerySnapshot snapshot = await FirebaseFirestore.instance
@@ -127,14 +127,14 @@ getVis() async {
         .collection('visited')
         .get();
     snapshot.docs.forEach((doc) {
-      wishlistID.add(doc.id);
+      visitedID.add(doc.id);
       //Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
-      //wishlist.add(Marker.fromJson(data));
+      //visited.add(Marker.fromJson(data));
     });
 
     //Match each ID to marker (only one match, no dupe IDs) and add marker to list
-    wishlistID.forEach((id) {
-      wishlist.add(
+    visitedID.forEach((id) {
+      visited.add(
           markers.singleWhere(
                   (element) => element.id == id
           )
@@ -154,8 +154,8 @@ addToWish(Marker m) {
           .collection('Users')
           .doc(FireAuth.auth.currentUser!.uid)
           .collection('wishlist')
-          .doc(m.id) //TODO test to make sure this still creates the doc without the set
-          .set(<String, dynamic>{'exists': true});
+          .doc(m.id)
+          .set(<String, dynamic>{'exists': true}); //.set must be used to create the new doc with an assigned name
       /*
           .doc(m.name)
           .set(<String, dynamic>{
@@ -206,32 +206,36 @@ bool wishDupe(Marker m) {
    */
 }
 
-//TODO Swap to ID
+//TODO Swap to ID: done
 addToVisited(Marker m) {
   if (!visitedDupe(m)) {
     //Reference username to get collection name
     if (FireAuth.auth.currentUser != null) {
       //.doc.set is used to prevent duplicates: if doc of that name does not exist, one is created; if it does, it is updated
-      //TODO CHECK FOLLOWING: Below needs update to reflect structure of username collections
       FirebaseFirestore.instance
           .collection('Users')
           .doc(FireAuth.auth.currentUser!.uid)
           .collection('visited')
+          .doc(m.id)
+          .set(<String, dynamic>{'exists': true}); //.set must be used to create the new doc with an assigned name
+      /*
           .doc(m.name)
           .set(<String, dynamic>{
-        'name': m.name,
-        'rel_loc': m.rel_loc,
-        'desc': m.desc,
-        'gps': m.gps,
-        'county': m.county,
+            'name': m.name,
+            'rel_loc': m.rel_loc,
+            'desc': m.desc,
+            'gps': m.gps,
+            'county': m.county,
       });
+      */
 
       visited.add(m);
+      visitedID.add(m.id);
     }
   }
 }
 
-//TODO Swap to ID
+//TODO Swap to ID: done
 //Likely not used but added for functionality in case
 removeVisFirebase(Marker m) {
   //Remove from Firebase
@@ -239,7 +243,7 @@ removeVisFirebase(Marker m) {
       .collection('Users')
       .doc(FireAuth.auth.currentUser!.uid)
       .collection('visited')
-      .doc(m.name)
+      .doc(m.id)
       .delete();
   //Remove from local list
   visited.remove(m);
