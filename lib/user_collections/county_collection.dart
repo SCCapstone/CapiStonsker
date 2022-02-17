@@ -6,18 +6,22 @@
  */
 
 import 'package:flutter/material.dart';
+import '../markers/marker.dart';
 
-class CountyMark extends StatefulWidget {
+class CountyCollection extends StatefulWidget {
   final String countyName;
   final int markerNum;
-  const CountyMark({Key? key, required this.countyName, required this.markerNum}) : super(key: key);
+  final List<Marker> visited;
+  const CountyCollection({Key? key, required this.countyName, required this
+      .markerNum, required this.visited}) : super(key: key);
 
   @override
-  _CountyMarkState createState() => _CountyMarkState();
+  _CountyCollection createState() => _CountyCollection();
 }
 
-class _CountyMarkState extends State<CountyMark> {
+class _CountyCollection extends State<CountyCollection> {
   @override
+
   int counter = 0;
   Widget build(BuildContext context) {
     return FittedBox(
