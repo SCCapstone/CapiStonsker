@@ -143,6 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
         menu_button: menu_button,
         marker_list: marker_list,
       ),
+      //floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
   /*
