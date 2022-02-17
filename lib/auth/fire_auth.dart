@@ -54,7 +54,9 @@ class FireAuth {
         password: password,
       );
       user = userCredential.user;
+      //Retrieves wishlist and visited list
       locs.getWish();
+      locs.getVis();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -66,6 +68,7 @@ class FireAuth {
     return user;
   }
 
+  //TODO Add list retrieves
   // This method allows a user to sign in using their Google account
   static Future<User?> signInWithGoogle({required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
