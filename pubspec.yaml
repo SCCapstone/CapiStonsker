@@ -76,8 +76,8 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/locations.json
-    - assets/json_markers_small.json
+    - assets/locations_full.json
+    - assets/locations_richland.json
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

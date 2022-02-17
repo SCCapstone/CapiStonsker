@@ -6,12 +6,10 @@
  * This class should be imported using the suffix 'as locs'
  */
 
-import 'dart:convert';
 //Imports only items used for creating the ListView
 import 'package:capi_stonsker/routing/navigation_page.dart';
 import 'package:flutter/cupertino.dart' show BuildContext, Icon, ListView, Navigator, Text, Widget;
 import 'package:flutter/material.dart' show IconButton, Icons, ListTile, MaterialPageRoute;
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:capi_stonsker/markers/marker.dart';
@@ -23,34 +21,14 @@ final db = FirebaseFirestore.instance.collection('Markers');
 int len = 0;
 List<Marker> markers = [];
 List<Marker> visited = [];
+List<String> visitedID = [];
 List<Marker> wishlist = [];
+List<String> wishlistID = [];
 List<Marker> nearby = [];
 LatLng userPos = LatLng(0,0);
 LatLng lastRecalc = LatLng(0,0);
 var distance = Distance(roundResult: false);
 
-//Loads marker information from the JSON file, asynchronous because of file reading
-loadJsonLocal() async {
-  String data = await rootBundle.loadString('assets/locations.json');
-  var markerObjsJson = jsonDecode(data)['Markers'] as List;
-  markers = markerObjsJson.map((markerJson) => Marker.fromJson(markerJson))
-      .toList();
-  len = markers.length;
-}
-
-markersToFirebase() {
-  //Sends all entries from the imported markers list to Firebase
-  for (int count = 0; count < len; count++) {
-    //.doc.set is used to prevent duplicates: if doc of that name does not exist, one is created; if it does, it is updated
-    db.doc(markers[count].name).set(<String, dynamic>{
-      'name': markers[count].name,
-      'rel_loc': markers[count].rel_loc,
-      'desc': markers[count].desc,
-      'gps': markers[count].gps,
-      'county': markers[count].county,
-    });
-  }
-}
 
 //Stores user position
 updatePos(LatLng pos) {
@@ -72,7 +50,7 @@ updatePos(LatLng pos) {
     });
     //Sort nearby list by userDist
     nearby.sort((a,b) { return a.userDist.compareTo(b.userDist); });
-    //
+
   }
   //Recalculate distances to construct the nearby list every change in 2km (adjust this)
   if (distance(pos, lastRecalc) >= 2000) { //Default initialization of 0,0 means this will run on first update
@@ -113,6 +91,7 @@ getMarkers() async {
   });
 }
 
+//TODO Swap to ID: done
 // Get a user's wishlist
 getWish() async {
   if (FireAuth.auth.currentUser != null) {
@@ -122,13 +101,24 @@ getWish() async {
         .collection('wishlist')
         .get();
     snapshot.docs.forEach((doc) {
-      Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
-      wishlist.add(Marker.fromJson(data));
+      wishlistID.add(doc.id);
+      //Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
+      //wishlist.add(Marker.fromJson(data));
+    });
+
+    //Match each ID to marker (only one match, no dupe IDs) and add marker to list
+    wishlistID.forEach((id) {
+      wishlist.add(
+          markers.singleWhere(
+                  (element) => element.id == id
+          )
+      );
     });
   }
 }
 
-// Get a user's visited list
+//TODO Swap to ID: done
+// Get a user's visited
 getVis() async {
   if (FireAuth.auth.currentUser != null) {
     QuerySnapshot snapshot = await FirebaseFirestore.instance
@@ -137,27 +127,36 @@ getVis() async {
         .collection('visited')
         .get();
     snapshot.docs.forEach((doc) {
-      Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
-      wishlist.add(Marker.fromJson(data));
+      visitedID.add(doc.id);
+      //Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
+      //visited.add(Marker.fromJson(data));
+    });
+
+    //Match each ID to marker (only one match, no dupe IDs) and add marker to list
+    visitedID.forEach((id) {
+      visited.add(
+          markers.singleWhere(
+                  (element) => element.id == id
+          )
+      );
     });
   }
 }
 
+//TODO Swap to ID
 addToWish(Marker m) {
-  //Eventually this will upload to Firebase using associated user auth id as the doc id
-  //Then we'll have a StreamBuilder for those collections to listen and update a local list
-  //For now, just update the local list
-
   //Check for duplicates (not necessary if buttons are designed correctly but just in case)
   if (!wishDupe(m)) {
     //Reference username to get collection name
     if (FireAuth.auth.currentUser != null) {
       //.doc.set is used to prevent duplicates: if doc of that name does not exist, one is created; if it does, it is updated
-      //TODO CHECK FOLLOWING: Below needs update to reflect structure of username collections
       FirebaseFirestore.instance
           .collection('Users')
           .doc(FireAuth.auth.currentUser!.uid)
           .collection('wishlist')
+          .doc(m.id)
+          .set(<String, dynamic>{'exists': true}); //.set must be used to create the new doc with an assigned name
+      /*
           .doc(m.name)
           .set(<String, dynamic>{
             'name': m.name,
@@ -166,63 +165,77 @@ addToWish(Marker m) {
             'gps': m.gps,
             'county': m.county,
       });
+      */
 
       wishlist.add(m);
+      wishlistID.add(m.id);
     }
   }
 }
 
+//TODO Swap to ID: done
 removeWishFirebase(Marker m) {
   //Remove from Firebase
   FirebaseFirestore.instance
       .collection('Users')
       .doc(FireAuth.auth.currentUser!.uid)
       .collection('wishlist')
-      .doc(m.name)
+      .doc(m.id)
       .delete();
   //Remove from local list
   wishlist.remove(m);
+  //Removes ID
+  wishlistID.remove(m.id);
 }
 
 bool wishDupe(Marker m) {
+  //Dupe is true is the marker ID is already in list
+  for (String e in wishlistID)
+    if (m.id == e)
+      return true;
+
+  return false;
+
+  /*
   for (Marker e in wishlist) {
     if (e == m) {
       return true;
     }
   } //Dupe is true if there is already that marker in the list
   return false;
+   */
 }
 
+//TODO Swap to ID: done
 addToVisited(Marker m) {
-  //Eventually this will upload to Firebase using associated user auth id as the doc id
-  //Then we'll have a StreamBuilder for those collections to listen and update a local list
-  //For now, just update the local list
-
-  //TODO add ability to upload if marker is visited before logging in OR add check so visited is not added to unless logged in
-
   if (!visitedDupe(m)) {
     //Reference username to get collection name
     if (FireAuth.auth.currentUser != null) {
       //.doc.set is used to prevent duplicates: if doc of that name does not exist, one is created; if it does, it is updated
-      //TODO CHECK FOLLOWING: Below needs update to reflect structure of username collections
       FirebaseFirestore.instance
           .collection('Users')
           .doc(FireAuth.auth.currentUser!.uid)
           .collection('visited')
+          .doc(m.id)
+          .set(<String, dynamic>{'exists': true}); //.set must be used to create the new doc with an assigned name
+      /*
           .doc(m.name)
           .set(<String, dynamic>{
-        'name': m.name,
-        'rel_loc': m.rel_loc,
-        'desc': m.desc,
-        'gps': m.gps,
-        'county': m.county,
+            'name': m.name,
+            'rel_loc': m.rel_loc,
+            'desc': m.desc,
+            'gps': m.gps,
+            'county': m.county,
       });
+      */
 
       visited.add(m);
+      visitedID.add(m.id);
     }
   }
 }
 
+//TODO Swap to ID: done
 //Likely not used but added for functionality in case
 removeVisFirebase(Marker m) {
   //Remove from Firebase
@@ -230,19 +243,30 @@ removeVisFirebase(Marker m) {
       .collection('Users')
       .doc(FireAuth.auth.currentUser!.uid)
       .collection('visited')
-      .doc(m.name)
+      .doc(m.id)
       .delete();
   //Remove from local list
   visited.remove(m);
+  //Removes ID
+  visitedID.remove(m.id);
 }
 
 bool visitedDupe(Marker m) {
+  //Dupe is true is the marker ID is already in list
+  for (String e in visitedID)
+    if (m.id == e)
+      return true;
+
+  return false;
+
+  /*
   for (Marker e in visited) {
     if (e == m) {
       return true;
     }
   } //Dupe is true if there is already that marker in the list
   return false;
+  */
 }
 
 Widget buildListDisplay(BuildContext context, int num) {
