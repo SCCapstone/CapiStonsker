@@ -27,7 +27,7 @@ class _FavButtonState extends State<FavButton> {
     bool inWish = locs.wishDupe(widget.sentM);
 
     return IconButton(
-      icon: ( loggedIn && inWish) ? Icon(Icons.star) : Icon(Icons.star_border),
+      icon: (loggedIn && inWish) ? Icon(Icons.star) : Icon(Icons.star_border),
       onPressed: () {
         setState(() {
           if (loggedIn) {
