@@ -11,8 +11,8 @@ import '../markers/marker.dart';
 class CountyCollection extends StatefulWidget {
   final String countyName;
   final int markerNum;
-  final List<Marker> visited;
-  const CountyCollection({Key? key, required this.countyName, required this
+  List<Marker> visited;
+  CountyCollection({Key? key, required this.countyName, required this
       .markerNum, required this.visited}) : super(key: key);
 
   @override

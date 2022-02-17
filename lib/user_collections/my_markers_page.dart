@@ -39,11 +39,7 @@ class _MyMarkersPageState extends State<MyMarkersPage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
 
-
-    Marker m = user.markers[2];
-    user.addToVisited(m);
-    List<Marker> collection = user.visited;
-    print(collection);
+    List<Marker> collection = user.markers;
 
     return Scaffold(
       extendBody: true,
@@ -70,55 +66,101 @@ class _MyMarkersPageState extends State<MyMarkersPage> {
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
             crossAxisCount: 3,
-            children: const <Widget>[
-            //   CountyCollection(countyName: 'ABBEVILLE',markerNum: 23,
-            //     visited: [collection],),
-            //   CountyCollection(countyName: 'ABBEVILLE',markerNum: 23),
-            //   CountyCollection(countyName: "AIKEN", markerNum: 68),
-            //   CountyCollection(countyName: "ALLENDALE", markerNum: 18),
-            //   CountyCollection(countyName: 'ANDERSON',markerNum: 48),
-            //   CountyCollection(countyName: "BAMBERG", markerNum: 18),
-            //   CountyCollection(countyName: "BARNWELL", markerNum: 17),
-            //   CountyCollection(countyName: 'BEAUFORT',markerNum: 67),
-            //   CountyCollection(countyName: "BERKELEY", markerNum: 75),
-            //   CountyCollection(countyName: "CALHOUN", markerNum: 23),
-            //   CountyCollection(countyName: 'CHARLESTON',markerNum: 117),
-            //   CountyCollection(countyName: "CHEROKEE", markerNum: 13),
-            //   CountyCollection(countyName: "CHESTER", markerNum: 10),
-            //   CountyCollection(countyName: 'CHESTERFIELD',markerNum: 23),
-            //   CountyCollection(countyName: "CLAREDON", markerNum: 27),
-            //   CountyCollection(countyName: "COLLETON", markerNum: 21),
-            //   CountyCollection(countyName: 'DARLINGTON',markerNum: 85),
-            //   CountyCollection(countyName: "DILLON", markerNum: 18),
-            //   CountyCollection(countyName: "DORCHESTER", markerNum: 29),
-            //   CountyCollection(countyName: 'EDGEFIELD',markerNum: 24),
-            //   CountyCollection(countyName: "FAIRFIELD", markerNum: 24),
-            //   CountyCollection(countyName: "FLORENCE", markerNum: 51),
-            //   CountyCollection(countyName: 'GEORGETOWN',markerNum: 69),
-            //   CountyCollection(countyName: "GREENVILLE", markerNum: 91),
-            //   CountyCollection(countyName: "GREENWOOD", markerNum: 22),
-            //   CountyCollection(countyName: 'HAMPTON',markerNum: 28),
-            //   CountyCollection(countyName: "HORRY", markerNum: 31),
-            //   CountyCollection(countyName: "JASPER", markerNum: 27),
-            //   CountyCollection(countyName: 'KERSHAW',markerNum: 21),
-            //   CountyCollection(countyName: "LANCASTER", markerNum: 34),
-            //   CountyCollection(countyName: "LAURENS", markerNum: 21),
-            //   CountyCollection(countyName: 'LEE',markerNum: 21),
-            //   CountyCollection(countyName: "LEXINGTON", markerNum: 46),
-            //   CountyCollection(countyName: "MARION", markerNum: 21),
-            //   CountyCollection(countyName: 'MARLBORO',markerNum: 43),
-            //   CountyCollection(countyName: "MCCORMICK", markerNum: 12),
-            //   CountyCollection(countyName: "NEWBERRY", markerNum: 28),
-            //   CountyCollection(countyName: 'OCONEE',markerNum: 23),
-            //   CountyCollection(countyName: "ORANGEBURG", markerNum: 48),
-            //   CountyCollection(countyName: "PICKENS", markerNum: 25),
-            //   CountyCollection(countyName: 'RICHLAND',markerNum: 208),
-            //   CountyCollection(countyName: "SALUDA", markerNum: 16),
-            //   CountyCollection(countyName: "SPARTANBURG", markerNum: 37),
-            //   CountyCollection(countyName: 'SUMTER',markerNum: 51),
-            //   CountyCollection(countyName: "UNION", markerNum: 20),
-            //   CountyCollection(countyName: "WILLIAMSBURG", markerNum: 26),
-            //   CountyCollection(countyName: 'YORK',markerNum: 72),
+            children: <Widget>[
+              CountyCollection(countyName: 'ABBEVILLE',markerNum: 23,
+                visited: collection),
+              CountyCollection(countyName: 'ABBEVILLE',markerNum: 23,
+                visited: collection),
+              CountyCollection(countyName: "AIKEN", markerNum: 68, visited:
+              collection),
+              CountyCollection(countyName: "ALLENDALE", markerNum: 18,
+                  visited: collection),
+              CountyCollection(countyName: 'ANDERSON',markerNum: 48, visited:
+              collection),
+              CountyCollection(countyName: "BAMBERG", markerNum: 18, visited:
+              collection),
+              CountyCollection(countyName: "BARNWELL", markerNum: 17,
+                  visited: collection),
+              CountyCollection(countyName: 'BEAUFORT',markerNum: 67, visited:
+              collection),
+              CountyCollection(countyName: "BERKELEY", markerNum: 75,
+                  visited: collection),
+              CountyCollection(countyName: "CALHOUN", markerNum: 23, visited:
+              collection),
+              CountyCollection(countyName: 'CHARLESTON',markerNum: 11,
+                  visited: collection),
+              CountyCollection(countyName: "CHEROKEE", markerNum: 13,
+                  visited: collection),
+              CountyCollection(countyName: "CHESTER", markerNum: 10, visited:
+              collection),
+              CountyCollection(countyName: 'CHESTERFIELD',markerNum: 23,
+                  visited: collection),
+              CountyCollection(countyName: "CLAREDON", markerNum: 27,
+                  visited: collection),
+              CountyCollection(countyName: "COLLETON", markerNum: 21,
+                  visited: collection),
+              CountyCollection(countyName: 'DARLINGTON',markerNum: 85,
+                  visited: collection),
+              CountyCollection(countyName: "DILLON", markerNum: 18, visited:
+              collection),
+              CountyCollection(countyName: "DORCHESTER", markerNum: 29,
+                  visited: collection),
+              CountyCollection(countyName: 'EDGEFIELD',markerNum: 24,
+                  visited: collection),
+              CountyCollection(countyName: "FAIRFIELD", markerNum: 24,
+                  visited: collection),
+              CountyCollection(countyName: "FLORENCE", markerNum: 51,
+                  visited: collection),
+              CountyCollection(countyName: 'GEORGETOWN',markerNum: 69,
+                  visited: collection),
+              CountyCollection(countyName: "GREENVILLE", markerNum: 91,
+                  visited: collection),
+              CountyCollection(countyName: "GREENWOOD", markerNum: 22,
+                  visited: collection),
+              CountyCollection(countyName: 'HAMPTON',markerNum: 28, visited:
+              collection),
+              CountyCollection(countyName: "HORRY", markerNum: 31, visited:
+              collection),
+              CountyCollection(countyName: "JASPER", markerNum: 27, visited:
+              collection),
+              CountyCollection(countyName: 'KERSHAW',markerNum: 21, visited:
+              collection),
+              CountyCollection(countyName: "LANCASTER", markerNum: 34,
+                  visited: collection),
+              CountyCollection(countyName: "LAURENS", markerNum: 21, visited:
+              collection),
+              CountyCollection(countyName: 'LEE',markerNum: 21, visited:
+              collection),
+              CountyCollection(countyName: "LEXINGTON", markerNum: 46,
+                  visited: collection),
+              CountyCollection(countyName: "MARION", markerNum: 21, visited:
+              collection),
+              CountyCollection(countyName: 'MARLBORO',markerNum: 43, visited:
+              collection),
+              CountyCollection(countyName: "MCCORMICK", markerNum: 12,
+                  visited: collection),
+              CountyCollection(countyName: "NEWBERRY", markerNum: 28,
+                  visited: collection),
+              CountyCollection(countyName: 'OCONEE',markerNum: 23, visited:
+              collection),
+              CountyCollection(countyName: "ORANGEBURG", markerNum: 48,
+                  visited: collection),
+              CountyCollection(countyName: "PICKENS", markerNum: 25, visited:
+              collection),
+              CountyCollection(countyName: 'RICHLAND',markerNum: 20, visited:
+              collection),
+              CountyCollection(countyName: "SALUDA", markerNum: 16, visited:
+              collection),
+              CountyCollection(countyName: "SPARTANBURG", markerNum: 37,
+                  visited: collection),
+              CountyCollection(countyName: 'SUMTER',markerNum: 51, visited:
+              collection),
+              CountyCollection(countyName: "UNION", markerNum: 20, visited:
+              collection),
+              CountyCollection(countyName: "WILLIAMSBURG", markerNum: 26,
+                  visited: collection),
+              CountyCollection(countyName: 'YORK',markerNum: 72, visited:
+              collection),
             ],
           )
       ),
