@@ -23,12 +23,15 @@ class _FavButtonState extends State<FavButton> {
 
   @override
   Widget build(BuildContext context) {
+    bool loggedIn = FireAuth.auth.currentUser != null;
+    bool inWish = locs.wishDupe(widget.sentM);
+
     return IconButton(
-      icon: locs.wishDupe(widget.sentM) ? Icon(Icons.star):Icon(Icons.star_border),
+      icon: ( loggedIn && inWish) ? Icon(Icons.star) : Icon(Icons.star_border),
       onPressed: () {
         setState(() {
-          if (FireAuth.auth.currentUser != null) {
-            if (!locs.wishDupe(widget.sentM)) {
+          if (loggedIn) {
+            if (!inWish) {
               locs.addToWish(widget.sentM);
             }
             else {
