@@ -37,8 +37,6 @@ class _CountyCollection extends State<CountyCollection> {
               splashColor: Colors.amber,
               onPressed: () {
                 setState(() {
-                  if (counter != widget.markerNum)
-                    counter++;
                 });
               },
               child: const Icon(
