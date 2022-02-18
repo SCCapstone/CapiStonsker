@@ -11,19 +11,22 @@ import '../markers/marker.dart';
 class CountyCollection extends StatefulWidget {
   final String countyName;
   final int markerNum;
-  List<Marker> visited;
+  final List<Marker> visited;
   CountyCollection({Key? key, required this.countyName, required this
       .markerNum, required this.visited}) : super(key: key);
-
   @override
   _CountyCollection createState() => _CountyCollection();
 }
 
 class _CountyCollection extends State<CountyCollection> {
   @override
-
   int counter = 0;
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
+    for(var marker in widget.visited){
+      if(marker.county.split(" ")[0] == widget.countyName){
+        counter++;
+      }
+    }
     return FittedBox(
         fit: BoxFit.contain, // otherwise the logo will be tiny
         child: Column(

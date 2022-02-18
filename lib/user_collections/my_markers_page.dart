@@ -39,7 +39,7 @@ class _MyMarkersPageState extends State<MyMarkersPage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
 
-    List<Marker> collection = user.markers;
+    List<Marker> collection = user.visited;
 
     return Scaffold(
       extendBody: true,
@@ -87,7 +87,7 @@ class _MyMarkersPageState extends State<MyMarkersPage> {
                   visited: collection),
               CountyCollection(countyName: "CALHOUN", markerNum: 23, visited:
               collection),
-              CountyCollection(countyName: 'CHARLESTON',markerNum: 11,
+              CountyCollection(countyName: 'CHARLESTON',markerNum: 117,
                   visited: collection),
               CountyCollection(countyName: "CHEROKEE", markerNum: 13,
                   visited: collection),
@@ -147,7 +147,7 @@ class _MyMarkersPageState extends State<MyMarkersPage> {
                   visited: collection),
               CountyCollection(countyName: "PICKENS", markerNum: 25, visited:
               collection),
-              CountyCollection(countyName: 'RICHLAND',markerNum: 20, visited:
+              CountyCollection(countyName: 'RICHLAND',markerNum: 208, visited:
               collection),
               CountyCollection(countyName: "SALUDA", markerNum: 16, visited:
               collection),
