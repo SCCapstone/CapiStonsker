@@ -36,13 +36,14 @@ class _MapPageState extends State<MapPage> {
       mapController: mapController,
       markers: markers,
       updateMapLocationOnPositionChange: false,
+      zoomToCurrentLocationOnLoad: true,
       onLocationUpdate: (LatLng pos, double? speed) {
         setState(() {
           //onLocationUpdate is where several different features are going to stem from, likely want to pass into different functions
           locs.updatePos(pos); //Updates userPos variable
         });
       },
-      //showMoveToCurrentLocationFloatingActionButton: true,
+      showMoveToCurrentLocationFloatingActionButton: true,
     );
 
     return FlutterMap(
