@@ -1782,9 +1782,12 @@
     },
     {
       "name": "MORRIS FORD EARTHWORKS, 1780 & 1865",
-      "rel_loc": "",
-      "desc": "OLD ALLENDALE HWY. (S.C. SEC. RD. 6-70) JUST NORTH OF THE SALKEHATCHIE RIVER, BLACKVILLE VICINITY",
-      "gps": "No Coordinates",
+      "rel_loc": "OLD ALLENDALE HWY. (S.C. SEC. RD. 6-70) JUST NORTH OF THE SALKEHATCHIE RIVER, BLACKVILLE VICINITY",
+      "desc": "(Front) Nearby earthworks at Morris Ford, on the Salkehatchie River, built in the spring of 1780 by Loyalists under Ben John. In May, soon after Charleston fell to the British, Capt. John Mumford of the South Carolina militia was killed in action in a clash with John's Loyalists; he is buried at the site. In early 1865 Confederate cavalry under Maj. Gen. Joseph Wheeler rebuilt the old earthworks.\n(Reverse) Wheeler delayed the advancing Federal cavalry under Brig. Gen. Judson Kilpatrick. On February 6th a sharp skirmish occurred at the works. Elements of Kilpatrick's force crossed downstream, outflanked the Confederate cavalry and forced it to withdraw, then advanced to Barnwell while Wheeler's cavalry withdrew toward Aiken. Kilpatrick's Federals burned most of Barnwell later that night. Erected by the Barnwell County Museum and Historical Board, 1997",
+      "gps": [
+        33.20947,
+        81.35275
+      ],
       "county": "BARNWELL COUNTY"
     },
     {
@@ -2598,10 +2601,23 @@
       "county": "BEAUFORT COUNTY"
     },
     {
-      "name": "STONY LANDING PLANTATION OLD U.S. HWY. 52 AT STONY LANDING RD., MONCKS CORNER Here in 1863, the Confederate semi-submersible torpedo boat, Little David, first of its type, was constructed. It was designed by Dr. St. Julien Ravenel and built with funds raised by Theodore D. Stoney.",
-      "rel_loc": "GPS Coordinates: 33\u00b0 11.826' N, 79\u00b0 59.579' W",
-      "desc": "8-2 OLD MONCKS CORNER",
-      "gps": "No Coordinates",
+      "name": "STONY LANDING PLANTATION",
+      "rel_loc": "OLD U.S. HWY. 52 AT STONY LANDING RD., MONCKS CORNER",
+      "desc": "Here in 1863, the Confederate semi-submersible torpedo boat, Little David, first of its type, was constructed. It was designed by Dr. St. Julien Ravenel and built with funds raised by Theodore D. Stoney.",
+      "gps": [
+        33.1971,
+        79.9929833
+      ],
+      "county": "BERKELEY COUNTY"
+    },
+    {
+      "name": "OLD MONCKS CORNER",
+      "rel_loc": "OLD U.S. HWY. 52 AT ITS INTERSECTION WITH U.S. HWY. 17-A, MONCKS CORNER",
+      "desc": "Here was located the provincial town of Moncks Corner, deriving its name from Thomas Monck, an Englishman, who in 1735 purchased Mitten Plantation, and upon whose land the town was settled. It became an important commercial center prior to the Revolution. Upon the completion of the Northeastern Railroad in 1857, the new railroad station was called Moncks Corner after the old town.",
+      "gps": [
+        33.202,
+        79.9901
+      ],
       "county": "BERKELEY COUNTY"
     },
     {
@@ -2628,7 +2644,10 @@
       "name": "GOOSE CREEK CHAPEL",
       "rel_loc": " Erected by the South Carolina Historical Commission, ca. 1929-1936.",
       "desc": "OLD U.S. HWY. 52, 9 MI. S OF MONCKS CORNER",
-      "gps": "No Coordinates",
+      "gps": [
+        33.06935,
+        80.02318333
+      ],
       "county": "BERKELEY COUNTY"
     },
     {
@@ -3372,13 +3391,6 @@
       "county": "CALHOUN COUNTY"
     },
     {
-      "name": "ST. MATTHEW'S PARISH EPISCOPAL CHURCH",
-      "rel_loc": "INTERSECTION OF U.S. HWY. 601 & S.C. HWY. 419, NORTHEAST OF ST. MATTHEWS",
-      "desc": "Stands 0.4 mile NW of this spot. An act creating the parish in 1765 was disallowed by the king. A second act was approved in 1768. The first of four buildings, each on a different site, was erected in 1766. The present edifice was built in 1852. The congregation was incorporated in 1788 as a member of the Protestant Episcopal Church.",
-      "gps": "No Coordinates",
-      "county": "CALHOUN COUNTY"
-    },
-    {
       "name": "JERICHO METHODIST CHURCH [MILE AND A HALF EAST]",
       "rel_loc": "INTERSECTION OF U.S. HWY. 176 AND JERICHO RD., 2.5 MILES SOUTH OF CAMERON",
       "desc": "Bishop Francis Asbury stopped in this region in 1801 and 1803. About 1811, a congregation was organized and by 1815 Jericho Meeting House was standing on land given by Jacob Felkel. The present building there was apparently erected before 1850. A low partition separating the men and women and a slave gallery were removed in 1890 and a porch was added. Two annexes were built later.",
@@ -4072,7 +4084,10 @@
       "name": "FEDERAL EXPEDITION ON JOHN'S ISLAND/BATTLE OF BURDEN'S CAUSEWAY",
       "rel_loc": "RIVER RD. AT BURDEN CREEK RD., JOHN'S ISLAND",
       "desc": "FEDERAL EXPEDITION ON JOHN'S ISLAND (Front) The Battle of Burden's Causeway was the climax of a Federal expedition against John's Island, July 2-9, 1864. 5000 Federals under Brig. Gen. John P. Hatch crossed the Stono River and advanced along it.",
-      "gps": "No Coordinates",
+      "gps": [
+        32.7184667,
+        80.02158333
+      ],
       "county": "CHARLESTON COUNTY"
     },
     {
@@ -4339,7 +4354,10 @@
       "name": "CIGAR FACTORY/\u201cWE SHALL OVERCOME\u201d",
       "rel_loc": "701 E. BAY ST., CHARLESTON",
       "desc": "CIGAR FACTORY (Front) This five-story commercial building, built ca. 1882 as a textile mill, was known as the Charleston Manufacturing Company, then Charleston Cotton Mills, in its early years. Leased to the American Tobacco Company in 1903, the plant was sold to that company in 1912. Popularly called \u201cthe Cigar Factory,\u201d it produced cigars such as Cremo and Roi-Tan until it closed in 1973. The Cigar Factory was listed in the National Register of Historic Places in 1980.",
-      "gps": "No Coordinates",
+      "gps": [
+        32.7968833,
+        79.9347
+      ],
       "county": "CHARLESTON COUNTY"
     },
     {
@@ -4676,7 +4694,10 @@
       "name": "LINCOLN THEATRE/LITTLE JERUSALEM",
       "rel_loc": "601 KING ST., CHARLESTON",
       "desc": "LINCOLN THEATRE (Front) In 1919, the Lincoln Theatre opened at 601 King St. and became Charleston's lognest operating theater for African Americans. It was run for most of its history by African American manager Damon Ireland Thomas (1875-1955). For a time it was the only theater in the city where black patrons sat without restrictions. The Lincoln hosted movies, vaudeville troupes, public speakers, and local acts. It closed c.1971 and was razed in 1989 after sustaining damage from Hurricane Hugo.",
-      "gps": "No Coordinates",
+      "gps": [
+        32.7932167,
+        79.9415167
+      ],
       "county": "CHARLESTON COUNTY"
     },
     {
@@ -4912,8 +4933,11 @@
     {
       "name": "GAFFNEY'S OLD FIELD/CENTRAL SCHOOL",
       "rel_loc": "301 COLLEGE DR., GAFFNEY",
-      "desc": "",
-      "gps": "No Coordinates",
+      "desc": "GAFFNEY’S OLD FIELD (Front)\nMuch of the land in this area once belonged to Michael Gaffney, proprietor of Gaffney’s Crossroads. The area also served as a militia encampment for many years with the company reporting for duty in Charleston during the war of 1812. The development of nearby Limestone Springs as a resort attraction resulted in increased tourism and Michael Gaffney allowed for the construction of a horse track here in his old field, as it was known locally.\nCENTRAL SCHOOL (Reverse)\nThe Gaffney Male and Female Seminary moved into a new building at this site in 1887. In 1898, the seminary became the local high school. Central High School became Central Graded School when a new Gaffney High School building was opened in 1925. The current building replaced the original school in 1958. It remained in use as Central Elementary School until 1999. Today, the building is home to the Cherokee County History and Arts Museum.",
+      "gps": [
+        35.06743,
+        81.6489
+      ],
       "county": "CHEROKEE COUNTY"
     },
     {
@@ -4937,10 +4961,13 @@
       "county": "CHESTER COUNTY"
     },
     {
-      "name": "BATTLE OF FISHDAM FORD S.C. HWY. 215, LEEDS VICINITY, JUST EAST OF THE BROAD RIVER NEAR THE CHESTER COUNTY-UNION COUNTY LINE",
-      "rel_loc": "On the east side of Broad River by an old Indian fish dam, General Thomas Sumter's camp was attacked before dawn on November 9, 1780 by the British 63rd Regiment and a detachment of the Legion, led by Major James Wemyss. The American campfires made excellent targets of the mounted British, who were severely defeated. Wemyss was taken prisoner by General Sumter. Erected by Chester County Historical Society, 1974",
-      "desc": "GPS Coordinates: 34\u00b0 35.676' N, 81\u00b0 24.99' W",
-      "gps": "No Coordinates",
+      "name": "BATTLE OF FISHDAM FORDS.C. HWY. 215, LEEDS VICINITY, JUST EAST OF THE BROAD RIVER NEAR THE CHESTER COUNTY-UNION COUNTY LINE",
+      "rel_loc": "S.C. HWY. 215, LEEDS VICINITY, JUST EAST OF THE BROAD RIVER NEAR THE CHESTER COUNTY-UNION COUNTY LINE",
+      "desc": "On the east side of Broad River by an old Indian fish dam, General Thomas Sumter's camp was attacked before dawn on November 9, 1780 by the British 63rd Regiment and a detachment of the Legion, led by Major James Wemyss. The American campfires made excellent targets of the mounted British, who were severely defeated. Wemyss was taken prisoner by General Sumter. Erected by Chester County Historical Society, 1974",
+      "gps": [
+        34.5946,
+        81.4165
+      ],
       "county": "CHESTER COUNTY"
     },
     {
@@ -5587,7 +5614,10 @@
       "name": "MARTYR OF THE REVOLUTION/HAYNE HALL",
       "rel_loc": "S.C. HWY. 64, 13 MI. E OF WALTERBORO",
       "desc": "MARTYR OF THE REVOLUTION (Front) When Loyalist soldiers attacked the camp of Col. Isaac Hayne's S.C. militia about 5 mi. W on July 7, 1781, they captured Hayne. He was soon condemned as a traitor because he had previously declared allegiance to Great Britain after the fall of Charleston. Hayne, hanged in Charleston on August 4, 1781, became a martyr to those fighting for America's independence.",
-      "gps": "No Coordinates",
+      "gps": [
+        32.80692,
+        80.47917
+      ],
       "county": "COLLETON COUNTY"
     },
     {
@@ -5611,10 +5641,13 @@
       "county": "COLLETON COUNTY"
     },
     {
-      "name": "WALTERBORO JAIL N. JEFFRIES BLVD., BETWEEN BENSON ST. & W. WASHINGTON ST., WALTERBORO",
-      "rel_loc": "This neo-Gothic building, designed by Jones & Lee, noted architects of Charleston, and constructed by J. & B. Lucas in 1855-56, replaced the jail built in 1822 when Walterboro became the seat of justice of Colleton District. It served as a jail until 1937, since which time, it has been used by Colleton County to house various offices. Erected by Colleton County Historical Society, 1965",
-      "desc": "GPS Coordinates: 32\u00b0 54.221' N, 80\u00b0 40.039' W",
-      "gps": "No Coordinates",
+      "name": "WALTERBORO JAIL",
+      "rel_loc": "N. JEFFRIES BLVD., BETWEEN BENSON ST. & W. WASHINGTON ST., WALTERBORO",
+      "desc": "This neo-Gothic building, designed by Jones & Lee, noted architects of Charleston, and constructed by J. & B. Lucas in 1855-56, replaced the jail built in 1822 when Walterboro became the seat of justice of Colleton District. It served as a jail until 1937, since which time, it has been used by Colleton County to house various offices. Erected by Colleton County Historical Society, 1965",
+      "gps": [
+        32.90368,
+        80.66732
+      ],
       "county": "COLLETON COUNTY"
     },
     {
@@ -5730,8 +5763,11 @@
     {
       "name": "COLLETON TRAINING SCHOOL/GRUBER STREET USO",
       "rel_loc": "229 GRUBER ST., WALTERBORO",
-      "desc": "COLLETON TRAINING SCHOOL (Front) Colleton Training School opened in 1925 and served African American students in the elementary and high school grades. In 1954 it was renamed Colleton High and remained in use until 1970 when Colleton County schools were desegregated. During World War II the school was temporary home of",
-      "gps": "No Coordinates",
+      "desc": "COLLETON TRAINING SCHOOL (Front) Colleton Training School opened in 1925 and served African American students in the elementary and high school grades. In 1954 it was renamed Colleton High and remained in use until 1970 when Colleton County schools were desegregated. During World War II the school was temporary home of the USO established for ue by black servicemen, including the Tuskegee Airmen, who were trained at Walterboro Army Airfield.\nGRUBER STREET USO (Reverse)\nIn 1944 a federal grant allowed for the construction of a purpose-built USO for black servicemen. Built adjacent to the original Colleton Training School it included an auditorium and dance floor. The USO hosted weekly dances, live music, and games. It was necessary to have a USO for black soldiers because other facilities in Walterboro were segregated and did not admit black troops. After the war the building was repurposed for use by Colleton Training School.",
+      "gps": [
+        32.90893,
+        80.65112
+      ],
       "county": "COLLETON COUNTY"
     },
     {
@@ -5757,8 +5793,11 @@
     {
       "name": "RUFFIN ROSENWALD SCHOOL/RUFFIN EQUALIZATION SCHOOL",
       "rel_loc": "375 SMYLY RD., RUFFIN",
-      "desc": "RUFFIN ROSENWALD SCHOOL (Front) This frame building dates to 1928-29 and originally housed a segregated school for Black residents of Ruffin. Its cost was paid by local African Americans, the school district, and the Julius Rosenwald",
-      "gps": "No Coordinates",
+      "desc": "RUFFIN ROSENWALD SCHOOL (Front) This frame building dates to 1928-29 and originally housed a segregated school for Black residents of Ruffin. Its cost was paid by local African Americans, the school district, and the Julius Rosenwald Fund. It replaced another Rosenwald school built in 1920-21 that had burned. Approx. 5,000 Rosenwald schools were built in S.C. This is the only one known to still stand in Colleton Co.\nRUFFIN EQUALIZATION SCHOOLS (Reverse)\nThis building was replaced by Ruffin High School and Elementary School, built across Smyly Road in 1954 and 1962. Both were funded by the S.C. equalization program, an effort to preserve segregation by improving Black schools. The elementary campus closed in 1967 and was added to the high school. Ruffin H.S. desegregated in 1970 but remained predominantly Black until it closed in 2002.",
+      "gps": [
+        33.012,
+        80.8098
+      ],
       "county": "COLLETON COUNTY"
     },
     {
@@ -6243,9 +6282,12 @@
     },
     {
       "name": "WILDS-EDWARDS HOUSE/SAMUEL HUGH WILDS",
-      "rel_loc": "",
-      "desc": "EDWARDS AVE., JUST S OF PEARL ST., DARLINGTON",
-      "gps": "No Coordinates",
+      "rel_loc": "EDWARDS AVE., JUST S OF PEARL ST., DARLINGTON",
+      "desc": "WILDS-EDWARDS HOUSE (Front)\nThis Italianate house, designed by J.L. Clickner, was built 1856-57 for planter Samuel H. Wilds (1819-1867). According to tradition Clickner returned in early 1865 as a Union soldier and persuaded his superiors not to burn the house during a raid in the area. In 1870 attorney B.W. Edwards (1824-1890), later a state senator, acquired the house; it remained in the family until 1999.\nSAMUEL HUGH WILDS (Reverse)\nSamuel H. Wilds was a member of the Darlington Agricultural Society, a colonel in the antebellum militia, and a state representative 1856-57 and again in 1864. He organized the \"Wilds Rifles\" (later Co. B, 21st S.C. Infantry) at the outbreak of the Civil War as its captain and rose to major by war's end. This house was listed in the National Register of Historic Places in 1988.",
+      "gps": [
+        34.29903,
+        79.8753
+      ],
       "county": "DARLINGTON COUNTY"
     },
     {
@@ -6490,9 +6532,12 @@
     },
     {
       "name": "JERUSALEM BAPTIST CHURCH",
-      "rel_loc": "6TH ST. & LAURENS AVE., HARTSVILLE (Front) This church, organized soon after the Civil War, is one of the oldest African-American churches in Darlington County. It held its first services a few miles E under a brush arbor on Snake Branch, a creek near E. Carolina Ave. The first permanent church, a log building, was built there. Trustees acquired this site in 1898, built the present church in 1907, and chartered the congregation in 1908. (Reverse) This church, built in 1907 as a frame building, was described as \u201ca splendid achievement\u201d when it was covered in brick veneer and rededicated in 1939. It had a congregation of more than 350 during the Depression. Rev. Henry H. Butler (1887-1948), pastor from 1932 until his death, was also for many years the principal of the Darlington Co. Training School/Butler School and later president of Morris College. Sponsored by the Darlington County Historical Commission, 2014",
-      "desc": "GPS Coordinates: 34\u00b0 22.277' N, 80\u00b0 4.438' W",
-      "gps": "No Coordinates",
+      "rel_loc": "6TH ST. & LAURENS AVE., HARTSVILLE",
+      "desc": "(Front) This church, organized soon after the Civil War, is one of the oldest African-American churches in Darlington County. It held its first services a few miles E under a brush arbor on Snake Branch, a creek near E. Carolina Ave. The first permanent church, a log building, was built there. Trustees acquired this site in 1898, built the present church in 1907, and chartered the congregation in 1908. (Reverse) This church, built in 1907 as a frame building, was described as “a splendid achievement” when it was covered in brick veneer and rededicated in 1939. It had a congregation of more than 350 during the Depression. Rev. Henry H. Butler (1887-1948), pastor from 1932 until his death, was also for many years the principal of the Darlington Co. Training School/Butler School and later president of Morris College. Sponsored by the Darlington County Historical Commission, 2014",
+      "gps": [
+        34.37128,
+        80.07397
+      ],
       "county": "DARLINGTON COUNTY"
     },
     {
@@ -6878,8 +6923,11 @@
     {
       "name": "FOUR HOLES SWAMP BRIDGE/HARLEY'S TAVERN",
       "rel_loc": "NEAR THE DORCHESTER COUNTY DEPARTMENT OF PUBLIC WORKS, 2120 E. MAIN ST. (U.S. HWY. 178) BETWEEN HARLEYVILLE AND DORCHESTER",
-      "desc": "FOUR HOLES SWAMP BRIDGE (Front) The first bridge across Four Holes Swamp, a branch of the Edisto River, was built between 1770 and 1780 and was located about 200 ft. N. of the present bridge. The old bridge, on the road from Orangeburg to Charleston, was the site of several actions in 1781 and 1782 where S.C. militia and Patriot forces under Cols. Henry and Wade Hampton and William Harden clashed with Loyalists.",
-      "gps": "No Coordinates",
+      "desc": "FOUR HOLES SWAMP BRIDGE (Front) The first bridge across Four Holes Swamp, a branch of the Edisto River, was built between 1770 and 1780 and was located about 200 ft. N. of the present bridge. The old bridge, on the road from Orangeburg to Charleston, was the site of several actions in 1781 and 1782 where S.C. militia and Patriot forces under Cols. Henry and Wade Hampton and William Harden clashed with Loyalists. HARLEY’S TAVERN (Reverse)\nThe first post office in what is now Dorchester County was opened in 1803 by William Harley at his tavern, a frequent stop for travelers on the Columbia Road. It stood near the present site of the Department of Public Works. Harley's son James (1801-1867) is buried just N. of the site on U.S. Hwy. 178; the town of Harleyville was named for William's grandson William W. (1825-1906). Erected by Dorchester County, 1999",
+      "gps": [
+        33.1427,
+        80.3525
+      ],
       "county": "DORCHESTER COUNTY"
     },
     {
@@ -7715,8 +7763,11 @@
     {
       "name": "NEY SCHOOL/BACK SWAMP SCHOOL",
       "rel_loc": "E. POCKET RD. (S.C. SEC. RD. 21-26), JUST W OF ITS JUNCTION WITH ROGERS CT., BACK SWAMP COMMUNITY, FLORENCE VICINITY",
-      "desc": "NEY SCHOOL (Front) About 1843 Robert Rogers (1808-1882), a planter at \"Blooming Grove\" in the Back Swamp community of what was then Darlington District, built a plantation schoolhouse and hired Peter Stuart Ney (d. 1846) to teach his children. The original building, moved here in 1870, was later the library for Back Swamp School (1921-1950). In 1970 it was moved to the home of Evander McIver Ervin.",
-      "gps": "No Coordinates",
+      "desc": "NEY SCHOOL (Front) About 1843 Robert Rogers (1808-1882), a planter at \"Blooming Grove\" in the Back Swamp community of what was then Darlington District, built a plantation schoolhouse and hired Peter Stuart Ney (d. 1846) to teach his children. The original building, moved here in 1870, was later the library for Back Swamp School (1921-1950). In 1970 it was moved to the home of Evander McIver Ervin. BACK SWAMP SCHOOL (Reverse)\nThis school, the second on the site, was built in 1921 by Back Swamp residents. An elementary school sometimes known as St. Winifred's, it boasted as many as two teachers and sixty students in some years. When it closed in 1950 its students were transferred to Florence schools; it has since served as the Back Swamp Community Center. Erected by the Darlington County Historical Commission, 2000",
+      "gps": [
+        34.27398,
+        79.71812
+      ],
       "county": "FLORENCE COUNTY"
     },
     {
@@ -7872,8 +7923,11 @@
     {
       "name": "AMERICAN LEGION POST #1/2ND LIEUTENANT FRED H. SEXTON",
       "rel_loc": "3631 E. PALMETTO ST., FLORENCE",
-      "desc": "AMERICAN LEGION POST #1 (Front) This post, organized in May 1919 and chartered by national headquarters in June 1919, was the first American Legion post in S.C. Florence County veterans J.D. Smyser, R.B. Fulton, and N.S. Lachicotte represented S.C. at the first national caucus. The American Legion of S.C. held its first state caucus in Florence in July 1919. A monument to Florence County WWI veterans was erected here in 1928.",
-      "gps": "No Coordinates",
+      "desc": "AMERICAN LEGION POST #1 (Front) This post, organized in May 1919 and chartered by national headquarters in June 1919, was the first American Legion post in S.C. Florence County veterans J.D. Smyser, R.B. Fulton, and N.S. Lachicotte represented S.C. at the first national caucus. The American Legion of S.C. held its first state caucus in Florence in July 1919. A monument to Florence County WWI veterans was erected here in 1928. 2ND LIEUTENANT FRED H. SEXTON (Reverse) American Legion Post #1 is named for 2nd Lieutenant Fred H. Sexton (1890-1918), killed in France in World War I. Sexton, a native of Union, moved to Florence in 1911. He enlisted in the S.C. National Guard and was promoted to 2nd lt., 113th Infantry, 29th Division, in 1918. He was killed in the Meuse-Argonne in Oct. 1918 and posthumously awarded the Distinguished Service Cross, the second highest American military honor. Erected by the Fred H. Sexton Post # 1, American Legion, Department of South Carolina, 2010",
+      "gps": [
+        34.19693,
+        79.69112
+      ],
       "county": "FLORENCE COUNTY"
     },
     {
@@ -8198,9 +8252,21 @@
     },
     {
       "name": "PRINCE GEORGE'S PARISH CHURCH, WINYAH",
-      "rel_loc": "708 HIGHMARKET ST., GEORGETOWN Prince George's Parish, Winyah, was created March 10, 1721, and the parish church was erected on Black River, 1726, at the present Brown's Ferry. After Prince Frederick's Parish was formed from Prince George's, April 9, 1734, the parish church was erected here, 1737-1750. The tower and chancel were added in 1824. Erected under Auspices of the Georgetown Chapter, D. A. R., 1941",
-      "desc": "22-10 SKIRMISH AT BLACK MINGO CREEK",
-      "gps": "No Coordinates",
+      "rel_loc": "708 HIGHMARKET ST., GEORGETOWN",
+      "desc": "Prince George's Parish, Winyah, was created March 10, 1721, and the parish church was erected on Black River, 1726, at the present Brown's Ferry. After Prince Frederick's Parish was formed from Prince George's, April 9, 1734, the parish church was erected here, 1737-1750. The tower and chancel were added in 1824. Erected under Auspices of the Georgetown Chapter, D. A. R., 1941",
+      "gps": [
+        33.3684,
+        79.28083],
+      "county": "GEORGETOWN COUNTY"
+    },
+    {
+      "name": "SKIRMISH AT BLACK MINGO CREEK",
+      "rel_loc": "COUNTY LINE RD. (S.C. SEC. RD. 22-51/41), JUST N OF MINGO LANDING TRAIL, 1.6 MI. N OF RHEMS",
+      "desc": "On Sept. 14, 1780, Gen. Francis Marion's Patriots routed a Tory force commanded by Capt. J. Coming Ball. The Tories, attacked on one flank by Capt. Thomas Waties and on the other by Col. Peter Horry, fled into Black Mingo Swamp. The short but sharply-contested action cost each side nearly one-third of its men. Erected by the Georgetown County Historical Society, 2005, replacing a marker erected by Georgetown County in 1941",
+      "gps": [
+        33.6225,
+        79.4332
+      ],
       "county": "GEORGETOWN COUNTY"
     },
     {
@@ -8491,13 +8557,6 @@
         33.271116666666664,
         79.2975
       ],
-      "county": "GEORGETOWN COUNTY"
-    },
-    {
-      "name": "HOBCAW BARONY",
-      "rel_loc": "AT THE ENTRANCE TO THE BELLE W. BARUCH FOUNDATION, HOBCAW BARONY, U.S. HWY. 17, 1 MI. N OF GEORGETOWN",
-      "desc": "Erected by the Belle W. Baruch Foundation, 1995",
-      "gps": "No Coordinates",
       "county": "GEORGETOWN COUNTY"
     },
     {
@@ -8931,10 +8990,23 @@
       "county": "GREENVILLE COUNTY"
     },
     {
-      "name": "JOEL ROBERTS POINSETT POINSETT HOTEL, S. MAIN ST., GREENVILLE (Front) 1779-1851/Born in Charleston, S. C., educated in this country and Great Britain, he travelled widely in Europe and Asia before returning to a distinguished career. He served South Carolina in the state legislature, 1816-1820; 1830-1832; and as Chairman of the Board of Public Works 1818-1820. He represented S. C. in Congress 1821-1825, was first American Minister to Mexico 1825-1829, and Secretary of War, 1837-1841. (Reverse) Planter, Writer, Botanist/Diplomat, Statesman./Joel R. Poinsett had a summer home near here dividing his time in later life between it and his plantation on the Peedee River. He brought the lovely poinsettia to this country from Mexico. His cultural interests and scientific pursuits with this political career earned him the title \"Versatile American.\" He died December 12, 1851, at Stateburg, S. C., and was buried there at the Church of the Holy Cross. Erected by Greenville County Historical Society, 1968",
-      "rel_loc": "GPS Coordinates: 34\u00b0 50.933' N, 82\u00b0 23.997' W",
-      "desc": "23-12 OLD GREENVILLE GRAVEYARD",
-      "gps": "No Coordinates",
+      "name": "JOEL ROBERTS POINSETT",
+      "rel_loc": "POINSETT HOTEL, S. MAIN ST., GREENVILLE",
+      "desc": "(Front) 1779-1851/Born in Charleston, S. C., educated in this country and Great Britain, he travelled widely in Europe and Asia before returning to a distinguished career. He served South Carolina in the state legislature, 1816-1820; 1830-1832; and as Chairman of the Board of Public Works 1818-1820. He represented S. C. in Congress 1821-1825, was first American Minister to Mexico 1825-1829, and Secretary of War, 1837-1841. (Reverse) Planter, Writer, Botanist/Diplomat, Statesman./Joel R. Poinsett had a summer home near here dividing his time in later life between it and his plantation on the Peedee River. He brought the lovely poinsettia to this country from Mexico. His cultural interests and scientific pursuits with this political career earned him the title \"Versatile American.\" He died December 12, 1851, at Stateburg, S. C., and was buried there at the Church of the Holy Cross. Erected by Greenville County Historical Society, 1968",
+      "gps": [
+        34.84888,
+        82.39995
+      ],
+      "county": "GREENVILLE COUNTY"
+    },
+    {
+      "name": "OLD GREENVILLE GRAVEYARD",
+      "rel_loc": "OLD BUNCOMBE RD. AT HAMMETT ST., NEAR POE MILLS, GREENVILLE",
+      "desc": "(Front) About 150 feet east of this point are buried some of Greenville's earliest settlers, including Elias Earle (1762-1823), State Representative and Senator and United States Congressman; George Washington Earle (1777-1821), wealthy planter and early Greenville Clerk of Court; and their immediate families.\n(Reverse) Among the Earle descendants buried about 150 feet east of this point is George Earle Yancey, infant son of William Lowndes Yancey, known as the \"father of secession,\" and Sarah Caroline Earle Yancey. In an unmarked grave is buried Elias Drayton Earle, South Carolina Superintendent of Public Works, 1847. Erected by Behethland Butler Chapter, Daughters of the American Revolution, 1980, replacing a marker erected by the Behethland Butler Chapter in 1971",
+      "gps": [
+        34.87483,
+        82.41583
+      ],
       "county": "GREENVILLE COUNTY"
     },
     {
@@ -9749,9 +9821,12 @@
     },
     {
       "name": "LONG CANE ASSOCIATE REFORMED PRESBYTERIAN CHURCH",
-      "rel_loc": "INTERSECTION OF MAIN ST. W. (S.C. SEC. RD. 24-24) AND TWIGG ST. (S.C. HWY. 10), TROY 4.5 miles northwest is Long Cane Church, organized in 1771 as Associate Presbyterian, with the Rev. William Ronaldson as first stated supply. It united with Cedar Spring, March 7, 1786, under Dr. Thos. Clark; withdrew September 15, 1803; part of congregation under the Presbyterian Church, 1813-1819; all reunited with Cedar Spring, Feb. 28, 1828; withdrew, Jan. 13, 1892. The present building was dedicated July 10, 1856. Erected by Members and Friends of the Church, 1940",
-      "desc": "GPS Coordinates: 33\u00b0 59.261' N, 82\u00b0 17.864' W",
-      "gps": "No Coordinates",
+      "rel_loc": "INTERSECTION OF MAIN ST. W. (S.C. SEC. RD. 24-24) AND TWIGG ST. (S.C. HWY. 10), TROY",
+      "desc": "4.5 miles northwest is Long Cane Church, organized in 1771 as Associate Presbyterian, with the Rev. William Ronaldson as first stated supply. It united with Cedar Spring, March 7, 1786, under Dr. Thos. Clark; withdrew September 15, 1803; part of congregation under the Presbyterian Church, 1813-1819; all reunited with Cedar Spring, Feb. 28, 1828; withdrew, Jan. 13, 1892. The present building was dedicated July 10, 1856. Erected by Members and Friends of the Church, 1940",
+      "gps": [
+        33.98768,
+        82.29773
+      ],
       "county": "GREENWOOD COUNTY"
     },
     {
@@ -11865,13 +11940,6 @@
       "county": "LEXINGTON COUNTY"
     },
     {
-      "name": "LUTHERAN CLASSICAL AND THEOLOGICAL SEMINARY",
-      "rel_loc": "U.S. HWY. 378, LEXINGTON The Seminary of the Evangelical Lutheran Synod of S.C. and Adjacent States was located here from 1834 to 1859, on a tract of 124 acres. E. L. Hazelius was presiding official and Professor of Theology. The dormitory became the Lexington County Museum in 1969. Two other Seminary associated buildings are nearby. Erected by Lexington County Historical Society, 1970",
-      "desc": "32-9 LEE'S TAVERN SITE",
-      "gps": "No Coordinates",
-      "county": "LEXINGTON COUNTY"
-    },
-    {
       "name": "HARTLEY HOUSE",
       "rel_loc": "305 E. COLUMBIA AVE. (U.S. HWY. 1), BATESBURG",
       "desc": "This house was built before 1800 for John Pearson Bond, according to local tradition. It later came into the possession of John Bates, of the family from whom Batesburg derives its name, and has been owned for over a century by Lodwick Hartley and his family. It was the first meeting place of the Batesville Masonic Lodge and was a stagecoach mail stop. Erected by Lexington County Historical Society, 1970",
@@ -12853,9 +12921,12 @@
     },
     {
       "name": "MARLBOROUGH COURT HOUSE/OLD RIVER ROAD",
-      "rel_loc": "U.S. HWY. 401/15 AT ITS INTERSECTION WITH WILLAMETTE RD. (S.C. HWY. 912), WELSH NECK MARLBOROUGH COURT HOUSE (Front) Located about one mile N. of here was the original county seat of Marlborough County, established in 1785. Tristram Thomas conveyed two acres of land to the county for the erection of public buildings in 1787, and the court house and jail were built there shortly afterward. The county seat was removed to a more central location in 1819. No trace of the original town remains. OLD RIVER ROAD (Reverse) This river road follows the course of the Great Pee Dee River and crosses U.S. 15 here. It was in existence before the Revolution and was a principal trade route from North Carolina and the Upper Pee Dee to Georgetown and Charleston. Early plantations lay along the road and it was traveled extensively by Patriot forces during the American Revolution. Erected by Marlboro County Historic Preservation Commission, 1978",
-      "desc": "GPS Coordinates: 34\u00b0 34.969' N, 79\u00b0 45.676' W",
-      "gps": "No Coordinates",
+      "rel_loc": "U.S. HWY. 401/15 AT ITS INTERSECTION WITH WILLAMETTE RD. (S.C. HWY. 912), WELSH NECK",
+      "desc": "MARLBOROUGH COURT HOUSE (Front) Located about one mile N. of here was the original county seat of Marlborough County, established in 1785. Tristram Thomas conveyed two acres of land to the county for the erection of public buildings in 1787, and the court house and jail were built there shortly afterward. The county seat was removed to a more central location in 1819. No trace of the original town remains. OLD RIVER ROAD (Reverse) This river road follows the course of the Great Pee Dee River and crosses U.S. 15 here. It was in existence before the Revolution and was a principal trade route from North Carolina and the Upper Pee Dee to Georgetown and Charleston. Early plantations lay along the road and it was traveled extensively by Patriot forces during the American Revolution. Erected by Marlboro County Historic Preservation Commission, 1978",
+      "gps": [
+        34.58282,
+        79.76127
+      ],
       "county": "MARLBORO COUNTY"
     },
     {
@@ -13346,13 +13417,6 @@
         34.68445,
         82.95471666666667
       ],
-      "county": "OCONEE COUNTY"
-    },
-    {
-      "name": "KEOWEE TOWN",
-      "rel_loc": "S.C. SEC. RD. 37-128, 1.6 MI. N OF S.C. HWY. 130, SE OF SALEM",
-      "desc": "37-6 CAPT. SAMUEL EARLE",
-      "gps": "No Coordinates",
       "county": "OCONEE COUNTY"
     },
     {
@@ -14456,13 +14520,6 @@
       "county": "RICHLAND COUNTY"
     },
     {
-      "name": "SITE OF CAROLINA HALL",
-      "rel_loc": "SUMTER ST., BETWEEN HAMPTON & WASHINGTON STS., COLUMBIA After Red Shirt campaign of 1876 Wade Hampton was inaugurated governor of South Carolina at Carolina Hall which stood in center of this square. During the dual government that followed, the Democratic House of Representatives (Wallace House) met here until the Hampton administration gained possession of the State House. Erected 1938 by the Columbia Sesquicentennial Commission of 1936",
-      "desc": "40-20 SITE OF COLUMBIA FEMALE ACADEMY",
-      "gps": "No Coordinates",
-      "county": "RICHLAND COUNTY"
-    },
-    {
       "name": "WASHINGTON STREET METHODIST CHURCH",
       "rel_loc": "1401 WASHINGTON ST., COLUMBIA",
       "desc": "A church was built here between 1803 and 1805; another church, erected 1832, was burned by Union troops in 1865 and reconstructed in 1866 of salvaged brick and clay mortar. Present church dedicated 1875. Bishop Wm. Capers (1790-1855), founder of missions to slaves in S. C., was pastor and is buried here. Erected 1938 by the Columbia Sesquicentennial Commission of 1936",
@@ -14573,13 +14630,6 @@
       "county": "RICHLAND COUNTY"
     },
     {
-      "name": "EARLY SUMMER RESORTS",
-      "rel_loc": "TWO NOTCH RD. (U.S. HWY. 1), DENTSVILLE COMMUNITY, COLUMBIA",
-      "desc": "Lightwood Knot Springs, situated about two miles north, a popular summer resort during the first half of the nineteenth century, was later Confederate training camp for recruits. A few miles east was Rice Creek Springs, another early summer resort and the site of Richland Polytechnic Institute, 1830-1845. Erected 1938 by the Columbia Sesquicentennial Commission of 1936",
-      "gps": "No Coordinates",
-      "county": "RICHLAND COUNTY"
-    },
-    {
       "name": "SOUTH CAROLINA FEMALE COLLEGIATE INSTITUTE",
       "rel_loc": "TWO NOTCH RD. (U.S. HWY. 1), NEAR COVENANT RD., DENTSVILLE COMMUNITY, COLUMBIA",
       "desc": "At Barhamville, about \u00bd mi. west of this point, a famous girls' school, founded by Dr. Elias Marks (1790-1886), was located 1828-65. Among the students were Anna Maria, daughter of John C. Calhoun; Ann Pamela Cuningham, founder of Mt. Vernon Ladies' Association; Martha Bulloch, mother of President Theodore Roosevelt. Erected in 1938 by the Columbia Sesquicentennial Commission of 1936",
@@ -14607,13 +14657,6 @@
         33.999066666666664,
         81.04063333333333
       ],
-      "county": "RICHLAND COUNTY"
-    },
-    {
-      "name": "HISTORIC PRINTING PLANT AND WAREHOUSE",
-      "rel_loc": "CORNER OF GERVAIS & PULASKI STS., COLUMBIA",
-      "desc": "Erected 1938 by the Columbia Sesquicentennial Commission of 1936",
-      "gps": "No Coordinates",
       "county": "RICHLAND COUNTY"
     },
     {
@@ -14947,13 +14990,6 @@
       "county": "RICHLAND COUNTY"
     },
     {
-      "name": "LAURENS STREET",
-      "rel_loc": "GERVAIS ST., JUST EAST OF GREGG ST., COLUMBIA",
-      "desc": "(Front) Laurens Street, located one block south, is named for Lt. Col. John Laurens of South Carolina whose father, Henry, was president of the Continental Congress. Young Laurens studied in London several years and in 1777, while still in his early twenties, returned to America and was named aide-de-camp to General George Washington. After distinguishing himself at Germantown and Monmouth, he joined the troops fighting the British in the South. (Reverse) Lt. Col. John Laurens of South Carolina, for whom Laurens Street is named, was made prisoner at the fall of Charlestown in May 1780. He was quickly exchanged and was named special envoy to France by Congress. With Benjamin Franklin and the French he planned the 1781 campaign, which led to the surrender of Cornwallis. Six months later he rejoined Washington and fought at Yorktown. Laurens was killed in South Carolina in 1782 in a Combahee River skirmish. Erected by Richland County Bicentennial Commission; Sponsored by Gibbes Machinery Company, 1978",
-      "gps": "No Coordinates",
-      "county": "RICHLAND COUNTY"
-    },
-    {
       "name": "WASHINGTON STREET",
       "rel_loc": "CORNER OF WASHINGTON & MAIN STS., COLUMBIA",
       "desc": "This street is named for George Washington, commander of the Continental Army throughout the Revolution, first President of the United States, and president of the 1787 Constitutional Convention. Early in his presidency, Washington toured the southern states. He visited South Carolina in 1791 and spent May 22-24 in the new capital city, Columbia. While here, he attended a public dinner in the new State House. Erected by Richland County Bicentennial Commission; Sponsored by Rotary Club of Columbia, 1978",
@@ -14961,13 +14997,6 @@
         34.00395,
         81.0347
       ],
-      "county": "RICHLAND COUNTY"
-    },
-    {
-      "name": "CALHOUN STREET",
-      "rel_loc": "CORNER OF MAIN & CALHOUN STS., COLUMBIA",
-      "desc": "Named Lumber Street by 1793, this street was renamed Calhoun shortly after 1911 for S. C. statesman John C. Calhoun (1782-1850). Calhoun was admitted to the S. C. bar in 1807, was United States Secretary of War 1812-25, Vice President 1825-1832, and Secretary of State 1844-45; he also served many years in Congress. Calhoun is buried in St. Philip's churchyard in Charleston. Erected by Richland County Bicentennial Commission; Sponsored by Columbia Office Supply, 1978",
-      "gps": "No Coordinates",
       "county": "RICHLAND COUNTY"
     },
     {
@@ -14988,13 +15017,6 @@
         34.0105,
         81.03731666666667
       ],
-      "county": "RICHLAND COUNTY"
-    },
-    {
-      "name": "HAMPTON STREET",
-      "rel_loc": "CORNER OF HAMPTON & MAIN STS., COLUMBIA",
-      "desc": "Part of the 1786 plan of Columbia, this street was first named Plain. It is thought to have been named after the plain of Taylor's Hill, on part of which the city of Columbia was built. Plain Street was renamed ca. 1907 for Wade Hampton, III (1818-1902), Confederate general, South Carolina Governor (1876-1879), and United States Senator (1879-1891). Hampton is buried in the churchyard of Trinity Cathedral in Columbia. Erected by Richland County Bicentennial Commission; Sponsored by Belk of Columbia, 1978",
-      "gps": "No Coordinates",
       "county": "RICHLAND COUNTY"
     },
     {
@@ -15075,13 +15097,6 @@
         34.003416666666666,
         81.02563333333333
       ],
-      "county": "RICHLAND COUNTY"
-    },
-    {
-      "name": "PARK STREET",
-      "rel_loc": "CORNER OF PARK & GERVAIS STS., COLUMBIA This street was originally named Gates for Gen. Horatio Gates. He was commander of the victorious Northern Army in 1777 in the Saratoga campaign which helped bring France into the war. Named commander of the Southern Army, Gates suffered disastrous defeat at Camden in 1780 by Cornwallis. Replaced by Gen. Nathanael Greene, Gates retired to Virginia. He died, 1806, in New York. This street was renamed Park Street shortly after 1940 for adjacent Sydney, later Seaboard Park. Erected by the Richland County Bicentennial Commission, 1978",
-      "desc": "40-85 81ST INF DIVISION",
-      "gps": "No Coordinates",
       "county": "RICHLAND COUNTY"
     },
     {
@@ -15222,13 +15237,6 @@
         33.99316666666667,
         81.02466666666666
       ],
-      "county": "RICHLAND COUNTY"
-    },
-    {
-      "name": "CITY HALL",
-      "rel_loc": "CORNER OF MAIN & LAUREL STS., COLUMBIA",
-      "desc": "Completed in 1874, this superb example of renaissance revival architecture was built of local and Fairfield County granite. The building was designed by Alfred B. Mullett, supervising architect of the U. S. Treasury Dept. and designer of such buildings as the Old Executive Office Building in Washington. Originally built as a U. S. courthouse and post office, this building has been Columbia's city hall since 1937. Erected by the City of Columbia, 1987",
-      "gps": "No Coordinates",
       "county": "RICHLAND COUNTY"
     },
     {
@@ -15399,13 +15407,6 @@
         34.00528333333333,
         80.9486
       ],
-      "county": "RICHLAND COUNTY"
-    },
-    {
-      "name": "CALVARY BAPTIST CHURCH 1865-1945",
-      "rel_loc": "RICHLAND ST., COLUMBIA",
-      "desc": "Site of an African-American church organized in 1865 with Samuel Johnson as its first pastor. It met under a brush arbor and in the basement of the Mann-Simons Cottage until its first sanctuary was built in 1875. Calvary helped found Present Zion (1865), First Nazareth (1879), and Second Calvary (1889). After the first church burned in 1945 the congregation built a new sanctuary at Pine and Washington Sts. in 1950. Sponsored by the Congregation, 1996",
-      "gps": "No Coordinates",
       "county": "RICHLAND COUNTY"
     },
     {
@@ -15731,8 +15732,11 @@
     {
       "name": "ISRAELITE SUNDAY SCHOOL/COLUMBIA'S FIRST SYNAGOGUE",
       "rel_loc": "ASSEMBLY ST., BETWEEN TAYLOR AND HAMPTON STS., COLUMBIA",
-      "desc": "ISRAELITE SUNDAY SCHOOL (Front) The Israelite Sunday School, the first Jewish religious school in Columbia, met in a building",
-      "gps": "No Coordinates",
+      "desc": "ISRAELITE SUNDAY SCHOOL (Front) The Israelite Sunday School, the first Jewish religious school in Columbia, met in a building on this site until 1865. It had been founded in 1843 to give Jewish children of the city “an intimate ...\nand full exposition of our faith.” Supported by the Columbia Hebrew Benevolent Society, the school had 20-30 students when it was organized in a nearby building, in space donated by a member of the society.\nCOLUMBIA’S FIRST SYNAGOGUE (Reverse)\nIn 1846 the Columbia Hebrew Benevolent Society built a frame building on this site for the Israelite Sunday School, which met on the first floor. The society also organized the first formal congregation in Columbia, which they named Shearith Israel (Remnant of Israel), with its synagogue on the second\nfloor. The building burned when Gen. William T. Sherman’s Federals captured the city in February 1865. Erected by the Beth Shalom Synagogue, the Tree of Life Temple, and the Jewish Historical Society of S.C., 2008",
+      "gps": [
+        34.00398,
+        81.03653
+      ],
       "county": "RICHLAND COUNTY"
     },
     {
@@ -16168,8 +16172,11 @@
     {
       "name": "CANAL DIME SAVINGS BANK/BOUIE V. CITY OF COLUMBIA (1964)",
       "rel_loc": "1530 MAIN ST., COLUMBIA",
-      "desc": "CANAL DIME SAVINGS BANK (Front) This three-story building was designed by the noted Columbia architectural firm of W.B. Smith Whaley and Co. Completed in 1895 and featuring a granite fa\u00e7ade and red barrel tile roof, the building is a rare example of Romanesque-style architecture in Columbia. Originally built to house the Canal Dime Savings Bank, the building was acquired by Eckerd's Pharmacy in 1936 and continued to operate as a drugstore until the 1980s.",
-      "gps": "No Coordinates",
+      "desc": "CANAL DIME SAVINGS BANK (Front) This three-story building was designed by the noted Columbia architectural firm of W.B. Smith Whaley and Co. Completed in 1895 and featuring a granite fa\u00e7ade and red barrel tile roof, the building is a rare example of Romanesque-style architecture in Columbia. Originally built to house the Canal Dime Savings Bank, the building was acquired by Eckerd's Pharmacy in 1936 and continued to operate as a drugstore until the 1980s. BOUIE V. CITY OF COLUMBIA (1964) (Reverse) On March 14, 1960, African American college students Simon Bouie and Talmadge Neal led a protest march to the Eckerd’s luncheonette. The pair were jailed and convicted for refusing to leave their seats after being denied service due to their race. In Bouie v. Columbia (1964), the U.S. Supreme Court overturned their convictions. The sit-in demonstration was part of broader protest movements against racial segregation in Columbia and the nation. Sponsored by Columbia SC 63, 2017",
+      "gps": [
+        34.00602,
+        81.03552
+      ],
       "county": "RICHLAND COUNTY"
     },
     {
@@ -16613,13 +16620,6 @@
       "county": "SPARTANBURG COUNTY"
     },
     {
-      "name": "WOFFORD COLLEGE",
-      "rel_loc": "ENTRANCE TO WOFFORD COLLEGE CAMPUS, N CHURCH ST., SPARTANBURG",
-      "desc": "Erected by the Class of 1960",
-      "gps": "No Coordinates",
-      "county": "SPARTANBURG COUNTY"
-    },
-    {
       "name": "\u201cKATE BARRY\u201d",
       "rel_loc": "S.C. SEC. RD. 42-196 (STILLHOUSE RD.), NEAR I-26 & U.S. HWY. 221 INTERCHANGE, MOORE VICINITY",
       "desc": "1\u00bd SE is Walnut Grove, home of Margaret Catherine Moore Barry (1752-1823). Local tradition says she was known as \"Kate Barry\" and acted as scout for the Patriots before the Battle of Cowpens, Jan. 17, 1781. With her parents, Charles and Mary Moore, and her husband, Captain Andrew Barry, she lies buried in the plantation cemetery. Erected by Descendants of Charles and Mary Moore and the Battle of Cowpens Chapter, Daughters of the American Revolution, 1968",
@@ -16932,8 +16932,11 @@
     {
       "name": "LITTLE AFRICA",
       "rel_loc": "INTERSECTION OF LITTLE AFRICA RD. AND S.C. HWY. 9, CHESNEE",
-      "desc": "(Front) Little Africa was one of a number of independent African American communities formed across the South after the Civil War. Founded c.1880 by former slaves Simpson Foster and Emanuel Waddell, it was originally just a few acres set aside for their relatives. It grew to several hundred residents as other families settled nearby seeking economic opportunity and refuge from white supremacy. (Reverse) Many early residents were farmers, and agriculture remained central to life in Little Africa for decades. By 1910, community leaders had built the two-room Africa School to teach local children. One of S.C.'s first Rosenwald Fund schools later opened there. Near the school, community members built Fairview C.M.E. c.1912, .5 miles east of here. Congregants first organized themselves c.1902.",
-      "gps": "No Coordinates",
+      "desc": "(Front) Little Africa was one of a number of independent African American communities formed across the South after the Civil War. Founded c.1880 by former slaves Simpson Foster and Emanuel Waddell, it was originally just a few acres set aside for their relatives. It grew to several hundred residents as other families settled nearby seeking economic opportunity and refuge from white supremacy. (Reverse) Many early residents were farmers, and agriculture remained central to life in Little Africa for decades. By 1910, community leaders had built the two-room Africa School to teach local children. One of S.C.'s first Rosenwald Fund schools later opened there. Near the school, community members built Fairview C.M.E. c.1912, .5 miles east of here. Congregants first organized themselves c.1902. Sponsored by Little Africa Community Members and Friends, 2019",
+      "gps": [
+        35.16873,
+        82.02768
+      ],
       "county": "SPARTANBURG COUNTY"
     },
     {
@@ -17079,8 +17082,11 @@
     {
       "name": "CHURCH OF THE HOLY CROSS, STATEBURG (EPISCOPAL)/HOLY CROSS CHURCHYARD",
       "rel_loc": "N. KING'S HWY. (S.C. HWY. 261), STATEBURG",
-      "desc": "CHURCH OF THE HOLY CROSS, STATEBURG (EPISCOPAL) (Front) This church is the successor to the nearby Chapel of Ease of 1770. Present building is on the site of the old Claremont Church of 1788, built on land given by General Thomas Sumter. Holy Cross is constructed of pise de terre, which is rammed earth. The cornerstone was laid on September 11, 1850.",
-      "gps": "No Coordinates",
+      "desc": "CHURCH OF THE HOLY CROSS, STATEBURG (EPISCOPAL) (Front) This church is the successor to the nearby Chapel of Ease of 1770. Present building is on the site of the old Claremont Church of 1788, built on land given by General Thomas Sumter. Holy Cross is constructed of pise de terre, which is rammed earth. The cornerstone was laid on September 11, 1850. HOLY CROSS CHURCHYARD (Reverse) In the surrounding churchyard are the graves of many distinguished South Carolinians. Veterans of three wars rest here. The Parish House was built in 1956, designed in general to conform to the architecture of the present church structure. Erected by the Sumter County Historical Commission, 1958",
+      "gps": [
+        33.95325,
+        80.53257
+      ],
       "county": "SUMTER COUNTY"
     },
     {
@@ -17096,8 +17102,11 @@
     {
       "name": "GENERAL SUMTER MEMORIAL ACADEMY 1905-1911/GENERAL SUMTER MEMORIAL ACADEMY",
       "rel_loc": "NEAR INTERSECTION OF ACTON RD. AND MEETING HOUSE RDS., DALZELL VICINITY",
-      "desc": "GENERAL SUMTER MEMORIAL ACADEMY 1905-1911 (Front) This forerunner of the modern consolidated rural high school with Colonel John Julius Dargan, noted educator, as founder and principal, offered classes in agriculture, home economics, and music. Day students from four districts were transported by mule-drawn covered wagons.",
-      "gps": "No Coordinates",
+      "desc": "GENERAL SUMTER MEMORIAL ACADEMY 1905-1911 (Front) This forerunner of the modern consolidated rural high school with Colonel John Julius Dargan, noted educator, as founder and principal, offered classes in agriculture, home economics, and music. Day students from four districts were transported by mule-drawn covered wagons. Erected by Sumter County Historical Commission, 1963\nGENERAL SUMTER MEMORIAL ACADEMY (Reverse) Acton, built in 1803 on this site by the Kinloch family, housed the Academy from 1905 until 1911 when the building burned. In 1908 the U. S. Department of Agriculture established one of the earliest school demonstration farms here. J. Frank Williams, agriculture teacher, later became the first Sumter County Farm agent. Sponsored by Academy Faculty and Alumni, 1963",
+      "gps": [
+        33.99105,
+        80.51568
+      ],
       "county": "SUMTER COUNTY"
     },
     {
@@ -18011,13 +18020,6 @@
       "county": "YORK COUNTY"
     },
     {
-      "name": "NATION FORD",
-      "rel_loc": "CHERRY RD. (U.S. HWY. 21) AT THE CATAWBA RIVER, ABOUT 2 MI. N OF ROCK HILL",
-      "desc": "Two miles downstream, prehistoric crossing of Catawba Indians, site of legendary battle between Catawbas and Cherokees. Used by Virginia traders in 1652. Sumter with 500 men had a fortified camp here in July, 1780. Federal cavalry burned the railroad bridge in April, 1865.",
-      "gps": "No Coordinates",
-      "county": "YORK COUNTY"
-    },
-    {
       "name": "COLUMBIA SEMINARY CHAPEL",
       "rel_loc": "1043 FOUNDERS LN., WINTHROP UNIVERSITY CAMPUS, ROCK HILL",
       "desc": "This building was designed by Robert Mills and erected in Columbia, S.C., as the stable and carriage house of the mansion of Ainsley Hall; Chapel of Columbia Theological Seminary (Presbyterian), 1830-1927; first home of Winthrop College, 1886-1887. Woodrow Wilson accepted and confessed Christ here in 1873. The chapel was moved to Rock Hill, 1936. Site is 350 yards SW. Erected by the Presbyterians of Rock Hill, South Carolina, 1967",
@@ -18120,8 +18122,11 @@
     {
       "name": "KING'S MOUNTAIN MILITARY ACADEMY SITE/MICAH JENKINS",
       "rel_loc": "234 KING'S MOUNTAIN ST., YORK PLACE EPISCOPAL CHURCH HOME FOR CHILDREN, YORK",
-      "desc": "KING'S MOUNTAIN MILITARY ACADEMY SITE (Front) Micah Jenkins and Asbury Coward, graduates of The Citadel in Charleston, founded this",
-      "gps": "No Coordinates",
+      "desc": "KING'S MOUNTAIN MILITARY ACADEMY SITE (Front) Micah Jenkins and Asbury Coward, graduates of The Citadel in Charleston, founded this Yorkville school in 1855. Closed during the Civil War, it was re-opened in 1866 by Coward, who later became head of S. C. Military Academy. The school closed permanently shortly before 1909, when the property was sold to the Episcopal Church Home. MICAH JENKINS (Reverse) Micah Jenkins, born 1835 at Edisto Island, graduated from The Citadel with first honors in 1854. Leaving King's Mountain Military School to enter the Confederate Army, he became known as a brave and daring leader, fighting through many significant battles and becoming brigadier general in 1862. He was killed at the Battle of the Wilderness, Virginia, in 1864. Erected by York County Historical Commission, 1981",
+      "gps": [
+        35.00412,
+        81.24063
+      ],
       "county": "YORK COUNTY"
     },
     {
