@@ -6,20 +6,27 @@
  */
 
 import 'package:flutter/material.dart';
+import '../markers/marker.dart';
 
-class CountyMark extends StatefulWidget {
+class CountyCollection extends StatefulWidget {
   final String countyName;
   final int markerNum;
-  const CountyMark({Key? key, required this.countyName, required this.markerNum}) : super(key: key);
-
+  final List<Marker> visited;
+  CountyCollection({Key? key, required this.countyName, required this
+      .markerNum, required this.visited}) : super(key: key);
   @override
-  _CountyMarkState createState() => _CountyMarkState();
+  _CountyCollection createState() => _CountyCollection();
 }
 
-class _CountyMarkState extends State<CountyMark> {
+class _CountyCollection extends State<CountyCollection> {
   @override
   int counter = 0;
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
+    for(var marker in widget.visited){
+      if(marker.county.split(" ")[0] == widget.countyName){
+        counter++;
+      }
+    }
     return FittedBox(
         fit: BoxFit.contain, // otherwise the logo will be tiny
         child: Column(
@@ -30,8 +37,6 @@ class _CountyMarkState extends State<CountyMark> {
               splashColor: Colors.amber,
               onPressed: () {
                 setState(() {
-                  if (counter != widget.markerNum)
-                    counter++;
                 });
               },
               child: const Icon(
