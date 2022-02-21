@@ -58,6 +58,12 @@ class _MyHomePageState extends State<MyHomePage> {
   GlobalKey marker_list = GlobalKey();
   GlobalKey search_bar = GlobalKey();
 
+  final List<String> items = <String>["None","County","Visited","Wishlist"];
+  String? selectedDrop;
+  List<bool> isSelected = List.filled(46, false);
+  List<String> selectedCounties = [];
+  int selectedList = 3;
+
   @override
   void initState() {
     //Future.delayed(Duration.zero, showTutorial);
@@ -125,6 +131,45 @@ class _MyHomePageState extends State<MyHomePage> {
             // ),
           //),
         ),
+        actions: <Widget>[
+          DropdownButtonHideUnderline(
+              child: DropdownButton(
+                iconSize: 30,
+                value: selectedDrop,
+                hint: Icon(Icons.filter_list),
+                items: items.map<DropdownMenuItem<String>>((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
+                selectedItemBuilder: (BuildContext context) {
+                  return items.map<Widget>((String item) {
+                    switch (item) {
+                      case "County": { return Icon(Icons.map_outlined); }
+                      case "Visited": { return Icon(Icons.location_on); }
+                      case "Wishlist": { return Icon(Icons.star); }
+                      default: { return Icon(Icons.filter_list); }
+                    }
+                  }).toList();
+                },
+                onChanged: (String? value) => setState(() {
+                  selectedDrop = value!;
+                  switch (value) {
+                    case "County": {
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => countySelect(),
+                      );
+                    } break;
+                    case "Visited": {
+                      selectedList = 2;
+
+                    } break;
+                    case "Wishlist": { selectedList = 1; } break;
+                    default: { selectedList = 3; }
+                  }
+
+
+                }),
+              )
+          )
+        ],
       ),
 
       body:Stack(
@@ -132,7 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: MapPage()
+              child: MapPage(key: ValueKey<int>(selectedList), list: selectedList, counties: selectedCounties)
           ),
         ],
       ),
@@ -145,7 +190,51 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       //floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
+
   }
+
+  AlertDialog countySelect() {
+    return AlertDialog(
+      title: const Text('Filter by County'),
+      content: StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return SingleChildScrollView(
+              child: ToggleButtons(
+                children: locs.fullCounties.map<Text>((e) => Text(e)).toList(),
+                onPressed: (int index) {
+                  setState(() {
+                    isSelected[index] = !isSelected[index];
+                  });
+                },
+                isSelected: isSelected,
+                direction: Axis.vertical,
+                //selectedColor: Colors.lightBlueAccent,
+              ),
+            );
+          }
+      ),
+      actions: <Widget>[
+        TextButton(
+          child: const Text(
+            'OK',
+            style: TextStyle(
+              color: Colors.blueGrey,
+            ),
+          ),
+          onPressed: () {
+            setState(() {
+              for (int i = 0; i < isSelected.length; i++)
+                if (isSelected[i])
+                  selectedCounties.add(locs.fullCounties[i]);
+              selectedList = 4;
+            });
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+  }
+
   /*
   void showTutorial() {
     initTargets();

@@ -25,6 +25,11 @@ List<String> visitedID = [];
 List<Marker> wishlist = [];
 List<String> wishlistID = [];
 List<Marker> nearby = [];
+
+final List<String> fullCounties = ["ABBEVILLE","AIKEN","ALLENDALE","ANDERSON","BAMBERG","BARNWELL","BEAUFORT","BERKELEY","CALHOUN","CHARLESTON","CHEROKEE","CHESTER","CHESTERFIELD","CLARENDON",
+  "COLLETON","DARLINGTON","DILLON","DORCHESTER","EDGEFIELD","FAIRFIELD","FLORENCE","GEORGETOWN","GREENVILLE","GREENWOOD","HAMPTON","HORRY","JASPER","KERSHAW","LANCASTER","LAURENS","LEE",
+  "LEXINGTON","MARION","MARLBORO","MCCORMICK","NEWBERRY","OCONEE","ORANGEBURG","PICKENS","RICHLAND","SALUDA","SPARTANBURG","SUMTER","UNION","WILLIAMSBURG","YORK"];
+
 LatLng userPos = LatLng(0,0);
 LatLng lastRecalc = LatLng(0,0);
 var distance = Distance(roundResult: false);
@@ -91,7 +96,6 @@ getMarkers() async {
   });
 }
 
-//TODO Swap to ID: done
 // Get a user's wishlist
 getWish() async {
   if (FireAuth.auth.currentUser != null) {
@@ -117,7 +121,6 @@ getWish() async {
   }
 }
 
-//TODO Swap to ID: done
 // Get a user's visited
 getVis() async {
   if (FireAuth.auth.currentUser != null) {
@@ -143,7 +146,6 @@ getVis() async {
   }
 }
 
-//TODO Swap to ID
 addToWish(Marker m) {
   //Check for duplicates (not necessary if buttons are designed correctly but just in case)
   if (!wishDupe(m)) {
@@ -173,7 +175,6 @@ addToWish(Marker m) {
   }
 }
 
-//TODO Swap to ID: done
 removeWishFirebase(Marker m) {
   //Remove from Firebase
   FirebaseFirestore.instance
@@ -206,7 +207,6 @@ bool wishDupe(Marker m) {
    */
 }
 
-//TODO Swap to ID: done
 addToVisited(Marker m) {
   if (!visitedDupe(m)) {
     //Reference username to get collection name
@@ -235,7 +235,6 @@ addToVisited(Marker m) {
   }
 }
 
-//TODO Swap to ID: done
 //Likely not used but added for functionality in case
 removeVisFirebase(Marker m) {
   //Remove from Firebase
@@ -269,12 +268,12 @@ bool visitedDupe(Marker m) {
   */
 }
 
-Widget buildListDisplay(BuildContext context, int num) {
-  List<Marker> pass = List<Marker>.empty();
-  if (num == 0) { pass = markers; }
-  else if (num == 1) { pass = wishlist; }
-  else if (num == 2) { pass = visited; }
-  else if (num == 3) {
+Widget buildListDisplay(BuildContext context, int num, {List<String>? counties}) {
+  List<Marker> pass = [];
+  if (num == 0) { pass = markers; } //Full list
+  else if (num == 1) { pass = wishlist; } //Wishlist
+  else if (num == 2) { pass = visited; } //Visited
+  else if (num == 3) { //Full list sorted nearby
     calcDist(); //Updates userDist for markers list
     //Duplicates markers list
     pass = List.from(markers);
@@ -287,6 +286,13 @@ Widget buildListDisplay(BuildContext context, int num) {
      */
     //Sorts new list by closest distance
     pass.sort((a,b) { return a.userDist.compareTo(b.userDist); });
+  }
+  else if (num == 4) { //County
+    markers.forEach((m) {
+      if (counties!.contains(m.county.split(new RegExp('\\s+'))[0]))
+        pass.add(m);
+    });
+    pass.sort((a,b) => a.name.compareTo(b.name));
   }
 
   return ListView(
