@@ -7,7 +7,6 @@
 
 import 'package:capi_stonsker/user_collections/my_markers_page.dart';
 import 'package:capi_stonsker/routing/plan_route_page.dart';
-import 'package:capi_stonsker/user_collections/wishlist_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -137,21 +136,6 @@ class _SideMenuState extends State<SideMenu> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => PlanRoutePage()
-                  )
-              );
-            },
-          ),
-          ListTile(
-            title: const Text('WISHLIST'),
-            onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => WishListPage()
                   )
               );
             },
