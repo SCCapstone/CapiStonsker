@@ -113,7 +113,7 @@ class _MarkerListPageState extends State<MarkerListPage> {
           )
         ],
       ),
-      body: locs.buildListDisplay(context, text, selectedList, counties: selectedCounties),
+      body: locs.buildListDisplay(context, selectedList, text, counties: selectedCounties),
       drawer: SideMenu(),
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
