@@ -29,6 +29,7 @@ class _MarkerListPageState extends State<MarkerListPage> {
   int selectedList = 3;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   String text = "";
+  final TextEditingController _controller = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +53,7 @@ class _MarkerListPageState extends State<MarkerListPage> {
               color: Colors.white, borderRadius: BorderRadius.circular(5)),
           child: Center(
             child: TextField(
+              controller: _controller,
               onChanged: (String value) => setState(() {
                 text = value;
               }
@@ -61,7 +63,11 @@ class _MarkerListPageState extends State<MarkerListPage> {
                 suffixIcon: IconButton(
                   icon: Icon(Icons.clear),
                   onPressed: () {
-                    // clear search text
+                    this.setState(() {
+                      _controller.clear;
+                      text = "";
+                    }
+                    );
                   },
                 ),
                 hintText: 'Search for markers by name',
