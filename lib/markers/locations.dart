@@ -25,6 +25,7 @@ List<String> visitedID = [];
 List<Marker> wishlist = [];
 List<String> wishlistID = [];
 List<Marker> nearby = [];
+List<Marker> searchRes = [];
 
 final List<String> fullCounties = ["ABBEVILLE","AIKEN","ALLENDALE","ANDERSON","BAMBERG","BARNWELL","BEAUFORT","BERKELEY","CALHOUN","CHARLESTON","CHEROKEE","CHESTER","CHESTERFIELD","CLARENDON",
   "COLLETON","DARLINGTON","DILLON","DORCHESTER","EDGEFIELD","FAIRFIELD","FLORENCE","GEORGETOWN","GREENVILLE","GREENWOOD","HAMPTON","HORRY","JASPER","KERSHAW","LANCASTER","LAURENS","LEE",
@@ -34,6 +35,10 @@ LatLng userPos = LatLng(0,0);
 LatLng lastRecalc = LatLng(0,0);
 var distance = Distance(roundResult: false);
 
+
+getSearchResults(String SearchText) {
+  searchRes = markers.where((s) => s.name.toLowerCase().contains(SearchText.toLowerCase())).toList();
+}
 
 //Stores user position
 updatePos(LatLng pos) {
@@ -268,7 +273,7 @@ bool visitedDupe(Marker m) {
   */
 }
 
-Widget buildListDisplay(BuildContext context, int num, {List<String>? counties}) {
+Widget buildListDisplay(BuildContext context, int num, String? searchString, {List<String>? counties}) {
   List<Marker> pass = [];
   if (num == 0) { pass = markers; } //Full list
   else if (num == 1) { pass = wishlist; } //Wishlist
@@ -293,6 +298,10 @@ Widget buildListDisplay(BuildContext context, int num, {List<String>? counties})
         pass.add(m);
     });
     pass.sort((a,b) => a.name.compareTo(b.name));
+  }
+
+  if (searchString != null && searchString != "") {
+    pass = markers.where((s) => s.name.toLowerCase().contains(searchString.toLowerCase())).toList();
   }
 
   return ListView(
@@ -332,37 +341,5 @@ Widget _buildRow(BuildContext context, Marker m, double d) {
             )
         );
       },
-  );
-}
-
-// The following two methods return search results given a search string
-Widget buildSearch(BuildContext context, searchString) {
-  List<Marker> pass = List<Marker>.empty();
-  calcDist();
-  pass = markers.where((s) => s.name.toLowerCase().contains(searchString.toLowerCase())).toList();
-  pass.sort((a,b) { return a.userDist.compareTo(b.userDist); });
-
-  return ListView(
-    children: pass.map((m) {
-      return _buildSearch(context, m, m.userDist);
-    }).toList(),
-  );
-}
-
-Widget _buildSearch(BuildContext context, Marker m, double d) {
-  return ListTile(
-    title: Text(m.name),
-    //if userDist is default then display county instead of distance
-    subtitle: d == 0.0 ? Text(m.county) : Text(d.toStringAsFixed(2) + " mi."),
-    onTap: () {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => FullInfoPage(
-                sentMarker: m,
-              )
-          )
-      );
-    },
   );
 }

@@ -2,7 +2,7 @@
  * This app was written by Matt Duggan, Joe Cammarata, James Davis,
  * Lauren Hodges, and Ian Urton
  *
- * We are currently in the Proof of Concept stage of app development
+ * We are currently in the Beta Release stage of app development
  *
  * This page is the one that opens on startup and contains a search bar,
  * map that displays historical markers, a tutorial for new users, and a
@@ -15,7 +15,6 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'src/map_page.dart';
 import 'app_nav/side_menu.dart';
 import 'markers/locations.dart' as locs;
-import 'src/search_results.dart';
 import 'app_nav/bottom_nav_bar.dart';
 
 
@@ -58,6 +57,9 @@ class _MyHomePageState extends State<MyHomePage> {
   GlobalKey marker_list = GlobalKey();
   GlobalKey search_bar = GlobalKey();
 
+  String searchText = "";
+  final TextEditingController _controller = new TextEditingController();
+
   final List<String> items = <String>["None","County","Visited","Wishlist"];
   String? selectedDrop;
   List<bool> isSelected = List.filled(46, false);
@@ -85,51 +87,33 @@ class _MyHomePageState extends State<MyHomePage> {
           width: MediaQuery.of(context).size.width,
           height: 40,
           decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(5),
-          ),
-          //child: Center(
-            //key: search_bar,
-            child: FractionallySizedBox(
-              //widthFactor: 0.9, // means 100%, you can change this to 0.8 (80%)
-              child: RaisedButton.icon(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => SearchResultsPage()
-                      )
-                  );
-                },
-                color: Colors.white,
-                label: Text(
-                    "Search for a marker by name...",
-                    style: TextStyle(color: Colors.grey)
+              color: Colors.white, borderRadius: BorderRadius.circular(5)),
+          child: Center(
+            child: TextField(
+              controller: _controller,
+              onChanged: (String value) => setState(() {
+                searchText = value;
+                selectedList = 5;
+              }
+              ),
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.search),
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.clear),
+                  onPressed: () {
+                    this.setState(() {
+                      _controller.clear;
+                      searchText = "";
+                      //selectedList = 3;
+                    }
+                    );
+                  },
                 ),
-                icon: Icon(Icons.search, color: Colors.grey),
+                hintText: 'Search for markers by name',
+                border: InputBorder.none,
               ),
             ),
-            // child: TextField(
-            //   onChanged: (value) {
-            //     Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //           builder: (context) => SearchResultsPage()
-            //         )
-            //     );
-            //   },
-            //   decoration: InputDecoration(
-            //     prefixIcon: Icon(Icons.search),
-            //     suffixIcon: IconButton(
-            //       icon: Icon(Icons.clear),
-            //       onPressed: () {
-            //         /* Clear the search field */
-            //       },
-            //     ),
-            //     hintText: 'Search...',
-            //     border: InputBorder.none,
-            //   ),
-            // ),
-          //),
+          ),
         ),
         actions: <Widget>[
           DropdownButtonHideUnderline(
@@ -177,7 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: MapPage(key: ValueKey<int>(selectedList), list: selectedList, counties: selectedCounties)
+              child: MapPage(key: ValueKey<int>(selectedList), list: selectedList, counties: selectedCounties, searchText: searchText,)
           ),
         ],
       ),
