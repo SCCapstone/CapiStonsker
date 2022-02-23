@@ -41,8 +41,8 @@ class FullInfoPage extends StatelessWidget {
         actions: <Widget>[
           Icon(
             isVis ? Icons.location_on : Icons.location_off_outlined,
-            color: isVis ? Colors.green : Colors.red,
-            size: 36.0,
+            color: Colors.white,//isVis ? Colors.green : Colors.red,
+            size: 30.0,
           )
         ]
       ),

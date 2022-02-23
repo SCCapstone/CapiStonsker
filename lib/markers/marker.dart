@@ -24,7 +24,7 @@ class Marker {
     return Marker(json['name'] as String,
         json['rel_loc'] as String,
         json['desc'] as String,
-        json['gps'] as List, //Some markers have "No Coordinates"
+        json['gps'] as List, //TODO Some markers have "No Coordinates"
         json['county'] as String
     );
   }
