@@ -28,6 +28,7 @@ class _MarkerListPageState extends State<MarkerListPage> {
   List<String> selectedCounties = [];
   int selectedList = 3;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  String text = "";
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,39 @@ class _MarkerListPageState extends State<MarkerListPage> {
               Navigator.of(context).pop();
             }
         ),
-        title: Text("Marker List Page"),
+        //title: Text("Marker List Page"),
+        title: Container(
+          width: MediaQuery.of(context).size.width,
+          height: 40,
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(5)),
+          child: Center(
+            child: TextField(
+              onChanged: (String value) => setState(() {
+                text = value;
+                // showDialog<String>(
+                // context: context,
+                // builder: (BuildContext context) => countySelect(),
+              }
+              ),
+              // onChanged: (String? value) async {
+              //   text = value;
+              //   //setState(value);
+              // },
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.search),
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.clear),
+                  onPressed: () {
+                    // clear search text
+                  },
+                ),
+                hintText: 'Search...',
+                border: InputBorder.none,
+              ),
+            ),
+          ),
+        ),
         backgroundColor: Colors.blueGrey,
         actions: <Widget>[
           DropdownButtonHideUnderline(
@@ -80,7 +113,7 @@ class _MarkerListPageState extends State<MarkerListPage> {
           )
         ],
       ),
-      body: locs.buildListDisplay(context, selectedList, counties: selectedCounties),
+      body: locs.buildListDisplay(context, text, selectedList, counties: selectedCounties),
       drawer: SideMenu(),
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );

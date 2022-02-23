@@ -49,9 +49,17 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
               color: Colors.white, borderRadius: BorderRadius.circular(5)),
           child: Center(
             child: TextField(
-              onChanged: (value) async {
+              onChanged: (String value) => setState(() {
                 text = value;
-              },
+                // showDialog<String>(
+                // context: context,
+                // builder: (BuildContext context) => countySelect(),
+                }
+              ),
+              // onChanged: (String? value) async {
+              //   text = value;
+              //   //setState(value);
+              // },
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.search),
                 suffixIcon: IconButton(

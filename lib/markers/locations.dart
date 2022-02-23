@@ -268,7 +268,7 @@ bool visitedDupe(Marker m) {
   */
 }
 
-Widget buildListDisplay(BuildContext context, int num, {List<String>? counties}) {
+Widget buildListDisplay(BuildContext context, String text, int num, {List<String>? counties}) {
   List<Marker> pass = [];
   if (num == 0) { pass = markers; } //Full list
   else if (num == 1) { pass = wishlist; } //Wishlist
