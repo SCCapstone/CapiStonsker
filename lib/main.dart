@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //String searchKey;
     //Stream streamQuery;
     return Scaffold(
-      extendBody: true,
+      // extendBody: true, TODO change position of move to current loc button
       key: _scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
