@@ -15,7 +15,8 @@ class MapPage extends StatefulWidget {
   int list = 3;
   //1: wishlist, 2: visited, 3: nearby sorted, 4: county
   List<String> counties = [];
-  MapPage({Key? key, required this.list, required this.counties}) : super(key: key);
+  String searchText;
+  MapPage({Key? key, required this.list, required this.counties, required this.searchText}) : super(key: key);
 
   @override
   _MapPageState createState() => _MapPageState();
@@ -102,6 +103,10 @@ class _MapPageState extends State<MapPage> {
           if (widget.counties.contains(m.county.split(new RegExp('\\s+'))[0]))
             ret.add(m);
         });
+      } break;
+      case 5: {
+        locs.getSearchResults(widget.searchText);
+        ret = locs.searchRes;
       } break;
     }
     return ret;

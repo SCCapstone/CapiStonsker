@@ -54,15 +54,8 @@ class _MarkerListPageState extends State<MarkerListPage> {
             child: TextField(
               onChanged: (String value) => setState(() {
                 text = value;
-                // showDialog<String>(
-                // context: context,
-                // builder: (BuildContext context) => countySelect(),
               }
               ),
-              // onChanged: (String? value) async {
-              //   text = value;
-              //   //setState(value);
-              // },
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.search),
                 suffixIcon: IconButton(
