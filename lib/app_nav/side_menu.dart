@@ -16,8 +16,8 @@ import '../user_collections/friends_page.dart';
 import '../src/help_page.dart';
 import '../auth/log_in_page.dart';
 import '../auth/logout_page.dart';
+import 'package:capi_stonsker/auth/fire_auth.dart';
 
-final _auth = FirebaseAuth.instance;
 class SideMenu extends StatefulWidget {
   const SideMenu({Key? key}) : super(key: key);
 
@@ -28,7 +28,7 @@ class SideMenu extends StatefulWidget {
 class _SideMenuState extends State<SideMenu> {
   // get text for log in/ log out button
   String getText() {
-    var user = _auth.currentUser;
+    var user = FireAuth.auth.currentUser;
     if (user != null) {
       // user is logged in
       return "Log out";
@@ -38,7 +38,6 @@ class _SideMenuState extends State<SideMenu> {
   }
 
   @override
-
   Widget build(BuildContext context) {
     return Drawer(
       key: const Key('drawer'),
@@ -114,16 +113,26 @@ class _SideMenuState extends State<SideMenu> {
           ListTile(
             title: const Text('MY MARKERS'),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MyMarkersPage()
-                  )
-              );
+              var user = FireAuth.auth.currentUser;
+              if (user != null) {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MyMarkersPage()
+                    )
+                );
+              }
+              else {
+                //no user is signed in
+                showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => noUserLoggedIn("My Markers")
+                );
+              }
             },
           ),
           ListTile(
@@ -144,37 +153,57 @@ class _SideMenuState extends State<SideMenu> {
           ListTile(
             title: const Text('WISHLIST'),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => WishListPage()
-                  )
-              );
+              var user = FireAuth.auth.currentUser;
+              if (user != null) {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => WishListPage()
+                    )
+                );
+              }
+              else {
+                //no user is signed in
+                showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => noUserLoggedIn("Wishlist")
+                );
+              }
             },
           ),
           ListTile(
             title: const Text('FRIENDS'),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => FriendsPage()
-                  )
-              );
+              var user = FireAuth.auth.currentUser;
+              if (user != null) { //User is logged in
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FriendsPage()
+                    )
+                );
+              }
+              else {
+                //no user is signed in
+                showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => noUserLoggedIn("Friends")
+                );
+              }
             },
           ),
           ListTile(
             title: const Text('ACCOUNT'),
             onTap: () {
-              var user = _auth.currentUser;
+              var user = FireAuth.auth.currentUser;
               if(user != null){ //user is logged in
                 // Update the state of the app
                 // ...
@@ -191,47 +220,7 @@ class _SideMenuState extends State<SideMenu> {
                 //no user is signed in
                 showDialog<String>(
                     context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                      title: const Text('You are not logged in'),
-                      content: SingleChildScrollView(
-                        child: ListBody(
-                          children: const <Widget>[
-                            Text('Please log in to continue to the account page.'),
-                          ],
-                        ),
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          key: const Key('login'),
-                          child: const Text(
-                            'Log in',
-                            style: TextStyle(
-                              color: Colors.blueGrey,
-                            ),
-                          ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                            Navigator.pop(context);
-                            Navigator.push(context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginScreen()
-                                )
-                            );
-                          },
-                        ),
-                        TextButton(
-                          child: const Text(
-                            'Dismiss',
-                            style: TextStyle(
-                              color: Colors.blueGrey,
-                            ),
-                          ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ],
-                  ),
+                    builder: (BuildContext context) => noUserLoggedIn("Account")
                 );
               }
             },
@@ -255,7 +244,7 @@ class _SideMenuState extends State<SideMenu> {
             widthFactor: 0.9, // means 100%, you can change this to 0.8 (80%)
             child: RaisedButton.icon(
               onPressed: () {
-                var user = _auth.currentUser;
+                var user = FireAuth.auth.currentUser;
                 if(user != null){
                   // user is logged in
                   Navigator.pop(context);
@@ -286,6 +275,50 @@ class _SideMenuState extends State<SideMenu> {
           ),
         ],
       ),
+    );
+  }
+
+  AlertDialog noUserLoggedIn(String page) {
+    return AlertDialog(
+      title: const Text('You are not logged in'),
+      content: SingleChildScrollView(
+        child: ListBody(
+          children: <Widget>[
+            Text("Please log in to continue to the " +  page + " page."),
+          ],
+        ),
+      ),
+      actions: <Widget>[
+        TextButton(
+          key: const Key('login'),
+          child: const Text(
+            'Log in',
+            style: TextStyle(
+              color: Colors.blueGrey,
+            ),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+            Navigator.pop(context);
+            Navigator.push(context,
+                MaterialPageRoute(
+                    builder: (context) => LoginScreen()
+                )
+            );
+          },
+        ),
+        TextButton(
+          child: const Text(
+            'Dismiss',
+            style: TextStyle(
+              color: Colors.blueGrey,
+            ),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ],
     );
   }
 }
