@@ -58,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
   GlobalKey search_bar = GlobalKey();
 
   String searchText = "";
+  final TextEditingController _controller = new TextEditingController();
 
   final List<String> items = <String>["None","County","Visited","Wishlist"];
   String? selectedDrop;
@@ -89,6 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Colors.white, borderRadius: BorderRadius.circular(5)),
           child: Center(
             child: TextField(
+              controller: _controller,
               onChanged: (String value) => setState(() {
                 searchText = value;
                 selectedList = 5;
@@ -99,10 +101,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 suffixIcon: IconButton(
                   icon: Icon(Icons.clear),
                   onPressed: () {
-                    // clear search text
+                    this.setState(() {
+                      _controller.clear;
+                      searchText = "";
+                      //selectedList = 3;
+                    }
+                    );
                   },
                 ),
-                hintText: 'Search...',
+                hintText: 'Search for markers by name',
                 border: InputBorder.none,
               ),
             ),

@@ -64,7 +64,7 @@ class _MarkerListPageState extends State<MarkerListPage> {
                     // clear search text
                   },
                 ),
-                hintText: 'Search...',
+                hintText: 'Search for markers by name',
                 border: InputBorder.none,
               ),
             ),
