@@ -54,7 +54,8 @@ class _MapPageState extends State<MapPage> {
 
     return FlutterMap(
       options: MapOptions(
-        minZoom: 15.0,
+        maxZoom: 18.0,
+        minZoom: 10,
         center: LatLng(34.0007, -81.0348),
         zoom: 13.0,
         plugins: [ UserLocationPlugin(), ],
