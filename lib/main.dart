@@ -11,6 +11,7 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'src/map_page.dart';
 import 'app_nav/side_menu.dart';
@@ -57,6 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
   GlobalKey marker_list = GlobalKey();
   GlobalKey search_bar = GlobalKey();
 
+  MapController mapController = MapController();
+
   String searchText = "";
   final TextEditingController _controller = new TextEditingController();
 
@@ -66,6 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
   List<String> selectedCounties = [];
   int selectedList = 3;
 
+
+
   @override
   void initState() {
     //Future.delayed(Duration.zero, showTutorial);
@@ -74,11 +79,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     //String search_val = "";
     //String searchKey;
     //Stream streamQuery;
     return Scaffold(
-      // extendBody: true, TODO change position of move to current loc button
+      extendBody: true, //TODO change position of move to current loc button
       key: _scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -161,7 +167,32 @@ class _MyHomePageState extends State<MyHomePage> {
           Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: MapPage(key: ValueKey<int>(selectedList), list: selectedList, counties: selectedCounties, searchText: searchText,)
+              child: MapPage(
+                key: ValueKey<int>(selectedList),
+                list: selectedList,
+                counties: selectedCounties,
+                searchText: searchText,
+                controller: mapController)
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              alignment: Alignment.topRight,
+              child: CircleAvatar(
+                backgroundColor: Colors.blueGrey,
+                radius: 25,
+                child: IconButton(
+                  //key: widget.menu_button,
+                  //tooltip: 'Open Menu',
+                    icon: Icon(Icons.my_location),
+                    color: Colors.white,
+                    iconSize: 35,
+                    onPressed: (){
+                      mapController.move(locs.userPos, 15);
+                    },
+                ),
+              ),
+            ),
           ),
         ],
       ),

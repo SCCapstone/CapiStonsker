@@ -321,8 +321,7 @@ Widget _buildRow(BuildContext context, Marker m, double d) {
             context,
             MaterialPageRoute(
                 builder: (context) => NavPage(
-                  sentMarker: m,
-                  distance: m.userDist,
+
                 )
             )
         );
