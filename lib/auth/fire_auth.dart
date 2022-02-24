@@ -8,6 +8,7 @@
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:google_sign_in/google_sign_in.dart';
@@ -28,6 +29,12 @@ class FireAuth {
       UserCredential userCred = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       user = userCred.user;
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(user?.uid)
+          .set(<String, dynamic> {
+            "email": user?.email,
+          });
     }
     on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
