@@ -5,18 +5,20 @@
  * TODO pull user name, level, avatar, etc from Firebase to display at the top of the header.
  */
 
-import 'package:capi_stonsker/user_collections/my_markers_page.dart';
-import 'package:capi_stonsker/routing/plan_route_page.dart';
-import 'package:capi_stonsker/user_collections/wishlist_page.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../auth/account_page.dart';
-import '../user_collections/friends_page.dart';
-import '../src/help_page.dart';
-import '../auth/log_in_page.dart';
-import '../auth/logout_page.dart';
+import 'package:capi_stonsker/auth/account_page.dart';
+import 'package:capi_stonsker/auth/log_in_page.dart';
+import 'package:capi_stonsker/auth/logout_page.dart';
 import 'package:capi_stonsker/auth/fire_auth.dart';
+import 'package:capi_stonsker/routing/plan_route_page.dart';
+import 'package:capi_stonsker/src/help_page.dart';
+import 'package:capi_stonsker/user_collections/my_markers_page.dart';
+import 'package:capi_stonsker/user_collections/wishlist_page.dart';
+import 'package:capi_stonsker/user_collections/friends_page.dart';
+import 'package:provider/provider.dart';
 
 class SideMenu extends StatefulWidget {
   const SideMenu({Key? key}) : super(key: key);
@@ -39,6 +41,9 @@ class _SideMenuState extends State<SideMenu> {
 
   @override
   Widget build(BuildContext context) {
+    var user = Provider.of<User?>(context);
+    bool loggedin = user != null;
+
     return Drawer(
       key: const Key('drawer'),
       // Add a ListView to the drawer. This ensures the user can scroll
@@ -113,8 +118,7 @@ class _SideMenuState extends State<SideMenu> {
           ListTile(
             title: const Text('MY MARKERS'),
             onTap: () {
-              var user = FireAuth.auth.currentUser;
-              if (user != null) {
+              if (loggedin) {
                 // Update the state of the app
                 // ...
                 // Then close the drawer
@@ -153,8 +157,7 @@ class _SideMenuState extends State<SideMenu> {
           ListTile(
             title: const Text('WISHLIST'),
             onTap: () {
-              var user = FireAuth.auth.currentUser;
-              if (user != null) {
+              if (loggedin) {
                 // Update the state of the app
                 // ...
                 // Then close the drawer
@@ -178,8 +181,7 @@ class _SideMenuState extends State<SideMenu> {
           ListTile(
             title: const Text('FRIENDS'),
             onTap: () {
-              var user = FireAuth.auth.currentUser;
-              if (user != null) { //User is logged in
+              if (loggedin) { //User is logged in
                 // Update the state of the app
                 // ...
                 // Then close the drawer
@@ -203,8 +205,7 @@ class _SideMenuState extends State<SideMenu> {
           ListTile(
             title: const Text('ACCOUNT'),
             onTap: () {
-              var user = FireAuth.auth.currentUser;
-              if(user != null){ //user is logged in
+              if(loggedin){ //user is logged in
                 // Update the state of the app
                 // ...
                 // Then close the drawer
@@ -244,8 +245,7 @@ class _SideMenuState extends State<SideMenu> {
             widthFactor: 0.9, // means 100%, you can change this to 0.8 (80%)
             child: RaisedButton.icon(
               onPressed: () {
-                var user = FireAuth.auth.currentUser;
-                if(user != null){
+                if(loggedin){
                   // user is logged in
                   Navigator.pop(context);
                   Navigator.push(context,

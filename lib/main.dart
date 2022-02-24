@@ -9,23 +9,30 @@
  * bottom navigation bar with links to a side menu and a list view of the markers
  */
 
+import 'package:capi_stonsker/auth/fire_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
-import 'src/map_page.dart';
-import 'app_nav/side_menu.dart';
-import 'markers/locations.dart' as locs;
-import 'src/search_results.dart';
-import 'app_nav/bottom_nav_bar.dart';
+import 'package:capi_stonsker/src/map_page.dart';
+import 'package:capi_stonsker/app_nav/side_menu.dart';
+import 'package:capi_stonsker/markers/locations.dart' as locs;
+import 'package:capi_stonsker/src/search_results.dart';
+import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
+import 'package:capi_stonsker/user_collections/friend.dart';
+import 'package:provider/provider.dart';
 
 
 void main() async {
   //Ensures Firebase connection initialized
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp();
   await locs.getMarkers();
   await locs.getWish();
   await locs.getVis();
+
   runApp(MyApp());
 }
 
@@ -36,9 +43,29 @@ class MyApp extends StatelessWidget {
   //root of the application
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: new MyHomePage(),
+    return MultiProvider(
+        providers: [
+          // Make user stream available
+          StreamProvider<User?>.value(value: FirebaseAuth.instance.idTokenChanges(), initialData: null),
+
+          // Make total friends stream available
+          StreamProvider<List<Friend>>.value(
+            value: FirebaseFirestore.instance
+                .collection('Users')
+                .doc(FireAuth.auth.currentUser!.uid)
+                .collection('friends')
+                .snapshots()
+                .map((snap) =>
+                snap.docs.map((doc) => Friend.fromFirestore(doc)).toList()),
+            initialData: [],
+          ),
+        ],
+
+        // All data will be available in this child and descendants
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: new MyHomePage(),
+        )
     );
   }
 }
@@ -91,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
             //key: search_bar,
             child: FractionallySizedBox(
               //widthFactor: 0.9, // means 100%, you can change this to 0.8 (80%)
-              child: RaisedButton.icon(
+              child: ElevatedButton.icon(
                 onPressed: () {
                   Navigator.push(
                       context,
@@ -100,7 +127,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       )
                   );
                 },
-                color: Colors.white,
+                style: ElevatedButton.styleFrom(primary: Colors.white),
+               // color: Colors.white,
                 label: Text(
                     "Search for a marker by name...",
                     style: TextStyle(color: Colors.grey)

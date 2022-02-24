@@ -70,7 +70,7 @@ class _MarkerListPageState extends State<MarkerListPage> {
                       context: context,
                       builder: (BuildContext context) => countySelect(),
                     );
-                  } break; //TODO Add selection of county name and filtering of markers - (add new method to locs, used for main also)
+                  } break;
                   case "Visited": { selectedList = 2; } break;
                   case "Wishlist": { selectedList = 1; } break;
                   default: { selectedList = 3; }
