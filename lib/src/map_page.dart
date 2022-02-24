@@ -16,7 +16,8 @@ class MapPage extends StatefulWidget {
   //1: wishlist, 2: visited, 3: nearby sorted, 4: county
   List<String> counties = [];
   String searchText;
-  MapPage({Key? key, required this.list, required this.counties, required this.searchText}) : super(key: key);
+  MapController controller;
+  MapPage({Key? key, required this.list, required this.counties, required this.searchText, required this.controller}) : super(key: key);
 
   @override
   _MapPageState createState() => _MapPageState();
@@ -27,7 +28,6 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-  MapController mapController = MapController();
   late UserLocationOptions userLocationOptions;
   List<Marker> uloMarkers = []; //not sure what the UserLayerOptions marker list is for
 
@@ -36,7 +36,7 @@ class _MapPageState extends State<MapPage> {
 
     userLocationOptions = UserLocationOptions(
       context: context,
-      mapController: mapController,
+      mapController: widget.controller,
       markers: uloMarkers,
       updateMapLocationOnPositionChange: false,
       zoomToCurrentLocationOnLoad: true,
@@ -46,7 +46,10 @@ class _MapPageState extends State<MapPage> {
           locs.updatePos(pos); //Updates userPos variable
         });
       },
-      showMoveToCurrentLocationFloatingActionButton: true,
+      showMoveToCurrentLocationFloatingActionButton: false
+
+
+      //showMoveToCurrentLocationFloatingActionButton: true,
     );
 
     return FlutterMap(
@@ -86,7 +89,7 @@ class _MapPageState extends State<MapPage> {
         ),
         userLocationOptions,
       ],
-      mapController: mapController,
+      mapController: widget.controller,
     );
   }
 
