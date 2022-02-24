@@ -155,30 +155,6 @@ class _SideMenuState extends State<SideMenu> {
             },
           ),
           ListTile(
-            title: const Text('WISHLIST'),
-            onTap: () {
-              if (loggedin) {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => WishListPage()
-                    )
-                );
-              }
-              else {
-                //no user is signed in
-                showDialog<String>(
-                    context: context,
-                    builder: (BuildContext context) => noUserLoggedIn("Wishlist")
-                );
-              }
-            },
-          ),
-          ListTile(
             title: const Text('FRIENDS'),
             onTap: () {
               if (loggedin) { //User is logged in

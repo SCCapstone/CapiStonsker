@@ -2,27 +2,28 @@
  * This app was written by Matt Duggan, Joe Cammarata, James Davis,
  * Lauren Hodges, and Ian Urton
  *
- * We are currently in the Proof of Concept stage of app development
+ * We are currently in the Beta Release stage of app development
  *
  * This page is the one that opens on startup and contains a search bar,
  * map that displays historical markers, a tutorial for new users, and a
  * bottom navigation bar with links to a side menu and a list view of the markers
  */
 
-import 'package:capi_stonsker/auth/fire_auth.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
-import 'package:capi_stonsker/src/map_page.dart';
-import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:capi_stonsker/src/search_results.dart';
+import 'package:capi_stonsker/src/map_page.dart';
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
+import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:capi_stonsker/user_collections/friend.dart';
+import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:provider/provider.dart';
-
 
 void main() async {
   //Ensures Firebase connection initialized
@@ -85,11 +86,18 @@ class _MyHomePageState extends State<MyHomePage> {
   GlobalKey marker_list = GlobalKey();
   GlobalKey search_bar = GlobalKey();
 
+  MapController mapController = MapController();
+
+  String searchText = "";
+  final TextEditingController _controller = new TextEditingController();
+
   final List<String> items = <String>["None","County","Visited","Wishlist"];
   String? selectedDrop;
   List<bool> isSelected = List.filled(46, false);
   List<String> selectedCounties = [];
   int selectedList = 3;
+
+
 
   @override
   void initState() {
@@ -99,11 +107,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     //String search_val = "";
     //String searchKey;
     //Stream streamQuery;
     return Scaffold(
-      extendBody: true,
+      extendBody: true, //TODO change position of move to current loc button
       key: _scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -112,52 +121,33 @@ class _MyHomePageState extends State<MyHomePage> {
           width: MediaQuery.of(context).size.width,
           height: 40,
           decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(5),
-          ),
-          //child: Center(
-            //key: search_bar,
-            child: FractionallySizedBox(
-              //widthFactor: 0.9, // means 100%, you can change this to 0.8 (80%)
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => SearchResultsPage()
-                      )
-                  );
-                },
-                style: ElevatedButton.styleFrom(primary: Colors.white),
-               // color: Colors.white,
-                label: Text(
-                    "Search for a marker by name...",
-                    style: TextStyle(color: Colors.grey)
+              color: Colors.white, borderRadius: BorderRadius.circular(5)),
+          child: Center(
+            child: TextField(
+              controller: _controller,
+              onChanged: (String value) => setState(() {
+                searchText = value;
+                selectedList = 5;
+              }
+              ),
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.search),
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.clear),
+                  onPressed: () {
+                    this.setState(() {
+                      _controller.clear;
+                      searchText = "";
+                      //selectedList = 3;
+                    }
+                    );
+                  },
                 ),
-                icon: Icon(Icons.search, color: Colors.grey),
+                hintText: 'Search for markers by name',
+                border: InputBorder.none,
               ),
             ),
-            // child: TextField(
-            //   onChanged: (value) {
-            //     Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //           builder: (context) => SearchResultsPage()
-            //         )
-            //     );
-            //   },
-            //   decoration: InputDecoration(
-            //     prefixIcon: Icon(Icons.search),
-            //     suffixIcon: IconButton(
-            //       icon: Icon(Icons.clear),
-            //       onPressed: () {
-            //         /* Clear the search field */
-            //       },
-            //     ),
-            //     hintText: 'Search...',
-            //     border: InputBorder.none,
-            //   ),
-            // ),
-          //),
+          ),
         ),
         actions: <Widget>[
           DropdownButtonHideUnderline(
@@ -205,7 +195,32 @@ class _MyHomePageState extends State<MyHomePage> {
           Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: MapPage(key: ValueKey<int>(selectedList), list: selectedList, counties: selectedCounties)
+              child: MapPage(
+                key: ValueKey<int>(selectedList),
+                list: selectedList,
+                counties: selectedCounties,
+                searchText: searchText,
+                controller: mapController)
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              alignment: Alignment.topRight,
+              child: CircleAvatar(
+                backgroundColor: Colors.blueGrey,
+                radius: 25,
+                child: IconButton(
+                  //key: widget.menu_button,
+                  //tooltip: 'Open Menu',
+                    icon: Icon(Icons.my_location),
+                    color: Colors.white,
+                    iconSize: 35,
+                    onPressed: (){
+                      mapController.move(locs.userPos, 15);
+                    },
+                ),
+              ),
+            ),
           ),
         ],
       ),

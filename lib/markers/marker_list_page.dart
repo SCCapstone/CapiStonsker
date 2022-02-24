@@ -28,6 +28,8 @@ class _MarkerListPageState extends State<MarkerListPage> {
   List<String> selectedCounties = [];
   int selectedList = 3;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  String text = "";
+  final TextEditingController _controller = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,37 @@ class _MarkerListPageState extends State<MarkerListPage> {
               Navigator.of(context).pop();
             }
         ),
-        title: Text("Marker List Page"),
+        //title: Text("Marker List Page"),
+        title: Container(
+          width: MediaQuery.of(context).size.width,
+          height: 40,
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(5)),
+          child: Center(
+            child: TextField(
+              controller: _controller,
+              onChanged: (String value) => setState(() {
+                text = value;
+              }
+              ),
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.search),
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.clear),
+                  onPressed: () {
+                    this.setState(() {
+                      _controller.clear;
+                      text = "";
+                    }
+                    );
+                  },
+                ),
+                hintText: 'Search for markers by name',
+                border: InputBorder.none,
+              ),
+            ),
+          ),
+        ),
         backgroundColor: Colors.blueGrey,
         actions: <Widget>[
           DropdownButtonHideUnderline(
@@ -80,7 +112,7 @@ class _MarkerListPageState extends State<MarkerListPage> {
           )
         ],
       ),
-      body: locs.buildListDisplay(context, selectedList, counties: selectedCounties),
+      body: locs.buildListDisplay(context, selectedList, text, counties: selectedCounties),
       drawer: SideMenu(),
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
