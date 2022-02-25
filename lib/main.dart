@@ -9,6 +9,7 @@
  * bottom navigation bar with links to a side menu and a list view of the markers
  */
 
+import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
@@ -18,6 +19,8 @@ import 'markers/locations.dart' as locs;
 import 'src/search_results.dart';
 import 'app_nav/bottom_nav_bar.dart';
 
+// Global for access across pages
+List<CameraDescription> cameras = [];
 
 void main() async {
   //Ensures Firebase connection initialized
@@ -26,6 +29,10 @@ void main() async {
   await locs.getMarkers();
   await locs.getWish();
   await locs.getVis();
+
+  // Access camera for User Pictures
+  cameras = await availableCameras();
+
   runApp(MyApp());
 }
 
@@ -63,6 +70,8 @@ class _MyHomePageState extends State<MyHomePage> {
   List<bool> isSelected = List.filled(46, false);
   List<String> selectedCounties = [];
   int selectedList = 3;
+
+
 
   @override
   void initState() {
