@@ -38,7 +38,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
 
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({required Key key}) : super(key: key);
 
   //root of the application
   @override
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
           StreamProvider<List<Friend>>.value(
             value: FirebaseFirestore.instance
                 .collection('Users')
-                .doc(FireAuth.auth.currentUser!.uid)
+                .doc(FireAuth.auth.currentUser?.uid)
                 .collection('friends')
                 .snapshots()
                 .map((snap) =>
