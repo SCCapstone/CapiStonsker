@@ -5,15 +5,12 @@
 
 import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
-import 'package:capi_stonsker/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:capi_stonsker/auth/fire_auth.dart';
-import '../auth/take_picture_screen.dart';
 
 class AccountPage extends StatelessWidget {
-
   AccountPage({Key? key}) : super(key: key);
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
@@ -45,29 +42,17 @@ class AccountPage extends StatelessWidget {
             children: [
               Align(
                 alignment: AlignmentDirectional(0, -1),
-                child: Material(
-                  shape: CircleBorder(),
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                          builder: (context) => TakePictureScreen(camera:
-                          cameras.first)
-                          )
-                      );
-                    },
-                    child: Ink.image(
-                        image: Image.network( 'https://picsum'
-                        '.photos/seed/264/600').image,
-                      height: 120,
-                      width: 120,
-                      fit: BoxFit.cover
-                    )
+                child: Container(
+                  width: 120,
+                  height: 120,
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
                   ),
-                )
+                  child: Image.network(
+                    'https://picsum.photos/seed/264/600',
+                  ),
+                ),
               ),
               Stack(
                 children: [
