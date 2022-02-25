@@ -11,6 +11,7 @@ import 'package:capi_stonsker/routing/navigation_page.dart';
 import 'package:flutter/cupertino.dart' show BuildContext, Icon, ListView, Navigator, Text, Widget;
 import 'package:flutter/material.dart' show IconButton, Icons, ListTile, MaterialPageRoute;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_mapbox_navigation/library.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:capi_stonsker/markers/marker.dart';
 import 'package:capi_stonsker/markers/full_info.dart';
@@ -311,34 +312,50 @@ Widget buildListDisplay(BuildContext context, int num, String? searchString, {Li
   );
 }
 
+MapBoxNavigation _directions = new MapBoxNavigation();
+
+bool _isMultipleStop = false;
+double _distanceRemaining =0.0, _durationRemaining = 0.0;
+late MapBoxNavigationViewController _controller;
+bool _routeBuilt = false;
+bool _isNavigating = false;
+
 //Creates ListTile widget from given Marker
 Widget _buildRow(BuildContext context, Marker m, double d) {
   return ListTile(
     trailing: IconButton(
       icon: const Icon(Icons.directions),
-      onPressed: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => NavPage(
+      onPressed: () async {
+        var wayPoints = <WayPoint>[];
+        wayPoints.add(WayPoint(name: "origin", latitude:  userPos.latitude, longitude:  userPos.longitude));
+        wayPoints.add(WayPoint(name: "marker", latitude: m.gps.first, longitude:  -m.gps.last));
 
-                )
-            )
+        await _directions.startNavigation(
+            wayPoints: wayPoints,
+            options: MapBoxOptions(
+                initialLatitude: userPos.latitude,
+                initialLongitude: userPos.longitude,
+                animateBuildRoute: false,
+                zoom: 10.0,
+                mode: MapBoxNavigationMode.walking,
+                simulateRoute: false,
+                language: "en",
+                units: VoiceUnits.imperial)
         );
       },
     ),
-      title: Text(m.name),
-      //if userDist is default then display county instead of distance
-      subtitle: d == 0.0 ? Text(m.county) : Text(d.toStringAsFixed(2) + " mi."),
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => FullInfoPage(
-                  sentMarker: m,
-                )
-            )
-        );
-      },
+    title: Text(m.name),
+    //if userDist is default then display county instead of distance
+    subtitle: d == 0.0 ? Text(m.county) : Text(d.toStringAsFixed(2) + " mi."),
+    onTap: () {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => FullInfoPage(
+                sentMarker: m,
+              )
+          )
+      );
+    },
   );
 }
