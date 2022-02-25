@@ -43,11 +43,7 @@ dependencies:
   google_sign_in: ^5.2.1
   permission_handler: ^8.3.0
   flutter_application_id: ^1.0.0
-  # following 3 are for camera
-  camera: ^0.9.4
-  path_provider: ^2.0.9
-  path: ^1.8.1
-  provider: ^6.0.2 # do we need this? I think Joe removed it
+  provider: ^6.0.2
 
 dev_dependencies:
   flutter_test:
