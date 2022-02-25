@@ -9,7 +9,7 @@
  * bottom navigation bar with links to a side menu and a list view of the markers
  */
 
-import 'package:camera/camera.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -24,8 +24,6 @@ import 'package:capi_stonsker/user_collections/friend.dart';
 import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:provider/provider.dart';
 
-// Global for access across pages
-// List<CameraDescription> cameras = [];
 
 void main() async {
   //Ensures Firebase connection initialized
@@ -37,8 +35,7 @@ void main() async {
   await locs.getVis();
 
 
-  // Access camera for User Pictures
-  // cameras = await availableCameras();
+  runApp(MyApp(key: Key("app"),));
 
 }
 

@@ -43,5 +43,3 @@
 	<false/>
 </dict>
 </plist>
-<key>NSCameraUsageDescription</key>
-<string>Explanation on why the camera access is needed.</string>
