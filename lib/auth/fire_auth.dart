@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:google_sign_in/google_sign_in.dart';
 
-//FirebaseAuth auth = FirebaseAuth.instance;
+FirebaseAuth auth = FirebaseAuth.instance;
 GoogleSignIn googleSignIn = GoogleSignIn();
 
 class FireAuth {
@@ -64,8 +64,6 @@ class FireAuth {
       //Retrieves wishlist and visited list
       locs.getWish();
       locs.getVis();
-      //createListener();
-
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -77,7 +75,7 @@ class FireAuth {
     return user;
   }
 
-  //TODO Add list retrieves and friend subscription
+  //TODO Add list retrieves
   // This method allows a user to sign in using their Google account
   static Future<User?> signInWithGoogle({required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -114,18 +112,8 @@ class FireAuth {
 
     return user;
   }
-
   static Future<String> getEmail() async {
     return (await auth.currentUser)!.email!;
-  }
-
-  static void signOut() {
-    FirebaseAuth.instance.signOut();
-    //Clear user collection lists
-    locs.wishlistID = [];
-    locs.wishlist = [];
-    locs.visitedID = [];
-    locs.visited = [];
   }
 
 }
