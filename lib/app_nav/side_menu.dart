@@ -16,7 +16,6 @@ import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:capi_stonsker/routing/plan_route_page.dart';
 import 'package:capi_stonsker/src/help_page.dart';
 import 'package:capi_stonsker/user_collections/my_markers_page.dart';
-import 'package:capi_stonsker/user_collections/wishlist_page.dart';
 import 'package:capi_stonsker/user_collections/friends_page.dart';
 import 'package:provider/provider.dart';
 
