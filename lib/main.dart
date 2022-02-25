@@ -34,7 +34,6 @@ void main() async {
   await locs.getVis();
 
   runApp(MyApp(key: Key("App")));
-}
 
 class MyApp extends StatelessWidget {
 
