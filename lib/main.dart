@@ -24,7 +24,6 @@ import 'package:capi_stonsker/user_collections/friend.dart';
 import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:provider/provider.dart';
 
-
 void main() async {
   //Ensures Firebase connection initialized
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,9 +33,7 @@ void main() async {
   await locs.getWish();
   await locs.getVis();
 
-
-  runApp(MyApp(key: Key("app"),));
-
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

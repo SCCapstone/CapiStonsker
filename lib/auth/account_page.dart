@@ -42,7 +42,6 @@ class AccountPage extends StatelessWidget {
             children: [
               Align(
                 alignment: AlignmentDirectional(0, -1),
-
                 child: Container(
                   width: 120,
                   height: 120,
