@@ -17,7 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
-import 'package:capi_stonsker/src/search_results.dart';
 import 'package:capi_stonsker/src/map_page.dart';
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
 import 'package:capi_stonsker/app_nav/side_menu.dart';
