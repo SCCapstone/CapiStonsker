@@ -31,6 +31,7 @@ void main() async {
   await Firebase.initializeApp();
 
   runApp(MyApp(key: Key("App")));
+}
 
 class MyApp extends StatelessWidget {
 
