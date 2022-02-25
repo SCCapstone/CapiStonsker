@@ -33,8 +33,7 @@ void main() async {
   await locs.getWish();
   await locs.getVis();
 
-  runApp(MyApp(key: Key("")));
-}
+  runApp(MyApp(key: Key("App")));
 
 class MyApp extends StatelessWidget {
 
