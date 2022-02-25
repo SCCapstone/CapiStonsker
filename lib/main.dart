@@ -10,6 +10,7 @@
  */
 
 
+import 'package:capi_stonsker/ui/splash.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -27,11 +28,7 @@ import 'package:provider/provider.dart';
 void main() async {
   //Ensures Firebase connection initialized
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp();
-  await locs.getMarkers();
-  await locs.getWish();
-  await locs.getVis();
 
   runApp(MyApp(key: Key("App")));
 
@@ -63,7 +60,7 @@ class MyApp extends StatelessWidget {
         // All data will be available in this child and descendants
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: new MyHomePage(),
+          home: new Splash(),
         )
     );
   }
