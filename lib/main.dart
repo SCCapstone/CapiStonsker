@@ -9,31 +9,23 @@
  * bottom navigation bar with links to a side menu and a list view of the markers
  */
 
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
-import 'package:capi_stonsker/markers/locations.dart' as locs;
-import 'package:capi_stonsker/src/search_results.dart';
-import 'package:capi_stonsker/src/map_page.dart';
-import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
-import 'package:capi_stonsker/app_nav/side_menu.dart';
-import 'package:capi_stonsker/user_collections/friend.dart';
-import 'package:capi_stonsker/auth/fire_auth.dart';
-import 'package:provider/provider.dart';
+import 'src/map_page.dart';
+import 'app_nav/side_menu.dart';
+import 'markers/locations.dart' as locs;
+import 'app_nav/bottom_nav_bar.dart';
+
 
 void main() async {
   //Ensures Firebase connection initialized
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp();
   await locs.getMarkers();
   await locs.getWish();
   await locs.getVis();
-
   runApp(MyApp());
 }
 
@@ -44,29 +36,9 @@ class MyApp extends StatelessWidget {
   //root of the application
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-        providers: [
-          // Make user stream available
-          StreamProvider<User?>.value(value: FirebaseAuth.instance.idTokenChanges(), initialData: null),
-
-          // Make total friends stream available
-          StreamProvider<List<Friend>>.value(
-            value: FirebaseFirestore.instance
-                .collection('Users')
-                .doc(FireAuth.auth.currentUser!.uid)
-                .collection('friends')
-                .snapshots()
-                .map((snap) =>
-                snap.docs.map((doc) => Friend.fromFirestore(doc)).toList()),
-            initialData: [],
-          ),
-        ],
-
-        // All data will be available in this child and descendants
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: new MyHomePage(),
-        )
+    return new MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: new MyHomePage(),
     );
   }
 }
