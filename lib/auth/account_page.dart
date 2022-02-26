@@ -5,7 +5,7 @@
 
 import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
-import 'package:capi_stonsker/auth/EditAccount.dart';
+import 'package:capi_stonsker/auth/edit_account_page.dart';
 import 'package:capi_stonsker/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
