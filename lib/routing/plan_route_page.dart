@@ -5,6 +5,11 @@
  * This page is not yet implemented as of the Proof of Concept release
  *
  * Consider: we may end up removing this page and not implementing this feature
+ *
+ * A massive thanks to the following modifications from this repo:
+ * Code modified from:
+ *      https://github.com/Imperial-lord/mapbox-flutter
+ *      2022 AB Satyaprakash
  */
 
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
@@ -94,9 +99,9 @@ class _PlanRoutePage extends State<PlanRoutePage>{
 
   _onStyleLoadedCallback() async{
     for(CameraPosition _kMarker in _kMarkersList){
-      controller.addCircle(CircleOptions(
-        circleRadius: 10,
-        circleColor: Colors.red.toHexStringRGB(),
+      controller.addSymbol(SymbolOptions(
+        iconImage: 'assets/image/marker.PNG',
+        iconSize: .4,
         geometry: _kMarker.target,
       ));
     }
@@ -127,12 +132,9 @@ class _PlanRoutePage extends State<PlanRoutePage>{
       ),
       drawer: SideMenu(),
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
-      body: SafeArea(
-          child: Stack(
+      body: Stack(
             children: [
-              SizedBox(
-                  height: MediaQuery.of(context).size.height*0.8,
-                  child: MapboxMap(
+              MapboxMap(
                     initialCameraPosition: _initialCameraPosition,
                     accessToken: 'pk.eyJ1IjoibXRkdWdnYW4iLCJhIjoiY2t1a2I4MTV5MWE2MzJ3b2YycGl0djRnZyJ9.Sx7oMnrNlA1yWBO42iSAOQ',
                     onMapCreated: _onMapCreated,
@@ -140,7 +142,6 @@ class _PlanRoutePage extends State<PlanRoutePage>{
                     myLocationEnabled: true,
                     myLocationTrackingMode: MyLocationTrackingMode.TrackingGPS,
                     minMaxZoomPreference: MinMaxZoomPreference(10,18),
-                  )
               ),
               CarouselSlider(items: carouselItems, options: CarouselOptions(
                 height: 100,
@@ -154,14 +155,31 @@ class _PlanRoutePage extends State<PlanRoutePage>{
                   });
                   _addSourceAndLineLayer(index, true);
                 }
-              ),)
+              ),),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  alignment: Alignment.topRight,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.blueGrey,
+                    radius: 25,
+                    child: IconButton(
+                      //key: widget.menu_button,
+                      //tooltip: 'Open Menu',
+                      icon: Icon(Icons.my_location),
+                      color: Colors.white,
+                      iconSize: 35,
+                      onPressed: (){
+                        controller.animateCamera(CameraUpdate.newCameraPosition(_initialCameraPosition),);
+                      },
+                    ),
+                  ),
+                ),
+              ),
             ],
-          )
-      ),
-      floatingActionButton: FloatingActionButton(onPressed: (){
-        controller.animateCamera(CameraUpdate.newCameraPosition(_initialCameraPosition),);
-      },
-          child: const Icon(Icons.my_location)),
+
+          ),
+
     );
   }
 }

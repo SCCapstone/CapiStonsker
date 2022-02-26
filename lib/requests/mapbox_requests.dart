@@ -1,3 +1,10 @@
+/*
+* A massive thanks to the following modifications from this repo:
+ * Code modified from:
+ *      https://github.com/Imperial-lord/mapbox-flutter
+ *      2022 AB Satyaprakash
+ */
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

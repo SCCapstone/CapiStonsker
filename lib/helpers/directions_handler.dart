@@ -1,3 +1,9 @@
+/*
+* A massive thanks to the following modifications from this repo:
+ * Code modified from:
+ *      https://github.com/Imperial-lord/mapbox-flutter
+ *      2022 AB Satyaprakash
+ */
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:capi_stonsker/main.dart';
