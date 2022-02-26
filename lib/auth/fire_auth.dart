@@ -105,5 +105,8 @@ class FireAuth {
   static Future<String> getEmail() async {
     return (await auth.currentUser)!.email!;
   }
+  static Future<String> getName() async{
+    return (await auth.currentUser)!.displayName!;
+  }
 
 }
