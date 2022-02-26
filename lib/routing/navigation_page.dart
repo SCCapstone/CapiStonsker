@@ -41,7 +41,7 @@ class _NavPageState extends State<NavPage> {
         options: MapOptions(
           minZoom: 15.0,
           center: LatLng(34.0007, -81.0348),
-          zoom: 13.0,
+          zoom: 10.0,
           plugins: [ UserLocationPlugin(), ],
         ),
         layers: [
