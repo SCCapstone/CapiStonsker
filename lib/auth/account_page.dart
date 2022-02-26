@@ -18,7 +18,6 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
       key: _scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -61,7 +60,7 @@ class AccountPage extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                       child:
-                        FutureBuilder(
+                      FutureBuilder(
                           future: FireAuth.getEmail(),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.done) {
@@ -76,10 +75,10 @@ class AccountPage extends StatelessWidget {
                             else {
                               return CircularProgressIndicator();
                             }
-                            }
-                        ),
+                          }
                       ),
                     ),
+                  ),
                   Align(
                     alignment: AlignmentDirectional(0.7, 0),
                     child: Padding(
@@ -98,7 +97,7 @@ class AccountPage extends StatelessWidget {
                       child: Text(
                         'Novice',
                         style: TextStyle(
-                          fontSize: 20
+                            fontSize: 20
                         ),
                       ),
                     ),
