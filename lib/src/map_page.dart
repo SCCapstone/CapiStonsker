@@ -19,6 +19,7 @@ class MapPage extends StatefulWidget {
   MapController controller;
   MapPage({Key? key, required this.list, required this.counties, required this.searchText, required this.controller}) : super(key: key);
 
+
   @override
   _MapPageState createState() => _MapPageState();
 
@@ -30,6 +31,7 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   late UserLocationOptions userLocationOptions;
   List<Marker> uloMarkers = []; //not sure what the UserLayerOptions marker list is for
+
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,7 @@ class _MapPageState extends State<MapPage> {
       options: MapOptions(
         maxZoom: 18.0,
         minZoom: 10,
-        center: LatLng(34.0007, -81.0348),
+        center: locs.userPos,
         zoom: 13.0,
         plugins: [ UserLocationPlugin(), ],
       ),

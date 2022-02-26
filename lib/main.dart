@@ -25,6 +25,9 @@ import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:capi_stonsker/user_collections/friend.dart';
 import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+late SharedPreferences sharedPreferences;
 
 // Global for access across pages
 List<CameraDescription> cameras = [];
@@ -32,6 +35,7 @@ List<CameraDescription> cameras = [];
 void main() async {
   //Ensures Firebase connection initialized
   WidgetsFlutterBinding.ensureInitialized();
+  sharedPreferences = await SharedPreferences.getInstance();
   await Firebase.initializeApp();
 
   // Access camera for User Pictures
