@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'fire_auth.dart';
 
+FirebaseAuth auth = FirebaseAuth.instance;
 class EditAccount extends StatefulWidget {
   @override
   _EditAccount createState() => _EditAccount();
