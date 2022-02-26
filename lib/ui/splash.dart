@@ -56,7 +56,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
       opacity: _animation,
       child: Material(
         color: Colors.black,
-        child: Center(child: Image.asset('assets/image/logo.png')),
+        child: Center(child: Image.asset('assets/image/logo.PNG')),
       ),
     );
   }
