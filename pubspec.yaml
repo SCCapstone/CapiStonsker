@@ -45,6 +45,9 @@ dependencies:
   provider: ^6.0.2
   flutter_dotenv: ^5.0.2
   mapbox_gl: ^0.15.0
+  dio: ^4.0.4
+  shared_preferences: ^2.0.13
+  carousel_slider: ^4.0.0
 
 dev_dependencies:
   flutter_test:

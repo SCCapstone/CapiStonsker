@@ -91,7 +91,9 @@ calcDist({double lat = 0.0, double long = 0.0}) {
     if (element.userDist < 25) {
       nearby.add(element);
     }
-  });
+  }
+  );
+  nearby.sort((a, b) => a.userDist.compareTo(b.userDist));
 }
 
 getMarkers() async {

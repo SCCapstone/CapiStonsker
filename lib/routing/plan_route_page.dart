@@ -8,12 +8,16 @@
  */
 
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+
+import '../helpers/shared_prefs.dart';
+import '../widgets/carousel_card.dart';
 
 class PlanRoutePage extends StatefulWidget {
   PlanRoutePage({Key? key}) : super(key: key);
@@ -26,15 +30,78 @@ class _PlanRoutePage extends State<PlanRoutePage>{
   LatLng latLng = LatLng(locs.userPos.latitude, locs.userPos.longitude);
   late CameraPosition _initialCameraPosition;
   late MapboxMapController controller;
+  List<Map> carouselData = [];
+
+  int pageIndex = 0;
+  late List<Widget> carouselItems;
+
+  late List<CameraPosition> _kMarkersList;
 
   @override
   void initState() {
     super.initState();
-    _initialCameraPosition = CameraPosition(target: latLng, zoom: 13);
+    _initialCameraPosition = CameraPosition(target: latLng, zoom: 16);
+
+
+    for(int i = 0; i < locs.nearby.length; i++){
+      num distance = getDistanceFromSharedPrefs(i)/1000;
+      num duration = getDistanceFromSharedPrefs(i)/60;
+      carouselData.add({'index': i, 'distance': distance, 'duration': duration});
+    }
+
+    carouselItems = List<Widget>.generate(locs.nearby.length, (index) => carouselCard(carouselData[index]['index'],
+        carouselData[index]['distance'],
+        carouselData[index]['duration']));
+
+
+    _kMarkersList = List<CameraPosition>.generate(locs.nearby.length, (index) =>
+        CameraPosition(target: LatLng(locs.nearby[index].gps[0], -1.0 * locs.nearby[index].gps[1]),
+          zoom: 15
+        )
+    );
   }
 
+  _addSourceAndLineLayer(int index, bool removeLayer) async{
 
-  _onStyleLoadedCallback() async{}
+    controller.animateCamera(CameraUpdate.newCameraPosition(_kMarkersList[index]));
+
+    Map geometry = getGeometryFromSharedPrefs(carouselData[index]['index']);
+    final _fills = {
+      "type": "FeatureCollection",
+      "features":[
+        {
+          "type":"Feature",
+          "id":0,
+          "properties": <String, dynamic>{},
+          "geometry":geometry
+        }
+      ]
+    };
+
+    if(removeLayer == true){
+      await controller.removeLayer("lines");
+      await controller.removeSource("fills");
+    }
+
+    await controller.addSource("fills", GeojsonSourceProperties(data: _fills));
+    await controller.addLineLayer("fills", "lines", LineLayerProperties(
+      lineColor: Colors.green.toHexStringRGB(),
+      lineCap: "round",
+      lineJoin: "round",
+      lineWidth: 10
+    ));
+  }
+
+  _onStyleLoadedCallback() async{
+    for(CameraPosition _kMarker in _kMarkersList){
+      controller.addCircle(CircleOptions(
+        circleRadius: 10,
+        circleColor: Colors.red.toHexStringRGB(),
+        geometry: _kMarker.target,
+      ));
+    }
+    _addSourceAndLineLayer(0, false);
+  }
 
   _onMapCreated(MapboxMapController controller) async{
     this.controller = controller;
@@ -74,7 +141,20 @@ class _PlanRoutePage extends State<PlanRoutePage>{
                     myLocationTrackingMode: MyLocationTrackingMode.TrackingGPS,
                     minMaxZoomPreference: MinMaxZoomPreference(10,18),
                   )
-              )
+              ),
+              CarouselSlider(items: carouselItems, options: CarouselOptions(
+                height: 100,
+                viewportFraction: 0.6,
+                initialPage: 0,
+                enableInfiniteScroll: false,
+                scrollDirection: Axis.horizontal,
+                onPageChanged: (int index, CarouselPageChangedReason reason){
+                  setState(() {
+                    pageIndex = index;
+                  });
+                  _addSourceAndLineLayer(index, true);
+                }
+              ),)
             ],
           )
       ),
