@@ -51,12 +51,12 @@ class FireAuth {
     required BuildContext context,
   }) async {
     try {
-      await auth.signInWithEmailAndPassword(
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      //user = userCredential.user;
-      //locs.getWish();
+      user = userCredential.user;
+      locs.getWish();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');

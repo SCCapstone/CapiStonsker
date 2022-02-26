@@ -157,10 +157,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 setState(() {
                   isloading = true;
                 });
-               // try {
+                //try {
                   FireAuth.signInUsingEmailPassword(email: email, password: password, context: context) ;
 
-                  if(auth.currentUser!=null) {
+                  if(auth.currentUser!=null){
                     Navigator.of(context).pop();
                     await Navigator.of(context).push(
                       MaterialPageRoute(
@@ -168,17 +168,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     );
 
-
                     setState(() {
                       isloading = false;
                     });
                   }
-                  if(auth.currentUser==null){
-                //} on FirebaseAuthException catch (e) {
-                  showDialog(
+                 //on FirebaseAuthException catch (e) {
+                  else if (FireAuth.user==null){
+                    showDialog(
                     context: context,
                     builder: (ctx) => AlertDialog(
                       title: Text("Login Failed. Please try again."),
+
                       actions: [
                         TextButton(
                           onPressed: () {
