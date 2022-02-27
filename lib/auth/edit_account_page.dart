@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'account_page.dart';
 import 'fire_auth.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
@@ -19,56 +20,56 @@ class _EditAccount extends State<EditAccount> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
+      key: _scaffoldKey,
+      appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: new IconButton(
-        icon: const Icon(Icons.arrow_back),
-    color: Colors.white,
-    onPressed: () {
-    Navigator.of(context).pop();
-    }
-    ),
-    backgroundColor: Colors.blueGrey,
-    elevation: 0,
-    ),
-          body: Form(
-      key: formkey,
-      child: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: Stack(
-          children: [
-            Container(
-              height: double.infinity,
-              width: double.infinity,
-              color: Colors.grey[200],
-              child: SingleChildScrollView(
-                padding:
-                EdgeInsets.symmetric(horizontal: 25, vertical: 120),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Hero(
-                      tag: '1',
-                      child: Text(
-                        "Update Profile",
-                        style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
+            icon: const Icon(Icons.arrow_back),
+            color: Colors.white,
+            onPressed: () {
+              Navigator.of(context).pop();
+            }
+        ),
+        backgroundColor: Colors.blueGrey,
+        elevation: 0,
+      ),
+      body: Form(
+        key: formkey,
+        child: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.light,
+          child: Stack(
+            children: [
+              Container(
+                height: double.infinity,
+                width: double.infinity,
+                color: Colors.grey[200],
+                child: SingleChildScrollView(
+                  padding:
+                  EdgeInsets.symmetric(horizontal: 25, vertical: 120),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Hero(
+                        tag: '1',
+                        child: Text(
+                          "Update Profile",
+                          style: TextStyle(
+                              fontSize: 30,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 30),
-                    TextFormField(
-                      keyboardType: TextInputType.name,
-                      onChanged: (value) {
-                        name = value.toString().trim();
-                      },
-                      textAlign: TextAlign.center,
-                      decoration: kTextFieldDecoration.copyWith(
-                        hintText: 'Enter Display Name',
-                      )
-                      /*validator: (value) => (value!.isEmpty)
+                      SizedBox(height: 30),
+                      TextFormField(
+                          keyboardType: TextInputType.name,
+                          onChanged: (value) {
+                            name = value.toString().trim();
+                          },
+                          textAlign: TextAlign.center,
+                          decoration: kTextFieldDecoration.copyWith(
+                            hintText: 'Enter Display Name',
+                          )
+                        /*validator: (value) => (value!.isEmpty)
                           ? ' Please enter email'
                           : null,
                       textAlign: TextAlign.center,
@@ -79,52 +80,48 @@ class _EditAccount extends State<EditAccount> {
                           color: Colors.black,
                         ),
                       ),*/
-                    ),
-                    SizedBox(height: 30),
-                    TextFormField(
-                      /*obscureText: true,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please enter Password";
-                        }
-                      },
-                       */
-                      keyboardType: TextInputType.multiline,
-                      onChanged: (value) {
-                        bio = value;
-                      },
-                      textAlign: TextAlign.center,
-                      decoration: kTextFieldDecoration.copyWith(
-                          hintText: 'Enter your bio',
-                      )
-                          /*prefixIcon: Icon(
-                            Icons.lock,
-                            color: Colors.black,
-                          )),
+                      ),
+                      SizedBox(height: 30),
+                      TextFormField(
+                          keyboardType: TextInputType.multiline,
+                          onChanged: (value) {
+                            bio = value;
+                          },
+                          textAlign: TextAlign.center,
+                          decoration: kTextFieldDecoration.copyWith(
+                            hintText: 'Enter your bio',
+                          )
 
-                       */
-                    ),
-                    SizedBox(height: 80),
-                    UpdateButton(
-                      title: 'Update',
-                      ontapp: () async {
+                      ),
+                      SizedBox(height: 80),
+                      UpdateButton(
+                          title: 'Update',
+                          ontapp: () async {
+                            auth.currentUser!.updateDisplayName(name);
+                            //TODO update bio
+                            await auth.currentUser!.reload();
+                            Navigator.of(context).pop();
+                            await Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => AccountPage(),
+                              ),
+                            );
+                          }
 
-                      }
-
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
-    ),
     );
-
   }
-}
 
+
+}
 
 
 class UpdateButton extends StatelessWidget {

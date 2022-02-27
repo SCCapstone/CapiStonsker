@@ -79,7 +79,7 @@ class AccountPage extends StatelessWidget {
                       padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                       child:
                       FutureBuilder(
-                          future: FireAuth.getEmail(),
+                          future: FireAuth.getName(),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.done) {
                               return Text(
@@ -141,7 +141,7 @@ class AccountPage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
                       child: Text(
-                        'This is a great User!',
+                        'Bio personalization will be implemented soon!',
                         style: TextStyle(
                             fontSize: 20
                         ),

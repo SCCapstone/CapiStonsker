@@ -18,6 +18,7 @@ GoogleSignIn googleSignIn = GoogleSignIn();
 class FireAuth {
   static FirebaseAuth auth = FirebaseAuth.instance;
   static User? user;
+  late String bio;
 
   // This method allows a new user to sign up with email and password
   static Future<User?> registerUsingEmailPassword({
@@ -106,7 +107,11 @@ class FireAuth {
     return (await auth.currentUser)!.email!;
   }
   static Future<String> getName() async{
-    return (await auth.currentUser)!.displayName!;
+    if(auth.currentUser!.displayName!=null){
+      return (await auth.currentUser)!.displayName!;
+    }
+    else
+      return (await auth.currentUser)!.email!;
   }
 
 }
