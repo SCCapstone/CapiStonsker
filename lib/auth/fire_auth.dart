@@ -12,12 +12,14 @@ import 'package:flutter/material.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:google_sign_in/google_sign_in.dart';
 
-FirebaseAuth auth = FirebaseAuth.instance;
+//FirebaseAuth auth = FirebaseAuth.instance;
 GoogleSignIn googleSignIn = GoogleSignIn();
+
 
 class FireAuth {
   static FirebaseAuth auth = FirebaseAuth.instance;
   static User? user;
+
 
   // This method allows a new user to sign up with email and password
   static Future<User?> registerUsingEmailPassword({
@@ -63,7 +65,7 @@ class FireAuth {
       }
     }
 
-    return user;
+    //return user;
   }
 
   // This method allows a user to sign in using their Google account
@@ -105,5 +107,7 @@ class FireAuth {
   static Future<String> getEmail() async {
     return (await auth.currentUser)!.email!;
   }
+
+
 
 }
