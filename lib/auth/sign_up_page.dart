@@ -72,7 +72,7 @@ class _SignUp extends State<SignUp> {
               ),
             ),
           ),
-          Padding(
+          /*Padding(
             padding: EdgeInsets.all(10.0),
             child: Container(
               height: 50,
@@ -116,6 +116,7 @@ class _SignUp extends State<SignUp> {
 
             ),
           ),
+          */
 
           Padding(
               padding: EdgeInsets.all(10.0),
