@@ -68,12 +68,23 @@ class _SideMenuState extends State<SideMenu> {
                 ),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: Text(
-                      "The Capistonsker",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20
-                      )
+                  child:
+                  FutureBuilder(
+                      future: FireAuth.getName(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return Text(
+                            "${snapshot.data}",
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 25,
+                            ),
+                          );
+                        }
+                        else {
+                          return CircularProgressIndicator();
+                        }
+                      }
                   ),
                 ),
                 Align(
@@ -90,6 +101,7 @@ class _SideMenuState extends State<SideMenu> {
                             )
                         ),
                         TextSpan(
+                          //TODO update according to user
                             text: "(7/4131)",
                             style: TextStyle(
                                 color: Colors.white54,
