@@ -1,11 +1,20 @@
 
+import 'dart:convert';
+
+import 'package:location/location.dart' as locations;
+import 'package:capi_stonsker/helpers/directions_handler.dart';
 import 'package:capi_stonsker/main.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:user_location/user_location.dart';
+import 'package:latlong2/latlong.dart' as ll;
 
 class Splash extends StatefulWidget {
-  const Splash({Key? key}) : super(key: key);
+  Splash({Key? key}) : super(key: key);
 
   @override
   State<Splash> createState() => _SplashState();
@@ -14,6 +23,8 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
   late AnimationController _controller;
   late Animation<double> _animation;
+
+
   @override
   void initState() {
     _controller = AnimationController(
@@ -41,6 +52,28 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
     await locs.getWish();
     await locs.getVis();
 
+    locations.Location _location = locations.Location();
+    bool? _serviceEnabled;
+    PermissionStatus? _permissionGranted;
+
+    _serviceEnabled = await _location.serviceEnabled();
+    if(!_serviceEnabled){
+      _serviceEnabled = await _location.requestService();
+    }
+
+    locations.LocationData _locationData = await _location.getLocation();
+
+
+    LatLng currentLatLng = LatLng(_locationData.latitude!, _locationData.longitude!);
+    await locs.updatePos(ll.LatLng(_locationData.latitude!, _locationData.longitude!));
+
+    sharedPreferences.setDouble('latitude', _locationData.latitude!);
+    sharedPreferences.setDouble('latitude', _locationData.longitude!);
+
+    for(int i =0; i<locs.nearby.length;i++){
+      Map modifiedResonse = await getDirectionsAPIResponse(currentLatLng, i);
+      saveDirectionsAPIResponse(i, json.encode(modifiedResonse));
+    }
 
     Future.delayed(
         const Duration(seconds: 3),
@@ -52,11 +85,13 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
+
+
     return FadeTransition(
       opacity: _animation,
       child: Material(
         color: Colors.black,
-        child: Center(child: Image.asset('assets/image/logo.png')),
+        child: Center(child: Image.asset('assets/image/logo.PNG')),
       ),
     );
   }

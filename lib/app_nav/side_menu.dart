@@ -6,6 +6,7 @@
  */
 
 
+import 'package:capi_stonsker/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -111,6 +112,9 @@ class _SideMenuState extends State<SideMenu> {
               // Then close the drawer
               Navigator.pop(context);
               Navigator.of(context).popUntil((route) => route.isFirst);
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => MyHomePage()
+              ));
               //Navigator.of(context).pop();
             },
           ),

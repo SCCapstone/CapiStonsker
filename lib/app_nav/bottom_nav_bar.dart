@@ -7,6 +7,7 @@
  * which is a list view of the same marker information on the home map
  */
 
+import 'package:capi_stonsker/main.dart';
 import 'package:capi_stonsker/markers/marker_list_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -61,6 +62,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 iconSize: icon_size,
                 onPressed: () {
                   Navigator.of(context).popUntil((route) => route.isFirst);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MyHomePage()
+                      )
+                  );
                 },
               ),
           ),
