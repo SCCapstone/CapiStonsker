@@ -32,7 +32,7 @@ SharedPreferences sharedPreferences = SharedPreferences.getInstance() as SharedP
 // Global for access across pages
 List<CameraDescription> cameras = [];
 
-void main() async {
+Future<void> main() async {
   //Ensures Firebase connection initialized
   WidgetsFlutterBinding.ensureInitialized();
   sharedPreferences = await SharedPreferences.getInstance();
@@ -207,7 +207,7 @@ class _MyHomePageState extends State<MyHomePage> {
                  list: selectedList,
                  counties: selectedCounties,
                  searchText: searchText,
-                 controller: mapController)
+                 controller: MapController())
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
