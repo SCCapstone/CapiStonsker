@@ -28,14 +28,13 @@ class MapPage extends StatefulWidget {
   }
 }
 class _MapPageState extends State<MapPage> {
-  late UserLocationOptions userLocationOptions;
   List<Marker> uloMarkers = []; //not sure what the UserLayerOptions marker list is for
 
 
   @override
   Widget build(BuildContext context) {
 
-    userLocationOptions = UserLocationOptions(
+    var userLocationOptions = UserLocationOptions(
       context: context,
       mapController: widget.controller,
       markers: uloMarkers,
@@ -75,15 +74,15 @@ class _MapPageState extends State<MapPage> {
                 List<Marker>.filled(1,
                     Marker(
                       rotate: true,
-                      width: 45.0,
-                      height: 45.0,
+                      width: 50.0,
+                      height: 50.0,
                       point: locs.userPos,
                       builder: (ctx) =>
                           Container(
                             child: IconButton(
                               icon: Icon(Icons.my_location_sharp),
-                              color: Colors.blue,
-                              iconSize: 45,
+                              color: Colors.purple,
+                              iconSize: 45.0,
                               onPressed: (){},
                             ),
                           ),

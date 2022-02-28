@@ -27,7 +27,7 @@ import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-late SharedPreferences sharedPreferences;
+SharedPreferences sharedPreferences = SharedPreferences.getInstance() as SharedPreferences;
 
 // Global for access across pages
 List<CameraDescription> cameras = [];
@@ -98,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String searchText = "";
   final TextEditingController _controller = new TextEditingController();
 
-  final List<String> items = <String>["None","County","Visited","Wishlist"];
+  List<String> items = <String>["None","County","Visited","Wishlist"];
   String? selectedDrop;
   List<bool> isSelected = List.filled(46, false);
   List<String> selectedCounties = [];
@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     //Future.delayed(Duration.zero, showTutorial);
-    //super.initState();
+    super.initState();
   }
 
   @override
@@ -203,11 +203,11 @@ class _MyHomePageState extends State<MyHomePage> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: MapPage(
-                key: ValueKey<int>(selectedList),
-                list: selectedList,
-                counties: selectedCounties,
-                searchText: searchText,
-                controller: mapController)
+                 key: ValueKey<int>(selectedList),
+                 list: selectedList,
+                 counties: selectedCounties,
+                 searchText: searchText,
+                 controller: mapController)
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -279,6 +279,12 @@ class _MyHomePageState extends State<MyHomePage> {
               selectedList = 4;
             });
             Navigator.of(context).pop();
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MyHomePage()
+                )
+            );
           },
         ),
       ],
