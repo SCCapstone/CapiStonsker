@@ -32,9 +32,6 @@ late SharedPreferences sharedPreferences;
 // Global for access across pages
 List<CameraDescription> cameras = [];
 
-// Global for access across pages
-List<CameraDescription> cameras = [];
-
 void main() async {
   //Ensures Firebase connection initialized
   WidgetsFlutterBinding.ensureInitialized();

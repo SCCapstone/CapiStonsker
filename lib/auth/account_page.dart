@@ -5,6 +5,7 @@
 
 import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
+import 'package:capi_stonsker/auth/edit_account_page.dart';
 import 'package:capi_stonsker/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -78,7 +79,7 @@ class AccountPage extends StatelessWidget {
                       padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                       child:
                       FutureBuilder(
-                          future: FireAuth.getEmail(),
+                          future: FireAuth.getName(),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.done) {
                               return Text(
@@ -140,7 +141,7 @@ class AccountPage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
                       child: Text(
-                        'This is a great User!',
+                        'Bio personalization will be implemented soon!',
                         style: TextStyle(
                             fontSize: 20
                         ),
@@ -208,7 +209,25 @@ class AccountPage extends StatelessWidget {
                       ),
                       tileColor: Color(0xFFF5F5F5),
                       dense: false,
-                    )
+                    ),
+                    SizedBox(height: 30),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                              child: Text("Edit Profile",
+                                  style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      color: Colors.blueGrey)),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EditAccount()),
+                                );
+                              })
+                        ]
+                    ),
                   ],
                 ),
               )

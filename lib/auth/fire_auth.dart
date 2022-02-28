@@ -16,9 +16,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 //FirebaseAuth auth = FirebaseAuth.instance;
 GoogleSignIn googleSignIn = GoogleSignIn();
 
+
 class FireAuth {
   static FirebaseAuth auth = FirebaseAuth.instance;
   static User? user;
+  late String bio;
+
 
   // This method allows a new user to sign up with email and password
   static Future<User?> registerUsingEmailPassword({
@@ -74,7 +77,7 @@ class FireAuth {
       }
     }
 
-    return user;
+    //return user;
   }
 
   //TODO Add list retrieves and friend subscription
@@ -118,6 +121,15 @@ class FireAuth {
   static Future<String> getEmail() async {
     return (await auth.currentUser)!.email!;
   }
+  static Future<String> getName() async{
+    if(auth.currentUser!.displayName!=null){
+      return (await auth.currentUser)!.displayName!;
+    }
+    else
+      return (await auth.currentUser)!.email!;
+  }
+
+
 
   static void signOut() {
     FirebaseAuth.instance.signOut();
