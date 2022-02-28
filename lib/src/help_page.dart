@@ -16,7 +16,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 launchMailto() async {
   final mailtoLink = Mailto(
-    to: ['jmd7@email.sc.edu'],
+    to: ['jmd7@email.sc.edu'], // TODO create a "business" email
     //cc: ['cammarj@email.sc.edu', 'mtduggan@email.sc.edu'],
     subject: 'Question for CapiStonsker App',
     body: 'Ask your question here...',
@@ -154,14 +154,12 @@ class _HelpPageState extends State<HelpPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
                   child: ButtonTheme(
-                      // TODO figure out how to make button the width of the screen
                       minWidth: MediaQuery.of(context).size.width,
                       child: ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
                         ),
                         onPressed: () {
-                          // TODO create a link to send an email asking for help
                           launchMailto();
                         },
                         child: Text(
