@@ -19,7 +19,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUp extends State<SignUp> {
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +84,6 @@ class _SignUp extends State<SignUp> {
               child: TextButton(
                 onPressed: () async {
                   User? user = await FireAuth.signInWithGoogle(context: context);
-
                   if(user!=null){
                     Navigator.of(context).pop();
                     await Navigator.of(context).push(
@@ -98,7 +97,6 @@ class _SignUp extends State<SignUp> {
                       context: context,
                       builder: (ctx) => AlertDialog(
                         title: Text("Login Failed. Please try again."),
-
                         actions: [
                           TextButton(
                             onPressed: () {
@@ -112,10 +110,8 @@ class _SignUp extends State<SignUp> {
                   }
                   /*try {
                     await FireAuth.signInWithGoogle(context: context) ;
-
                     Navigator.of(context).pop();
                     Navigator.of(context).pop();
-
                   } on FirebaseAuthException catch (e) {
                     showDialog(
                       context: context,
@@ -141,7 +137,6 @@ class _SignUp extends State<SignUp> {
                   style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
               ),
-
             ),
           ),
           */

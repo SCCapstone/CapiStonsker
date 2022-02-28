@@ -8,20 +8,22 @@ import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'log_in_page.dart';
-import '../app_nav/side_menu.dart';
+import 'package:capi_stonsker/auth/log_in_page.dart';
+import 'package:capi_stonsker/app_nav/side_menu.dart';
+import 'package:capi_stonsker/auth/fire_auth.dart';
 
 class LogoutPage extends StatelessWidget {
   LogoutPage({Key? key}) : super(key: key);
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       key: _scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        leading: new IconButton(
+        leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             color: Colors.white,
             onPressed: () {
@@ -31,48 +33,36 @@ class LogoutPage extends StatelessWidget {
         title: Text("Log Out"),
         backgroundColor: Colors.blueGrey,
       ),
-      body:
-      Center(
-        child: LoginSignupButton(
-            title: 'Log Out',
-            ontapp: () {
-              FirebaseAuth.instance.signOut();
-              //Navigator.of(context).popUntil(ModalRoute.withName("/account"));
-
-              Navigator.pop(context);
-              Navigator.push(context,
-                  MaterialPageRoute(
-                      builder: (context) => LoginScreen()
-                  )
-              );
-            }
+        body:
+            Center(
+          child: logoutButton(context),
         ),
-      ),
       drawer: SideMenu(),
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
   }
-}
 
-class LoginSignupButton extends StatelessWidget {
-  final String title;
-  final dynamic  ontapp;
-
-  LoginSignupButton({required this.title, required this.ontapp});
-
-  @override
-  Widget build(BuildContext context) {
+  Widget logoutButton(BuildContext context) {
     return Container(
       width: double.infinity,
       child: SizedBox(
         height: 45,
         child: ElevatedButton(
-          onPressed:
-          ontapp,
+          onPressed: (() {
+            FireAuth.signOut();
+            //Navigator.of(context).popUntil(ModalRoute.withName("/account"));
+
+            Navigator.pop(context);
+            Navigator.push(context,
+                MaterialPageRoute(
+                    builder: (context) => LoginScreen()
+                )
+            );
+          }),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              title,
+              "Log Out",
               style: TextStyle(fontSize: 20),
             ),
           ),

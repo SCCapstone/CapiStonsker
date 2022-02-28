@@ -158,23 +158,23 @@ class _LoginScreenState extends State<LoginScreen> {
                   isloading = true;
                 });
                 //try {
-                  FireAuth.signInUsingEmailPassword(email: email, password: password, context: context) ;
+                FireAuth.signInUsingEmailPassword(email: email, password: password, context: context) ;
 
-                  if(auth.currentUser!=null){
-                    Navigator.of(context).pop();
-                    await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => AccountPage(),
-                      ),
-                    );
+                if(auth.currentUser!=null){
+                  Navigator.of(context).pop();
+                  await Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => AccountPage(),
+                    ),
+                  );
 
-                    setState(() {
-                      isloading = false;
-                    });
-                  }
-                 //on FirebaseAuthException catch (e) {
-                  else if (FireAuth.user==null){
-                    showDialog(
+                  setState(() {
+                    isloading = false;
+                  });
+                }
+                //on FirebaseAuthException catch (e) {
+                else if (FireAuth.user==null){
+                  showDialog(
                     context: context,
                     builder: (ctx) => AlertDialog(
                       title: Text("Login Failed. Please try again."),

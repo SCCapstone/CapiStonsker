@@ -32,6 +32,7 @@ class _CountyCollection extends State<CountyCollection> {
         child: Column(
           children: [
             FloatingActionButton(
+              heroTag: null,
               backgroundColor: Colors.white70,
               foregroundColor: Colors.blueGrey,
               splashColor: Colors.amber,
