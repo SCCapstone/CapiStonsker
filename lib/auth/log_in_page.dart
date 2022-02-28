@@ -157,10 +157,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 setState(() {
                   isloading = true;
                 });
-<<<<<<< HEAD
-                try {
-                  await FireAuth.signInUsingEmailPassword(email: email, password: password, context: context) ;
+                //try {
+                FireAuth.signInUsingEmailPassword(email: email, password: password, context: context) ;
 
+                if(auth.currentUser!=null){
                   Navigator.of(context).pop();
                   await Navigator.of(context).push(
                     MaterialPageRoute(
@@ -171,36 +171,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   setState(() {
                     isloading = false;
                   });
-                } on FirebaseAuthException catch (e) {
+                }
+                //on FirebaseAuthException catch (e) {
+                else if (FireAuth.user==null){
                   showDialog(
                     context: context,
                     builder: (ctx) => AlertDialog(
                       title: Text("Login Failed. Please try again."),
-                      content: Text('${e.message}'),
-=======
-                //try {
-                  FireAuth.signInUsingEmailPassword(email: email, password: password, context: context) ;
 
-                  if(auth.currentUser!=null){
-                    Navigator.of(context).pop();
-                    await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => AccountPage(),
-                      ),
-                    );
-
-                    setState(() {
-                      isloading = false;
-                    });
-                  }
-                 //on FirebaseAuthException catch (e) {
-                  else if (FireAuth.user==null){
-                    showDialog(
-                    context: context,
-                    builder: (ctx) => AlertDialog(
-                      title: Text("Login Failed. Please try again."),
-
->>>>>>> 1574b02ba7c52d82c1e5a5d7da1e9abea1a8a71d
                       actions: [
                         TextButton(
                           onPressed: () {
@@ -211,11 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   );
-<<<<<<< HEAD
-                  print(e);
-=======
 
->>>>>>> 1574b02ba7c52d82c1e5a5d7da1e9abea1a8a71d
                 }
                 setState(() {
                   isloading = false;
