@@ -27,7 +27,6 @@ class MapPage extends StatefulWidget {
     this.list = num;
   }
 }
-
 class _MapPageState extends State<MapPage> {
   late UserLocationOptions userLocationOptions;
   List<Marker> uloMarkers = []; //not sure what the UserLayerOptions marker list is for
@@ -75,6 +74,7 @@ class _MapPageState extends State<MapPage> {
             markers: selectList().map((m) => mBox.createMapMarker(context, m)).toList() +
                 List<Marker>.filled(1,
                     Marker(
+                      rotate: true,
                       width: 45.0,
                       height: 45.0,
                       point: locs.userPos,
@@ -82,6 +82,7 @@ class _MapPageState extends State<MapPage> {
                           Container(
                             child: IconButton(
                               icon: Icon(Icons.location_on),
+                              padding: const EdgeInsets.only(bottom:45/2),
                               color: Colors.blue,
                               iconSize: 45,
                               onPressed: (){},
@@ -91,6 +92,7 @@ class _MapPageState extends State<MapPage> {
                 ),
         ),
         userLocationOptions,
+
       ],
       mapController: widget.controller,
     );

@@ -73,12 +73,14 @@ class MarkerBox extends StatelessWidget {
 f_map.Marker createMapMarker(BuildContext context, Marker m) {
 
   return f_map.Marker(
+    rotate: true,
     width: 45.0,
     height: 45.0,
     point: latLng.LatLng(m.gps.first, m.gps.last * -1),
     builder: (ctx) =>
         Container(
           child: IconButton(
+            padding: const EdgeInsets.only(bottom:45/2),
             icon: Icon(Icons.location_on),
             color: locs.visited.contains(m) ? Colors.green : Colors.red, //If visited list contains Marker, set to green
             iconSize: 45,
