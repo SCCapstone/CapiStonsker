@@ -50,7 +50,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       extendBody: true,
       appBar: AppBar(title: Text("Take a Profile Picture"), backgroundColor:
       Colors
-          .indigo),
+          .blueGrey),
       body:  FutureBuilder<void>(
         future: _initializeControllerFuture,
         builder: (context, snapshot) {
@@ -65,7 +65,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.indigo,
+        backgroundColor: Colors.blueGrey,
         onPressed: () async {
           // Try to take the picture
           try {
@@ -114,7 +114,7 @@ class DisplayPictureScreen extends StatelessWidget {
             children: <Widget>[
               ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.indigo)
+                  backgroundColor: MaterialStateProperty.all(Colors.blueGrey)
                 ),
                 child: new Text("Confirm"),
                 onPressed: () {
@@ -130,19 +130,11 @@ class DisplayPictureScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.indigo)
+                    backgroundColor: MaterialStateProperty.all(Colors.blueGrey)
                 ),
                   child: new Text("Retake"),
                   onPressed: () {
-
                     Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                        builder: (context) => TakePictureScreen(camera:
-                        cameras.first,)
-                        )
-                    );
                   },
               )
 

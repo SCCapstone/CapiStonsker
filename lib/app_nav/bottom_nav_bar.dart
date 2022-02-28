@@ -28,7 +28,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      color: Colors.transparent,//const Color(0x00000000),//Colors.blueGrey,
+      color: Color(0x00ffffff),//const Color(0x00000000),//Colors.blueGrey,
       child: IconTheme(
         data: const IconThemeData(color: Colors.white),
         child: Row(
