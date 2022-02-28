@@ -79,17 +79,20 @@ f_map.Marker createMapMarker(BuildContext context, Marker m) {
     point: latLng.LatLng(m.gps.first, m.gps.last * -1),
     builder: (ctx) =>
         Container(
-          child: IconButton(
-            padding: const EdgeInsets.only(bottom:45/2),
-            icon: Icon(Icons.location_on),
-            color: locs.visited.contains(m) ? Colors.green : Colors.red, //If visited list contains Marker, set to green
-            iconSize: 45,
-            onPressed: (){
-              showModalBottomSheet(
-                  context: context,
-                  builder: (context) => MarkerBox(m)
-              );
-            },
+          child:
+              IconButton(
+                padding: const EdgeInsets.only(bottom:45/2),
+                icon: Icon(Icons.location_on),
+                color: locs.visited.contains(m) ? Colors.green : Colors.red, //If visited list contains Marker, set to green
+                iconSize: 45,
+                onPressed: (){
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (context) => MarkerBox(m)
+                  );
+                },
+
+
           ),
         ),
   );

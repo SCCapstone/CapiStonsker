@@ -86,8 +86,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  //late TutorialCoachMark tutorialCoachMark;
-  //List<TargetFocus> targets = <TargetFocus>[];
+  late TutorialCoachMark tutorialCoachMark;
+  List<TargetFocus> targets = <TargetFocus>[];
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   GlobalKey menu_button = GlobalKey();
   GlobalKey marker_list = GlobalKey();
@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    //Future.delayed(Duration.zero, showTutorial);
+    Future.delayed(Duration.zero, showTutorial);
     super.initState();
   }
 
@@ -291,7 +291,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  /*
   void showTutorial() {
     initTargets();
     tutorialCoachMark = TutorialCoachMark(
@@ -420,5 +419,4 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-  */
 }
