@@ -51,6 +51,8 @@ dependencies:
   dio: ^4.0.4
   shared_preferences: ^2.0.13
   carousel_slider: ^4.0.0
+  mailto: ^2.0.0
+  url_launcher: ^6.0.20
 
 dev_dependencies:
   flutter_test:
