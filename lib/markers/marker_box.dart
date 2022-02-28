@@ -75,7 +75,7 @@ f_map.Marker createMapMarker(BuildContext context, Marker m) {
   return f_map.Marker(
     rotate: true,
     width: 45.0,
-    height: 45.0,
+    height: 90.0,
     point: latLng.LatLng(m.gps.first, m.gps.last * -1),
     builder: (ctx) =>
         Container(
