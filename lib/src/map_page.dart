@@ -81,8 +81,7 @@ class _MapPageState extends State<MapPage> {
                       builder: (ctx) =>
                           Container(
                             child: IconButton(
-                              icon: Icon(Icons.location_on),
-                              padding: const EdgeInsets.only(bottom:45/2),
+                              icon: Icon(Icons.my_location_sharp),
                               color: Colors.blue,
                               iconSize: 45,
                               onPressed: (){},
