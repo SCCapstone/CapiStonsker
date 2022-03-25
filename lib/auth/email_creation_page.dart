@@ -1,7 +1,6 @@
 /*
  * This page allows a user to create an account using an email and password
  *
- * TODO is this a duplicate to the account_creation_page?
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,6 +25,7 @@ class _AccountCreation extends State<AccountCreation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       key: _scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,

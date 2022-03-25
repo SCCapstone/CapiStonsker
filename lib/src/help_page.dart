@@ -10,6 +10,22 @@ import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/app_nav/side_menu.dart';
+import 'package:mailto/mailto.dart';
+import 'package:mailto/mailto.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+launchMailto() async {
+  final mailtoLink = Mailto(
+    to: ['jmd7@email.sc.edu'], // TODO create a "business" email
+    //cc: ['cammarj@email.sc.edu', 'mtduggan@email.sc.edu'],
+    subject: 'Question for CapiStonsker App',
+    body: 'Ask your question here...',
+  );
+  // Convert the Mailto instance into a string.
+  // Use either Dart's string interpolation
+  // or the toString() method.
+  await launch('$mailtoLink');
+}
 
 class HelpPage extends StatefulWidget {
   const HelpPage({Key? key}) : super(key: key);
@@ -24,6 +40,7 @@ class _HelpPageState extends State<HelpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       key: _scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -37,9 +54,8 @@ class _HelpPageState extends State<HelpPage> {
         title: Text("Help Page"),
         backgroundColor: Colors.blueGrey,
       ),
-      body: Container(
-          child: Column(
-              children: <Widget>[
+      body: ListView(
+          children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
                   child: Text(
@@ -52,7 +68,7 @@ class _HelpPageState extends State<HelpPage> {
                 ),
                 const ExpansionTile(
                   title: Text(
-                      'Question 1....',
+                      'Do I need to create an account to use the app?',
                       style: TextStyle(
                         fontSize: 20.0,
                       ),
@@ -61,7 +77,10 @@ class _HelpPageState extends State<HelpPage> {
                   children: <Widget>[
                     ListTile(
                         title: Text(
-                            'Answer to question 1',
+                            'You can use this app to find historical landmarks and navigate to them'
+                                ' without an account, however, you can create a free account at any'
+                                ' time to unlock features such as tracking visited landmarks, adding'
+                                ' places to your wishlist, and finding friends.',
                             style: TextStyle(
                               fontSize: 15.0,
                             ),
@@ -71,7 +90,7 @@ class _HelpPageState extends State<HelpPage> {
                 ),
                 const ExpansionTile(
                   title: Text(
-                      'Question 2....',
+                      'What options are available to me as a teacher using this app for my class?',
                       style: TextStyle(
                         fontSize: 20.0,
                       ),
@@ -80,7 +99,12 @@ class _HelpPageState extends State<HelpPage> {
                   children: <Widget>[
                     ListTile(
                         title: Text(
-                            'Answer to question 2',
+                            'Our app has a built-in friends feature that will allow you'
+                                ' to track your students\' progress in visiting any'
+                                ' historical landmarks you assign. You can also search'
+                                ' for landmarks by name and filter them by county as you'
+                                ' search for places your students can visit that are'
+                                ' relevant to your particular class.',
                             style: TextStyle(
                               fontSize: 15.0,
                             ),
@@ -88,27 +112,55 @@ class _HelpPageState extends State<HelpPage> {
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
-                  child: Text(
-                    "TODO: Add a way to access the tutorial",
+                const ExpansionTile(
+                  title: Text(
+                    'Is this an app I can feel safe about my children using as a parent?',
                     style: TextStyle(
-                      color: Colors.blueGrey,
-                      fontSize: 30.0,
+                      fontSize: 20.0,
                     ),
                   ),
+                  // subtitle: Text('Some other text...'),
+                  children: <Widget>[
+                    ListTile(
+                      title: Text(
+                        'This app is designed to be a fun and educational way to learn and'
+                            ' explore your community. Your children will love learning about their'
+                            ' community in a fun and interactive way on this platform, and'
+                            ' we encoruage you to take them to visit places they learn about'
+                            ' on this app. With that said, we recommend that children have'
+                            ' parent supervision when visiting unfamilar places. And while'
+                            ' we do not have a chat feature between users of our app for'
+                            ' safety reasons, we still recommend that parents talk to their'
+                            ' children about only friending people they know in real life.',
+                        style: TextStyle(
+                          fontSize: 15.0,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
+
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+                //   child: Text(
+                //     "TODO: Add a way to access the tutorial",
+                //     style: TextStyle(
+                //       color: Colors.blueGrey,
+                //       fontSize: 30.0,
+                //     ),
+                //   ),
+                // ),
+
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
                   child: ButtonTheme(
-                      // TODO figure out how to make button the width of the screen
                       minWidth: MediaQuery.of(context).size.width,
                       child: ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
                         ),
                         onPressed: () {
-                          // TODO create a link to send an email asking for help
+                          launchMailto();
                         },
                         child: Text(
                             "ASK FOR HELP",
@@ -120,9 +172,9 @@ class _HelpPageState extends State<HelpPage> {
                     ),
                   ),
                 ),
+
               ]
-          )
-      ),
+          ),
       drawer: SideMenu(),
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );

@@ -5,12 +5,16 @@
 
 import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
+import 'package:capi_stonsker/auth/edit_account_page.dart';
+import 'package:capi_stonsker/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:capi_stonsker/auth/fire_auth.dart';
+import '../auth/take_picture_screen.dart';
 
 class AccountPage extends StatelessWidget {
+
   AccountPage({Key? key}) : super(key: key);
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
@@ -18,6 +22,7 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       key: _scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -40,18 +45,31 @@ class AccountPage extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               Align(
-                alignment: AlignmentDirectional(0, -1),
-                child: Container(
-                  width: 120,
-                  height: 120,
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                  ),
-                  child: Image.network(
-                    'https://picsum.photos/seed/264/600',
-                  ),
-                ),
+                  alignment: AlignmentDirectional(0, -1),
+                  child: Material(
+                    shape: CircleBorder(),
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    child: InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TakePictureScreen(camera:
+                                  cameras.first)
+                              )
+                          );
+                        },
+                        child: Ink.image(
+                            //TODO: Make this user profile pictures
+                            image: Image.network( 'https://picsum'
+                                '.photos/seed/264/600').image,
+                            height: 120,
+                            width: 120,
+                            fit: BoxFit.cover
+                        )
+                    ),
+                  )
               ),
               Stack(
                 children: [
@@ -60,8 +78,8 @@ class AccountPage extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                       child:
-                        FutureBuilder(
-                          future: FireAuth.getEmail(),
+                      FutureBuilder(
+                          future: FireAuth.getName(),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.done) {
                               return Text(
@@ -75,10 +93,10 @@ class AccountPage extends StatelessWidget {
                             else {
                               return CircularProgressIndicator();
                             }
-                            }
-                        ),
+                          }
                       ),
                     ),
+                  ),
                   Align(
                     alignment: AlignmentDirectional(0.7, 0),
                     child: Padding(
@@ -97,7 +115,7 @@ class AccountPage extends StatelessWidget {
                       child: Text(
                         'Novice',
                         style: TextStyle(
-                          fontSize: 20
+                            fontSize: 20
                         ),
                       ),
                     ),
@@ -123,7 +141,7 @@ class AccountPage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
                       child: Text(
-                        'This is a great User!',
+                        'Bio personalization will be implemented soon!',
                         style: TextStyle(
                             fontSize: 20
                         ),
@@ -191,7 +209,25 @@ class AccountPage extends StatelessWidget {
                       ),
                       tileColor: Color(0xFFF5F5F5),
                       dense: false,
-                    )
+                    ),
+                    SizedBox(height: 30),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                              child: Text("Edit Profile",
+                                  style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      color: Colors.blueGrey)),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EditAccount()),
+                                );
+                              })
+                        ]
+                    ),
                   ],
                 ),
               )

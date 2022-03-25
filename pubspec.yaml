@@ -29,7 +29,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   google_maps_flutter_web: ^0.3.2
   cloud_firestore: ^2.5.3
   flutter_map: ^0.13.0
@@ -41,10 +40,31 @@ dependencies:
   latlong2: ^0.8.1
   flutter_mapbox_navigation: ^0.0.26
   google_sign_in: ^5.2.1
+  permission_handler: ^8.3.0
+  flutter_application_id: ^1.0.0
+  camera:
+  path_provider:
+  path:
+  provider: ^6.0.2
+  flutter_dotenv: ^5.0.2
+  mapbox_gl: ^0.15.0
+  dio: ^4.0.4
+  shared_preferences: ^2.0.13
+  carousel_slider: ^4.0.0
+  mailto: ^2.0.0
+  url_launcher: ^6.0.20
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  integration_test:
+    sdk: flutter
+
+flutter_application_id:
+  android:
+    id: "capi.ston.sker"
+    name: "MyApplication - Android"
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -66,8 +86,10 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/locations.json
-    - assets/json_markers_small.json
+    - assets/locations_full.json
+    - assets/locations_richland.json
+    - assets/image/logo.PNG
+    - assets/image/marker.PNG
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

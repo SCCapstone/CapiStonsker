@@ -1,209 +1,100 @@
-/*
- * This page adds functionality for a user to navigate to a given marker,
- * accessible from the marker_list page
- *
- * This is a bit buggy and will need to be improved in later releases
- *
- * TODO make nav functionality accessible from full info and other pages as well
- */
-
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'package:flutter_mapbox_navigation/library.dart';
-import '../markers/marker.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:user_location/user_location.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 
+
 class NavPage extends StatefulWidget {
-  final Marker sentMarker;
-  const NavPage({Key? key, required this.sentMarker}) : super(key: key);
+
+
+  const NavPage({Key? key}) : super(key: key);
+
   @override
   _NavPageState createState() => _NavPageState();
 }
 
 class _NavPageState extends State<NavPage> {
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  String _platformVersion = 'Unknown';
-  String _instruction = "";
-  @override
-  void initState() {
-    super.initState();
-    initialize();
-  }
-
-   MapBoxNavigation _directions = new MapBoxNavigation();
-
-  bool _isMultipleStop = false;
-  double _distanceRemaining =0.0, _durationRemaining = 0.0;
-  late MapBoxNavigationViewController _controller;
-  bool _routeBuilt = false;
-  bool _isNavigating = false;
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initialize() async {
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-    _directions = MapBoxNavigation(onRouteEvent: _onRouteEvent);
-  }
+  MapController mapController = MapController();
+  List<Marker> uloMarkers = [];
+  final TextEditingController _controller = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: new IconButton(
-            icon: const Icon(Icons.arrow_back),
-            color: Colors.white,
-            onPressed: () {
-              Navigator.of(context).pop();
-            }
-        ),
-        title: Text("DIRECTIONS"),
-        backgroundColor: Colors.blueGrey,
-      ),
-      body: Center(
-        child: Column(children: <Widget>[
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton(
-                        child: Text("Start Directions"),
-                        onPressed: () async {
-                          var wayPoints = <WayPoint>[];
-                          wayPoints.add(WayPoint(name: "origin", latitude:  locs.userPos.latitude, longitude:  locs.userPos.longitude));
-                          wayPoints.add(WayPoint(name: "marker", latitude: widget.sentMarker.gps.first, longitude:  -widget.sentMarker.gps.last));
-
-                          await _directions.startNavigation(
-                              wayPoints: wayPoints,
-                              options: MapBoxOptions(
-                                  zoom: 15.0,
-                                  mode: MapBoxNavigationMode.walking,
-                                  simulateRoute: false,
-                                  language: "en",
-                                  units: VoiceUnits.imperial)
-                          );
-                        },
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: 20.0, right: 20, top: 20, bottom: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Text("Duration Remaining: "),
-                            Text(_durationRemaining != null
-                                ? "${(_durationRemaining / 60).toStringAsFixed(2)} minutes"
-                                : "---")
-                          ],
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Text("Distance Remaining: "),
-                            Text(_distanceRemaining != null
-                                ? "${(_distanceRemaining * 0.000621371).toStringAsFixed(2)} miles "
-                                : "---")
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-
-                ],
-              ),
-            ),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          leading: new IconButton(
+              icon: const Icon(Icons.arrow_back),
+              color: Colors.white,
+              onPressed: () {
+                Navigator.of(context).pop();
+              }
           ),
-          Expanded(
-            flex: 3,
-            child: Container(
-              color: Colors.grey,
-              child: MapBoxNavigationView(
-                  options: MapBoxOptions(
-                      zoom: 15.0,
-                      tilt: 0.0,
-                      bearing: 0.0,
-                      enableRefresh: false,
-                      alternatives: true,
-                      voiceInstructionsEnabled: true,
-                      bannerInstructionsEnabled: true,
-                      allowsUTurnAtWayPoints: true,
-                      mode: MapBoxNavigationMode.walking,
-                      mapStyleUrlDay: 'mapbox://styles/mtduggan/ckukb9uuk6wcz18p9dxyqd1ps',
-                      mapStyleUrlNight: 'mapbox://styles/mtduggan/ckwp7rxt80nwk14rssj3r9t9f',
-                      units: VoiceUnits.imperial,
-                      simulateRoute: false,
-                      animateBuildRoute: true,
-                      longPressDestinationEnabled: true,
-                      language: "en"),
-                  onRouteEvent: _onRouteEvent,
-                  onCreated:
-                      (MapBoxNavigationViewController controller) async {
-                    _controller = controller;
-                    controller.initialize();
-                  }),
-            ),
-          )
-        ]),
-      ),
+          //title: Text("Marker List Page"),
+
+          backgroundColor: Colors.blueGrey,
+
+        ),
+
+        body: FlutterMap(
+        options: MapOptions(
+          minZoom: 15.0,
+          center: LatLng(34.0007, -81.0348),
+          zoom: 10.0,
+          plugins: [ UserLocationPlugin(), ],
+        ),
+        layers: [
+          TileLayerOptions(
+              urlTemplate: "https://api.mapbox.com/styles/v1/mtduggan/ckukb9uuk6wcz18p9dxyqd1ps/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibXRkdWdnYW4iLCJhIjoiY2t1a2I4MTV5MWE2MzJ3b2YycGl0djRnZyJ9.Sx7oMnrNlA1yWBO42iSAOQ",
+              additionalOptions: {
+                'accessToken': 'pk.eyJ1IjoibXRkdWdnYW4iLCJhIjoiY2t1a2I4MTV5MWE2MzJ3b2YycGl0djRnZyJ9.Sx7oMnrNlA1yWBO42iSAOQ',
+                'id': 'mapbox.satellite',
+              }
+          ),
+          MarkerLayerOptions(
+            markers: List<Marker>.filled(1,
+                    Marker(
+                      width: 45.0,
+                      height: 45.0,
+                      point: locs.userPos,
+                      builder: (ctx) =>
+                          Container(
+                            child: IconButton(
+                              icon: Icon(Icons.location_on),
+                              color: Colors.blue,
+                              iconSize: 45,
+                              onPressed: (){},
+                            ),
+                          ),
+                    )
+                ),
+          ),
+          UserLocationOptions(
+            context: context,
+            mapController: mapController,
+            markers: uloMarkers,
+            updateMapLocationOnPositionChange: false,
+            zoomToCurrentLocationOnLoad: true,
+            onLocationUpdate: (LatLng pos, double? speed) {
+                setState(() {
+                //onLocationUpdate is where several different features are going to stem from, likely want to pass into different functions
+                  locs.updatePos(pos); //Updates userPos variable
+                });
+                },
+              moveToCurrentLocationFloatingActionButton: FloatingActionButton(
+
+                onPressed: () {  },
+                child: const Icon(Icons.my_location),
+              ),
+                //showMoveToCurrentLocationFloatingActionButton: true,
+          )],
+        mapController: mapController,
+        )
     );
   }
-
-  bool _arrived = false;
-  Future<void> _onRouteEvent(e) async {
-
-    _distanceRemaining = await _directions.distanceRemaining;
-    _durationRemaining = await _directions.durationRemaining;
-
-    switch (e.eventType) {
-      case MapBoxEvent.progress_change:
-        var progressEvent = e.data as RouteProgressEvent;
-        _arrived = progressEvent.arrived!;
-        if (progressEvent.currentStepInstruction != null)
-          _instruction = progressEvent.currentStepInstruction!;
-        break;
-      case MapBoxEvent.route_building:
-      case MapBoxEvent.route_built:
-        _routeBuilt = true;
-        break;
-      case MapBoxEvent.route_build_failed:
-        _routeBuilt = false;
-        break;
-      case MapBoxEvent.navigation_running:
-        _isNavigating = true;
-        break;
-      case MapBoxEvent.on_arrival:
-        _arrived = true;
-        if (!_isMultipleStop) {
-          await Future.delayed(Duration(seconds: 3));
-          await _controller.finishNavigation();
-        } else {}
-        break;
-      case MapBoxEvent.navigation_finished:
-      case MapBoxEvent.navigation_cancelled:
-        _routeBuilt = false;
-        _isNavigating = false;
-        break;
-      default:
-        break;
-    }
-    //refresh UI
-    setState(() {});
-  }
-
 }
+
+
+
+

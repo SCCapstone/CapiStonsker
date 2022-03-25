@@ -8,16 +8,20 @@
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:google_sign_in/google_sign_in.dart';
 
-FirebaseAuth auth = FirebaseAuth.instance;
+//FirebaseAuth auth = FirebaseAuth.instance;
 GoogleSignIn googleSignIn = GoogleSignIn();
+
 
 class FireAuth {
   static FirebaseAuth auth = FirebaseAuth.instance;
   static User? user;
+  late String bio;
+
 
   // This method allows a new user to sign up with email and password
   static Future<User?> registerUsingEmailPassword({
@@ -28,6 +32,12 @@ class FireAuth {
       UserCredential userCred = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       user = userCred.user;
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(user?.uid)
+          .set(<String, dynamic> {
+            "email": user?.email,
+          });
     }
     on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -54,7 +64,11 @@ class FireAuth {
         password: password,
       );
       user = userCredential.user;
+      //Retrieves wishlist and visited list
       locs.getWish();
+      locs.getVis();
+      //createListener();
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -63,9 +77,10 @@ class FireAuth {
       }
     }
 
-    return user;
+    //return user;
   }
 
+  //TODO Add list retrieves and friend subscription
   // This method allows a user to sign in using their Google account
   static Future<User?> signInWithGoogle({required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -102,8 +117,27 @@ class FireAuth {
 
     return user;
   }
+
   static Future<String> getEmail() async {
     return (await auth.currentUser)!.email!;
+  }
+  static Future<String> getName() async{
+    if(auth.currentUser!.displayName!=null){
+      return (await auth.currentUser)!.displayName!;
+    }
+    else
+      return (await auth.currentUser)!.email!;
+  }
+
+
+
+  static void signOut() {
+    FirebaseAuth.instance.signOut();
+    //Clear user collection lists
+    locs.wishlistID = [];
+    locs.wishlist = [];
+    locs.visitedID = [];
+    locs.visited = [];
   }
 
 }

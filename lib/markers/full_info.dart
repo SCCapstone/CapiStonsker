@@ -13,6 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'marker.dart';
 import '../user_collections/fav_button.dart';
+import 'locations.dart' as locs;
 
 class FullInfoPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
@@ -21,7 +22,10 @@ class FullInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isVis = locs.visitedDupe(sentMarker);
+
     return Scaffold(
+      extendBody: true,
       key: _scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -34,6 +38,13 @@ class FullInfoPage extends StatelessWidget {
         ),
         title: Text(sentMarker.name),
         backgroundColor: Colors.blueGrey,
+        actions: <Widget>[
+          Icon(
+            isVis ? Icons.location_on : Icons.location_off_outlined,
+            color: Colors.white,//isVis ? Colors.green : Colors.red,
+            size: 30.0,
+          )
+        ]
       ),
       body: SafeArea(
         child: Column(

@@ -7,9 +7,9 @@ import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'account_page.dart';
-import 'sign_up_page.dart';
-import 'fire_auth.dart';
+import 'package:capi_stonsker/auth/account_page.dart';
+import 'package:capi_stonsker/auth/sign_up_page.dart';
+import 'package:capi_stonsker/auth/fire_auth.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -30,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       key: _scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -110,66 +111,25 @@ class _LoginScreenState extends State<LoginScreen> {
                             )),
                       ),
                       SizedBox(height: 80),
-                      LoginSignupButton(
-                        title: 'Login',
-                        ontapp: () async {
-                          if (formkey.currentState!.validate()) {
-                            setState(() {
-                              isloading = true;
-                            });
-                            try {
-                              await FireAuth.signInUsingEmailPassword(email: email, password: password, context: context) ;
-
-                              Navigator.of(context).pop();
-                              await Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => AccountPage(),
-                                ),
-                              );
-
-                              setState(() {
-                                isloading = false;
-                              });
-                            } on FirebaseAuthException catch (e) {
-                              showDialog(
-                                context: context,
-                                builder: (ctx) => AlertDialog(
-                                  title: Text("Login Failed. Please try again."),
-                                  content: Text('${e.message}'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(ctx).pop();
-                                      },
-                                      child: Text('Okay'),
-                                    )
-                                  ],
-                                ),
-                              );
-                              print(e);
-                            }
-                            setState(() {
-                              isloading = false;
-                            });
-                          }
-                        },
-                      ),
+                      loginSignupButton(context),
                       SizedBox(height: 30),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             GestureDetector(
+                              key: const Key('makeAccount'),
                               child: Text("Don't have an account? Create one.",
                                   style: TextStyle(
                               decoration: TextDecoration.underline,
                               color: Colors.blueGrey)),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SignUp()),
-                      );
-                    })
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SignUp()),
+                                );
+                              }
+                    )
                   ]
                         ),
                     ],
@@ -184,6 +144,74 @@ class _LoginScreenState extends State<LoginScreen> {
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
   }
+
+  Widget loginSignupButton(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      child: SizedBox(
+        height: 45,
+        child: ElevatedButton(
+          onPressed: () async {
+            {
+              if (formkey.currentState!.validate()) {
+                setState(() {
+                  isloading = true;
+                });
+                //try {
+                FireAuth.signInUsingEmailPassword(email: email, password: password, context: context) ;
+
+                if(auth.currentUser!=null){
+                  Navigator.of(context).pop();
+                  await Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => AccountPage(),
+                    ),
+                  );
+
+                  setState(() {
+                    isloading = false;
+                  });
+                }
+                //on FirebaseAuthException catch (e) {
+                else if (FireAuth.user==null){
+                  showDialog(
+                    context: context,
+                    builder: (ctx) => AlertDialog(
+                      title: Text("Login Failed. Please try again."),
+
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(ctx).pop();
+                          },
+                          child: Text('Okay'),
+                        )
+                      ],
+                    ),
+                  );
+
+                }
+                setState(() {
+                  isloading = false;
+                });
+              }
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Login',
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.blueGrey),
+          ),
+        ),
+      ),
+    );
+  }
+
 }
 
 const kTextFieldDecoration = InputDecoration(
@@ -202,34 +230,3 @@ const kTextFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(7)),
   ),
 );
-
-class LoginSignupButton extends StatelessWidget {
-  final String title;
-  final dynamic  ontapp;
-
-  LoginSignupButton({required this.title, required this.ontapp});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: SizedBox(
-        height: 45,
-        child: ElevatedButton(
-          onPressed:
-          ontapp,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              title,
-              style: TextStyle(fontSize: 20),
-            ),
-          ),
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.blueGrey),
-          ),
-        ),
-      ),
-    );
-  }
-}

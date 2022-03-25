@@ -8,47 +8,55 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:capi_stonsker/markers/marker_box.dart' as mBox;
+import 'package:capi_stonsker/markers/marker.dart' as mark;
 import 'package:user_location/user_location.dart';
 
 class MapPage extends StatefulWidget {
-  const MapPage({Key? key}) : super(key: key);
+  int list = 3;
+  //1: wishlist, 2: visited, 3: nearby sorted, 4: county
+  List<String> counties = [];
+  String searchText;
+  MapController controller;
+  MapPage({Key? key, required this.list, required this.counties, required this.searchText, required this.controller}) : super(key: key);
+
 
   @override
   _MapPageState createState() => _MapPageState();
-}
 
-class _MapPageState extends State<MapPage> {
-  MapController mapController = MapController();
-  late UserLocationOptions userLocationOptions;
-  List<Marker> markers = []; //likely need to adjust how markers are gotten?
-
-
-  @override
-  void initState() {
-    super.initState();
+  void updateList(int num) {
+    this.list = num;
   }
+}
+class _MapPageState extends State<MapPage> {
+  List<Marker> uloMarkers = []; //not sure what the UserLayerOptions marker list is for
+
 
   @override
   Widget build(BuildContext context) {
 
-    userLocationOptions = UserLocationOptions(
+    var userLocationOptions = UserLocationOptions(
       context: context,
-      mapController: mapController,
-      markers: markers,
+      mapController: widget.controller,
+      markers: uloMarkers,
       updateMapLocationOnPositionChange: false,
+      zoomToCurrentLocationOnLoad: true,
       onLocationUpdate: (LatLng pos, double? speed) {
         setState(() {
           //onLocationUpdate is where several different features are going to stem from, likely want to pass into different functions
           locs.updatePos(pos); //Updates userPos variable
         });
       },
+      showMoveToCurrentLocationFloatingActionButton: false
+
+
       //showMoveToCurrentLocationFloatingActionButton: true,
     );
 
     return FlutterMap(
       options: MapOptions(
-        minZoom: 15.0,
-        center: LatLng(34.0007, -81.0348),
+        maxZoom: 18.0,
+        minZoom: 10,
+        center: locs.userPos,
         zoom: 13.0,
         plugins: [ UserLocationPlugin(), ],
       ),
@@ -62,27 +70,51 @@ class _MapPageState extends State<MapPage> {
         ),
         //TODO This currently works, but let's try to find a way to have persistent lists instead of reconstructing every build call
         MarkerLayerOptions(
-            markers: locs.markers.map((m) => mBox.createMapMarker(context, m)).toList() +
-                      List<Marker>.filled(1,
-                          Marker(
-                            width: 45.0,
-                            height: 45.0,
-                            point: locs.userPos,
-                            builder: (ctx) =>
-                                Container(
-                                  child: IconButton(
-                                    icon: Icon(Icons.location_on),
-                                    color: Colors.blue,
-                                    iconSize: 45,
-                                    onPressed: (){},
-                                  ),
-                                ),
-                          )
-                      ),
+            markers: selectList().map((m) => mBox.createMapMarker(context, m)).toList() +
+                List<Marker>.filled(1,
+                    Marker(
+                      rotate: true,
+                      width: 50.0,
+                      height: 50.0,
+                      point: locs.userPos,
+                      builder: (ctx) =>
+                          Container(
+                            child: IconButton(
+                              icon: Icon(Icons.my_location_sharp),
+                              color: Colors.purple,
+                              iconSize: 45.0,
+                              onPressed: (){},
+                            ),
+                          ),
+                    )
+                ),
         ),
         userLocationOptions,
+
       ],
-      mapController: mapController,
+      mapController: widget.controller,
     );
+  }
+
+  List<mark.Marker> selectList() {
+    List<mark.Marker> ret = [];
+    switch (widget.list) {
+      case 1: { ret = locs.wishlist; } break;
+      case 2: {
+        ret = locs.visited;
+      } break;
+      case 3: { ret = locs.markers; } break;
+      case 4: {
+        locs.markers.forEach((m) {
+          if (widget.counties.contains(m.county.split(new RegExp('\\s+'))[0]))
+            ret.add(m);
+        });
+      } break;
+      case 5: {
+        locs.getSearchResults(widget.searchText);
+        ret = locs.searchRes;
+      } break;
+    }
+    return ret;
   }
 }
