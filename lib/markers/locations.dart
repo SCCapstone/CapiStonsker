@@ -41,6 +41,7 @@ getSearchResults(String SearchText) {
   searchRes = markers.where((s) => s.name.toLowerCase().contains(SearchText.toLowerCase())).toList();
 }
 
+
 //Stores user position
 updatePos(LatLng pos) {
   //Only update userPos if pos is > 60ft (20m) difference (subject to change)
