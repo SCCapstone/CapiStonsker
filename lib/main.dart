@@ -276,18 +276,15 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           onPressed: () {
             setState(() {
+              selectedCounties = [];
               for (int i = 0; i < isSelected.length; i++)
-                if (isSelected[i])
+                if (isSelected[i]) {
                   selectedCounties.add(locs.fullCounties[i]);
+                }
               selectedList = 4;
             });
             Navigator.of(context).pop();
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => MyHomePage(show:false)
-                )
-            );
+
           },
         ),
       ],

@@ -105,11 +105,17 @@ class _MapPageState extends State<MapPage> {
       } break;
       case 3: { ret = locs.markers; } break;
       case 4: {
-        locs.markers.forEach((m) {
-          if (widget.counties.contains(m.county.split(new RegExp('\\s+'))[0]))
-            ret.add(m);
-        });
-      } break;
+        for(int i=0;i<widget.counties.length;i++){
+          for(int j=0;j<locs.markers.length;j++) {
+            if (widget.counties[i].contains(
+                locs.markers[j].county.split(new RegExp('\\s+'))[0])) {
+              ret.add(locs.markers[j]);
+            }
+          }
+        }
+
+        return ret;
+      }
       case 5: {
         locs.getSearchResults(widget.searchText);
         ret = locs.searchRes;
