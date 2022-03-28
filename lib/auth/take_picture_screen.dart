@@ -102,7 +102,7 @@ class DisplayPictureScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Profile Picture'), backgroundColor:
-        Colors.indigo,),
+        Colors.blueGrey,),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
       body: Column(
@@ -111,6 +111,8 @@ class DisplayPictureScreen extends StatelessWidget {
         children: <Widget>[
           Image.file(File(imagePath)),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               ElevatedButton(
                 style: ButtonStyle(
