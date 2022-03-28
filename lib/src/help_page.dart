@@ -16,8 +16,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 launchMailto() async {
   final mailtoLink = Mailto(
-    to: ['jmd7@email.sc.edu'], // TODO create a "business" email
-    //cc: ['cammarj@email.sc.edu', 'mtduggan@email.sc.edu'],
+    to: ['capistonsker@gmail.com'],
     subject: 'Question for CapiStonsker App',
     body: 'Ask your question here...',
   );
