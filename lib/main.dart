@@ -26,13 +26,17 @@ import 'package:capi_stonsker/user_collections/friend.dart';
 import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:latlong2/latlong.dart' as ll;
 
 SharedPreferences sharedPreferences = SharedPreferences.getInstance() as SharedPreferences;
 
 // Global for access across pages
 List<CameraDescription> cameras = [];
 
-Future<void> main() async {
+Future<void> main() async{
+
+
+
   //Ensures Firebase connection initialized
   WidgetsFlutterBinding.ensureInitialized();
   sharedPreferences = await SharedPreferences.getInstance();
@@ -112,6 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if(widget.show == true) {
       Future.delayed(Duration.zero, showTutorial);
     }
+    MapController mapController = MapController();
     super.initState();
   }
 
@@ -210,7 +215,7 @@ class _MyHomePageState extends State<MyHomePage> {
                  list: selectedList,
                  counties: selectedCounties,
                  searchText: searchText,
-                 controller: MapController())
+                 controller: mapController)
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -226,7 +231,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.white,
                     iconSize: 35,
                     onPressed: (){
-                      mapController.move(locs.userPos, 15);
+                      setState(() {
+                        mapController.move(locs.userPos, 15);
+                      });
+
                     },
                 ),
               ),
