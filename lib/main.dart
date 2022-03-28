@@ -79,7 +79,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  bool show;
+  MyHomePage({Key? key, required this.show}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -108,7 +109,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    Future.delayed(Duration.zero, showTutorial);
+    if(widget.show == true) {
+      Future.delayed(Duration.zero, showTutorial);
+    }
     super.initState();
   }
 
@@ -282,7 +285,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => MyHomePage()
+                    builder: (context) => MyHomePage(show:false)
                 )
             );
           },

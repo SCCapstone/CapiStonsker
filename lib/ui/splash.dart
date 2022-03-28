@@ -80,7 +80,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
             () =>
             Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const MyHomePage())));
+                MaterialPageRoute(builder: (_) => MyHomePage(show: true,))));
   }
 
   @override
@@ -91,7 +91,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
       opacity: _animation,
       child: Material(
         color: Colors.black,
-        child: Center(child: Image.asset('assets/image/logo.PNG')),
+        child: Center(child: Image.asset('assets/image/logo.png')),
       ),
     );
   }
