@@ -51,13 +51,46 @@ class AccountPage extends StatelessWidget {
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     child: InkWell(
                         onTap: () {
-                          Navigator.pop(context);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TakePictureScreen(camera:
-                                  cameras.first)
-                              )
+                          showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return Container(
+                                    height: 100,
+                                    child: Column(children: <Widget>[
+                                      ElevatedButton(
+                                        child: const Text('Take Picture'),
+                                        onPressed: () => {
+                                            Navigator.pop(context),
+                                            Navigator.push(context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => TakePictureScreen(camera:
+                                                  cameras.first)
+                                              )
+                                            )
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.blueGrey,
+                                        ),
+                                      ),
+                                      ElevatedButton(
+                                        child: const Text('Choose Photo from '
+                                            'Library'),
+                                        onPressed: () => {
+                                          Navigator.pop(context),
+                                          Navigator.push(context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => TakePictureScreen(camera:
+                                                  cameras.first)
+                                              )
+                                          )
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.blueGrey,
+                                        ),
+                                      ),
+                                    ])
+                                );
+                              }
                           );
                         },
                         child: Ink.image(
