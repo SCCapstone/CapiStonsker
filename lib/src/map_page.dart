@@ -47,9 +47,6 @@ class _MapPageState extends State<MapPage> {
         });
       },
       showMoveToCurrentLocationFloatingActionButton: false
-
-
-      //showMoveToCurrentLocationFloatingActionButton: true,
     );
 
     return FlutterMap(
