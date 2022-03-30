@@ -1,18 +1,38 @@
 # SC Interactive Historical Map by CapiStonsker
 
-This project will be an app, primarily targeting mobile platforms, that will provide an interactive method to easily access information about the historical markers of South Carolina. More information about the app can be found on our [GitHub Wiki](https://github.com/SCCapstone/CapiStonsker/wiki).
+For this project, we created a mobile Android application that showcases an intuitive user interface to to facilitate interaction with historical landmarks throughout the state of South Carolina. More information about the app can be found on our [GitHub Wiki](https://github.com/SCCapstone/CapiStonsker/wiki).
 
 
-## External Requirements
+## Using our app in an emulator
+This is the simplest way to use our app and should be sufficient for testing purposes. If you need to have access to source code and run the app as a developer, see the "Instructions for running our app as a developer in a cloned repo" section below.
 
+### Downloads
+* Download and install [Android Studio](https://developer.android.com/studio).
+* Download the desired version of `app-release.apk` from the [Releases](https://github.com/SCCapstone/CapiStonsker/releases) section of our GitHub.
+
+### Deploying the .apk on a virtual device in Android Studio
+* Open Android Studio
+* Click `configure` at the bottom right of the screen
+* Click `Open AVD manager`
+* Click `create new virtual device`
+* Choose `Pixel 2` from Choose a device definition > Phone > Pixel 2, then click `next`
+* Choose `Pie` from Select a system image > Pie, then click `next`
+* Click `finish`
+Now you should have a working AVD emulator
+* Click the green play button next to your new emulator
+* Wait for the AVD to load
+Now, find `app-release.apk`, which you downloaded from the [Releases](https://github.com/SCCapstone/CapiStonsker/releases) section of our GitHub earlier. Open the folder where it is located and drag the file onto the AVD emulator.
+* If the app doesn't open automatically (give it a few seconds), find the app list (drag up from the bottom of the screen) and select the app from there. Our app is called capi_stonsker.
+
+
+## Instructions for running our app as a developer in a cloned repo
+
+### External Requirements
 Before building this project, install the following:
-
 * [Android Studio](https://developer.android.com/studio)
 * [Flutter](https://flutter.dev/docs/get-started/install/windows)
 
-
-## Running
-
+### Running
 In your command line, use the following commands to run the project.
 ```
 flutter create testApp
@@ -24,8 +44,7 @@ flutter emulators --launch <emulator id>
 flutter run
 ```
 
-## Deployment
-
+### Deployment
 1. Open up the project using Android Studio. 
 2. Select an emulator from the drop-down menu. 
     - If no emulators are created, go into AVD Manager and create a new emulator. 
@@ -47,9 +66,8 @@ flutter run
 
 
 ## Authors
-
-* Lauren Hodges, lehodges@email.sc.edu
 * Matt Duggan, mtduggan@email.sc.edu
 * Ian Urton, iurton@email.sc.edu
 * James Davis, daviscommajames12@gmail.com
 * Joseph Cammarata, cammarj@email.sc.edu
+* Lauren Hodges, lehodges@email.sc.edu
