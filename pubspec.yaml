@@ -54,6 +54,7 @@ dependencies:
   mailto: ^2.0.0
   url_launcher: ^6.0.20
   flutter_launcher_icons: ^0.9.2
+  image_picker:
 
 dev_dependencies:
   flutter_test:
