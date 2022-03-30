@@ -53,8 +53,6 @@ class _MapPageState extends State<MapPage> {
         });
       },
       showMoveToCurrentLocationFloatingActionButton: false
-
-
     );
 
     return FlutterMap(
@@ -93,6 +91,7 @@ class _MapPageState extends State<MapPage> {
                           ),
                     )
                 ) + selectList().map((m) => mBox.createMapMarker(context, m, widget.popup)).toList(),
+
         ),
         userLocationOptions,
 

@@ -7,23 +7,50 @@
  */
 
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:mailto/mailto.dart';
-import 'package:mailto/mailto.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+final ques = FirebaseFirestore.instance.collection('FAQs');
+List<FAQ> faqs = [];//FAQ('q','a')];
+
+class FAQ {
+  final String q;
+  final String a;
+  //String id = "none";
+  FAQ(this.q, this.a);//, {this.id = "none"});
+  // factory FAQ.fromJson(dynamic json) {
+  //   return FAQ(
+  //       json['Question'] as String,
+  //       json['Answer'] as String,
+  //       id: json['id'] as String
+  //   );
+  // }
+  String get_q() {
+    return q;
+  }
+  String get_a() {
+    return a;
+  }
+}
+
+getFAQs() async {
+  QuerySnapshot snapshot = await ques.get();
+  snapshot.docs.forEach((doc) {
+    Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
+    faqs.add(FAQ(data['Question'], data['Answer']));
+  });
+}
 
 launchMailto() async {
   final mailtoLink = Mailto(
-    to: ['jmd7@email.sc.edu'], // TODO create a "business" email
-    //cc: ['cammarj@email.sc.edu', 'mtduggan@email.sc.edu'],
+    to: ['capistonsker@gmail.com'],
     subject: 'Question for CapiStonsker App',
     body: 'Ask your question here...',
   );
-  // Convert the Mailto instance into a string.
-  // Use either Dart's string interpolation
-  // or the toString() method.
   await launch('$mailtoLink');
 }
 
@@ -38,145 +65,203 @@ class _HelpPageState extends State<HelpPage> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
+  void initState() {
+    getFAQs();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
-      key: _scaffoldKey,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: new IconButton(
-            icon: const Icon(Icons.arrow_back),
-            color: Colors.white,
-            onPressed: () {
-              Navigator.of(context).pop();
-            }
-        ),
-        title: Text("Help Page"),
-        backgroundColor: Colors.blueGrey,
-      ),
-      body: ListView(
-          children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
-                  child: Text(
-                    "Frequently Asked Questions",
-                    style: TextStyle(
-                      color: Colors.blueGrey,
-                      fontSize: 30.0,
-                    ),
-                  ),
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('FAQs').snapshots(),
+        builder:
+            (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return Scaffold(
+              extendBody: true,
+              key: _scaffoldKey,
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                leading: new IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    color: Colors.white,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    }
                 ),
-                const ExpansionTile(
-                  title: Text(
-                      'Do I need to create an account to use the app?',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                      ),
-                  ),
-                  // subtitle: Text('Some other text...'),
+                title: Text("Help Page"),
+                backgroundColor: Colors.blueGrey,
+              ),
+              body: ListView(
                   children: <Widget>[
-                    ListTile(
-                        title: Text(
-                            'You can use this app to find historical landmarks and navigate to them'
-                                ' without an account, however, you can create a free account at any'
-                                ' time to unlock features such as tracking visited landmarks, adding'
-                                ' places to your wishlist, and finding friends.',
-                            style: TextStyle(
-                              fontSize: 15.0,
-                            ),
-                        ),
-                    ),
-                  ],
-                ),
-                const ExpansionTile(
-                  title: Text(
-                      'What options are available to me as a teacher using this app for my class?',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                      ),
-                  ),
-                  // subtitle: Text('Some other text...'),
-                  children: <Widget>[
-                    ListTile(
-                        title: Text(
-                            'Our app has a built-in friends feature that will allow you'
-                                ' to track your students\' progress in visiting any'
-                                ' historical landmarks you assign. You can also search'
-                                ' for landmarks by name and filter them by county as you'
-                                ' search for places your students can visit that are'
-                                ' relevant to your particular class.',
-                            style: TextStyle(
-                              fontSize: 15.0,
-                            ),
-                        ),
-                    ),
-                  ],
-                ),
-                const ExpansionTile(
-                  title: Text(
-                    'Is this an app I can feel safe about my children using as a parent?',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                    ),
-                  ),
-                  // subtitle: Text('Some other text...'),
-                  children: <Widget>[
-                    ListTile(
-                      title: Text(
-                        'This app is designed to be a fun and educational way to learn and'
-                            ' explore your community. Your children will love learning about their'
-                            ' community in a fun and interactive way on this platform, and'
-                            ' we encoruage you to take them to visit places they learn about'
-                            ' on this app. With that said, we recommend that children have'
-                            ' parent supervision when visiting unfamilar places. And while'
-                            ' we do not have a chat feature between users of our app for'
-                            ' safety reasons, we still recommend that parents talk to their'
-                            ' children about only friending people they know in real life.',
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+                      child: Text(
+                        "Frequently Asked Questions",
                         style: TextStyle(
-                          fontSize: 15.0,
+                          color: Colors.blueGrey,
+                          fontSize: 30.0,
                         ),
                       ),
                     ),
-                  ],
-                ),
-
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
-                //   child: Text(
-                //     "TODO: Add a way to access the tutorial",
-                //     style: TextStyle(
-                //       color: Colors.blueGrey,
-                //       fontSize: 30.0,
-                //     ),
-                //   ),
-                // ),
-
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
-                  child: ButtonTheme(
-                      minWidth: MediaQuery.of(context).size.width,
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
+                    ExpansionTile(
+                      title: Text(
+                        "",
+                        style: TextStyle(
+                          fontSize: 20.0,
                         ),
-                        onPressed: () {
-                          launchMailto();
-                        },
-                        child: Text(
+                      ),
+                      children: <Widget>[
+                        ListTile(
+                          title: Text(
+                            "",
+                            style: TextStyle(
+                              fontSize: 15.0,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+                      child: ButtonTheme(
+                        minWidth: MediaQuery.of(context).size.width,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
+                          ),
+                          onPressed: () {
+                            launchMailto();
+                          },
+                          child: Text(
                             "ASK FOR HELP",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 30.0,
                             ),
+                          ),
                         ),
+                      ),
                     ),
-                  ),
+                  ]
+              ),
+              drawer: SideMenu(),
+              bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
+            );
+          } else {
+            return Scaffold(
+              extendBody: true,
+              key: _scaffoldKey,
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                leading: new IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    color: Colors.white,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    }
                 ),
+                title: Text("Help Page"),
+                backgroundColor: Colors.blueGrey,
+              ),
+              body: ListView(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+                      child: Text(
+                        "Frequently Asked Questions",
+                        style: TextStyle(
+                          color: Colors.blueGrey,
+                          fontSize: 30.0,
+                        ),
+                      ),
+                    ),
+                    ExpansionTile(
+                      title: Text(
+                        //"",
+                        faqs.elementAt(0).get_q(),
+                        style: TextStyle(
+                          fontSize: 20.0,
+                        ),
+                      ),
+                      children: <Widget>[
+                        ListTile(
+                          title: Text(
+                            //"",
+                            faqs.elementAt(0).get_a(),
+                            style: TextStyle(
+                              fontSize: 15.0,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    ExpansionTile(
+                      title: Text(
+                          faqs.elementAt(1).get_q(),
+                          style: TextStyle(
+                            fontSize: 20.0,
+                          ),
+                      ),
+                      children: <Widget>[
+                        ListTile(
+                            title: Text(
+                                faqs.elementAt(1).get_a(),
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                ),
+                            ),
+                        ),
+                      ],
+                    ),
+                    ExpansionTile(
+                      title: Text(
+                        faqs.elementAt(2).get_q(),
+                        style: TextStyle(
+                          fontSize: 20.0,
+                        ),
+                      ),
+                      // subtitle: Text('Some other text...'),
+                      children: <Widget>[
+                        ListTile(
+                          title: Text(
+                            faqs.elementAt(2).get_a(),
+                            style: TextStyle(
+                              fontSize: 15.0,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+                      child: ButtonTheme(
+                        minWidth: MediaQuery.of(context).size.width,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
+                          ),
+                          onPressed: () {
+                            launchMailto();
+                          },
+                          child: Text(
+                            "ASK FOR HELP",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
 
-              ]
-          ),
-      drawer: SideMenu(),
-      bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
+                  ]
+              ),
+              drawer: SideMenu(),
+              bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
+            );
+          }
+        }
     );
   }
 }
