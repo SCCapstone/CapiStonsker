@@ -5,11 +5,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:location/location.dart' as locations;
 import 'package:latlong2/latlong.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:capi_stonsker/markers/marker_box.dart' as mBox;
 import 'package:capi_stonsker/markers/marker.dart' as mark;
 import 'package:user_location/user_location.dart';
+import 'package:latlong2/latlong.dart' as ll;
 
 class MapPage extends StatefulWidget {
   int list = 3;
@@ -26,8 +28,12 @@ class MapPage extends StatefulWidget {
   void updateList(int num) {
     this.list = num;
   }
+
+
 }
 class _MapPageState extends State<MapPage> {
+  MapController mapController = MapController();
+  late UserLocationOptions userLocationOptions;
   List<Marker> uloMarkers = []; //not sure what the UserLayerOptions marker list is for
 
 
@@ -36,7 +42,6 @@ class _MapPageState extends State<MapPage> {
 
     var userLocationOptions = UserLocationOptions(
       context: context,
-      mapController: widget.controller,
       markers: uloMarkers,
       updateMapLocationOnPositionChange: false,
       zoomToCurrentLocationOnLoad: true,
@@ -49,7 +54,6 @@ class _MapPageState extends State<MapPage> {
       showMoveToCurrentLocationFloatingActionButton: false
 
 
-      //showMoveToCurrentLocationFloatingActionButton: true,
     );
 
     return FlutterMap(
@@ -57,7 +61,7 @@ class _MapPageState extends State<MapPage> {
         maxZoom: 18.0,
         minZoom: 10,
         center: locs.userPos,
-        zoom: 13.0,
+        zoom: 15.0,
         plugins: [ UserLocationPlugin(), ],
       ),
       layers: [
@@ -113,8 +117,7 @@ class _MapPageState extends State<MapPage> {
             }
           }
         }
-
-        return ret;
+        break;
       }
       case 5: {
         locs.getSearchResults(widget.searchText);

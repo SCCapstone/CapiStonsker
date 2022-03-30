@@ -67,16 +67,9 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
     LatLng currentLatLng = LatLng(_locationData.latitude!, _locationData.longitude!);
     await locs.updatePos(ll.LatLng(_locationData.latitude!, _locationData.longitude!));
 
-    sharedPreferences.setDouble('latitude', _locationData.latitude!);
-    sharedPreferences.setDouble('latitude', _locationData.longitude!);
-
-    for(int i =0; i<locs.nearby.length;i++){
-      Map modifiedResonse = await getDirectionsAPIResponse(currentLatLng, i);
-      saveDirectionsAPIResponse(i, json.encode(modifiedResonse));
-    }
 
     Future.delayed(
-        const Duration(seconds: 8),
+        const Duration(seconds: 1),
             () =>
             Navigator.push(
                 context,

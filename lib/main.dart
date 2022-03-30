@@ -17,6 +17,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:capi_stonsker/src/map_page.dart';
@@ -27,6 +28,7 @@ import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:latlong2/latlong.dart' as ll;
+import 'package:location/location.dart' as locations;
 
 SharedPreferences sharedPreferences = SharedPreferences.getInstance() as SharedPreferences;
 
@@ -116,6 +118,8 @@ class _MyHomePageState extends State<MyHomePage> {
     if(widget.show == true) {
       Future.delayed(Duration.zero, showTutorial);
     }
+
+    initializeLocationAndSave();
     MapController mapController = MapController();
     super.initState();
   }
@@ -127,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //String searchKey;
     //Stream streamQuery;
     return Scaffold(
-      extendBody: true, //TODO change position of move to current loc button
+      extendBody: true,
       key: _scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -232,9 +236,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     iconSize: 35,
                     onPressed: (){
                       setState(() {
-                        mapController.move(locs.userPos, 15);
+                          mapController.move(locs.userPos, 15);
                       });
-
                     },
                 ),
               ),
@@ -292,7 +295,6 @@ class _MyHomePageState extends State<MyHomePage> {
               selectedList = 4;
             });
             Navigator.of(context).pop();
-
           },
         ),
       ],
@@ -426,5 +428,27 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
+  }
+
+  void initializeLocationAndSave() async {
+
+
+    await locs.getMarkers();
+    await locs.getWish();
+    await locs.getVis();
+
+    locations.Location _location = locations.Location();
+    bool? _serviceEnabled;
+
+    _serviceEnabled = await _location.serviceEnabled();
+    if(!_serviceEnabled){
+      _serviceEnabled = await _location.requestService();
+    }
+
+    locations.LocationData _locationData = await _location.getLocation();
+
+
+    LatLng currentLatLng = LatLng(_locationData.latitude!, _locationData.longitude!);
+    await locs.updatePos(ll.LatLng(_locationData.latitude!, _locationData.longitude!));
   }
 }
