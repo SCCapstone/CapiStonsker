@@ -140,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Center(
             child: TextField(
               controller: _controller,
-              onChanged: (String value) => setState(() {
+              onChanged: (value) => setState(() {
                 searchText = value;
                 selectedList = 5;
               }
@@ -151,9 +151,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: Icon(Icons.clear),
                   onPressed: () {
                     this.setState(() {
-                      _controller.clear;
+                      _controller.text = "";
                       searchText = "";
-                      //selectedList = 3;
                     }
                     );
                   },
