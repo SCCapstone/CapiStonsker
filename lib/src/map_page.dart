@@ -52,8 +52,6 @@ class _MapPageState extends State<MapPage> {
         });
       },
       showMoveToCurrentLocationFloatingActionButton: false
-
-
     );
 
     return FlutterMap(
@@ -74,7 +72,7 @@ class _MapPageState extends State<MapPage> {
         ),
         //TODO This currently works, but let's try to find a way to have persistent lists instead of reconstructing every build call
         MarkerLayerOptions(
-            markers: selectList().map((m) => mBox.createMapMarker(context, m)).toList() +
+            markers:
                 List<Marker>.filled(1,
                     Marker(
                       rotate: true,
@@ -91,7 +89,7 @@ class _MapPageState extends State<MapPage> {
                             ),
                           ),
                     )
-                ),
+                ) + selectList().map((m) => mBox.createMapMarker(context, m)).toList(),
         ),
         userLocationOptions,
 

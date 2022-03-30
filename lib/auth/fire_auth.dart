@@ -138,6 +138,7 @@ class FireAuth {
     locs.wishlist = [];
     locs.visitedID = [];
     locs.visited = [];
+
   }
 
 }

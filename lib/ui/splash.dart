@@ -83,6 +83,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
   Widget build(BuildContext context) {
 
 
+
     return Column(
       children: [
         Container(
@@ -97,6 +98,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
           semanticsLabel: 'Linear progress indicator',
         ),
       ],
+
     );
   }
 }
