@@ -141,6 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Colors.white, borderRadius: BorderRadius.circular(5)),
           child: Center(
             child: TextField(
+              key: search_bar,
               controller: _controller,
               onChanged: (value) => setState(() {
                 searchText = value;
