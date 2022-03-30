@@ -30,10 +30,11 @@ class _FriendsPageState extends State<FriendsPage>  {
   Widget build(BuildContext context) {
 
     //Gets stream of friends list
-    var all_friends = Provider.of<List<Friend>?>(context);
+    //var all_friends = Provider.of<List<Friend>?>(context);
     List<Friend> pending = [];
     List<Friend> friends = [];
     //Filter friend list into pending and friends
+    /*
     if (all_friends != null) {
       all_friends.forEach((f) {
         if (f.has_accepted == false)
@@ -42,6 +43,7 @@ class _FriendsPageState extends State<FriendsPage>  {
           friends.add(f);
       });
     }
+     */
 
     return Scaffold(
       extendBody: true,
@@ -71,7 +73,25 @@ class _FriendsPageState extends State<FriendsPage>  {
         title: Text("Friends Page"),
         backgroundColor: Colors.blueGrey,
       ),
-      body: buildListDisplay(context, pending, friends),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection('Users')
+            .doc(Provider.of<User?>(context)!.uid)//FireAuth.auth.currentUser?.uid)
+            .collection('friends')
+            .snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) return new Text('Loading...');
+            var allfriends = snapshot.data!.docs.map((doc) => Friend.fromFirestore(doc)).toList();
+            allfriends.forEach((f) {
+              if (f.has_accepted == false)
+                pending.add(f);
+              else
+                friends.add(f);
+            });
+            return buildListDisplay(context, pending, friends);
+        },
+      ),
+      // buildListDisplay(context, pending, friends),
       drawer: SideMenu(),
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
       //body: ,
@@ -174,7 +194,10 @@ class _FriendsPageState extends State<FriendsPage>  {
                 },
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return "Please enter Email";
+                    return "Please enter an Email.";
+                  }
+                  if (logged_in && value == user.email) {
+                    return "You cannot add yourself as a friend.";
                   }
                 },
                 textAlign: TextAlign.center,
