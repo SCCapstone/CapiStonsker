@@ -54,7 +54,7 @@ class _MarkerListPageState extends State<MarkerListPage> {
           child: Center(
             child: TextField(
               controller: _controller,
-              onChanged: (String value) => setState(() {
+              onChanged: (value) => setState(() {
                 text = value;
               }
               ),
@@ -64,7 +64,7 @@ class _MarkerListPageState extends State<MarkerListPage> {
                   icon: Icon(Icons.clear),
                   onPressed: () {
                     this.setState(() {
-                      _controller.clear;
+                      _controller.text = "";
                       text = "";
                     }
                     );
