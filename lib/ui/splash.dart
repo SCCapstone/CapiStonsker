@@ -28,16 +28,19 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
   @override
   void initState() {
     _controller = AnimationController(
-      duration: Duration(seconds: 2), vsync: this,
-    );
+      duration: Duration(seconds: 1),
+      vsync: this,
+    )..addListener(() {setState(() {});});
     //Implement animation here
     _animation = Tween(
       begin: 1.0,
       end: 0.0,
     ).animate(_controller);
-    
+
+    _controller.repeat();
     super.initState();
     initializeLocationAndSave();
+
   }
 
   void dispose() {
@@ -67,16 +70,9 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
     LatLng currentLatLng = LatLng(_locationData.latitude!, _locationData.longitude!);
     await locs.updatePos(ll.LatLng(_locationData.latitude!, _locationData.longitude!));
 
-    sharedPreferences.setDouble('latitude', _locationData.latitude!);
-    sharedPreferences.setDouble('latitude', _locationData.longitude!);
-
-    for(int i =0; i<locs.nearby.length;i++){
-      Map modifiedResonse = await getDirectionsAPIResponse(currentLatLng, i);
-      saveDirectionsAPIResponse(i, json.encode(modifiedResonse));
-    }
 
     Future.delayed(
-        const Duration(seconds: 8),
+        const Duration(microseconds: 1),
             () =>
             Navigator.push(
                 context,
@@ -87,12 +83,22 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
   Widget build(BuildContext context) {
 
 
-    return FadeTransition(
-      opacity: _animation,
-      child: Material(
-        color: Colors.black,
-        child: Center(child: Image.asset('assets/image/logo.PNG')),
-      ),
+
+    return Column(
+      children: [
+        Container(
+          height: 600,
+          child: Material(
+              color: Colors.black,
+              child: Center(child: Image.asset('assets/image/logo.png')),
+          ),
+        ),
+        CircularProgressIndicator(
+          value: _controller.value,
+          semanticsLabel: 'Linear progress indicator',
+        ),
+      ],
+
     );
   }
 }

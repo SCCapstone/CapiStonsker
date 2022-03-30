@@ -212,11 +212,11 @@ class _MyHomePageState extends State<MyHomePage> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: MapPage(
-                 key: ValueKey<int>(selectedList),
-                 list: selectedList,
-                 counties: selectedCounties,
-                 searchText: searchText,
-                 controller: mapController)
+                  key: ValueKey<int>(selectedList),
+                  list: selectedList,
+                  counties: selectedCounties,
+                  searchText: searchText,
+                  controller: mapController)
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -228,15 +228,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: IconButton(
                   //key: widget.menu_button,
                   //tooltip: 'Open Menu',
-                    icon: Icon(Icons.my_location),
-                    color: Colors.white,
-                    iconSize: 35,
-                    onPressed: (){
-                      setState(() {
-                        mapController.move(locs.userPos, 15);
-                      });
+                  icon: Icon(Icons.my_location),
+                  color: Colors.white,
+                  iconSize: 35,
+                  onPressed: (){
+                    setState(() {
+                      mapController.move(locs.userPos, 15);
+                    });
 
-                    },
+                  },
                 ),
               ),
             ),
@@ -408,7 +408,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height*0.5,
+                        top: MediaQuery.of(context).size.height*0.5,
                       ),
                       child:Text(
                         "Use this search bar to find markers.",
