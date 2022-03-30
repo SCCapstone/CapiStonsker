@@ -125,7 +125,7 @@ class _SideMenuState extends State<SideMenu> {
               Navigator.pop(context);
               Navigator.of(context).popUntil((route) => route.isFirst);
               Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => MyHomePage(show: false)
+                  builder: (context) => MyHomePage(show: false, popup: true)
               ));
               //Navigator.of(context).pop();
             },
@@ -164,7 +164,7 @@ class _SideMenuState extends State<SideMenu> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => PlanRoutePage()
+                      builder: (context) => MyHomePage(show: false, popup: false)
                   )
               );
             },

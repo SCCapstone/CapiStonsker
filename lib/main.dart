@@ -86,7 +86,8 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   bool show;
-  MyHomePage({Key? key, required this.show}) : super(key: key);
+  bool popup;
+  MyHomePage({Key? key, required this.popup, required this.show}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -216,7 +217,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   list: selectedList,
                   counties: selectedCounties,
                   searchText: searchText,
-                  controller: mapController)
+                  controller: mapController,
+                  popup: widget.popup,
+              )
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),

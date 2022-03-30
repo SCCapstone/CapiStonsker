@@ -5,13 +5,18 @@
  * the full info page for the given marker
  */
 
+import 'package:capi_stonsker/requests/mapbox_requests.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart' as f_map;
 import 'package:latlong2/latlong.dart' as latLng;
 import 'package:capi_stonsker/markers/full_info.dart';
+import 'package:latlong2/latlong.dart';
 import 'marker.dart';
 import '../user_collections/fav_button.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
+import 'package:location/location.dart' as locations;
+import 'package:latlong2/latlong.dart' as ll;
+import 'package:mapbox_gl/mapbox_gl.dart' as mapLL;
 
 class MarkerBox extends StatelessWidget {
   MarkerBox(this.sentM);
@@ -70,7 +75,7 @@ class MarkerBox extends StatelessWidget {
   }
 }
 
-f_map.Marker createMapMarker(BuildContext context, Marker m) {
+f_map.Marker createMapMarker(BuildContext context, Marker m, bool popup) {
 
   return f_map.Marker(
     rotate: true,
@@ -85,11 +90,16 @@ f_map.Marker createMapMarker(BuildContext context, Marker m) {
                 icon: Icon(Icons.location_on),
                 color: locs.visited.contains(m) ? Colors.green : Colors.red, //If visited list contains Marker, set to green
                 iconSize: 45,
-                onPressed: (){
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (context) => MarkerBox(m)
-                  );
+                onPressed: () async {
+                  if (popup){
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) => MarkerBox(m)
+                    );
+                  }
+                  if (!popup){
+
+                  }
                 },
 
 

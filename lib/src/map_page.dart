@@ -19,7 +19,8 @@ class MapPage extends StatefulWidget {
   List<String> counties = [];
   String searchText;
   MapController controller;
-  MapPage({Key? key, required this.list, required this.counties, required this.searchText, required this.controller}) : super(key: key);
+  bool popup;
+  MapPage({Key? key, required this.popup, required this.list, required this.counties, required this.searchText, required this.controller}) : super(key: key);
 
 
   @override
@@ -74,7 +75,7 @@ class _MapPageState extends State<MapPage> {
         ),
         //TODO This currently works, but let's try to find a way to have persistent lists instead of reconstructing every build call
         MarkerLayerOptions(
-            markers: selectList().map((m) => mBox.createMapMarker(context, m)).toList() +
+            markers:
                 List<Marker>.filled(1,
                     Marker(
                       rotate: true,
@@ -91,7 +92,7 @@ class _MapPageState extends State<MapPage> {
                             ),
                           ),
                     )
-                ),
+                ) + selectList().map((m) => mBox.createMapMarker(context, m, widget.popup)).toList(),
         ),
         userLocationOptions,
 
