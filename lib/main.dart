@@ -212,7 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: MapPage(
-                  key: ValueKey<int>(selectedList),
+                  //key: ValueKey<int>(selectedList),
                   list: selectedList,
                   counties: selectedCounties,
                   searchText: searchText,
