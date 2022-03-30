@@ -17,7 +17,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:capi_stonsker/src/map_page.dart';
@@ -28,7 +27,6 @@ import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:latlong2/latlong.dart' as ll;
-import 'package:location/location.dart' as locations;
 
 SharedPreferences sharedPreferences = SharedPreferences.getInstance() as SharedPreferences;
 
@@ -63,6 +61,7 @@ class MyApp extends StatelessWidget {
           StreamProvider<User?>.value(value: FirebaseAuth.instance.idTokenChanges(), initialData: null),
 
           // Make total friends stream available
+          /*
           StreamProvider<List<Friend>>.value(
             value: FirebaseFirestore.instance
                 .collection('Users')
@@ -73,6 +72,7 @@ class MyApp extends StatelessWidget {
                 snap.docs.map((doc) => Friend.fromFirestore(doc)).toList()),
             initialData: [],
           ),
+          */
         ],
 
         // All data will be available in this child and descendants
@@ -118,8 +118,6 @@ class _MyHomePageState extends State<MyHomePage> {
     if(widget.show == true) {
       Future.delayed(Duration.zero, showTutorial);
     }
-
-    initializeLocationAndSave();
     MapController mapController = MapController();
     super.initState();
   }
@@ -131,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //String searchKey;
     //Stream streamQuery;
     return Scaffold(
-      extendBody: true,
+      extendBody: true, //TODO change position of move to current loc button
       key: _scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -144,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Center(
             child: TextField(
               controller: _controller,
-              onChanged: (String value) => setState(() {
+              onChanged: (value) => setState(() {
                 searchText = value;
                 selectedList = 5;
               }
@@ -155,9 +153,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: Icon(Icons.clear),
                   onPressed: () {
                     this.setState(() {
-                      _controller.clear;
+                      _controller.text = "";
                       searchText = "";
-                      //selectedList = 3;
                     }
                     );
                   },
@@ -215,11 +212,11 @@ class _MyHomePageState extends State<MyHomePage> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: MapPage(
-                 key: ValueKey<int>(selectedList),
-                 list: selectedList,
-                 counties: selectedCounties,
-                 searchText: searchText,
-                 controller: mapController)
+                  key: ValueKey<int>(selectedList),
+                  list: selectedList,
+                  counties: selectedCounties,
+                  searchText: searchText,
+                  controller: mapController)
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -231,14 +228,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: IconButton(
                   //key: widget.menu_button,
                   //tooltip: 'Open Menu',
-                    icon: Icon(Icons.my_location),
-                    color: Colors.white,
-                    iconSize: 35,
-                    onPressed: (){
-                      setState(() {
-                          mapController.move(locs.userPos, 15);
-                      });
-                    },
+                  icon: Icon(Icons.my_location),
+                  color: Colors.white,
+                  iconSize: 35,
+                  onPressed: (){
+                    setState(() {
+                      mapController.move(locs.userPos, 15);
+                    });
+
+                  },
                 ),
               ),
             ),
@@ -295,6 +293,7 @@ class _MyHomePageState extends State<MyHomePage> {
               selectedList = 4;
             });
             Navigator.of(context).pop();
+
           },
         ),
       ],
@@ -409,7 +408,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height*0.5,
+                        top: MediaQuery.of(context).size.height*0.5,
                       ),
                       child:Text(
                         "Use this search bar to find markers.",
@@ -428,27 +427,5 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
-  }
-
-  void initializeLocationAndSave() async {
-
-
-    await locs.getMarkers();
-    await locs.getWish();
-    await locs.getVis();
-
-    locations.Location _location = locations.Location();
-    bool? _serviceEnabled;
-
-    _serviceEnabled = await _location.serviceEnabled();
-    if(!_serviceEnabled){
-      _serviceEnabled = await _location.requestService();
-    }
-
-    locations.LocationData _locationData = await _location.getLocation();
-
-
-    LatLng currentLatLng = LatLng(_locationData.latitude!, _locationData.longitude!);
-    await locs.updatePos(ll.LatLng(_locationData.latitude!, _locationData.longitude!));
   }
 }

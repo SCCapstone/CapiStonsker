@@ -28,16 +28,19 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
   @override
   void initState() {
     _controller = AnimationController(
-      duration: Duration(seconds: 2), vsync: this,
-    );
+      duration: Duration(seconds: 1),
+      vsync: this,
+    )..addListener(() {setState(() {});});
     //Implement animation here
     _animation = Tween(
       begin: 1.0,
       end: 0.0,
     ).animate(_controller);
-    
+
+    _controller.repeat();
     super.initState();
     initializeLocationAndSave();
+
   }
 
   void dispose() {
@@ -69,7 +72,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
 
 
     Future.delayed(
-        const Duration(seconds: 1),
+        const Duration(microseconds: 1),
             () =>
             Navigator.push(
                 context,
@@ -80,12 +83,20 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
   Widget build(BuildContext context) {
 
 
-    return FadeTransition(
-      opacity: _animation,
-      child: Material(
-        color: Colors.black,
-        child: Center(child: Image.asset('assets/image/logo.png')),
-      ),
+    return Column(
+      children: [
+        Container(
+          height: 600,
+          child: Material(
+              color: Colors.black,
+              child: Center(child: Image.asset('assets/image/logo.png')),
+          ),
+        ),
+        CircularProgressIndicator(
+          value: _controller.value,
+          semanticsLabel: 'Linear progress indicator',
+        ),
+      ],
     );
   }
 }
