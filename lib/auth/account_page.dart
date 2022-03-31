@@ -13,15 +13,22 @@ import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import '../auth/take_picture_screen.dart';
 
-class AccountPage extends StatelessWidget {
+class AccountPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _AccountPageState();
+  }
+}
 
-  AccountPage({Key? key}) : super(key: key);
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  final ImagePicker _picker = ImagePicker();
-
+  class _AccountPageState extends State<AccountPage> {
+    GlobalKey<_AccountPageState> key = GlobalKey();
+    GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+    final ImagePicker _picker = ImagePicker();
+    final String image_url = FireAuth.auth.currentUser!.photoURL!;
 
   @override
   Widget build(BuildContext context) {
+    setState(() {});
     return Scaffold(
       extendBody: true,
       key: _scaffoldKey,
@@ -108,8 +115,7 @@ class AccountPage extends StatelessWidget {
                         },
                         child: Ink.image(
                             //TODO: Make this user profile pictures
-                            image: Image.network( 'https://picsum'
-                                '.photos/seed/264/600').image,
+                            image: Image.network(image_url + "?v=1").image,
                             height: 120,
                             width: 120,
                             fit: BoxFit.cover
