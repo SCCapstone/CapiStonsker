@@ -2,7 +2,6 @@
  * This page displays a user's account information, pulled from Firebase.
  * Users will not be able to access this page unless they are logged in
  */
-
 import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
 import 'package:capi_stonsker/auth/edit_account_page.dart';
@@ -11,12 +10,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:capi_stonsker/auth/fire_auth.dart';
+import 'package:image_picker/image_picker.dart';
 import '../auth/take_picture_screen.dart';
 
 class AccountPage extends StatelessWidget {
 
   AccountPage({Key? key}) : super(key: key);
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  final ImagePicker _picker = ImagePicker();
 
 
   @override
@@ -75,14 +76,26 @@ class AccountPage extends StatelessWidget {
                                       ElevatedButton(
                                         child: const Text('Choose Photo from '
                                             'Library'),
-                                        onPressed: () => {
-                                          Navigator.pop(context),
-                                          Navigator.push(context,
+                                        onPressed: () async {
+                                         // Try to take the picture
+                                          try {
+                                            final gallery_image = await _picker
+                                                .pickImage(source: ImageSource
+                                                .gallery);
+
+                                            // If the picture was chosen display
+                                            if (gallery_image != null)
+                                              Navigator.of(context).push(
                                               MaterialPageRoute(
-                                                  builder: (context) => TakePictureScreen(camera:
-                                                  cameras.first)
-                                              )
-                                          )
+                                                builder: (context) => DisplayPictureScreen(
+                                                  imagePath: gallery_image.path,
+                                                ),
+                                              ),
+                                            );
+                                          } catch (e) {
+                                            // If an error occurs, log the error to the console.
+                                            print(e);
+                                          }
                                         },
                                         style: ElevatedButton.styleFrom(
                                           primary: Colors.blueGrey,
