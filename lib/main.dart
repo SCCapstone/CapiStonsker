@@ -17,6 +17,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:capi_stonsker/src/map_page.dart';
@@ -87,7 +88,8 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   bool show;
   bool popup;
-  MyHomePage({Key? key, required this.popup, required this.show}) : super(key: key);
+  List<LatLng> points;
+  MyHomePage({Key? key, required this.points, required this.show, required this.popup}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -213,12 +215,13 @@ class _MyHomePageState extends State<MyHomePage> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: MapPage(
-                  key: ValueKey<int>(selectedList),
+                //key: ValueKey<int>(selectedList),
                   list: selectedList,
                   counties: selectedCounties,
                   searchText: searchText,
                   controller: mapController,
                   popup: widget.popup,
+                  points: widget.points,
               )
           ),
           Padding(

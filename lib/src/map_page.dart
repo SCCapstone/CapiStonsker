@@ -20,7 +20,8 @@ class MapPage extends StatefulWidget {
   String searchText;
   MapController controller;
   bool popup;
-  MapPage({Key? key, required this.popup, required this.list, required this.counties, required this.searchText, required this.controller}) : super(key: key);
+  List<LatLng> points;
+  MapPage({Key? key, required this.points, required this.popup, required this.list, required this.counties, required this.searchText, required this.controller}) : super(key: key);
 
 
   @override
@@ -71,6 +72,15 @@ class _MapPageState extends State<MapPage> {
               'id': 'mapbox.satellite',
             }
         ),
+        PolylineLayerOptions(
+            polylines: [
+              new Polyline(
+                points: widget.points,
+                strokeWidth: 15.0,
+                color: Colors.indigoAccent,
+              )
+            ]
+        ),
         //TODO This currently works, but let's try to find a way to have persistent lists instead of reconstructing every build call
         MarkerLayerOptions(
             markers:
@@ -93,8 +103,8 @@ class _MapPageState extends State<MapPage> {
                 ) + selectList().map((m) => mBox.createMapMarker(context, m, widget.popup)).toList(),
 
         ),
-        userLocationOptions,
 
+        userLocationOptions,
       ],
       mapController: widget.controller,
     );

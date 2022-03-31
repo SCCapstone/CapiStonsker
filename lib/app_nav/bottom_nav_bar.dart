@@ -65,7 +65,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MyHomePage(show: false, popup: true,)
+                          builder: (context) => MyHomePage(show: false, popup: true, points: [],)
                       )
                   );
                 },

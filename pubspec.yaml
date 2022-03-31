@@ -54,6 +54,7 @@ dependencies:
   mailto: ^2.0.0
   url_launcher: ^6.0.20
   flutter_launcher_icons: ^0.9.2
+  syncfusion_flutter_maps: ^19.4.56-beta
 
 dev_dependencies:
   flutter_test:
@@ -96,9 +97,9 @@ flutter:
   assets:
     - assets/locations_full.json
     - assets/locations_richland.json
-    - assets/image/logo.PNG
-    - assets/image/marker.PNG
-    - assets/image/icon.PNG
+    - assets/image/logo.png
+    - assets/image/marker.png
+    - assets/image/icon.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

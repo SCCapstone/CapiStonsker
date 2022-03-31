@@ -10,12 +10,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart' as f_map;
 import 'package:latlong2/latlong.dart' as latLng;
 import 'package:capi_stonsker/markers/full_info.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
+import '../main.dart';
 import 'marker.dart';
 import '../user_collections/fav_button.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:location/location.dart' as locations;
-import 'package:latlong2/latlong.dart' as ll;
 import 'package:mapbox_gl/mapbox_gl.dart' as mapLL;
 
 class MarkerBox extends StatelessWidget {
@@ -24,6 +24,7 @@ class MarkerBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return SizedBox(
       height: 150,
       child: Card(
@@ -97,9 +98,32 @@ f_map.Marker createMapMarker(BuildContext context, Marker m, bool popup) {
                         builder: (context) => MarkerBox(m)
                     );
                   }
-                  if (!popup){
+                  else{
+                    var response = await getWalkingRouteUsingMapbox(
+                        mapLL.LatLng(locs.userPos.latitude, locs.userPos.longitude),
+                        mapLL.LatLng(m.gps.first, m.gps.last * -1));
+                    List<dynamic> geometry = response['routes'][0]['geometry']['coordinates'];
+
+                    List<latLng.LatLng> path = [];
+                    for (var i = 0; i<geometry.length;i++){
+                      path.add(latLng.LatLng(geometry[i][1], geometry[i][0]));
+                    }
+
+                    print(geometry);
+                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MyHomePage(show: false, popup: false, points: path,)
+                        )
+                    );
+
+
+
 
                   }
+
+
                 },
 
 
