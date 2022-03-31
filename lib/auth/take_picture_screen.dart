@@ -1,10 +1,19 @@
 import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:capi_stonsker/auth/account_page.dart';
+import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:capi_stonsker/main.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:path/path.dart';
 
+FirebaseAuth auth = FirebaseAuth.instance;
+firebase_storage.FirebaseStorage storage =
+    firebase_storage.FirebaseStorage.instance;
 class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({
     Key? key,
@@ -99,6 +108,29 @@ class DisplayPictureScreen extends StatelessWidget {
   const DisplayPictureScreen({Key? key, required this.imagePath})
       : super(key: key);
 
+  Future uploadImageToFirebase(BuildContext context) async {
+    String? uid = auth.currentUser?.uid;
+    final fileName = basename(imagePath);
+    final destination = 'files/$uid';
+    try {
+      final ref = firebase_storage.FirebaseStorage.instance
+          .ref(destination)
+          .child('profile_image/');
+      await ref.putFile(File(imagePath));
+
+      final String downloadUrl = await ref.getDownloadURL();
+
+      await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(FireAuth.auth.currentUser!.uid)
+          .set(<String, dynamic> {"photo_url": downloadUrl});
+
+    } catch (e) {
+      print('error occured');
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,7 +153,7 @@ class DisplayPictureScreen extends StatelessWidget {
                 ),
                 child: new Text("Confirm"),
                 onPressed: () {
-                  //TODO: Save this Image to firebase
+                  uploadImageToFirebase(context);
                   Navigator.pop(context);
                   Navigator.push(
                       context,
