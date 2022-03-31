@@ -14,7 +14,6 @@ import 'package:capi_stonsker/auth/account_page.dart';
 import 'package:capi_stonsker/auth/log_in_page.dart';
 import 'package:capi_stonsker/auth/logout_page.dart';
 import 'package:capi_stonsker/auth/fire_auth.dart';
-import 'package:capi_stonsker/routing/plan_route_page.dart';
 import 'package:capi_stonsker/src/help_page.dart';
 import 'package:capi_stonsker/user_collections/my_markers_page.dart';
 import 'package:capi_stonsker/user_collections/friends_page.dart';
@@ -125,7 +124,7 @@ class _SideMenuState extends State<SideMenu> {
               Navigator.pop(context);
               Navigator.of(context).popUntil((route) => route.isFirst);
               Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => MyHomePage(show: false)
+                  builder: (context) => MyHomePage(show: false, popup: true, points: path,)
               ));
               //Navigator.of(context).pop();
             },
@@ -164,7 +163,7 @@ class _SideMenuState extends State<SideMenu> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => PlanRoutePage()
+                      builder: (context) => MyHomePage(show: false, popup: false, points: path,)
                   )
               );
             },

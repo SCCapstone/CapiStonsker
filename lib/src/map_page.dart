@@ -11,7 +11,9 @@ import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:capi_stonsker/markers/marker_box.dart' as mBox;
 import 'package:capi_stonsker/markers/marker.dart' as mark;
 import 'package:user_location/user_location.dart';
-import 'package:latlong2/latlong.dart' as ll;
+import 'package:latlong2/latlong.dart' as latLng;
+
+import '../main.dart';
 
 class MapPage extends StatefulWidget {
   int list = 3;
@@ -19,7 +21,9 @@ class MapPage extends StatefulWidget {
   List<String> counties = [];
   String searchText;
   MapController controller;
-  MapPage({Key? key, required this.list, required this.counties, required this.searchText, required this.controller}) : super(key: key);
+  bool popup;
+  List<LatLng> points;
+  MapPage({Key? key, required this.points, required this.popup, required this.list, required this.counties, required this.searchText, required this.controller}) : super(key: key);
 
 
   @override
@@ -34,6 +38,7 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   MapController mapController = MapController();
   late UserLocationOptions userLocationOptions;
+
   List<Marker> uloMarkers = []; //not sure what the UserLayerOptions marker list is for
 
 
@@ -70,6 +75,15 @@ class _MapPageState extends State<MapPage> {
               'id': 'mapbox.satellite',
             }
         ),
+        PolylineLayerOptions(
+            polylines: [
+              new Polyline(
+                points: widget.points,
+                strokeWidth: 15.0,
+                color: Colors.indigoAccent,
+              )
+            ]
+        ),
         //TODO This currently works, but let's try to find a way to have persistent lists instead of reconstructing every build call
         MarkerLayerOptions(
             markers:
@@ -89,10 +103,11 @@ class _MapPageState extends State<MapPage> {
                             ),
                           ),
                     )
-                ) + selectList().map((m) => mBox.createMapMarker(context, m)).toList(),
-        ),
-        userLocationOptions,
+                ) + selectList().map((m) => mBox.createMapMarker(context, m, widget.popup, path)).toList(),
 
+        ),
+
+        userLocationOptions,
       ],
       mapController: widget.controller,
     );

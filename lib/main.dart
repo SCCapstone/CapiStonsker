@@ -17,6 +17,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:capi_stonsker/src/map_page.dart';
@@ -26,12 +27,13 @@ import 'package:capi_stonsker/user_collections/friend.dart';
 import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:latlong2/latlong.dart' as ll;
+import 'package:latlong2/latlong.dart' as latLng;
 
 SharedPreferences sharedPreferences = SharedPreferences.getInstance() as SharedPreferences;
 
 // Global for access across pages
 List<CameraDescription> cameras = [];
+List<latLng.LatLng> path = [];
 
 Future<void> main() async{
 
@@ -86,7 +88,9 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   bool show;
-  MyHomePage({Key? key, required this.show}) : super(key: key);
+  bool popup;
+  List<LatLng> points;
+  MyHomePage({Key? key, required this.points, required this.show, required this.popup}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -213,31 +217,83 @@ class _MyHomePageState extends State<MyHomePage> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: MapPage(
-                  //key: ValueKey<int>(selectedList),
+
                   list: selectedList,
                   counties: selectedCounties,
                   searchText: searchText,
-                  controller: mapController)
+                  controller: mapController,
+                  popup: widget.popup,
+                  points: path,
+              )
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              alignment: Alignment.topRight,
-              child: CircleAvatar(
-                backgroundColor: Colors.blueGrey,
-                radius: 25,
-                child: IconButton(
-                  //key: widget.menu_button,
-                  //tooltip: 'Open Menu',
-                  icon: Icon(Icons.my_location),
-                  color: Colors.white,
-                  iconSize: 35,
-                  onPressed: (){
-                    setState(() {
-                      mapController.move(locs.userPos, 15);
-                    });
+              child: (path.isNotEmpty )
+              ?Column(
+                children: [
+                  Container(
+                    alignment: Alignment.topRight,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.blueGrey,
+                      radius: 25,
+                      child: IconButton(
+                        //key: widget.menu_button,
+                        //tooltip: 'Open Menu',
+                        icon: Icon(Icons.my_location),
+                        color: Colors.white,
+                        iconSize: 35,
+                        onPressed: (){
+                          setState(() {
+                            mapController.move(locs.userPos, 15);
+                          });
 
-                  },
+                        },
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                    child: Container(
+                      alignment: Alignment.topRight,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.blueGrey,
+                        radius: 25,
+                        child: IconButton(
+                          //key: widget.menu_button,
+                          //tooltip: 'Open Menu',
+                          icon: Icon(Icons.clear),
+                          color: Colors.white,
+                          iconSize: 35,
+                          onPressed: (){
+                            setState(() {
+                              path = [];
+                            });
+
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ):Container(
+                alignment: Alignment.topRight,
+                child: CircleAvatar(
+                  backgroundColor: Colors.blueGrey,
+                  radius: 25,
+                  child: IconButton(
+                    //key: widget.menu_button,
+                    //tooltip: 'Open Menu',
+                    icon: Icon(Icons.my_location),
+                    color: Colors.white,
+                    iconSize: 35,
+                    onPressed: (){
+                      setState(() {
+                        mapController.move(locs.userPos, 15);
+                      });
+
+                    },
+                  ),
                 ),
               ),
             ),

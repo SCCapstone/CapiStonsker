@@ -5,13 +5,18 @@
  * the full info page for the given marker
  */
 
+import 'package:capi_stonsker/requests/mapbox_requests.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart' as f_map;
 import 'package:latlong2/latlong.dart' as latLng;
 import 'package:capi_stonsker/markers/full_info.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
+import '../main.dart';
 import 'marker.dart';
 import '../user_collections/fav_button.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
+import 'package:location/location.dart' as locations;
+import 'package:mapbox_gl/mapbox_gl.dart' as mapLL;
 
 class MarkerBox extends StatelessWidget {
   MarkerBox(this.sentM);
@@ -19,6 +24,7 @@ class MarkerBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return SizedBox(
       height: 150,
       child: Card(
@@ -70,7 +76,7 @@ class MarkerBox extends StatelessWidget {
   }
 }
 
-f_map.Marker createMapMarker(BuildContext context, Marker m) {
+f_map.Marker createMapMarker(BuildContext context, Marker m, bool popup, List<latLng.LatLng> path) {
 
   return f_map.Marker(
     rotate: true,
@@ -85,11 +91,43 @@ f_map.Marker createMapMarker(BuildContext context, Marker m) {
                 icon: Icon(Icons.location_on),
                 color: locs.visited.contains(m) ? Colors.green : Colors.red, //If visited list contains Marker, set to green
                 iconSize: 45,
-                onPressed: (){
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (context) => MarkerBox(m)
-                  );
+                onPressed: () async {
+                  if (popup){
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) => MarkerBox(m)
+                    );
+                  }
+                  else{
+                    var response;
+                    if(path.isNotEmpty) {
+                      response = await getWalkingRouteUsingMapbox(
+                          mapLL.LatLng(path.last.latitude, path.last.longitude),
+                          mapLL.LatLng(m.gps.first, m.gps.last * -1));
+                    }else{
+                      response = await getWalkingRouteUsingMapbox(
+                          mapLL.LatLng(locs.userPos.latitude, locs.userPos.longitude),
+                          mapLL.LatLng(m.gps.first, m.gps.last * -1));
+                    }
+                    List<dynamic> geometry = response['routes'][0]['geometry']['coordinates'];
+
+
+                    for (var i = 0; i<geometry.length;i++){
+                      path.add(latLng.LatLng(geometry[i][1], geometry[i][0]));
+                    }
+
+                    print(geometry);
+                    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                        builder: (context) => MyHomePage(show: false, popup: false, points: path,)
+                    ), (route) => false);
+
+
+
+
+
+                  }
+
+
                 },
 
 
