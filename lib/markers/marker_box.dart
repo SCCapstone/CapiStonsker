@@ -76,7 +76,7 @@ class MarkerBox extends StatelessWidget {
   }
 }
 
-f_map.Marker createMapMarker(BuildContext context, Marker m, bool popup) {
+f_map.Marker createMapMarker(BuildContext context, Marker m, bool popup, List<latLng.LatLng> path) {
 
   return f_map.Marker(
     rotate: true,
@@ -99,24 +99,28 @@ f_map.Marker createMapMarker(BuildContext context, Marker m, bool popup) {
                     );
                   }
                   else{
-                    var response = await getWalkingRouteUsingMapbox(
-                        mapLL.LatLng(locs.userPos.latitude, locs.userPos.longitude),
-                        mapLL.LatLng(m.gps.first, m.gps.last * -1));
+                    var response;
+                    if(path.isNotEmpty) {
+                      response = await getWalkingRouteUsingMapbox(
+                          mapLL.LatLng(path.last.latitude, path.last.longitude),
+                          mapLL.LatLng(m.gps.first, m.gps.last * -1));
+                    }else{
+                      response = await getWalkingRouteUsingMapbox(
+                          mapLL.LatLng(locs.userPos.latitude, locs.userPos.longitude),
+                          mapLL.LatLng(m.gps.first, m.gps.last * -1));
+                    }
                     List<dynamic> geometry = response['routes'][0]['geometry']['coordinates'];
 
-                    List<latLng.LatLng> path = [];
+
                     for (var i = 0; i<geometry.length;i++){
                       path.add(latLng.LatLng(geometry[i][1], geometry[i][0]));
                     }
 
                     print(geometry);
-                    Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MyHomePage(show: false, popup: false, points: path,)
-                        )
-                    );
+                    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                        builder: (context) => MyHomePage(show: false, popup: false, points: path,)
+                    ), (route) => false);
+
 
 
 

@@ -11,7 +11,9 @@ import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:capi_stonsker/markers/marker_box.dart' as mBox;
 import 'package:capi_stonsker/markers/marker.dart' as mark;
 import 'package:user_location/user_location.dart';
-import 'package:latlong2/latlong.dart' as ll;
+import 'package:latlong2/latlong.dart' as latLng;
+
+import '../main.dart';
 
 class MapPage extends StatefulWidget {
   int list = 3;
@@ -36,6 +38,7 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   MapController mapController = MapController();
   late UserLocationOptions userLocationOptions;
+
   List<Marker> uloMarkers = []; //not sure what the UserLayerOptions marker list is for
 
 
@@ -100,7 +103,7 @@ class _MapPageState extends State<MapPage> {
                             ),
                           ),
                     )
-                ) + selectList().map((m) => mBox.createMapMarker(context, m, widget.popup)).toList(),
+                ) + selectList().map((m) => mBox.createMapMarker(context, m, widget.popup, path)).toList(),
 
         ),
 

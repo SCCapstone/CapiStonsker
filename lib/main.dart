@@ -27,12 +27,13 @@ import 'package:capi_stonsker/user_collections/friend.dart';
 import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:latlong2/latlong.dart' as ll;
+import 'package:latlong2/latlong.dart' as latLng;
 
 SharedPreferences sharedPreferences = SharedPreferences.getInstance() as SharedPreferences;
 
 // Global for access across pages
 List<CameraDescription> cameras = [];
+List<latLng.LatLng> path = [];
 
 Future<void> main() async{
 
@@ -221,28 +222,77 @@ class _MyHomePageState extends State<MyHomePage> {
                   searchText: searchText,
                   controller: mapController,
                   popup: widget.popup,
-                  points: widget.points,
+                  points: path,
               )
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              alignment: Alignment.topRight,
-              child: CircleAvatar(
-                backgroundColor: Colors.blueGrey,
-                radius: 25,
-                child: IconButton(
-                  //key: widget.menu_button,
-                  //tooltip: 'Open Menu',
-                  icon: Icon(Icons.my_location),
-                  color: Colors.white,
-                  iconSize: 35,
-                  onPressed: (){
-                    setState(() {
-                      mapController.move(locs.userPos, 15);
-                    });
+              child: (path.isNotEmpty )
+              ?Column(
+                children: [
+                  Container(
+                    alignment: Alignment.topRight,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.blueGrey,
+                      radius: 25,
+                      child: IconButton(
+                        //key: widget.menu_button,
+                        //tooltip: 'Open Menu',
+                        icon: Icon(Icons.my_location),
+                        color: Colors.white,
+                        iconSize: 35,
+                        onPressed: (){
+                          setState(() {
+                            mapController.move(locs.userPos, 15);
+                          });
 
-                  },
+                        },
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                    child: Container(
+                      alignment: Alignment.topRight,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.blueGrey,
+                        radius: 25,
+                        child: IconButton(
+                          //key: widget.menu_button,
+                          //tooltip: 'Open Menu',
+                          icon: Icon(Icons.clear),
+                          color: Colors.white,
+                          iconSize: 35,
+                          onPressed: (){
+                            setState(() {
+                              path = [];
+                            });
+
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ):Container(
+                alignment: Alignment.topRight,
+                child: CircleAvatar(
+                  backgroundColor: Colors.blueGrey,
+                  radius: 25,
+                  child: IconButton(
+                    //key: widget.menu_button,
+                    //tooltip: 'Open Menu',
+                    icon: Icon(Icons.my_location),
+                    color: Colors.white,
+                    iconSize: 35,
+                    onPressed: (){
+                      setState(() {
+                        mapController.move(locs.userPos, 15);
+                      });
+
+                    },
+                  ),
                 ),
               ),
             ),
