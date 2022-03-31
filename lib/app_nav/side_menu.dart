@@ -72,15 +72,25 @@ class _SideMenuState extends State<SideMenu> {
                   FutureBuilder(
                       future: FireAuth.getName(),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
+                        if(user==null){
                           return Text(
-                            "${snapshot.data}",
+                            "Welcome!",
                             style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 25,
                             ),
                           );
                         }
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return Text(
+                              "${snapshot.data}",
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 25,
+                              ),
+                            );
+                          }
                         else {
                           return CircularProgressIndicator();
                         }
@@ -89,7 +99,7 @@ class _SideMenuState extends State<SideMenu> {
                 ),
                 Align(
                   alignment: Alignment.centerRight + Alignment(0,0.45),
-                  child: RichText(
+                  /*child: RichText(
                     text: TextSpan(
                       children: [
                         TextSpan(
@@ -111,7 +121,7 @@ class _SideMenuState extends State<SideMenu> {
                       ],
                     ),
 
-                  ),
+                  ),*/
                 )
               ],
             )
