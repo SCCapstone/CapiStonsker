@@ -11,8 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:image_picker/image_picker.dart';
-import '../auth/take_picture_screen.dart';
+import '../auth/take_picture_screen.dart';import 'dart:math';
 
+var r = Random();
 class AccountPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -28,7 +29,7 @@ class AccountPage extends StatefulWidget {
 
   @override
   Widget build(BuildContext context) {
-    setState(() {});
+    setState((){});
     return Scaffold(
       extendBody: true,
       key: _scaffoldKey,
@@ -115,7 +116,7 @@ class AccountPage extends StatefulWidget {
                         },
                         child: Ink.image(
                             //TODO: Make this user profile pictures
-                            image: Image.network(image_url + "?v=1").image,
+                            image: Image.network(image_url + "?v=" + r.nextInt(100000).toString()).image,
                             height: 120,
                             width: 120,
                             fit: BoxFit.cover
