@@ -119,8 +119,6 @@ class _EditAccount extends State<EditAccount> {
       ),
     );
   }
-
-
 }
 
 

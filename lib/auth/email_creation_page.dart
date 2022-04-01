@@ -19,6 +19,7 @@ class _AccountCreation extends State<AccountCreation> {
   final _auth = FirebaseAuth.instance;
   String email = '';
   String password = '';
+  String photo_url = 'https://sc.edu/about/offices_and_divisions/communications/images/2019_toolbox/logos/grid_uofsc_formal.svg';
   bool isloading = false;
 
 
@@ -116,7 +117,7 @@ class _AccountCreation extends State<AccountCreation> {
                             });
                             try {
                               await FireAuth.registerUsingEmailPassword(email: email, password: password);
-
+                              FireAuth.auth.currentUser!.updatePhotoURL(photo_url);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   backgroundColor: Colors.blueGrey,
