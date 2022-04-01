@@ -19,7 +19,8 @@ class _AccountCreation extends State<AccountCreation> {
   final _auth = FirebaseAuth.instance;
   String email = '';
   String password = '';
-  String photo_url = 'https://sc.edu/about/offices_and_divisions/communications/images/2019_toolbox/logos/grid_uofsc_formal.svg';
+  String photo_url = 'https://picsum'
+      '.photos/seed/264/600';
   bool isloading = false;
 
 
