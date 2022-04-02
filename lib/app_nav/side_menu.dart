@@ -124,7 +124,7 @@ class _SideMenuState extends State<SideMenu> {
                       ],
                     ),
 
-                  ),*/
+                  ),
                 )
               ],
             )
