@@ -12,12 +12,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:google_sign_in/google_sign_in.dart';
-import '../markers/locations.dart' as user;
-import '../markers/marker.dart';
 
 //FirebaseAuth auth = FirebaseAuth.instance;
 GoogleSignIn googleSignIn = GoogleSignIn();
-
 
 
 class FireAuth {
@@ -38,9 +35,9 @@ class FireAuth {
       FirebaseFirestore.instance
           .collection('Users')
           .doc(user?.uid)
-          .set(<String, dynamic> {
-            "email": user?.email,
-          });
+          .set(<String, dynamic>{
+        "email": user?.email,
+      });
     }
     on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -124,16 +121,14 @@ class FireAuth {
   static Future<String> getEmail() async {
     return (await auth.currentUser)!.email!;
   }
-  static Future<String> getName() async{
-    if(auth.currentUser!.displayName!=null){
+
+  static Future<String> getName() async {
+    if (auth.currentUser!.displayName != null) {
       return (await auth.currentUser)!.displayName!;
     }
     else
       return (await auth.currentUser)!.email!;
   }
-
-
-
 
 
   static void signOut() {
@@ -143,7 +138,38 @@ class FireAuth {
     locs.wishlist = [];
     locs.visitedID = [];
     locs.visited = [];
-
   }
 
+  static Future<int> visitedAmount() async {
+    return FirebaseFirestore.instance
+        .collection('Visited')
+        .snapshots()
+        .length;
+  }
+
+  static String getBadge() {
+    int amount = locs.visited.length.toInt();
+    String badge="";
+    if(amount<=0&&amount<=414){
+      badge="Novice";
+    }
+    if(amount>=415&&amount<=1034){
+      badge="Intermediate";
+    }
+    if(amount>=1035&&amount<=2064){
+      badge="Advanced";
+    }
+    if(amount>=2065&&amount<=3094){
+      badge="Expert";
+    }
+    if(amount>=3095&&amount<=4130){
+      badge="Legend";
+    }
+    if(amount==4131){
+      badge="Capistonktastic";
+    }
+    return badge;
+
+
+  }
 }

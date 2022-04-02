@@ -1,9 +1,11 @@
+
 /*
  * This page allows a user to log in to an existing account in Firebase
  */
 
 import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
+import 'package:capi_stonsker/auth/password_reset_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -114,24 +116,43 @@ class _LoginScreenState extends State<LoginScreen> {
                       loginSignupButton(context),
                       SizedBox(height: 30),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             GestureDetector(
-                              key: const Key('makeAccount'),
-                              child: Text("Don't have an account? Create one.",
-                                  style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              color: Colors.blueGrey)),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SignUp()),
-                                );
-                              }
-                    )
-                  ]
-                        ),
+                                key: const Key('makeAccount'),
+                                child: Text("Don't have an account? Create one.",
+                                    style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        color: Colors.blueGrey)),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SignUp()),
+                                  );
+                                }
+                            )
+                          ]
+                      ),
+                      /*Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                                key: const Key('changePassword'),
+                                child: Text("Forgot password?",
+                                    style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        color: Colors.blueGrey)),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ForgotPass()),
+                                  );
+                                }
+                            )
+                          ]
+                      )*/
                     ],
                   ),
                 ),

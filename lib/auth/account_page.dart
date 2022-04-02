@@ -1,3 +1,4 @@
+
 /*
  * This page displays a user's account information, pulled from Firebase.
  * Users will not be able to access this page unless they are logged in
@@ -13,22 +14,24 @@ import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import '../auth/take_picture_screen.dart';import 'dart:math';
 
-var r = Random();
+
 class AccountPage extends StatefulWidget {
+
   @override
   State<StatefulWidget> createState() {
     return _AccountPageState();
   }
 }
 
-  class _AccountPageState extends State<AccountPage> {
-    GlobalKey<_AccountPageState> key = GlobalKey();
-    GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-    final ImagePicker _picker = ImagePicker();
-    final String image_url = FireAuth.auth.currentUser!.photoURL!;
+class _AccountPageState extends State<AccountPage> {
+  GlobalKey<_AccountPageState> key = GlobalKey();
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  final ImagePicker _picker = ImagePicker();
+  String image_url = FireAuth.auth.currentUser!.photoURL!;
 
   @override
   Widget build(BuildContext context) {
+    print(image_url);
     setState((){});
     return Scaffold(
       extendBody: true,
@@ -69,13 +72,13 @@ class AccountPage extends StatefulWidget {
                                       ElevatedButton(
                                         child: const Text('Take Picture'),
                                         onPressed: () => {
-                                            Navigator.pop(context),
-                                            Navigator.push(context,
+                                          Navigator.pop(context),
+                                          Navigator.push(context,
                                               MaterialPageRoute(
                                                   builder: (context) => TakePictureScreen(camera:
                                                   cameras.first)
                                               )
-                                            )
+                                          )
                                         },
                                         style: ElevatedButton.styleFrom(
                                           primary: Colors.blueGrey,
@@ -85,7 +88,7 @@ class AccountPage extends StatefulWidget {
                                         child: const Text('Choose Photo from '
                                             'Library'),
                                         onPressed: () async {
-                                         // Try to take the picture
+                                          // Try to take the picture
                                           try {
                                             final gallery_image = await _picker
                                                 .pickImage(source: ImageSource
@@ -94,12 +97,12 @@ class AccountPage extends StatefulWidget {
                                             // If the picture was chosen display
                                             if (gallery_image != null)
                                               Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                builder: (context) => DisplayPictureScreen(
-                                                  imagePath: gallery_image.path,
+                                                MaterialPageRoute(
+                                                  builder: (context) => DisplayPictureScreen(
+                                                    imagePath: gallery_image.path,
+                                                  ),
                                                 ),
-                                              ),
-                                            );
+                                              );
                                           } catch (e) {
                                             // If an error occurs, log the error to the console.
                                             print(e);
@@ -115,8 +118,8 @@ class AccountPage extends StatefulWidget {
                           );
                         },
                         child: Ink.image(
-                            //TODO: Make this user profile pictures
-                            image: Image.network(image_url + "?v=" + r.nextInt(100000).toString()).image,
+                          //TODO: Make this user profile pictures
+                            image: Image.network(image_url).image,
                             height: 120,
                             width: 120,
                             fit: BoxFit.cover
@@ -213,11 +216,7 @@ class AccountPage extends StatefulWidget {
                             fontSize: 20
                         ),
                       ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        color: Color(0xFF303030),
-                        size: 20,
-                      ),
+
                       tileColor: Color(0xFFF5F5F5),
                       dense: false,
                     ),
@@ -234,11 +233,7 @@ class AccountPage extends StatefulWidget {
                             fontSize: 20
                         ),
                       ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        color: Color(0xFF303030),
-                        size: 20,
-                      ),
+
                       tileColor: Color(0xFFF5F5F5),
                       dense: false,
                     ),
@@ -255,11 +250,7 @@ class AccountPage extends StatefulWidget {
                             fontSize: 20
                         ),
                       ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        color: Color(0xFF303030),
-                        size: 20,
-                      ),
+
                       tileColor: Color(0xFFF5F5F5),
                       dense: false,
                     ),
