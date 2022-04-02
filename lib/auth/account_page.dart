@@ -24,13 +24,41 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  String getBadge() {
+    int amount = locs.visited.length.toInt();
+    String badge="";
+    if(amount<=0&&amount<=414){
+      badge="Novice";
+    }
+    if(amount>=415&&amount<=1034){
+      badge="Intermediate";
+    }
+    if(amount>=1035&&amount<=2064){
+      badge="Advanced";
+    }
+    if(amount>=2065&&amount<=3094){
+      badge="Expert";
+    }
+    if(amount>=3095&&amount<=4130){
+      badge="Legend";
+    }
+    if(amount==4131){
+      badge="Capistonktastic";
+    }
+    return badge;
+
+
+  }
   GlobalKey<_AccountPageState> key = GlobalKey();
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   final ImagePicker _picker = ImagePicker();
   String image_url = FireAuth.auth.currentUser!.photoURL!;
 
+
+
   @override
   Widget build(BuildContext context) {
+
     print(image_url);
     setState((){});
     return Scaffold(
@@ -164,12 +192,13 @@ class _AccountPageState extends State<AccountPage> {
                       ),
                     ),
                   ),
+
                   Align(
                     alignment: AlignmentDirectional(0.7, 0),
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
                       child: Text(
-                        'Novice',
+                          getBadge(),
                         style: TextStyle(
                             fontSize: 20
                         ),
