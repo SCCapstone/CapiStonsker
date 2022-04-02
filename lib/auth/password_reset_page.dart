@@ -1,10 +1,10 @@
-
 /*
- * This page allows a user to log in to an existing account in Firebase
+ * This page allows a user to reset password
  */
 
 import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
+import 'package:capi_stonsker/auth/log_in_page.dart';
 import 'package:capi_stonsker/auth/password_reset_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,20 +14,41 @@ import 'package:capi_stonsker/auth/sign_up_page.dart';
 import 'package:capi_stonsker/auth/fire_auth.dart';
 
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+
+
+class ForgotPass extends StatefulWidget {
+  const ForgotPass({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _ForgotPass createState() => _ForgotPass();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _ForgotPass extends State<ForgotPass> {
   final formkey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   //final _auth = FirebaseAuth.instance;
   String email = '';
-  String password = '';
   bool isloading = false;
+  static String id = 'forgot-password';
+  final String message =
+      "An email has just been sent to you. Click the link provided to complete password reset";
+
+  _passwordReset() async {
+    try {
+      formkey.currentState?.save();
+      final user = await auth.sendPasswordResetEmail(email: email);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) {
+          return popUp(context);
+        }),
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Navigator.of(context).pop();
             }
         ),
-        title: Text("Log In"),
+        title: Text("Reset Password"),
         backgroundColor: Colors.blueGrey,
       ),
       body: isloading
@@ -67,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Log In",
+                        "Reset Password",
                         style: TextStyle(
                             fontSize: 50,
                             color: Colors.black,
@@ -93,66 +114,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 30),
-                      TextFormField(
-                        obscureText: true,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Please enter Password";
-                          }
-                        },
-                        onChanged: (value) {
-                          password = value;
-                        },
-                        textAlign: TextAlign.center,
-                        decoration: kTextFieldDecoration.copyWith(
-                            hintText: 'Password',
-                            prefixIcon: Icon(
-                              Icons.lock,
-                              color: Colors.black,
-                            )),
-                      ),
                       SizedBox(height: 80),
                       loginSignupButton(context),
-                      SizedBox(height: 30),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                                key: const Key('makeAccount'),
-                                child: Text("Don't have an account? Create one.",
-                                    style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                        color: Colors.blueGrey)),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => SignUp()),
-                                  );
-                                }
-                            )
-                          ]
-                      ),
-                      /*Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                                key: const Key('changePassword'),
-                                child: Text("Forgot password?",
-                                    style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                        color: Colors.blueGrey)),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ForgotPass()),
-                                  );
-                                }
-                            )
-                          ]
-                      )*/
                     ],
                   ),
                 ),
@@ -179,39 +142,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   isloading = true;
                 });
                 //try {
-                FireAuth.signInUsingEmailPassword(email: email, password: password, context: context) ;
+                _passwordReset();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context){
+                    return LoginScreen();
 
-                if(auth.currentUser!=null){
-                  Navigator.of(context).pop();
-                  await Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => AccountPage(),
-                    ),
-                  );
-
-                  setState(() {
-                    isloading = false;
-                  });
-                }
-                //on FirebaseAuthException catch (e) {
-                else if (FireAuth.user==null){
-                  showDialog(
-                    context: context,
-                    builder: (ctx) => AlertDialog(
-                      title: Text("Login Failed. Please try again."),
-
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(ctx).pop();
-                          },
-                          child: Text('Okay'),
-                        )
-                      ],
-                    ),
-                  );
-
-                }
+                  }),
+                );
                 setState(() {
                   isloading = false;
                 });
@@ -221,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Login',
+              'Send Reset Email',
               style: TextStyle(fontSize: 20),
             ),
           ),
@@ -251,3 +189,23 @@ const kTextFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(7)),
   ),
 );
+
+popUp(context){
+  showDialog<String>(
+    context: context,
+    builder: (BuildContext context) => AlertDialog(
+      title: const Text('Password Reset'),
+      content: const Text("An email has just been sent to you. Click the link provided to complete password reset."),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ForgotPass()),
+          ),
+          child: const Text('OK'),
+        ),
+      ],
+    ),
+  );
+}

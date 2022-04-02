@@ -1,3 +1,4 @@
+
 /*
  * This page displays a user's account information, pulled from Firebase.
  * Users will not be able to access this page unless they are logged in
@@ -22,7 +23,33 @@ class AccountPage extends StatefulWidget {
   }
 }
 
+
   class _AccountPageState extends State<AccountPage> {
+  String getBadge() {
+    int amount = locs.visited.length.toInt();
+    String badge="";
+    if(amount<=0&&amount<=414){
+      badge="Novice";
+    }
+    if(amount>=415&&amount<=1034){
+      badge="Intermediate";
+    }
+    if(amount>=1035&&amount<=2064){
+      badge="Advanced";
+    }
+    if(amount>=2065&&amount<=3094){
+      badge="Expert";
+    }
+    if(amount>=3095&&amount<=4130){
+      badge="Legend";
+    }
+    if(amount==4131){
+      badge="Capistonktastic";
+    }
+    return badge;
+
+
+  }
     GlobalKey<_AccountPageState> key = GlobalKey();
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
     final ImagePicker _picker = ImagePicker();
@@ -30,6 +57,7 @@ class AccountPage extends StatefulWidget {
 
   @override
   Widget build(BuildContext context) {
+
     print(image_url);
     setState((){});
     return Scaffold(
@@ -71,13 +99,13 @@ class AccountPage extends StatefulWidget {
                                       ElevatedButton(
                                         child: const Text('Take Picture'),
                                         onPressed: () => {
-                                            Navigator.pop(context),
-                                            Navigator.push(context,
+                                          Navigator.pop(context),
+                                          Navigator.push(context,
                                               MaterialPageRoute(
                                                   builder: (context) => TakePictureScreen(camera:
                                                   cameras.first)
                                               )
-                                            )
+                                          )
                                         },
                                         style: ElevatedButton.styleFrom(
                                           primary: Colors.blueGrey,
@@ -87,7 +115,7 @@ class AccountPage extends StatefulWidget {
                                         child: const Text('Choose Photo from '
                                             'Library'),
                                         onPressed: () async {
-                                         // Try to take the picture
+                                          // Try to take the picture
                                           try {
                                             final gallery_image = await _picker
                                                 .pickImage(source: ImageSource
@@ -96,12 +124,12 @@ class AccountPage extends StatefulWidget {
                                             // If the picture was chosen display
                                             if (gallery_image != null)
                                               Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                builder: (context) => DisplayPictureScreen(
-                                                  imagePath: gallery_image.path,
+                                                MaterialPageRoute(
+                                                  builder: (context) => DisplayPictureScreen(
+                                                    imagePath: gallery_image.path,
+                                                  ),
                                                 ),
-                                              ),
-                                            );
+                                              );
                                           } catch (e) {
                                             // If an error occurs, log the error to the console.
                                             print(e);
@@ -117,7 +145,9 @@ class AccountPage extends StatefulWidget {
                           );
                         },
                         child: Ink.image(
+
                             //TODO: Make this user profile pictures
+
                             image: Image.network(image_url).image,
                             height: 120,
                             width: 120,
@@ -163,12 +193,13 @@ class AccountPage extends StatefulWidget {
                       ),
                     ),
                   ),
+
                   Align(
                     alignment: AlignmentDirectional(0.7, 0),
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
                       child: Text(
-                        'Novice',
+                          getBadge(),
                         style: TextStyle(
                             fontSize: 20
                         ),
@@ -215,11 +246,7 @@ class AccountPage extends StatefulWidget {
                             fontSize: 20
                         ),
                       ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        color: Color(0xFF303030),
-                        size: 20,
-                      ),
+
                       tileColor: Color(0xFFF5F5F5),
                       dense: false,
                     ),
@@ -236,11 +263,7 @@ class AccountPage extends StatefulWidget {
                             fontSize: 20
                         ),
                       ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        color: Color(0xFF303030),
-                        size: 20,
-                      ),
+
                       tileColor: Color(0xFFF5F5F5),
                       dense: false,
                     ),
@@ -257,11 +280,7 @@ class AccountPage extends StatefulWidget {
                             fontSize: 20
                         ),
                       ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        color: Color(0xFF303030),
-                        size: 20,
-                      ),
+
                       tileColor: Color(0xFFF5F5F5),
                       dense: false,
                     ),
