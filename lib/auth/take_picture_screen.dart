@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:camera/camera.dart';
 import 'package:capi_stonsker/auth/account_page.dart';
 import 'package:capi_stonsker/auth/fire_auth.dart';
@@ -14,6 +15,8 @@ import 'package:path/path.dart';
 FirebaseAuth auth = FirebaseAuth.instance;
 firebase_storage.FirebaseStorage storage =
     firebase_storage.FirebaseStorage.instance;
+var r = Random();
+
 class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({
     Key? key,
@@ -113,6 +116,7 @@ class DisplayPictureScreen extends StatelessWidget {
     final fileName = basename(imagePath);
     final destination = 'files/$uid';
     try {
+      //Upload to firestore
       final ref = firebase_storage.FirebaseStorage.instance
           .ref(destination)
           .child('profile_image/');
@@ -120,11 +124,12 @@ class DisplayPictureScreen extends StatelessWidget {
 
       final String downloadUrl = await ref.getDownloadURL();
 
-      await FirebaseFirestore.instance
-          .collection('Users')
-          .doc(FireAuth.auth.currentUser!.uid)
-          .set(<String, dynamic> {"photo_url": downloadUrl});
-
+      // Update the UserPHOTO url
+      // await FirebaseFirestore.instance
+      //     .collection('Users')
+      //     .doc(FireAuth.auth.currentUser!.uid)
+      //     .set(<String, dynamic> {"photo_url": downloadUrl + "?v=" + r.nextInt(100000).toString()});
+      FireAuth.auth.currentUser!.updatePhotoURL(downloadUrl + "?v=" + r.nextInt(100000).toString());
     } catch (e) {
       print('error occured');
     }
@@ -152,7 +157,7 @@ class DisplayPictureScreen extends StatelessWidget {
                         backgroundColor: MaterialStateProperty.all(Colors.blueGrey)
                     ),
                     child: new Text("Confirm"),
-                    onPressed: () {
+                    onPressed: () async {
                       uploadImageToFirebase(context);
                       Navigator.pop(context);
                       Navigator.push(

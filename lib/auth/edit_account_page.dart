@@ -1,6 +1,9 @@
+import 'package:capi_stonsker/auth/take_picture_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import '../main.dart';
 import 'account_page.dart';
 import 'fire_auth.dart';
 
@@ -93,6 +96,8 @@ class _EditAccount extends State<EditAccount> {
                           )
 
                       ),
+                      SizedBox(height: 40),
+                      ProfilePictureButton(),
                       SizedBox(height: 80),
                       UpdateButton(
                           title: 'Update',
@@ -119,8 +124,6 @@ class _EditAccount extends State<EditAccount> {
       ),
     );
   }
-
-
 }
 
 
@@ -143,6 +146,88 @@ class UpdateButton extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               title,
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.blueGrey),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Account Photo Button
+class ProfilePictureButton extends StatelessWidget {
+  final ImagePicker _picker = ImagePicker();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      child: SizedBox(
+        height: 45,
+        child: ElevatedButton(
+          onPressed: (){
+            showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return Container(
+                      height: 100,
+                      child: Column(children: <Widget>[
+                        ElevatedButton(
+                          child: const Text('Take Picture'),
+                          onPressed: () => {
+                            Navigator.pop(context),
+                            Navigator.push(context,
+                                MaterialPageRoute(
+                                    builder: (context) => TakePictureScreen(camera:
+                                    cameras.first)
+                                )
+                            )
+                          },
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.blueGrey,
+                          ),
+                        ),
+                        ElevatedButton(
+                          child: const Text('Choose Photo from '
+                              'Library'),
+                          onPressed: () async {
+                            // Try to take the picture
+                            try {
+                              final gallery_image = await _picker
+                                  .pickImage(source: ImageSource
+                                  .gallery);
+
+                              // If the picture was chosen display
+                              if (gallery_image != null)
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => DisplayPictureScreen(
+                                      imagePath: gallery_image.path,
+                                    ),
+                                  ),
+                                );
+                            } catch (e) {
+                              // If an error occurs, log the error to the console.
+                              print(e);
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.blueGrey,
+                          ),
+                        ),
+                      ])
+                  );
+                }
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Change Profile Picture",
               style: TextStyle(fontSize: 20),
             ),
           ),

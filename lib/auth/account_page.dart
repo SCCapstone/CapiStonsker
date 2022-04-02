@@ -23,7 +23,8 @@ class AccountPage extends StatefulWidget {
   }
 }
 
-class _AccountPageState extends State<AccountPage> {
+
+  class _AccountPageState extends State<AccountPage> {
   String getBadge() {
     int amount = locs.visited.length.toInt();
     String badge="";
@@ -49,12 +50,10 @@ class _AccountPageState extends State<AccountPage> {
 
 
   }
-  GlobalKey<_AccountPageState> key = GlobalKey();
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  final ImagePicker _picker = ImagePicker();
-  String image_url = FireAuth.auth.currentUser!.photoURL!;
-
-
+    GlobalKey<_AccountPageState> key = GlobalKey();
+    GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+    final ImagePicker _picker = ImagePicker();
+    String image_url = FireAuth.auth.currentUser!.photoURL!;
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +145,9 @@ class _AccountPageState extends State<AccountPage> {
                           );
                         },
                         child: Ink.image(
-                          //TODO: Make this user profile pictures
+
+                            //TODO: Make this user profile pictures
+
                             image: Image.network(image_url).image,
                             height: 120,
                             width: 120,

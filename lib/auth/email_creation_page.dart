@@ -19,6 +19,8 @@ class _AccountCreation extends State<AccountCreation> {
   final _auth = FirebaseAuth.instance;
   String email = '';
   String password = '';
+  String photo_url = 'https://picsum'
+      '.photos/seed/264/600';
   bool isloading = false;
 
 
@@ -116,7 +118,7 @@ class _AccountCreation extends State<AccountCreation> {
                             });
                             try {
                               await FireAuth.registerUsingEmailPassword(email: email, password: password);
-
+                              FireAuth.auth.currentUser!.updatePhotoURL(photo_url);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   backgroundColor: Colors.blueGrey,
