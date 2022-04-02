@@ -215,11 +215,7 @@ class AccountPage extends StatefulWidget {
                             fontSize: 20
                         ),
                       ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        color: Color(0xFF303030),
-                        size: 20,
-                      ),
+
                       tileColor: Color(0xFFF5F5F5),
                       dense: false,
                     ),
@@ -236,11 +232,7 @@ class AccountPage extends StatefulWidget {
                             fontSize: 20
                         ),
                       ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        color: Color(0xFF303030),
-                        size: 20,
-                      ),
+
                       tileColor: Color(0xFFF5F5F5),
                       dense: false,
                     ),
@@ -257,11 +249,7 @@ class AccountPage extends StatefulWidget {
                             fontSize: 20
                         ),
                       ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        color: Color(0xFF303030),
-                        size: 20,
-                      ),
+
                       tileColor: Color(0xFFF5F5F5),
                       dense: false,
                     ),

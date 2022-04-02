@@ -8,6 +8,7 @@
 
 import 'package:capi_stonsker/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/auth/account_page.dart';
@@ -18,6 +19,7 @@ import 'package:capi_stonsker/src/help_page.dart';
 import 'package:capi_stonsker/user_collections/my_markers_page.dart';
 import 'package:capi_stonsker/user_collections/friends_page.dart';
 import 'package:provider/provider.dart';
+import 'package:capi_stonsker/markers/locations.dart' as locs;
 
 class SideMenu extends StatefulWidget {
   const SideMenu({Key? key}) : super(key: key);
@@ -65,10 +67,13 @@ class _SideMenuState extends State<SideMenu> {
                     radius: 45,
                 )
                 ),
+
                 Align(
                   alignment: Alignment.centerRight,
-                  child:
-                  FutureBuilder(
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                    child:
+                    FutureBuilder(
                       future: FireAuth.getName(),
                       builder: (context, snapshot) {
                         if(user==null){
@@ -95,33 +100,38 @@ class _SideMenuState extends State<SideMenu> {
                         }
                       }
                   ),
+                )
                 ),
                 Align(
                   alignment: Alignment.centerRight + Alignment(0,0.45),
-                  /*child: RichText(
-                    text: TextSpan(
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                    child: RichText(
+                      text: TextSpan(
                       children: [
                         TextSpan(
-                            text: "Novice ",
-                            style: TextStyle(
-                                color: Colors.white54,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w900
-                            )
-                        ),
-                        TextSpan(
-                          //TODO update according to user
-                            text: "(7/4131)",
-                            style: TextStyle(
-                                color: Colors.white54,
-                                fontSize: 16
-                            )
-                        ),
-                      ],
+                          text: FireAuth.getBadge(),
+                          style: TextStyle(
+                          color: Colors.white54,
+                          fontSize: 16,
+                    fontWeight: FontWeight.w900
+                    )
+                    ),
+                    TextSpan(
+                    //TODO update according to user
+                    text: "(${locs.visited.length.toString()}/4131)",
+                    style: TextStyle(
+                    color: Colors.white54,
+                    fontSize: 16
+                    )
+                    ),
+                    ],
                     ),
 
-                  ),*/
-                )
+                    ),
+
+
+                ))
               ],
             )
           ),
@@ -322,3 +332,4 @@ class _SideMenuState extends State<SideMenu> {
     );
   }
 }
+
