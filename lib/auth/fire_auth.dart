@@ -12,9 +12,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:google_sign_in/google_sign_in.dart';
+import '../markers/locations.dart' as user;
+import '../markers/marker.dart';
 
 //FirebaseAuth auth = FirebaseAuth.instance;
 GoogleSignIn googleSignIn = GoogleSignIn();
+
 
 
 class FireAuth {
@@ -128,6 +131,8 @@ class FireAuth {
     else
       return (await auth.currentUser)!.email!;
   }
+
+
 
 
 

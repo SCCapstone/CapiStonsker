@@ -18,6 +18,9 @@ import 'package:capi_stonsker/src/help_page.dart';
 import 'package:capi_stonsker/user_collections/my_markers_page.dart';
 import 'package:capi_stonsker/user_collections/friends_page.dart';
 import 'package:provider/provider.dart';
+import '../markers/locations.dart' as user;
+
+import '../markers/marker.dart';
 
 class SideMenu extends StatefulWidget {
   const SideMenu({Key? key}) : super(key: key);
@@ -27,6 +30,7 @@ class SideMenu extends StatefulWidget {
 }
 
 class _SideMenuState extends State<SideMenu> {
+  List<Marker> collection = user.visited;
   // get text for log in/ log out button
   String getText() {
     var user = FireAuth.auth.currentUser;
@@ -98,7 +102,7 @@ class _SideMenuState extends State<SideMenu> {
                 ),
                 Align(
                   alignment: Alignment.centerRight + Alignment(0,0.45),
-                  /*child: RichText(
+                  child: RichText(
                     text: TextSpan(
                       children: [
                         TextSpan(
