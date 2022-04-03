@@ -24,7 +24,7 @@ class FireAuth {
 
 
   // This method allows a new user to sign up with email and password
-  static Future<User?> registerUsingEmailPassword({
+  static Future<FirebaseAuthException?> registerUsingEmailPassword({
     required String email,
     required String password,
   }) async {
@@ -45,11 +45,12 @@ class FireAuth {
       } else if (e.code == 'email-already-in-use') {
         print('Account already exists for that email.');
       }
+      return e;
     }
     catch (e) {
       print(e);
     }
-    return user;
+    return null;
   }
 
   // This method allows a returning user to sign in using their email and password
@@ -122,10 +123,8 @@ class FireAuth {
     return (await auth.currentUser)!.email!;
   }
 
-  static Future<String> getName() async{
-    if (auth.currentUser == null)
-      return "";
-    else if(auth.currentUser!.displayName != null)
+  static Future<String> getName() async {
+    if (auth.currentUser!.displayName != null && auth.currentUser!.displayName != "")
       return (await auth.currentUser)!.displayName!;
     else
       return (await auth.currentUser)!.email!;
