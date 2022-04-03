@@ -115,10 +115,14 @@ f_map.Marker createMapMarker(BuildContext context, Marker m, bool popup, List<la
                     for (var i = 0; i<geometry.length;i++){
                       path.add(latLng.LatLng(geometry[i][1], geometry[i][0]));
                     }
+                    dur = (response['routes'][0]['duration']/60) + dur;
+                    dist = (response['routes'][0]['distance']*0.000621371)+ dist;
+                    dur = double.parse(dur.toStringAsFixed(2));
+                    dist = double.parse(dist.toStringAsFixed(2));
 
-                    print(geometry);
+                    print(response['routes'][0]);
                     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-                        builder: (context) => MyHomePage(show: false, popup: false, points: path,)
+                        builder: (context) => MyHomePage(show: false, popup: false, points: path, duration: dur, distance: dist)
                     ), (route) => false);
 
 
