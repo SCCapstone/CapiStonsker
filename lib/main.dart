@@ -149,6 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Colors.white, borderRadius: BorderRadius.circular(5)),
           child: Center(
             child: TextField(
+              key: search_bar,
               controller: _controller,
               onChanged: (value) => setState(() {
                 searchText = value;
@@ -220,7 +221,7 @@ class _MyHomePageState extends State<MyHomePage> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: MapPage(
-                //key: ValueKey<int>(selectedList),
+
                   list: selectedList,
                   counties: selectedCounties,
                   searchText: searchText,
