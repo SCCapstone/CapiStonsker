@@ -146,30 +146,4 @@ class FireAuth {
         .snapshots()
         .length;
   }
-
-  static String getBadge() {
-    int amount = locs.visited.length.toInt();
-    String badge="";
-    if(amount<=0&&amount<=414){
-      badge="Novice";
-    }
-    if(amount>=415&&amount<=1034){
-      badge="Intermediate";
-    }
-    if(amount>=1035&&amount<=2064){
-      badge="Advanced";
-    }
-    if(amount>=2065&&amount<=3094){
-      badge="Expert";
-    }
-    if(amount>=3095&&amount<=4130){
-      badge="Legend";
-    }
-    if(amount==4131){
-      badge="Capistonktastic";
-    }
-    return badge;
-
-
-  }
 }
