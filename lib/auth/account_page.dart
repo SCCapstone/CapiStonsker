@@ -7,12 +7,16 @@ import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
 import 'package:capi_stonsker/auth/edit_account_page.dart';
 import 'package:capi_stonsker/main.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:image_picker/image_picker.dart';
-import '../auth/take_picture_screen.dart';import 'dart:math';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import '../auth/take_picture_screen.dart';
+import 'dart:math';
 
 
 class AccountPage extends StatefulWidget {
@@ -25,40 +29,20 @@ class AccountPage extends StatefulWidget {
 
 
   class _AccountPageState extends State<AccountPage> {
-
-    String getBadge() {
-      int amount = locs.visited.length.toInt();
-      String badge="";
-      if(amount>=0&&amount<=414){
-        badge="Novice";
-      }
-      if(amount>=415&&amount<=1034){
-        badge="Intermediate";
-      }
-      if(amount>=1035&&amount<=2064){
-        badge="Advanced";
-      }
-      if(amount>=2065&&amount<=3094){
-        badge="Expert";
-      }
-      if(amount>=3095&&amount<=4130){
-        badge="Legend";
-      }
-      if(amount==4131){
-        badge="Capistonktastic";
-      }
-      return badge;
-
-    }
     GlobalKey<_AccountPageState> key = GlobalKey();
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
     final ImagePicker _picker = ImagePicker();
-    String image_url = FireAuth.auth.currentUser!.photoURL!;
 
-  @override
+    @override
   Widget build(BuildContext context) {
+    var user = Provider.of<User?>(context);
+    bool loggedin = user != null;
+    String? image_url;
+    if (loggedin) {
+      image_url = FireAuth.auth.currentUser!.photoURL;
+    }
 
-    print(image_url);
+    //print(image_url);
     setState((){});
     return Scaffold(
       extendBody: true,
@@ -145,10 +129,7 @@ class AccountPage extends StatefulWidget {
                           );
                         },
                         child: Ink.image(
-
-                            //TODO: Make this user profile pictures
-
-                            image: Image.network(image_url).image,
+                            image: (loggedin && image_url != null) ? Image.network(image_url).image : Image.asset('assets/image/icon.png').image,
                             height: 120,
                             width: 120,
                             fit: BoxFit.cover
@@ -199,7 +180,7 @@ class AccountPage extends StatefulWidget {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
                       child: Text(
-                          getBadge(),
+                          FireAuth.getBadge(),
                         style: TextStyle(
                             fontSize: 20,
                           color: Colors.black
@@ -228,7 +209,7 @@ class AccountPage extends StatefulWidget {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
                       child: Text(
-                        'Bio personalization will be implemented soon!',
+                        FireAuth.getBio(),
                         style: TextStyle(
                             fontSize: 20
                         ),

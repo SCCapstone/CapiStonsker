@@ -31,8 +31,6 @@ class SideMenu extends StatefulWidget {
 }
 
 class _SideMenuState extends State<SideMenu> {
-  String image_url = 'https://picsum'
-      '.photos/seed/264/600';
 
   String getBadge() {
     int amount = locs.visited.length.toInt();
@@ -71,8 +69,9 @@ class _SideMenuState extends State<SideMenu> {
   Widget build(BuildContext context) {
     var user = Provider.of<User?>(context);
     bool loggedin = user != null;
-    if (loggedin == true) {
-      image_url = FireAuth.auth.currentUser!.photoURL!;
+    String? image_url;
+    if (loggedin) {
+      image_url = FireAuth.auth.currentUser!.photoURL;
     }
 
     return Drawer(
@@ -96,7 +95,7 @@ class _SideMenuState extends State<SideMenu> {
                         radius: 55,
                         backgroundColor: Colors.white,
                         child: CircleAvatar(
-                          foregroundImage: Image.network(image_url).image,
+                          foregroundImage: (loggedin && image_url != null) ? Image.network(image_url).image : Image.asset('assets/image/icon.png').image,
                           backgroundColor: Colors.white,
                           radius: 50,
                         ),
