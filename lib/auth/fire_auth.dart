@@ -122,10 +122,11 @@ class FireAuth {
     return (await auth.currentUser)!.email!;
   }
 
-  static Future<String> getName() async {
-    if (auth.currentUser!.displayName != null) {
+  static Future<String> getName() async{
+    if (auth.currentUser == null)
+      return "";
+    else if(auth.currentUser!.displayName != null)
       return (await auth.currentUser)!.displayName!;
-    }
     else
       return (await auth.currentUser)!.email!;
   }
