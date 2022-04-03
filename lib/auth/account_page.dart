@@ -13,7 +13,10 @@ import 'package:flutter/material.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:image_picker/image_picker.dart';
-import '../auth/take_picture_screen.dart';import 'dart:math';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import '../auth/take_picture_screen.dart';
+import 'dart:math';
 
 
 class AccountPage extends StatefulWidget {
@@ -29,13 +32,17 @@ class AccountPage extends StatefulWidget {
     GlobalKey<_AccountPageState> key = GlobalKey();
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
     final ImagePicker _picker = ImagePicker();
-    String image_url = FireAuth.auth.currentUser!.photoURL!;
-    final user = FireAuth.auth.currentUser;
 
     @override
   Widget build(BuildContext context) {
+    var user = Provider.of<User?>(context);
+    bool loggedin = user != null;
+    String? image_url;
+    if (loggedin) {
+      image_url = FireAuth.auth.currentUser!.photoURL;
+    }
 
-    print(image_url);
+    //print(image_url);
     setState((){});
     return Scaffold(
       extendBody: true,
@@ -122,10 +129,7 @@ class AccountPage extends StatefulWidget {
                           );
                         },
                         child: Ink.image(
-
-                            //TODO: Make this user profile pictures
-
-                            image: Image.network(image_url).image,
+                            image: (loggedin && image_url != null) ? Image.network(image_url).image : Image.asset('assets/image/icon.png').image,
                             height: 120,
                             width: 120,
                             fit: BoxFit.cover
