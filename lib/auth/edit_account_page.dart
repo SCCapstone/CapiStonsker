@@ -97,11 +97,15 @@ class _EditAccount extends State<EditAccount> {
                             FireAuth.bio=bioV;
                             await auth.currentUser!.reload();
                             Navigator.of(context).pop();
-                            await Navigator.of(context).push(
+                            /*await Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => AccountPage(),
                               ),
+
+
                             );
+
+                             */
                           }
 
                       ),
