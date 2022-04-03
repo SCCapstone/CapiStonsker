@@ -29,6 +29,29 @@ class SideMenu extends StatefulWidget {
 }
 
 class _SideMenuState extends State<SideMenu> {
+  String getBadge() {
+    int amount = locs.visited.length.toInt();
+    String badge="";
+    if(amount>=0&&amount<=414){
+      badge="Novice";
+    }
+    if(amount>=415&&amount<=1034){
+      badge="Intermediate";
+    }
+    if(amount>=1035&&amount<=2064){
+      badge="Advanced";
+    }
+    if(amount>=2065&&amount<=3094){
+      badge="Expert";
+    }
+    if(amount>=3095&&amount<=4130){
+      badge="Legend";
+    }
+    if(amount==4131){
+      badge="Capistonktastic";
+    }
+    return badge;
+  }
   // get text for log in/ log out button
   String getText() {
     var user = FireAuth.auth.currentUser;
@@ -110,7 +133,7 @@ class _SideMenuState extends State<SideMenu> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                  text: FireAuth.getBadge(),
+                                  text: getBadge(),
                                   style: TextStyle(
                                       color: Colors.white54,
                                       fontSize: 16,
