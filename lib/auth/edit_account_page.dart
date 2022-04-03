@@ -15,10 +15,11 @@ class EditAccount extends StatefulWidget {
 
 class _EditAccount extends State<EditAccount> {
   final formkey = GlobalKey<FormState>();
+
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   final _auth = FirebaseAuth.instance;
-  String name = '';
-  String bio = '';
+  String name = "";
+  String bioV = "";
 
   @override
   Widget build(BuildContext context) {
@@ -72,23 +73,13 @@ class _EditAccount extends State<EditAccount> {
                           decoration: kTextFieldDecoration.copyWith(
                             hintText: 'Enter Display Name',
                           )
-                        /*validator: (value) => (value!.isEmpty)
-                          ? ' Please enter email'
-                          : null,
-                      textAlign: TextAlign.center,
-                      decoration: kTextFieldDecoration.copyWith(
-                        hintText: 'Enter Your Email',
-                        prefixIcon: Icon(
-                          Icons.email,
-                          color: Colors.black,
-                        ),
-                      ),*/
+
                       ),
                       SizedBox(height: 30),
                       TextFormField(
                           keyboardType: TextInputType.multiline,
                           onChanged: (value) {
-                            bio = value;
+                            bioV = value.toString().trim();
                           },
                           textAlign: TextAlign.center,
                           decoration: kTextFieldDecoration.copyWith(
@@ -103,7 +94,7 @@ class _EditAccount extends State<EditAccount> {
                           title: 'Update',
                           ontapp: () async {
                             auth.currentUser!.updateDisplayName(name);
-                            //TODO update bio
+                            FireAuth.bio=bioV;
                             await auth.currentUser!.reload();
                             Navigator.of(context).pop();
                             await Navigator.of(context).push(
