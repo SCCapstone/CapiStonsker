@@ -25,11 +25,15 @@ import 'package:capi_stonsker/markers/locations.dart' as locs;
 class SideMenu extends StatefulWidget {
   const SideMenu({Key? key}) : super(key: key);
 
+
   @override
   _SideMenuState createState() => _SideMenuState();
 }
 
 class _SideMenuState extends State<SideMenu> {
+  String image_url = 'https://picsum'
+      '.photos/seed/264/600';
+
   String getBadge() {
     int amount = locs.visited.length.toInt();
     String badge="";
@@ -55,8 +59,7 @@ class _SideMenuState extends State<SideMenu> {
   }
   // get text for log in/ log out button
   String getText() {
-    var user = FireAuth.auth.currentUser;
-    if (user != null) {
+    if (FireAuth.auth.currentUser != null) {
       // user is logged in
       return "Log out";
     }
@@ -68,7 +71,9 @@ class _SideMenuState extends State<SideMenu> {
   Widget build(BuildContext context) {
     var user = Provider.of<User?>(context);
     bool loggedin = user != null;
-    String image_url = FireAuth.auth.currentUser!.photoURL!;
+    if (loggedin == true) {
+      image_url = FireAuth.auth.currentUser!.photoURL!;
+    }
 
     return Drawer(
       key: const Key('drawer'),
