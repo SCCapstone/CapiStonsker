@@ -6,6 +6,7 @@
  */
 
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:capi_stonsker/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -44,6 +45,7 @@ class _SideMenuState extends State<SideMenu> {
   Widget build(BuildContext context) {
     var user = Provider.of<User?>(context);
     bool loggedin = user != null;
+    String image_url = FireAuth.auth.currentUser!.photoURL!;
 
     return Drawer(
       key: const Key('drawer'),
@@ -63,15 +65,20 @@ class _SideMenuState extends State<SideMenu> {
                   Align(
                       alignment: Alignment.centerLeft,
                       child: CircleAvatar(
+                        radius: 55,
                         backgroundColor: Colors.white,
-                        radius: 45,
-                      )
+                        child: CircleAvatar(
+                          foregroundImage: Image.network(image_url).image,
+                          backgroundColor: Colors.white,
+                          radius: 50,
+                        ),
+                      ),
                   ),
 
                   Align(
                       alignment: Alignment.centerRight,
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 10),
                         child:
                         FutureBuilder(
                             future: FireAuth.getName(),
@@ -87,12 +94,23 @@ class _SideMenuState extends State<SideMenu> {
                               }
                               if (snapshot.connectionState ==
                                   ConnectionState.done) {
-                                return Text(
-                                  "${snapshot.data}",
-                                  style: TextStyle(
-                                    fontFamily: 'Poppins',
-                                    fontSize: 25,
-                                  ),
+                                return Row(
+                                  textDirection: TextDirection.rtl,
+                                  children: <Widget>[
+                                    Container(
+                                      width: 150,
+                                      height: 75,
+                                        child: AutoSizeText(
+                                          "${snapshot.data}",
+                                          maxLines: 3,
+                                          textDirection: TextDirection.rtl,
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            fontSize: 25,
+                                          ),
+                                        ),
+                                    ),
+                                  ],
                                 );
                               }
                               else {
