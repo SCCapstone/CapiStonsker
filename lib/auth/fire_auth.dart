@@ -1,7 +1,7 @@
 /*
  * This page provides Firebase user authentication functionality,
  * which includes signing in or creating an account using
- * an email and password as well as Google sign in
+ * an email and password
  *
  * These functions are implemented on the log_in_page and
  * account_creation_page
@@ -11,10 +11,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
-import 'package:google_sign_in/google_sign_in.dart';
+
 
 //FirebaseAuth auth = FirebaseAuth.instance;
-GoogleSignIn googleSignIn = GoogleSignIn();
+
 
 
 class FireAuth {
@@ -81,23 +81,6 @@ class FireAuth {
   }
 
   //TODO Add list retrieves and friend subscription
-  // This method allows a user to sign in using their Google account
-  Future<String?> signInwithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleSignInAccount =
-      await googleSignIn.signIn();
-      final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount!.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleSignInAuthentication.accessToken,
-        idToken: googleSignInAuthentication.idToken,
-      );
-      await auth.signInWithCredential(credential);
-    } on FirebaseAuthException catch (e) {
-      print(e.message);
-      throw e;
-    }
-  }
 
   static Future<String> getEmail() async {
     return (await auth.currentUser)!.email!;
