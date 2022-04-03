@@ -7,6 +7,7 @@ import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
 import 'package:capi_stonsker/auth/edit_account_page.dart';
 import 'package:capi_stonsker/main.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
@@ -25,37 +26,13 @@ class AccountPage extends StatefulWidget {
 
 
   class _AccountPageState extends State<AccountPage> {
-
-    String getBadge() {
-      int amount = locs.visited.length.toInt();
-      String badge="";
-      if(amount>=0&&amount<=414){
-        badge="Novice";
-      }
-      if(amount>=415&&amount<=1034){
-        badge="Intermediate";
-      }
-      if(amount>=1035&&amount<=2064){
-        badge="Advanced";
-      }
-      if(amount>=2065&&amount<=3094){
-        badge="Expert";
-      }
-      if(amount>=3095&&amount<=4130){
-        badge="Legend";
-      }
-      if(amount==4131){
-        badge="Capistonktastic";
-      }
-      return badge;
-
-    }
     GlobalKey<_AccountPageState> key = GlobalKey();
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
     final ImagePicker _picker = ImagePicker();
     String image_url = FireAuth.auth.currentUser!.photoURL!;
+    final user = FireAuth.auth.currentUser;
 
-  @override
+    @override
   Widget build(BuildContext context) {
 
     print(image_url);
@@ -199,7 +176,7 @@ class AccountPage extends StatefulWidget {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
                       child: Text(
-                          getBadge(),
+                          FireAuth.getBadge(),
                         style: TextStyle(
                             fontSize: 20,
                           color: Colors.black
@@ -228,7 +205,7 @@ class AccountPage extends StatefulWidget {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
                       child: Text(
-                        'Bio personalization will be implemented soon!',
+                        FireAuth.getBio(),
                         style: TextStyle(
                             fontSize: 20
                         ),

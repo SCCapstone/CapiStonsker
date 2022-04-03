@@ -73,73 +73,8 @@ class _SignUp extends State<SignUp> {
               ),
             ),
           ),
-          /*Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Container(
-              height: 50,
-              width: 500,
-              decoration: BoxDecoration(
-                  color: Colors.blueGrey,
-                  borderRadius: BorderRadius.circular(20)),
-              child: TextButton(
-                onPressed: () async {
-                  User? user = await FireAuth.signInWithGoogle(context: context);
-                  if(user!=null){
-                    Navigator.of(context).pop();
-                    await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => AccountPage(),
-                      ),
-                    );
-                  }
-                  else if(user==null){
-                    showDialog(
-                      context: context,
-                      builder: (ctx) => AlertDialog(
-                        title: Text("Login Failed. Please try again."),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(ctx).pop();
-                            },
-                            child: Text('Okay'),
-                          )
-                        ],
-                      ),
-                    );
-                  }
-                  /*try {
-                    await FireAuth.signInWithGoogle(context: context) ;
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop();
-                  } on FirebaseAuthException catch (e) {
-                    showDialog(
-                      context: context,
-                      builder: (ctx) =>
-                          AlertDialog(
-                            title: Text("Login Failed. Please try again."),
-                            content: Text('${e.message}'),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(ctx).pop();
-                                },
-                                child: Text('Okay'),
-                              )
-                            ],
-                          ),
-                    );
-                    print(e);
-                  }*/
-                },
-                child: Text(
-                  'Log in with Google',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
-                ),
-              ),
-            ),
-          ),
-          */
+
+
 
           Padding(
               padding: EdgeInsets.all(10.0),
@@ -164,3 +99,6 @@ class _SignUp extends State<SignUp> {
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
   }}
+
+
+
