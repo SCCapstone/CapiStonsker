@@ -76,7 +76,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
             () =>
             Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => MyHomePage(points: path,show: true, popup: true))));
+                MaterialPageRoute(builder: (_) => MyHomePage(points: path,show: true, popup: true, duration: -1.0, distance: -1.0,))));
   }
 
   @override
@@ -87,16 +87,27 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
     return Column(
       children: [
         Container(
-          height: 600,
+          height: 550,
           child: Material(
               color: Colors.black,
               child: Center(child: Image.asset('assets/image/logo.png')),
           ),
         ),
-        CircularProgressIndicator(
-          value: _controller.value,
-          semanticsLabel: 'Linear progress indicator',
+        Container(
+          margin: EdgeInsets.all(20),
+          child: SizedBox(
+            height: 60,
+            width: 60,
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.grey,
+              color: Colors.blueGrey,
+              strokeWidth: 8,
+            ),
+          ),
         ),
+
+
+
       ],
 
     );

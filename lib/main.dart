@@ -34,6 +34,8 @@ SharedPreferences sharedPreferences = SharedPreferences.getInstance() as SharedP
 // Global for access across pages
 List<CameraDescription> cameras = [];
 List<latLng.LatLng> path = [];
+double dur = 0.0;
+double dist = 0.0;
 
 Future<void> main() async{
 
@@ -90,7 +92,9 @@ class MyHomePage extends StatefulWidget {
   bool show;
   bool popup;
   List<LatLng> points;
-  MyHomePage({Key? key, required this.points, required this.show, required this.popup}) : super(key: key);
+  double distance;
+  double duration;
+  MyHomePage({Key? key, required this.points, required this.show, required this.popup, required this.distance, required this.duration}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -225,53 +229,102 @@ class _MyHomePageState extends State<MyHomePage> {
                   points: path,
               )
           ),
+
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(10.0),
             child: Container(
               child: (path.isNotEmpty )
-              ?Column(
+              ?Row(
                 children: [
                   Container(
-                    alignment: Alignment.topRight,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.blueGrey,
-                      radius: 25,
-                      child: IconButton(
-                        //key: widget.menu_button,
-                        //tooltip: 'Open Menu',
-                        icon: Icon(Icons.my_location),
-                        color: Colors.white,
-                        iconSize: 35,
-                        onPressed: (){
-                          setState(() {
-                            mapController.move(locs.userPos, 15);
-                          });
-
-                        },
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                    alignment: Alignment.topLeft,
                     child: Container(
-                      alignment: Alignment.topRight,
-                      child: CircleAvatar(
-                        backgroundColor: Colors.blueGrey,
-                        radius: 25,
-                        child: IconButton(
-                          //key: widget.menu_button,
-                          //tooltip: 'Open Menu',
-                          icon: Icon(Icons.clear),
+                        height: MediaQuery.of(context).size.height/10,
+                        width: MediaQuery.of(context).size.width/1.75,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
                           color: Colors.white,
-                          iconSize: 35,
-                          onPressed: (){
-                            setState(() {
-                              path = [];
-                            });
-
-                          },
+                        ),
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Distance: ' + (dist+widget.distance).toString() + ' miles',
+                                  style: TextStyle(fontSize: 18),
+                                  textAlign: TextAlign.left,
+                                  overflow: TextOverflow.fade,
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'Duration: ' + (dur+widget.duration).toString() + ' min',
+                                  style: TextStyle(fontSize: 18),
+                                  textAlign: TextAlign.left,
+                                  overflow: TextOverflow.fade,
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
+
+
+                  ),
+                  Spacer(),
+                  Container(
+                    alignment: Alignment.topRight,
+                    child: Column(
+                      children: [
+                        Container(
+                          child: CircleAvatar(
+                            backgroundColor: Colors.blueGrey,
+                            radius: 25,
+                            child: IconButton(
+                              //key: widget.menu_button,
+                              //tooltip: 'Open Menu',
+                              icon: Icon(Icons.my_location),
+                              color: Colors.white,
+                              iconSize: 35,
+                              onPressed: (){
+                                setState(() {
+                                  mapController.move(locs.userPos, 15);
+                                });
+
+                              },
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                          child: Container(
+                            alignment: Alignment.topRight,
+                            child: CircleAvatar(
+                              backgroundColor: Colors.blueGrey,
+                              radius: 25,
+                              child: IconButton(
+                                //key: widget.menu_button,
+                                //tooltip: 'Open Menu',
+                                icon: Icon(Icons.clear),
+                                color: Colors.white,
+                                iconSize: 35,
+                                onPressed: (){
+                                  setState(() {
+                                    path = [];
+                                    dist = 0.0;
+                                    dur = 0.0;
+                                  });
+
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
