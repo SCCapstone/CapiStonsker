@@ -73,7 +73,7 @@ class _SignUp extends State<SignUp> {
               ),
             ),
           ),
-          /*Padding(
+          Padding(
             padding: EdgeInsets.all(10.0),
             child: Container(
               height: 50,
@@ -81,65 +81,9 @@ class _SignUp extends State<SignUp> {
               decoration: BoxDecoration(
                   color: Colors.blueGrey,
                   borderRadius: BorderRadius.circular(20)),
-              child: TextButton(
-                onPressed: () async {
-                  User? user = await FireAuth.signInWithGoogle(context: context);
-                  if(user!=null){
-                    Navigator.of(context).pop();
-                    await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => AccountPage(),
-                      ),
-                    );
-                  }
-                  else if(user==null){
-                    showDialog(
-                      context: context,
-                      builder: (ctx) => AlertDialog(
-                        title: Text("Login Failed. Please try again."),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(ctx).pop();
-                            },
-                            child: Text('Okay'),
-                          )
-                        ],
-                      ),
-                    );
-                  }
-                  /*try {
-                    await FireAuth.signInWithGoogle(context: context) ;
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop();
-                  } on FirebaseAuthException catch (e) {
-                    showDialog(
-                      context: context,
-                      builder: (ctx) =>
-                          AlertDialog(
-                            title: Text("Login Failed. Please try again."),
-                            content: Text('${e.message}'),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(ctx).pop();
-                                },
-                                child: Text('Okay'),
-                              )
-                            ],
-                          ),
-                    );
-                    print(e);
-                  }*/
-                },
-                child: Text(
-                  'Log in with Google',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
-                ),
+              child: GoogleSignIn()),
               ),
-            ),
-          ),
-          */
+
 
           Padding(
               padding: EdgeInsets.all(10.0),
@@ -164,3 +108,74 @@ class _SignUp extends State<SignUp> {
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
   }}
+
+class GoogleSignIn extends StatefulWidget {
+  GoogleSignIn({Key? key}) : super(key: key);
+
+  @override
+  _GoogleSignInState createState() => _GoogleSignInState();
+}
+
+class _GoogleSignInState extends State<GoogleSignIn> {
+  bool isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return  !isLoading? SizedBox(
+      width: size.width * 0.8,
+      child: OutlinedButton.icon(
+        icon: Icon (Icons.email_outlined),
+        onPressed: () async {
+          setState(() {
+            isLoading = true;
+          });
+          FireAuth service = new FireAuth();
+          try {
+            await service.signInwithGoogle();
+            await Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => AccountPage(),
+              ),
+            );
+          } catch(e){
+            if(e is FirebaseAuthException){
+              showMessage(e.message!);
+            }
+          }
+          setState(() {
+            isLoading = false;
+          });
+        },
+        label: Text(
+          "Sign in with Google",
+          style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+        style: ButtonStyle(
+            backgroundColor:
+            MaterialStateProperty.all<Color>(Colors.grey),
+            side: MaterialStateProperty.all<BorderSide>(BorderSide.none)),
+      ),
+    ) : CircularProgressIndicator();
+  }
+
+  void showMessage(String message) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Error"),
+            content: Text(message),
+            actions: [
+              TextButton(
+                child: Text("Ok"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
+}

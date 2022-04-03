@@ -82,40 +82,21 @@ class FireAuth {
 
   //TODO Add list retrieves and friend subscription
   // This method allows a user to sign in using their Google account
-  static Future<User?> signInWithGoogle({required BuildContext context}) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    User? user;
-
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-
-    final GoogleSignInAccount? googleSignInAccount =
-    await googleSignIn.signIn();
-
-    if (googleSignInAccount != null) {
+  Future<String?> signInwithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+      await googleSignIn.signIn();
       final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount.authentication;
-
+      await googleSignInAccount!.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
-
-      try {
-        final UserCredential userCredential =
-        await auth.signInWithCredential(credential);
-
-        user = userCredential.user;
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'account-exists-with-different-credential') {
-          print('Incorrect credentials.');
-        }
-        else if (e.code == 'invalid-credential') {
-          print('Invalid credentials');
-        }
-      }
+      await auth.signInWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+      throw e;
     }
-
-    return user;
   }
 
   static Future<String> getEmail() async {
