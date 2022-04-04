@@ -16,6 +16,7 @@ This is the simplest way to use our app and should be sufficient for testing pur
 * Click `Open AVD manager`
 * Click `create new virtual device`
 * Choose `Pixel 2` from Choose a device definition > Phone > Pixel 2, then click `next`
+* NOTE: If the app crashes upon opening, the default device may not have enough RAM. Instead of choosing Pixel 2 from the menu, create a new hardware profile with the Pixel 2 skin and more than the default 2 GB RAM
 * Choose `Pie` from Select a system image > Pie, then click `next`
 * Click `finish`
 Now you should have a working AVD emulator
