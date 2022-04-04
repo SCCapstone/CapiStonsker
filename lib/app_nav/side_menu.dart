@@ -1,15 +1,11 @@
 /*
  * The side menu, accessible at all times from the menu button at the
  * left of the bottom menu bar, allows a user to navigate throughout the app
- *
- * TODO pull user name, level, avatar, etc from Firebase to display at the top of the header.
  */
-
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:capi_stonsker/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/auth/account_page.dart';

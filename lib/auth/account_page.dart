@@ -1,13 +1,12 @@
-
 /*
  * This page displays a user's account information, pulled from Firebase.
  * Users will not be able to access this page unless they are logged in
  */
+
 import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
 import 'package:capi_stonsker/auth/edit_account_page.dart';
 import 'package:capi_stonsker/main.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
@@ -16,17 +15,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import '../auth/take_picture_screen.dart';
-import 'dart:math';
-
 
 class AccountPage extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     return _AccountPageState();
   }
 }
-
 
   class _AccountPageState extends State<AccountPage> {
     GlobalKey<_AccountPageState> key = GlobalKey();
@@ -42,8 +37,6 @@ class AccountPage extends StatefulWidget {
       image_url = FireAuth.auth.currentUser!.photoURL;
     }
 
-    //print(image_url);
-    //setState((){});
     return Scaffold(
       extendBody: true,
       key: _scaffoldKey,

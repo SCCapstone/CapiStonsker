@@ -39,24 +39,9 @@ class Marker {
     );
   }
 
-  /*
-    Can probably trim this down to just name/id since all
-    markers are originally from the imported markers list
-    (not changed)
-   */
   @override
   bool operator ==(Object other) {
     return (other is Marker) &&
-        other.id == id; //TODO May need to adjust back, needs testing
-        /*
-        other.name == name &&
-        other.rel_loc == rel_loc &&
-        other.desc == desc &&
-        other.county == county &&
-        //Can compare like this because there are only two elements
-        other.gps.first == gps.first &&
-        other.gps.last == gps.last;
-         */
+        other.id == id;
   }
-
 }

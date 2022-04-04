@@ -28,22 +28,9 @@ class _FriendsPageState extends State<FriendsPage>  {
 
   @override
   Widget build(BuildContext context) {
-
     //Gets stream of friends list
-    //var all_friends = Provider.of<List<Friend>?>(context);
     List<Friend> pending = [];
     List<Friend> friends = [];
-    //Filter friend list into pending and friends
-    /*
-    if (all_friends != null) {
-      all_friends.forEach((f) {
-        if (f.has_accepted == false)
-          pending.add(f);
-        else
-          friends.add(f);
-      });
-    }
-     */
 
     return Scaffold(
       extendBody: true,
@@ -96,12 +83,10 @@ class _FriendsPageState extends State<FriendsPage>  {
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
       //body: ,
     );
-
   }
 
   //List Builder
   Widget buildListDisplay(BuildContext context, List<Friend> pending, List<Friend> friends) {
-
     pending.sort((a,b) => a.pendingSort(b));
     List<Widget> pendingList = pending.map(
             (f) {
@@ -144,7 +129,6 @@ class _FriendsPageState extends State<FriendsPage>  {
               child: Text("Accept"),
               style: OutlinedButton.styleFrom(primary: Colors.blue),
               onPressed: (){
-                //TODO Firebase edits
                 forThis.update(<String, dynamic>{
                   'has_accepted': true,
                 });

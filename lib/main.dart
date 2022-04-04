@@ -2,19 +2,17 @@
  * This app was written by Matt Duggan, Joe Cammarata, James Davis,
  * Lauren Hodges, and Ian Urton
  *
- * We are currently in the Beta Release stage of app development
+ * We are currently in the Release Candidate 1 stage of app development
  *
  * This page is the one that opens on startup and contains a search bar,
  * map that displays historical markers, a tutorial for new users, and a
  * bottom navigation bar with links to a side menu and a list view of the markers
  */
 
-
 import 'package:camera/camera.dart';
 import 'package:capi_stonsker/ui/splash.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -23,8 +21,6 @@ import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:capi_stonsker/src/map_page.dart';
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
 import 'package:capi_stonsker/app_nav/side_menu.dart';
-import 'package:capi_stonsker/user_collections/friend.dart';
-import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:latlong2/latlong.dart' as latLng;
@@ -38,9 +34,6 @@ double dur = 0.0;
 double dist = 0.0;
 
 Future<void> main() async{
-
-
-
   //Ensures Firebase connection initialized
   WidgetsFlutterBinding.ensureInitialized();
   sharedPreferences = await SharedPreferences.getInstance();
@@ -119,23 +112,16 @@ class _MyHomePageState extends State<MyHomePage> {
   List<String> selectedCounties = [];
   int selectedList = 3;
 
-
-
   @override
   void initState() {
     if(widget.show == true) {
       Future.delayed(Duration.zero, showTutorial);
     }
-    MapController mapController = MapController();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
-    //String search_val = "";
-    //String searchKey;
-    //Stream streamQuery;
     return Scaffold(
       extendBody: true, //TODO change position of move to current loc button
       key: _scaffoldKey,
@@ -202,13 +188,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     } break;
                     case "Visited": {
                       selectedList = 2;
-
                     } break;
                     case "Wishlist": { selectedList = 1; } break;
                     default: { selectedList = 3; }
                   }
-
-
                 }),
               )
           )
@@ -221,7 +204,6 @@ class _MyHomePageState extends State<MyHomePage> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: MapPage(
-
                   list: selectedList,
                   counties: selectedCounties,
                   searchText: searchText,
@@ -273,8 +255,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ),
-
-
                   ),
                   Spacer(),
                   Container(
@@ -319,7 +299,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                     dist = 0.0;
                                     dur = 0.0;
                                   });
-
                                 },
                               ),
                             ),
@@ -360,9 +339,7 @@ class _MyHomePageState extends State<MyHomePage> {
         menu_button: menu_button,
         marker_list: marker_list,
       ),
-      //floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
-
   }
 
   AlertDialog countySelect() {
@@ -380,7 +357,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 isSelected: isSelected,
                 direction: Axis.vertical,
-                //selectedColor: Colors.lightBlueAccent,
               ),
             );
           }

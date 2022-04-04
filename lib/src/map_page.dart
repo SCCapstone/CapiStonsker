@@ -5,14 +5,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:location/location.dart' as locations;
 import 'package:latlong2/latlong.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:capi_stonsker/markers/marker_box.dart' as mBox;
 import 'package:capi_stonsker/markers/marker.dart' as mark;
 import 'package:user_location/user_location.dart';
-import 'package:latlong2/latlong.dart' as latLng;
-
 import '../main.dart';
 
 class MapPage extends StatefulWidget {
@@ -25,22 +22,19 @@ class MapPage extends StatefulWidget {
   List<LatLng> points;
   MapPage({Key? key, required this.points, required this.popup, required this.list, required this.counties, required this.searchText, required this.controller}) : super(key: key);
 
-
   @override
   _MapPageState createState() => _MapPageState();
 
   void updateList(int num) {
     this.list = num;
   }
-
-
 }
+
 class _MapPageState extends State<MapPage> {
   MapController mapController = MapController();
   late UserLocationOptions userLocationOptions;
 
   List<Marker> uloMarkers = []; //not sure what the UserLayerOptions marker list is for
-
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +78,6 @@ class _MapPageState extends State<MapPage> {
               )
             ]
         ),
-        //TODO This currently works, but let's try to find a way to have persistent lists instead of reconstructing every build call
         MarkerLayerOptions(
             markers:
                 List<Marker>.filled(1,
@@ -104,9 +97,7 @@ class _MapPageState extends State<MapPage> {
                           ),
                     )
                 ) + selectList().map((m) => mBox.createMapMarker(context, m, widget.popup, path)).toList(),
-
         ),
-
         userLocationOptions,
       ],
       mapController: widget.controller,

@@ -24,7 +24,6 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
@@ -87,13 +86,11 @@ class BottomNavBarHome extends StatefulWidget {
     Key? key1, required this.menu_button,
     Key? key2, required this.marker_list})
       : super(key: key);
-
   @override
   _BottomNavBarHomeState createState() => _BottomNavBarHomeState();
 }
 
 class _BottomNavBarHomeState extends State<BottomNavBarHome> {
-
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
