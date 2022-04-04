@@ -43,7 +43,7 @@ class AccountPage extends StatefulWidget {
     }
 
     //print(image_url);
-    setState((){});
+    //setState((){});
     return Scaffold(
       extendBody: true,
       key: _scaffoldKey,
@@ -143,38 +143,15 @@ class AccountPage extends StatefulWidget {
                     alignment: AlignmentDirectional(0, 0),
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                      child:
-                      FutureBuilder(
-                          future: FireAuth.getName(),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState == ConnectionState.done) {
-                              return Text(
-                                "${snapshot.data}",
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontSize: 25,
-                                ),
-                              );
-                            }
-                            else {
-                              return CircularProgressIndicator();
-                            }
-                          }
+                      child: Text(
+                        user!.email!,
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 25,
+                        ),
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: AlignmentDirectional(0.7, 0),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
-                      child: Icon(
-                        Icons.baby_changing_station,
-                        color: Colors.black,
-                        size: 24,
-                      ),
-                    ),
-                  ),
-
                   Align(
                     alignment: AlignmentDirectional(0.7, 0),
                     child: Padding(
@@ -196,9 +173,9 @@ class AccountPage extends StatefulWidget {
                   scrollDirection: Axis.vertical,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(10, 20, 0, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
                       child: Text(
-                        'About',
+                        'My Bio',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 20,
@@ -207,12 +184,26 @@ class AccountPage extends StatefulWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
-                      child: Text(
-                        FireAuth.getBio(),
-                        style: TextStyle(
-                            fontSize: 20
-                        ),
+                      padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 8),
+                      child:
+                      FutureBuilder(
+                          future: FireAuth.getBio(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.done) {
+                              String bio = "";
+                              if (snapshot.hasData)
+                                bio = "${snapshot.data}";
+                              return Text(
+                                bio,
+                                style: TextStyle(
+                                    fontSize: 20
+                                ),
+                              );
+                            }
+                            else {
+                              return CircularProgressIndicator();
+                            }
+                          }
                       ),
                     ),
                     ListTile(

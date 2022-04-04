@@ -20,7 +20,6 @@ import 'package:capi_stonsker/markers/locations.dart' as locs;
 class FireAuth {
   static FirebaseAuth auth = FirebaseAuth.instance;
   static User? user;
-  static String bio="";
 
 
   // This method allows a new user to sign up with email and password
@@ -111,8 +110,12 @@ class FireAuth {
         .length;
   }
 
-  static String getBio(){
-    return bio;
+  static Future<String> getBio() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(FireAuth.auth.currentUser!.uid)
+        .get();
+    return snapshot.get("bio");
   }
 
   static String getBadge() {
