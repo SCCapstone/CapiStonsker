@@ -12,15 +12,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 
-
-//FirebaseAuth auth = FirebaseAuth.instance;
-
-
-
 class FireAuth {
   static FirebaseAuth auth = FirebaseAuth.instance;
   static User? user;
-
 
   // This method allows a new user to sign up with email and password
   static Future<FirebaseAuthException?> registerUsingEmailPassword({
@@ -80,8 +74,6 @@ class FireAuth {
     //return user;
   }
 
-  //TODO Add list retrieves and friend subscription
-
   static Future<String> getEmail() async {
     return (await auth.currentUser)!.email!;
   }
@@ -92,7 +84,6 @@ class FireAuth {
     else
       return (await auth.currentUser)!.email!;
   }
-
 
   static void signOut() {
     FirebaseAuth.instance.signOut();
@@ -140,8 +131,5 @@ class FireAuth {
       badge="Capistonktastic";
     }
     return badge;
-
   }
-
 }
-

@@ -20,15 +20,7 @@ List<FAQ> faqs = [];//FAQ('q','a')];
 class FAQ {
   final String q;
   final String a;
-  //String id = "none";
-  FAQ(this.q, this.a);//, {this.id = "none"});
-  // factory FAQ.fromJson(dynamic json) {
-  //   return FAQ(
-  //       json['Question'] as String,
-  //       json['Answer'] as String,
-  //       id: json['id'] as String
-  //   );
-  // }
+  FAQ(this.q, this.a);
   String get_q() {
     return q;
   }

@@ -1,18 +1,14 @@
-
 /*
  * This page allows a user to log in to an existing account in Firebase
  */
 
 import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
-import 'package:capi_stonsker/auth/password_reset_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:capi_stonsker/auth/account_page.dart';
 import 'package:capi_stonsker/auth/sign_up_page.dart';
 import 'package:capi_stonsker/auth/fire_auth.dart';
-
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -134,25 +130,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             )
                           ]
                       ),
-                      /*Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                                key: const Key('changePassword'),
-                                child: Text("Forgot password?",
-                                    style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                        color: Colors.blueGrey)),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ForgotPass()),
-                                  );
-                                }
-                            )
-                          ]
-                      )*/
                     ],
                   ),
                 ),
@@ -188,12 +165,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       builder: (context) => AccountPage(),
                     ),
                   );
-
                   setState(() {
                     isloading = false;
                   });
                 }
-                //on FirebaseAuthException catch (e) {
                 else if (FireAuth.user==null){
                   showDialog(
                     context: context,
@@ -210,7 +185,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   );
-
                 }
                 setState(() {
                   isloading = false;
@@ -232,7 +206,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
 }
 
 const kTextFieldDecoration = InputDecoration(

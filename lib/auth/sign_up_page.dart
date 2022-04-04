@@ -4,10 +4,8 @@
 
 import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
-import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'account_page.dart';
 import 'email_creation_page.dart';
 import 'log_in_page.dart';
 
@@ -74,8 +72,6 @@ class _SignUp extends State<SignUp> {
             ),
           ),
 
-
-
           Padding(
               padding: EdgeInsets.all(10.0),
               child: GestureDetector(
@@ -92,13 +88,13 @@ class _SignUp extends State<SignUp> {
                           settings: RouteSettings(name: "/login"),
                           builder: (context) => LoginScreen()),
                     );
-                  }))
-        ]),
+                  })
+          )
+        ]
+        ),
       ),
       drawer: SideMenu(),
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
-  }}
-
-
-
+  }
+}

@@ -5,7 +5,6 @@
   The program can be run by using: flutter run lib/markers/load_markers.dart
  */
 
-
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -16,7 +15,6 @@ import 'package:firebase_core/firebase_core.dart';
 final db = FirebaseFirestore.instance.collection('Markers');
 int len = 0;
 List<Marker> markers = [];
-
 
 void main() async {
 //Ensures Firebase connection initialized
