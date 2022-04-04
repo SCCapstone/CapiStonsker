@@ -18,7 +18,6 @@ import 'package:capi_stonsker/markers/full_info.dart';
 import 'package:capi_stonsker/auth/fire_auth.dart';
 
 // Instance definition of Markers collection
-final db = FirebaseFirestore.instance.collection('Markers');
 int len = 0;
 List<Marker> markers = [];
 List<Marker> visited = [];
@@ -98,7 +97,7 @@ calcDist({double lat = 0.0, double long = 0.0}) {
 }
 
 getMarkers() async {
-  QuerySnapshot snapshot = await db.get();
+  QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('Markers').get();
   snapshot.docs.forEach((doc) {
     Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
     markers.add(Marker.fromJson(data));

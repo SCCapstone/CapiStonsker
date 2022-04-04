@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../main.dart';
 import 'account_page.dart';
 import 'fire_auth.dart';
@@ -93,12 +94,23 @@ class _EditAccount extends State<EditAccount> {
                       UpdateButton(
                           title: 'Update',
                           ontapp: () async {
+
                             auth.currentUser!.updateDisplayName(name);
-                            FireAuth.bio=bioV;
+
+                            FirebaseFirestore.instance
+                                .collection('Users')
+                                .doc(FireAuth.auth.currentUser!.uid)
+                                .set(<String, dynamic>{'bio': bioV});
+
                             await auth.currentUser!.reload();
                             Navigator.of(context).pop();
-
-
+                            Navigator.of(context).pop();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AccountPage()
+                                )
+                            );
 
 
                           }
