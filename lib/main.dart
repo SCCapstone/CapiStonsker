@@ -25,6 +25,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:latlong2/latlong.dart' as latLng;
 
+import 'auth/fire_auth.dart';
+
 SharedPreferences sharedPreferences = SharedPreferences.getInstance() as SharedPreferences;
 
 // Global for access across pages
@@ -114,7 +116,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    if(widget.show == true) {
+    // only show tutorial if user is going to home screen for the first time and is not logged in
+    if(widget.show == true && FireAuth.auth.currentUser == null) {
       Future.delayed(Duration.zero, showTutorial);
     }
     super.initState();
