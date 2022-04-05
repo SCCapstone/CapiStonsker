@@ -1,3 +1,4 @@
+![Readme header- our team logo](https://github.com/SCCapstone/CapiStonsker/blob/main/assets/image/logo.png?raw=true)
 # SC Interactive Historical Map by CapiStonsker
 
 For this project, we created a mobile Android application that showcases an intuitive user interface to to facilitate interaction with historical landmarks throughout the state of South Carolina. More information about the app can be found on our [GitHub Wiki](https://github.com/SCCapstone/CapiStonsker/wiki).
