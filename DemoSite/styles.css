@@ -1,0 +1,52 @@
+/* This is a stylesheet with all css specifications for elements in home.html and about.html
+ * I have included some undefined elements below to give an idea of some things that can be defined
+ */
+
+/* define properties for the body element */
+body {
+  
+}
+/* define properties for paragraphs */
+p {
+	
+}
+/* define properties for heading 1 text */
+h1 {
+  
+}
+/* define properties for lower headings */
+h2, h3, h4 {
+  
+}
+/* define an id called navbar */
+#navbar {
+  
+}
+/* define the properties of links within the navbar id */
+#navbar a {
+  
+}
+/* define the properties of visited links within the navbar id */
+#navbar a:link, a:visited {
+	
+}
+/* define the properties that are hovered over within the navbar id */
+#navbar a:hover {
+	
+}
+/* define the properties of active links within the navbar id */
+#navbar a.active {
+  
+}
+/* define a class called flex container*/
+.flex-container {
+  
+}
+/* define a class for links that have been visited */
+a:link, a:visited {
+  
+}
+/* define a class for links when the mouse hovers on them or they're active */
+a:hover, a:active {
+  
+}
