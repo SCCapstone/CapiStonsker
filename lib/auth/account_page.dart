@@ -136,12 +136,23 @@ class AccountPage extends StatefulWidget {
                     alignment: AlignmentDirectional(0, 0),
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                      child: Text(
-                        user!.email!,
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 25,
-                        ),
+                      child:
+                      FutureBuilder(
+                          future: FireAuth.getName(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.done) {
+                              return Text(
+                                "${snapshot.data}",
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 25,
+                                ),
+                              );
+                            }
+                            else {
+                              return CircularProgressIndicator();
+                            }
+                          }
                       ),
                     ),
                   ),
