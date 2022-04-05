@@ -5,16 +5,9 @@
 import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
 import 'package:capi_stonsker/auth/log_in_page.dart';
-import 'package:capi_stonsker/auth/password_reset_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:capi_stonsker/auth/account_page.dart';
 import 'package:capi_stonsker/auth/sign_up_page.dart';
-import 'package:capi_stonsker/auth/fire_auth.dart';
-
-
-
 
 class ForgotPass extends StatefulWidget {
   const ForgotPass({Key? key}) : super(key: key);
@@ -26,13 +19,11 @@ class ForgotPass extends StatefulWidget {
 class _ForgotPass extends State<ForgotPass> {
   final formkey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  //final _auth = FirebaseAuth.instance;
   String email = '';
   bool isloading = false;
   static String id = 'forgot-password';
   final String message =
       "An email has just been sent to you. Click the link provided to complete password reset";
-
   _passwordReset() async {
     try {
       formkey.currentState?.save();
@@ -48,7 +39,6 @@ class _ForgotPass extends State<ForgotPass> {
       print(e);
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +160,6 @@ class _ForgotPass extends State<ForgotPass> {
       ),
     );
   }
-
 }
 
 const kTextFieldDecoration = InputDecoration(

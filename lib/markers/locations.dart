@@ -6,8 +6,6 @@
  * This class should be imported using the suffix 'as locs'
  */
 
-//Imports only items used for creating the ListView
-import 'package:capi_stonsker/routing/navigation_page.dart';
 import 'package:flutter/cupertino.dart' show BuildContext, Icon, ListView, Navigator, Text, Widget;
 import 'package:flutter/material.dart' show IconButton, Icons, ListTile, MaterialPageRoute;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,7 +16,6 @@ import 'package:capi_stonsker/markers/full_info.dart';
 import 'package:capi_stonsker/auth/fire_auth.dart';
 
 // Instance definition of Markers collection
-final db = FirebaseFirestore.instance.collection('Markers');
 int len = 0;
 List<Marker> markers = [];
 List<Marker> visited = [];
@@ -36,11 +33,9 @@ LatLng userPos = LatLng(0,0);
 LatLng lastRecalc = LatLng(0,0);
 var distance = Distance(roundResult: false);
 
-
 getSearchResults(String SearchText) {
   searchRes = markers.where((s) => s.name.toLowerCase().contains(SearchText.toLowerCase())).toList();
 }
-
 
 //Stores user position
 updatePos(LatLng pos) {
@@ -62,7 +57,6 @@ updatePos(LatLng pos) {
     });
     //Sort nearby list by userDist
     nearby.sort((a,b) { return a.userDist.compareTo(b.userDist); });
-
   }
   //Recalculate distances to construct the nearby list every change in 2km (adjust this)
   if (distance(pos, lastRecalc) >= 2000) { //Default initialization of 0,0 means this will run on first update
@@ -98,7 +92,7 @@ calcDist({double lat = 0.0, double long = 0.0}) {
 }
 
 getMarkers() async {
-  QuerySnapshot snapshot = await db.get();
+  QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('Markers').get();
   snapshot.docs.forEach((doc) {
     Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
     markers.add(Marker.fromJson(data));
@@ -115,8 +109,6 @@ getWish() async {
         .get();
     snapshot.docs.forEach((doc) {
       wishlistID.add(doc.id);
-      //Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
-      //wishlist.add(Marker.fromJson(data));
     });
 
     //Match each ID to marker (only one match, no dupe IDs) and add marker to list
@@ -140,8 +132,6 @@ getVis() async {
         .get();
     snapshot.docs.forEach((doc) {
       visitedID.add(doc.id);
-      //Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
-      //visited.add(Marker.fromJson(data));
     });
 
     //Match each ID to marker (only one match, no dupe IDs) and add marker to list
@@ -167,17 +157,6 @@ addToWish(Marker m) {
           .collection('wishlist')
           .doc(m.id)
           .set(<String, dynamic>{'exists': true}); //.set must be used to create the new doc with an assigned name
-      /*
-          .doc(m.name)
-          .set(<String, dynamic>{
-            'name': m.name,
-            'rel_loc': m.rel_loc,
-            'desc': m.desc,
-            'gps': m.gps,
-            'county': m.county,
-      });
-      */
-
       wishlist.add(m);
       wishlistID.add(m.id);
     }
@@ -203,17 +182,7 @@ bool wishDupe(Marker m) {
   for (String e in wishlistID)
     if (m.id == e)
       return true;
-
   return false;
-
-  /*
-  for (Marker e in wishlist) {
-    if (e == m) {
-      return true;
-    }
-  } //Dupe is true if there is already that marker in the list
-  return false;
-   */
 }
 
 addToVisited(Marker m) {
@@ -227,17 +196,6 @@ addToVisited(Marker m) {
           .collection('visited')
           .doc(m.id)
           .set(<String, dynamic>{'exists': true}); //.set must be used to create the new doc with an assigned name
-      /*
-          .doc(m.name)
-          .set(<String, dynamic>{
-            'name': m.name,
-            'rel_loc': m.rel_loc,
-            'desc': m.desc,
-            'gps': m.gps,
-            'county': m.county,
-      });
-      */
-
       visited.add(m);
       visitedID.add(m.id);
     }
@@ -264,17 +222,7 @@ bool visitedDupe(Marker m) {
   for (String e in visitedID)
     if (m.id == e)
       return true;
-
   return false;
-
-  /*
-  for (Marker e in visited) {
-    if (e == m) {
-      return true;
-    }
-  } //Dupe is true if there is already that marker in the list
-  return false;
-  */
 }
 
 Widget buildListDisplay(BuildContext context, int num, String? searchString, {List<String>? counties}) {
@@ -286,13 +234,6 @@ Widget buildListDisplay(BuildContext context, int num, String? searchString, {Li
     calcDist(); //Updates userDist for markers list
     //Duplicates markers list
     pass = List.from(markers);
-    /*
-      TODO may want to create a "sorted" list like wishlist/markers
-      so the list does not need to be recreated, and small adjustments will not
-      result in reordering the entire list
-      Worst case of all items being resorted will only occur if user's
-      coordinates jump a far distance (or during output testing)
-     */
     //Sorts new list by closest distance
     pass.sort((a,b) { return a.userDist.compareTo(b.userDist); });
   }

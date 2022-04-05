@@ -1,8 +1,13 @@
+/*
+ * This page enables a user to edit their account and add a bio and profile picture
+ */
+
 import 'package:capi_stonsker/auth/take_picture_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../main.dart';
 import 'account_page.dart';
 import 'fire_auth.dart';
@@ -73,7 +78,6 @@ class _EditAccount extends State<EditAccount> {
                           decoration: kTextFieldDecoration.copyWith(
                             hintText: 'Enter Display Name',
                           )
-
                       ),
                       SizedBox(height: 30),
                       TextFormField(
@@ -85,7 +89,6 @@ class _EditAccount extends State<EditAccount> {
                           decoration: kTextFieldDecoration.copyWith(
                             hintText: 'Enter your bio',
                           )
-
                       ),
                       SizedBox(height: 40),
                       ProfilePictureButton(),
@@ -94,15 +97,20 @@ class _EditAccount extends State<EditAccount> {
                           title: 'Update',
                           ontapp: () async {
                             auth.currentUser!.updateDisplayName(name);
-                            FireAuth.bio=bioV;
+                            FirebaseFirestore.instance
+                                .collection('Users')
+                                .doc(FireAuth.auth.currentUser!.uid)
+                                .set(<String, dynamic>{'bio': bioV});
                             await auth.currentUser!.reload();
                             Navigator.of(context).pop();
-
-
-
-
+                            Navigator.of(context).pop();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AccountPage()
+                                )
+                            );
                           }
-
                       ),
                     ],
                   ),
@@ -115,7 +123,6 @@ class _EditAccount extends State<EditAccount> {
     );
   }
 }
-
 
 class UpdateButton extends StatelessWidget {
   final String title;
@@ -229,7 +236,6 @@ class ProfilePictureButton extends StatelessWidget {
     );
   }
 }
-
 
 const kTextFieldDecoration = InputDecoration(
   hintText: 'Enter a value',

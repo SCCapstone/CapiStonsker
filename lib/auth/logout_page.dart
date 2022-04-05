@@ -1,11 +1,8 @@
 /*
  * This is quite literally just a page to log out, for testing purposes.
- *
- * TODO This provides basic functionality and will be improved in the beta release
  */
 
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/auth/log_in_page.dart';
@@ -50,8 +47,6 @@ class LogoutPage extends StatelessWidget {
         child: ElevatedButton(
           onPressed: (() {
             FireAuth.signOut();
-            //Navigator.of(context).popUntil(ModalRoute.withName("/account"));
-
             Navigator.pop(context);
             Navigator.push(context,
                 MaterialPageRoute(
