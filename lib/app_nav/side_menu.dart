@@ -102,7 +102,46 @@ class _SideMenuState extends State<SideMenu> {
                       alignment: Alignment.centerRight,
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 10),
-                        child: (!loggedin) ? Text(
+                        child:
+                        FutureBuilder(
+                            future: FireAuth.getName(),
+                            builder: (context, snapshot) {
+                              if(user==null){
+                                return Text(
+                                  "Welcome!",
+                                  style: TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 25,
+                                  ),
+                                );
+                              }
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                return Row(
+                                  textDirection: TextDirection.rtl,
+                                  children: <Widget>[
+                                    Container(
+                                      width: 150,
+                                      height: 50,
+                                      child: AutoSizeText(
+                                        "${snapshot.data}",
+                                        maxLines: 3,
+                                        textDirection: TextDirection.rtl,
+                                        style: TextStyle(
+                                          fontFamily: 'Poppins',
+                                          fontSize: 25,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }
+                              else {
+                                return CircularProgressIndicator();
+                              }
+                            }
+                        ),
+                        /*child: (!loggedin) ? Text(
                           "Welcome!",
                           style: TextStyle(
                             fontFamily: 'Poppins',
@@ -125,7 +164,7 @@ class _SideMenuState extends State<SideMenu> {
                             ),
                           ),
                         ],
-                      ),
+                      ),*/
                     )
                   ),
                   Align(
