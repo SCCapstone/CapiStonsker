@@ -2,9 +2,14 @@
  * I have included some undefined elements below to give an idea of some things that can be defined
  */
 
-/* define properties for the body element */
+/* define properties for the body element
+ * hex code for our blue-grey is 607d8b (thinking for nav bar and accents)
+ * hex code for white is ffffff (main page color)
+ */
 body {
-  
+    background-color: #ffffff;
+    margin: 0px;
+    padding-bottom: 150px;
 }
 /* define properties for paragraphs */
 p {
@@ -18,13 +23,29 @@ h1 {
 h2, h3, h4 {
   
 }
+pTitle {
+    background-color: #607d8b;
+    margin: 0px;
+    font-weight: bold;
+    font-size: xx-large;
+    color: #ffffff;
+}
 /* define an id called navbar */
-#navbar {
-  
+navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    position: relative;
+    padding: 0px 5%;
+    background-color: #607d8b;
 }
 /* define the properties of links within the navbar id */
-#navbar a {
-  
+navbar a {
+    margin: 30px;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
 }
 /* define the properties of visited links within the navbar id */
 #navbar a:link, a:visited {
@@ -50,3 +71,4 @@ a:link, a:visited {
 a:hover, a:active {
   
 }
+
