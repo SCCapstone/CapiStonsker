@@ -4,10 +4,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:user_location/user_location.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 
-
 class NavPage extends StatefulWidget {
-
-
   const NavPage({Key? key}) : super(key: key);
 
   @override
@@ -31,8 +28,6 @@ class _NavPageState extends State<NavPage> {
                 Navigator.of(context).pop();
               }
           ),
-          //title: Text("Marker List Page"),
-
           backgroundColor: Colors.blueGrey,
 
         ),
@@ -94,7 +89,3 @@ class _NavPageState extends State<NavPage> {
     );
   }
 }
-
-
-
-

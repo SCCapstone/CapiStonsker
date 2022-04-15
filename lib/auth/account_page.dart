@@ -1,8 +1,8 @@
-
 /*
  * This page displays a user's account information, pulled from Firebase.
  * Users will not be able to access this page unless they are logged in
  */
+
 import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
 import 'package:capi_stonsker/auth/edit_account_page.dart';
@@ -16,17 +16,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import '../auth/take_picture_screen.dart';
-import 'dart:math';
-
 
 class AccountPage extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     return _AccountPageState();
   }
 }
-
 
   class _AccountPageState extends State<AccountPage> {
     GlobalKey<_AccountPageState> key = GlobalKey();
@@ -42,9 +38,6 @@ class AccountPage extends StatefulWidget {
       image_url = FireAuth.auth.currentUser!.photoURL;
     }
 
-
-    //print(image_url);
-    setState((){});
     return Scaffold(
       extendBody: true,
       key: _scaffoldKey,
@@ -167,18 +160,6 @@ class AccountPage extends StatefulWidget {
                   Align(
                     alignment: AlignmentDirectional(0.7, 0),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
-                      child: Icon(
-                        Icons.baby_changing_station,
-                        color: Colors.black,
-                        size: 24,
-                      ),
-                    ),
-                  ),
-
-                  Align(
-                    alignment: AlignmentDirectional(0.7, 0),
-                    child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
                       child: Text(
                           FireAuth.getBadge(),
@@ -197,9 +178,9 @@ class AccountPage extends StatefulWidget {
                   scrollDirection: Axis.vertical,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(10, 20, 0, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
                       child: Text(
-                        'About',
+                        'My Bio',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 20,
@@ -208,12 +189,26 @@ class AccountPage extends StatefulWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
-                      child: Text(
-                        FireAuth.getBio(),
-                        style: TextStyle(
-                            fontSize: 20
-                        ),
+                      padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 8),
+                      child:
+                      FutureBuilder(
+                          future: FireAuth.getBio(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.done) {
+                              String bio = "";
+                              if (snapshot.hasData)
+                                bio = "${snapshot.data}";
+                              return Text(
+                                bio,
+                                style: TextStyle(
+                                    fontSize: 20
+                                ),
+                              );
+                            }
+                            else {
+                              return CircularProgressIndicator();
+                            }
+                          }
                       ),
                     ),
                     ListTile(

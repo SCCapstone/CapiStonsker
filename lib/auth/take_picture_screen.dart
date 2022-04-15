@@ -1,12 +1,13 @@
+/*
+ * This file sets up the page where a user can take a picture for their profile
+ */
+
 import 'dart:io';
 import 'dart:math';
 import 'package:camera/camera.dart';
 import 'package:capi_stonsker/auth/account_page.dart';
 import 'package:capi_stonsker/auth/fire_auth.dart';
-import 'package:capi_stonsker/main.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -55,7 +56,6 @@ class TakePictureScreenState extends State<TakePictureScreen> {
     _controller.dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -125,15 +125,10 @@ class DisplayPictureScreen extends StatelessWidget {
       final String downloadUrl = await ref.getDownloadURL();
 
       // Update the UserPHOTO url
-      // await FirebaseFirestore.instance
-      //     .collection('Users')
-      //     .doc(FireAuth.auth.currentUser!.uid)
-      //     .set(<String, dynamic> {"photo_url": downloadUrl + "?v=" + r.nextInt(100000).toString()});
       FireAuth.auth.currentUser!.updatePhotoURL(downloadUrl + "?v=" + r.nextInt(100000).toString());
     } catch (e) {
       print('error occured');
     }
-
   }
 
   @override
@@ -159,13 +154,14 @@ class DisplayPictureScreen extends StatelessWidget {
                     child: new Text("Confirm"),
                     onPressed: () async {
                       uploadImageToFirebase(context);
-                      Navigator.pop(context);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AccountPage()
-                          )
-                      );
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //     builder: (context) => AccountPage()
+                      // )
+                      // );
                     }
                 ),
                 ElevatedButton(
@@ -174,10 +170,9 @@ class DisplayPictureScreen extends StatelessWidget {
                   ),
                   child: new Text("Retake"),
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.of(context).pop();
                   },
                 )
-
               ],
             )
           ],

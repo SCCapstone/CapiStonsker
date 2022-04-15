@@ -1,15 +1,11 @@
 /*
  * The side menu, accessible at all times from the menu button at the
  * left of the bottom menu bar, allows a user to navigate throughout the app
- *
- * TODO pull user name, level, avatar, etc from Firebase to display at the top of the header.
  */
-
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:capi_stonsker/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/auth/account_page.dart';
@@ -126,16 +122,16 @@ class _SideMenuState extends State<SideMenu> {
                                   children: <Widget>[
                                     Container(
                                       width: 150,
-                                      height: 75,
-                                        child: AutoSizeText(
-                                          "${snapshot.data}",
-                                          maxLines: 3,
-                                          textDirection: TextDirection.rtl,
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 25,
-                                          ),
+                                      height: 50,
+                                      child: AutoSizeText(
+                                        "${snapshot.data}",
+                                        maxLines: 3,
+                                        textDirection: TextDirection.rtl,
+                                        style: TextStyle(
+                                          fontFamily: 'Poppins',
+                                          fontSize: 25,
                                         ),
+                                      ),
                                     ),
                                   ],
                                 );
@@ -145,7 +141,31 @@ class _SideMenuState extends State<SideMenu> {
                               }
                             }
                         ),
-                      )
+                        /*child: (!loggedin) ? Text(
+                          "Welcome!",
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 25,
+                          ),
+                        ) : Row(
+                        textDirection: TextDirection.rtl,
+                        children: <Widget>[
+                          Container(
+                            width: 150,
+                            height: 75,
+                            child: AutoSizeText(
+                              user.email!,
+                              maxLines: 3,
+                              textDirection: TextDirection.rtl,
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 25,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),*/
+                    )
                   ),
                   Align(
                       alignment: Alignment.centerRight + Alignment(0,0.45),
@@ -201,6 +221,10 @@ class _SideMenuState extends State<SideMenu> {
                 // ...
                 // Then close the drawer
                 Navigator.pop(context);
+                Navigator.of(context).popUntil((route) => route.isFirst);
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+                ));
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -224,6 +248,10 @@ class _SideMenuState extends State<SideMenu> {
               // ...
               // Then close the drawer
               Navigator.pop(context);
+              Navigator.of(context).popUntil((route) => route.isFirst);
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+              ));
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -240,6 +268,10 @@ class _SideMenuState extends State<SideMenu> {
                 // ...
                 // Then close the drawer
                 Navigator.pop(context);
+                Navigator.of(context).popUntil((route) => route.isFirst);
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+                ));
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -264,6 +296,10 @@ class _SideMenuState extends State<SideMenu> {
                 // ...
                 // Then close the drawer
                 Navigator.pop(context);
+                Navigator.of(context).popUntil((route) => route.isFirst);
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+                ));
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -287,6 +323,10 @@ class _SideMenuState extends State<SideMenu> {
               // ...
               // Then close the drawer
               Navigator.pop(context);
+              Navigator.of(context).popUntil((route) => route.isFirst);
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+              ));
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -302,6 +342,10 @@ class _SideMenuState extends State<SideMenu> {
                 if(loggedin){
                   // user is logged in
                   Navigator.pop(context);
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+                  ));
                   Navigator.push(context,
                       MaterialPageRoute(
                           builder: (context) => LogoutPage()
@@ -311,6 +355,10 @@ class _SideMenuState extends State<SideMenu> {
                 else {
                   //no user is signed in
                   Navigator.pop(context);
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+                  ));
                   Navigator.push(context,
                       MaterialPageRoute(
                           builder: (context) => LoginScreen()

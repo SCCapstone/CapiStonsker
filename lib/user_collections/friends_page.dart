@@ -29,7 +29,6 @@ class _FriendsPageState extends State<FriendsPage>  {
 
   @override
   Widget build(BuildContext context) {
-
     //Gets stream of friends list
     List<Friend> pending = [];
     List<Friend> friends = [];
@@ -85,12 +84,10 @@ class _FriendsPageState extends State<FriendsPage>  {
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
       //body: ,
     );
-
   }
 
   //List Builder
   Widget buildListDisplay(BuildContext context, List<Friend> pending, List<Friend> friends) {
-
     pending.sort((a,b) => a.pendingSort(b));
     List<Widget> pendingList = pending.map(
             (f) {

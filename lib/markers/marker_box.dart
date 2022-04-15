@@ -10,12 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart' as f_map;
 import 'package:latlong2/latlong.dart' as latLng;
 import 'package:capi_stonsker/markers/full_info.dart';
-import 'package:mapbox_gl/mapbox_gl.dart';
 import '../main.dart';
 import 'marker.dart';
 import '../user_collections/fav_button.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
-import 'package:location/location.dart' as locations;
 import 'package:mapbox_gl/mapbox_gl.dart' as mapLL;
 
 class MarkerBox extends StatelessWidget {
@@ -110,8 +108,6 @@ f_map.Marker createMapMarker(BuildContext context, Marker m, bool popup, List<la
                           mapLL.LatLng(m.gps.first, m.gps.last * -1));
                     }
                     List<dynamic> geometry = response['routes'][0]['geometry']['coordinates'];
-
-
                     for (var i = 0; i<geometry.length;i++){
                       path.add(latLng.LatLng(geometry[i][1], geometry[i][0]));
                     }
@@ -124,17 +120,8 @@ f_map.Marker createMapMarker(BuildContext context, Marker m, bool popup, List<la
                     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
                         builder: (context) => MyHomePage(show: false, popup: false, points: path, duration: dur, distance: dist)
                     ), (route) => false);
-
-
-
-
-
                   }
-
-
                 },
-
-
           ),
         ),
   );

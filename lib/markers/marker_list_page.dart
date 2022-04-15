@@ -133,7 +133,6 @@ class _MarkerListPageState extends State<MarkerListPage> {
               },
               isSelected: isSelected,
               direction: Axis.vertical,
-              //selectedColor: Colors.lightBlueAccent,
             ),
           );
         }

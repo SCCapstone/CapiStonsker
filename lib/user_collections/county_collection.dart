@@ -53,9 +53,7 @@ class _CountyCollection extends State<CountyCollection> {
                 style: const TextStyle(fontSize: 10)
             ),
           ],
-
       )
     );
   }
 }
-

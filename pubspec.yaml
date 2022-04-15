@@ -101,9 +101,9 @@ flutter:
   assets:
     - assets/locations_full.json
     - assets/locations_richland.json
-    - assets/image/logo.png
-    - assets/image/marker.png
-    - assets/image/icon.png
+    - assets/image/logo.PNG
+    - assets/image/marker.PNG
+    - assets/image/icon.PNG
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

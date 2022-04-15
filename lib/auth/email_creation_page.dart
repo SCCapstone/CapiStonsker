@@ -1,6 +1,5 @@
 /*
  * This page allows a user to create an account using an email and password
- *
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -222,5 +221,3 @@ const kTextFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(7)),
   ),
 );
-
-

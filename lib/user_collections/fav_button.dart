@@ -20,7 +20,6 @@ class FavButton extends StatefulWidget {
 }
 
 class _FavButtonState extends State<FavButton> {
-
   @override
   Widget build(BuildContext context) {
     bool loggedIn = FireAuth.auth.currentUser != null;
