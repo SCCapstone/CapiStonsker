@@ -14,6 +14,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:capi_stonsker/user_collections/friend.dart';
+import 'package:capi_stonsker/user_collections/friends_vis.dart';
 import 'package:provider/provider.dart';
 
 class FriendsPage extends StatefulWidget {
@@ -106,6 +107,10 @@ class _FriendsPageState extends State<FriendsPage>  {
 
 //Creates ListTile widget from given Friend
   Widget _buildRow(BuildContext context, Friend f) {
+    return (f.has_accepted ? friendCard(f) : pendingCard(f));
+  }
+
+  Card pendingCard(Friend f) {
     DocumentReference forThis = FirebaseFirestore.instance
         .collection('Users')
         .doc(FireAuth.auth.currentUser!.uid)
@@ -117,48 +122,74 @@ class _FriendsPageState extends State<FriendsPage>  {
         .collection('friends')
         .doc(FireAuth.auth.currentUser!.email);
 
-    Widget subTitle;
-    if (f.has_accepted == false) {
-      if (f.from_me == true) {
-        subTitle = Text("Response pending...");
-      }
-      else { //f.from_me == false
-        subTitle = ButtonBar(
-          children: [
-            OutlinedButton(
-              child: Text("Accept"),
-              style: OutlinedButton.styleFrom(primary: Colors.blue),
-              onPressed: (){
-                forThis.update(<String, dynamic>{
-                  'has_accepted': true,
-                });
-                forOther.update(<String, dynamic>{
-                  'has_accepted': true,
-                });
-              },
-            ),
-            OutlinedButton(
-              child: Text("Deny"),
-              style: OutlinedButton.styleFrom(primary: Colors.red),
-              onPressed: (){
-                //Deletes for this user
-                forThis.delete();
-                //Deletes for other user
-                forOther.delete();
-              },
-            ),
-          ],
-        );
-      }
-    }
-    else { //TODO what to show here
-      subTitle = Text("Yay friends!");
-    }
-
     return Card(child: ListTile(
       title: Text(f.email),
-      subtitle: subTitle,
+      subtitle: (f.from_me) ? Text("Response pending...") : null,
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          IconButton(
+            icon: Icon(Icons.check_circle_outline),
+            color: Colors.blue,
+            onPressed: (){
+              forThis.update(<String, dynamic>{
+                'has_accepted': true,
+              });
+              forOther.update(<String, dynamic>{
+                'has_accepted': true,
+              });
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.cancel_outlined),
+            color: Colors.red,
+            onPressed: (){
+              //Deletes for this user
+              forThis.delete();
+              //Deletes for other user
+              forOther.delete();
+            },
+          ),
+        ],
+      )
     ));
+  }
+
+  Card friendCard(Friend f) {
+    return Card(child: ListTile(
+      title: Text(f.email),
+      subtitle: FutureBuilder(
+        future: getFriendVis(f.uid),
+        builder: (context, AsyncSnapshot<int> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+            return Text("${snapshot.data} markers visited!");
+          }
+          else {
+            return CircularProgressIndicator();
+          }
+        },
+      ),
+      trailing: IconButton(
+        icon: const Icon(Icons.arrow_forward),
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => FriendVisPage(fUID: f.uid)
+              )
+          );
+        },
+      ),
+    ));
+  }
+
+  Future<int> getFriendVis(String fUID) async {
+    var snap = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(fUID)
+        .collection('visited')
+        .get();
+    return snap.size;
   }
 
   AlertDialog addFriend() {

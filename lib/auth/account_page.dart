@@ -252,13 +252,22 @@ class AccountPage extends StatefulWidget {
                             fontSize: 20
                         ),
                       ),
-                      subtitle: Text(
-                        '0 friends', //TODO implement friends list
-                        style: TextStyle(
-                            fontSize: 20
-                        ),
+                      subtitle: FutureBuilder(
+                        future: getFriendNum(user!.uid),
+                        builder: (context, AsyncSnapshot<int> snapshot) {
+                          if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+                            return Text(
+                              "${snapshot.data!} added",
+                              style: TextStyle(
+                                  fontSize: 20
+                              ),
+                            );
+                          }
+                          else {
+                            return CircularProgressIndicator();
+                          }
+                        },
                       ),
-
                       tileColor: Color(0xFFF5F5F5),
                       dense: false,
                     ),
@@ -288,5 +297,14 @@ class AccountPage extends StatefulWidget {
         ),
       ),
     );
+  }
+
+  Future<int> getFriendNum(String uid) async {
+      var snap = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(uid)
+          .collection('friends')
+          .get();
+      return snap.size;
   }
 }
