@@ -163,7 +163,6 @@ class _SideMenuState extends State<SideMenu> {
                                   )
                               ),
                               TextSpan(
-                                //TODO update according to user
                                   text: "(${locs.visited.length.toString()}/4131)",
                                   style: TextStyle(
                                       color: Colors.white54,
