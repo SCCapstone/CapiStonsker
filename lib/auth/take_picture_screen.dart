@@ -154,13 +154,14 @@ class DisplayPictureScreen extends StatelessWidget {
                     child: new Text("Confirm"),
                     onPressed: () async {
                       uploadImageToFirebase(context);
-                      Navigator.pop(context);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AccountPage()
-                          )
-                      );
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //     builder: (context) => AccountPage()
+                      // )
+                      // );
                     }
                 ),
                 ElevatedButton(
@@ -169,7 +170,7 @@ class DisplayPictureScreen extends StatelessWidget {
                   ),
                   child: new Text("Retake"),
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.of(context).pop();
                   },
                 )
               ],
