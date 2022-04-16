@@ -1,7 +1,18 @@
-![Readme header- our team logo](https://github.com/SCCapstone/CapiStonsker/blob/main/assets/image/logo.png?raw=true)
+<p align="center">
+<img src="https://github.com/SCCapstone/CapiStonsker/blob/main/assets/image/logo.png?raw=true" width="400">
+</p>
+
 # SC Interactive Historical Map by CapiStonsker
 
 For this project, we created a mobile Android application that showcases an intuitive user interface to to facilitate interaction with historical landmarks throughout the state of South Carolina. More information about the app can be found on our [demo website](https://sccapstone.github.io/CapiStonsker/) and our [GitHub Wiki](https://github.com/SCCapstone/CapiStonsker/wiki).
+
+## Table of Contents
+1. [Description](https://github.com/SCCapstone/CapiStonsker#sc-interactive-historical-map-by-capistonsker)
+2. Deployment
+    1. [Emulator](https://github.com/SCCapstone/CapiStonsker#deployment--using-our-app-in-an-emulator)
+    2. [APK](https://github.com/SCCapstone/CapiStonsker#deployment--instructions-for-building-our-app)
+3. [Testing](https://github.com/SCCapstone/CapiStonsker#testing)
+4. [Authors](https://github.com/SCCapstone/CapiStonsker#authors)
 
 ## Deployment- Using our app in an emulator
 This is the simplest way to use our app and should be sufficient for testing purposes. If you need to have access to source code and run the app as a developer, see the "Instructions for running our app as a developer in a cloned repo" section below.
