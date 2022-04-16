@@ -1,3 +1,8 @@
+Table of Contents
+[Description](https://github.com/SCCapstone/CapiStonsker#sc-interactive-historical-map-by-capistonsker)
+[]()
+[]()
+
 ![Readme header- our team logo](https://github.com/SCCapstone/CapiStonsker/blob/main/assets/image/logo.png?raw=true)
 # SC Interactive Historical Map by CapiStonsker
 
