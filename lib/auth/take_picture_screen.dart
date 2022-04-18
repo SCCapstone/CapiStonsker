@@ -125,7 +125,7 @@ class DisplayPictureScreen extends StatelessWidget {
       final String downloadUrl = await ref.getDownloadURL();
 
       // Update the UserPHOTO url
-      FireAuth.auth.currentUser!.updatePhotoURL(downloadUrl + "?v=" + r.nextInt(100000).toString());
+      await FireAuth.auth.currentUser!.updatePhotoURL(downloadUrl + "?v=" + r.nextInt(100000).toString());
     } catch (e) {
       print('error occured');
     }
@@ -152,25 +152,19 @@ class DisplayPictureScreen extends StatelessWidget {
                         backgroundColor: MaterialStateProperty.all(Colors.blueGrey)
                     ),
                     child: new Text("Confirm"),
-                    onPressed: () async {
+                    onPressed: () {
                       uploadImageToFirebase(context);
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pop();
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //     builder: (context) => AccountPage()
-                      // )
-                      // );
+                      Navigator.of(context).pop(context);
+                      Navigator.of(context).pop(context);
                     }
                 ),
                 ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.blueGrey)
                   ),
-                  child: new Text("Retake"),
+                  child: new Text("Cancel"),
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Navigator.of(context).pop(context);
                   },
                 )
               ],
@@ -180,3 +174,4 @@ class DisplayPictureScreen extends StatelessWidget {
     );
   }
 }
+
