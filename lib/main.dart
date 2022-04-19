@@ -24,14 +24,18 @@ import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:latlong2/latlong.dart' as latLng;
-
+import 'package:url_launcher/url_launcher.dart';
 import 'auth/fire_auth.dart';
+import 'package:quiver/iterables.dart';
 
 SharedPreferences sharedPreferences = SharedPreferences.getInstance() as SharedPreferences;
 
 // Global for access across pages
 List<CameraDescription> cameras = [];
 List<latLng.LatLng> path = [];
+List<double> coords = [];
+List<double> waypointLats = [];
+List<double> waypointLngs = [];
 double dur = 0.0;
 double dist = 0.0;
 
@@ -87,9 +91,11 @@ class MyHomePage extends StatefulWidget {
   bool show;
   bool popup;
   List<LatLng> points;
+  List<double> waypointLat;
+  List<double> waypointLng;
   double distance;
   double duration;
-  MyHomePage({Key? key, required this.points, required this.show, required this.popup, required this.distance, required this.duration}) : super(key: key);
+  MyHomePage({Key? key, required this.waypointLat, required this.waypointLng, required this.points, required this.show, required this.popup, required this.distance, required this.duration}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -113,6 +119,8 @@ class _MyHomePageState extends State<MyHomePage> {
   List<bool> isSelected = List.filled(46, false);
   List<String> selectedCounties = [];
   int selectedList = 3;
+
+
 
   @override
   void initState() {
@@ -215,6 +223,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   controller: mapController,
                   popup: widget.popup,
                   points: path,
+                  waypointsLat: waypointLats,
+                  waypointsLng: waypointLngs,
                 )
             ),
 
@@ -295,6 +305,35 @@ class _MyHomePageState extends State<MyHomePage> {
                                 child: IconButton(
                                   //key: widget.menu_button,
                                   //tooltip: 'Open Menu',
+                                  icon: Icon(Icons.directions),
+                                  color: Colors.white,
+                                  iconSize: 35,
+                                  onPressed: (){
+                                    List<String> c = [];
+
+                                    for (var pair in zip([waypointLats, waypointLngs])) {
+                                      double lat = pair[0];
+                                      double lng = pair[1];
+                                      c.add("$lat,$lng");
+                                    }
+
+                                    String temp = c.join("|");
+                                    navigateTo(waypointLats[0], waypointLngs[0], temp);
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                            child: Container(
+                              alignment: Alignment.topRight,
+                              child: CircleAvatar(
+                                backgroundColor: Colors.blueGrey,
+                                radius: 25,
+                                child: IconButton(
+                                  //key: widget.menu_button,
+                                  //tooltip: 'Open Menu',
                                   icon: Icon(Icons.clear),
                                   color: Colors.white,
                                   iconSize: 35,
@@ -303,6 +342,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                       path = [];
                                       dist = 0.0;
                                       dur = 0.0;
+                                      waypointLats = [];
+                                      waypointLngs = [];
                                     });
                                   },
                                 ),
@@ -420,6 +461,16 @@ class _MyHomePageState extends State<MyHomePage> {
     )..show();
   }
 
+  static void navigateTo(double lat, double lng, String waypoints) async {
+    double userLat = locs.userPos.latitude;
+    double userLon = locs.userPos.longitude;
+    var uri = Uri.parse("https://www.google.com/maps/dir/?api=1&origin=$userLat,$userLon&destination=$lat,$lng&waypoints=$waypoints&travelmode=walking");
+    if (await canLaunch(uri.toString())) {
+      await launch(uri.toString());
+    } else {
+      throw 'Could not launch ${uri.toString()}';
+    }
+  }
   void initTargets() {
     targets.clear();
     targets.add(
