@@ -9,16 +9,10 @@
  * bottom navigation bar with links to a side menu and a list view of the markers
  */
 
-
-import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:capi_stonsker/ui/splash.dart';
-import 'package:capi_stonsker/user_collections/my_markers_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -126,19 +120,11 @@ class _MyHomePageState extends State<MyHomePage> {
     if(widget.show == true && FireAuth.auth.currentUser == null) {
       Future.delayed(Duration.zero, showTutorial);
     }
-
-    MapController mapController = MapController();
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
-
-    //String search_val = "";
-    //String searchKey;
-    //Stream streamQuery;
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -175,7 +161,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   hintText: 'Search for markers by name',
                   border: InputBorder.none,
-
                 ),
               ),
             ),
@@ -208,14 +193,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       } break;
                       case "Visited": {
                         selectedList = 2;
-
                       } break;
                       case "Wishlist": { selectedList = 1; } break;
                       default: { selectedList = 3; }
                     }
-
-
-
                   }),
                 )
             )
@@ -228,127 +209,64 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: MapPage(
-
-                    list: selectedList,
-                    counties: selectedCounties,
-                    searchText: searchText,
-                    controller: mapController,
-                    popup: widget.popup,
-                    points: path,
-                )
-            ),
-
-                  }).toList();
-                },
-                onChanged: (String? value) => setState(() {
-                  selectedDrop = value!;
-                  switch (value) {
-                    case "County": {
-                      showDialog<String>(
-                        context: context,
-                        builder: (BuildContext context) => countySelect(),
-                      );
-                    } break;
-                    case "Visited": {
-                      selectedList = 2;
-                    } break;
-                    case "Wishlist": { selectedList = 1; } break;
-                    default: { selectedList = 3; }
-                  }
-                }),
-              )
-          )
-        ],
-      ),
-
-      body:Stack(
-        children: [
-          Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: MapPage(
                   list: selectedList,
                   counties: selectedCounties,
                   searchText: searchText,
                   controller: mapController,
                   popup: widget.popup,
                   points: path,
-              )
-          ),
-
+                )
+            ),
 
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Container(
                 child: (path.isNotEmpty )
-                ?Row(
+                    ?Row(
                   children: [
                     Container(
                       alignment: Alignment.topLeft,
                       child: Container(
-                          height: MediaQuery.of(context).size.height/10,
-                          width: MediaQuery.of(context).size.width/1.75,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: Colors.white,
-                          ),
-                          child: Container(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Distance: ' + (dist+widget.distance).toString() + ' miles',
-                                    style: TextStyle(fontSize: MediaQuery.of(context).size.height/50),
-                                    textAlign: TextAlign.left,
-                                    overflow: TextOverflow.fade,
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    'Duration: ' + (dur+widget.duration).toString() + ' min',
-                                    style: TextStyle(fontSize: MediaQuery.of(context).size.height/50),
-                                    textAlign: TextAlign.left,
-                                    overflow: TextOverflow.fade,
-                                  ),
-                                ],
-                              ),
+                        height: MediaQuery.of(context).size.height/10,
+                        width: MediaQuery.of(context).size.width/1.75,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Colors.white,
+                        ),
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Distance: ' + (dist+widget.distance).toString() + ' miles',
+                                  style: TextStyle(fontSize: MediaQuery.of(context).size.height/50),
+                                  textAlign: TextAlign.left,
+                                  overflow: TextOverflow.fade,
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'Duration: ' + (dur+widget.duration).toString() + ' min',
+                                  style: TextStyle(fontSize: MediaQuery.of(context).size.height/50),
+                                  textAlign: TextAlign.left,
+                                  overflow: TextOverflow.fade,
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       ),
-                  ),
-                  Spacer(),
-                  Container(
-                    alignment: Alignment.topRight,
-                    child: Column(
-                      children: [
-                        Container(
-                          child: CircleAvatar(
-                            backgroundColor: Colors.blueGrey,
-                            radius: 25,
-                            child: IconButton(
-                              //key: widget.menu_button,
-                              //tooltip: 'Open Menu',
-                              icon: Icon(Icons.my_location),
-                              color: Colors.white,
-                              iconSize: 35,
-                              onPressed: (){
-                                setState(() {
-                                  mapController.move(locs.userPos, 15);
-                                });
-
-                              },
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                          child: Container(
-                            alignment: Alignment.topRight,
+                    ),
+                    Spacer(),
+                    Container(
+                      alignment: Alignment.topRight,
+                      child: Column(
+                        children: [
+                          Container(
                             child: CircleAvatar(
                               backgroundColor: Colors.blueGrey,
                               radius: 25,
@@ -362,6 +280,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   setState(() {
                                     mapController.move(locs.userPos, 15);
                                   });
+
                                 },
                               ),
                             ),
@@ -385,7 +304,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                       dist = 0.0;
                                       dur = 0.0;
                                     });
-
                                   },
                                 ),
                               ),
@@ -426,7 +344,6 @@ class _MyHomePageState extends State<MyHomePage> {
           menu_button: menu_button,
           marker_list: marker_list,
         ),
-        //floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       ),
     );
   }
