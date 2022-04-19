@@ -1,7 +1,14 @@
+
+import 'dart:convert';
+import 'dart:io';
+
 /*
  * This page is our splash screen, which displays while the app is loading
  */
 
+
+import 'package:capi_stonsker/ui/error.dart';
+import 'package:flutter/foundation.dart';
 import 'package:location/location.dart' as locations;
 import 'package:capi_stonsker/main.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +27,25 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
   late AnimationController _controller;
   late Animation<double> _animation;
+
+
+  bool? _isConnected;
+
+  Future<void> _checkInternetConnection() async {
+    try {
+      final response = await InternetAddress.lookup('www.github.com');
+      if (response.isNotEmpty) {
+        setState(() {
+          _isConnected = true;
+        });
+      }
+    } on SocketException catch (err) {
+      setState(() {
+        _isConnected = false;
+      });
+
+    }
+  }
 
   @override
   void initState() {
@@ -63,13 +89,28 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
     LatLng currentLatLng = LatLng(_locationData.latitude!, _locationData.longitude!);
     await locs.updatePos(ll.LatLng(_locationData.latitude!, _locationData.longitude!));
 
-    Future.delayed(
-        const Duration(microseconds: 1),
-            () =>
-            Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => MyHomePage(points: path,show: true, popup: true, duration: -1.0, distance: -1.0,))));
-  }
+
+    final response = await InternetAddress.lookup('www.github.com');
+    if(response.isNotEmpty){
+      Future.delayed(
+          const Duration(microseconds: 1),
+              () =>
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => MyHomePage(points: path,show: true, popup: true, duration: -1.0, distance: -1.0,))));
+
+    } else{
+      Future.delayed(
+          const Duration(microseconds: 1),
+              () =>
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => errorPage())));
+
+
+      }
+   }
+
 
   @override
   Widget build(BuildContext context) {
