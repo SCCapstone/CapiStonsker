@@ -74,7 +74,7 @@ class MarkerBox extends StatelessWidget {
   }
 }
 
-f_map.Marker createMapMarker(BuildContext context, Marker m, bool popup, List<latLng.LatLng> path) {
+f_map.Marker createMapMarker(BuildContext context, Marker m, bool popup, List<latLng.LatLng> path, List<double> waypointLat, List<double> waypointLng) {
 
   return f_map.Marker(
     rotate: true,
@@ -116,9 +116,13 @@ f_map.Marker createMapMarker(BuildContext context, Marker m, bool popup, List<la
                     dur = double.parse(dur.toStringAsFixed(2));
                     dist = double.parse(dist.toStringAsFixed(2));
 
-                    print(response['routes'][0]);
+                    latLng.LatLng coord = latLng.LatLng(m.gps.first, m.gps.last * -1);
+                    waypointLat.add(coord.latitude.toDouble());
+                    waypointLng.add(coord.longitude.toDouble());
+
+
                     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-                        builder: (context) => MyHomePage(show: false, popup: false, points: path, duration: dur, distance: dist)
+                        builder: (context) => MyHomePage(show: false, popup: false, waypointLat: waypointLat, waypointLng: waypointLng, points: path, duration: dur, distance: dist)
                     ), (route) => false);
                   }
                 },
