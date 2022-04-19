@@ -4,15 +4,13 @@
  *      https://github.com/Imperial-lord/mapbox-flutter
  *      2022 AB Satyaprakash
  */
+
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:capi_stonsker/main.dart';
 import '../requests/mapbox_requests.dart';
 
 Future<Map> getDirectionsAPIResponse(LatLng currentLatLng, int index) async {
-
-
-
   final response = await getWalkingRouteUsingMapbox(
       currentLatLng,
       LatLng(locs.nearby[index].gps[0],
@@ -22,8 +20,6 @@ Future<Map> getDirectionsAPIResponse(LatLng currentLatLng, int index) async {
   num duration = response['routes'][0]['duration'];
 
   num distance = response['routes'][0]['distance'];
-
-
 
   Map modifiedResponse = {
     "geometry": geometry,

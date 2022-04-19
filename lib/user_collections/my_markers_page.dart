@@ -1,8 +1,6 @@
 /*
  * This is a filler page that will eventually connect to firebase and display
  * the markers a user has visited
- *
- * TODO delete county_collection.dart once we add the actual functionality
  */
 
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';

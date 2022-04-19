@@ -2,26 +2,42 @@
  * This page displays a user's account information, pulled from Firebase.
  * Users will not be able to access this page unless they are logged in
  */
+
 import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
 import 'package:capi_stonsker/auth/edit_account_page.dart';
 import 'package:capi_stonsker/main.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 import '../auth/take_picture_screen.dart';
 
-class AccountPage extends StatelessWidget {
-
-  AccountPage({Key? key}) : super(key: key);
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  final ImagePicker _picker = ImagePicker();
-
-
+class AccountPage extends StatefulWidget {
   @override
+  State<StatefulWidget> createState() {
+    return _AccountPageState();
+  }
+}
+
+  class _AccountPageState extends State<AccountPage> {
+    GlobalKey<_AccountPageState> key = GlobalKey();
+    GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+    final ImagePicker _picker = ImagePicker();
+
+    @override
   Widget build(BuildContext context) {
+    var user = Provider.of<User?>(context);
+    bool loggedin = user != null;
+    String? image_url;
+    if (loggedin) {
+      image_url = FireAuth.auth.currentUser!.photoURL;
+    }
+
     return Scaffold(
       extendBody: true,
       key: _scaffoldKey,
@@ -31,7 +47,7 @@ class AccountPage extends StatelessWidget {
             icon: const Icon(Icons.arrow_back),
             color: Colors.white,
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).pop(context);
             }
         ),
         title: Text("Account Page"),
@@ -61,13 +77,13 @@ class AccountPage extends StatelessWidget {
                                       ElevatedButton(
                                         child: const Text('Take Picture'),
                                         onPressed: () => {
-                                            Navigator.pop(context),
-                                            Navigator.push(context,
+                                          Navigator.pop(context),
+                                          Navigator.push(context,
                                               MaterialPageRoute(
                                                   builder: (context) => TakePictureScreen(camera:
                                                   cameras.first)
                                               )
-                                            )
+                                          ).then((_) => setState(() {}))
                                         },
                                         style: ElevatedButton.styleFrom(
                                           primary: Colors.blueGrey,
@@ -77,7 +93,7 @@ class AccountPage extends StatelessWidget {
                                         child: const Text('Choose Photo from '
                                             'Library'),
                                         onPressed: () async {
-                                         // Try to take the picture
+                                          // Try to take the picture
                                           try {
                                             final gallery_image = await _picker
                                                 .pickImage(source: ImageSource
@@ -86,12 +102,12 @@ class AccountPage extends StatelessWidget {
                                             // If the picture was chosen display
                                             if (gallery_image != null)
                                               Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                builder: (context) => DisplayPictureScreen(
-                                                  imagePath: gallery_image.path,
+                                                MaterialPageRoute(
+                                                  builder: (context) => DisplayPictureScreen(
+                                                    imagePath: gallery_image.path,
+                                                  ),
                                                 ),
-                                              ),
-                                            );
+                                              ).then((_) => setState(() {}));
                                           } catch (e) {
                                             // If an error occurs, log the error to the console.
                                             print(e);
@@ -107,9 +123,7 @@ class AccountPage extends StatelessWidget {
                           );
                         },
                         child: Ink.image(
-                            //TODO: Make this user profile pictures
-                            image: Image.network( 'https://picsum'
-                                '.photos/seed/264/600').image,
+                            image: (loggedin && image_url != null) ? Image.network(image_url).image : Image.asset('assets/image/icon.png').image,
                             height: 120,
                             width: 120,
                             fit: BoxFit.cover
@@ -146,22 +160,12 @@ class AccountPage extends StatelessWidget {
                   Align(
                     alignment: AlignmentDirectional(0.7, 0),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
-                      child: Icon(
-                        Icons.baby_changing_station,
-                        color: Colors.black,
-                        size: 24,
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(0.7, 0),
-                    child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
                       child: Text(
-                        'Novice',
+                          FireAuth.getBadge(),
                         style: TextStyle(
-                            fontSize: 20
+                            fontSize: 20,
+                          color: Colors.black
                         ),
                       ),
                     ),
@@ -174,9 +178,9 @@ class AccountPage extends StatelessWidget {
                   scrollDirection: Axis.vertical,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(10, 20, 0, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
                       child: Text(
-                        'About',
+                        'My Bio',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 20,
@@ -185,12 +189,26 @@ class AccountPage extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
-                      child: Text(
-                        'Bio personalization will be implemented soon!',
-                        style: TextStyle(
-                            fontSize: 20
-                        ),
+                      padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 8),
+                      child:
+                      FutureBuilder(
+                          future: FireAuth.getBio(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.done) {
+                              String bio = "";
+                              if (snapshot.hasData)
+                                bio = "${snapshot.data}";
+                              return Text(
+                                bio,
+                                style: TextStyle(
+                                    fontSize: 20
+                                ),
+                              );
+                            }
+                            else {
+                              return CircularProgressIndicator();
+                            }
+                          }
                       ),
                     ),
                     ListTile(
@@ -206,11 +224,7 @@ class AccountPage extends StatelessWidget {
                             fontSize: 20
                         ),
                       ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        color: Color(0xFF303030),
-                        size: 20,
-                      ),
+
                       tileColor: Color(0xFFF5F5F5),
                       dense: false,
                     ),
@@ -227,11 +241,7 @@ class AccountPage extends StatelessWidget {
                             fontSize: 20
                         ),
                       ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        color: Color(0xFF303030),
-                        size: 20,
-                      ),
+
                       tileColor: Color(0xFFF5F5F5),
                       dense: false,
                     ),
@@ -242,16 +252,21 @@ class AccountPage extends StatelessWidget {
                             fontSize: 20
                         ),
                       ),
-                      subtitle: Text(
-                        '0 friends', //TODO implement friends list
-                        style: TextStyle(
-                            fontSize: 20
-                        ),
-                      ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        color: Color(0xFF303030),
-                        size: 20,
+                      subtitle: FutureBuilder(
+                        future: getFriendNum(user!.uid),
+                        builder: (context, AsyncSnapshot<int> snapshot) {
+                          if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+                            return Text(
+                              "${snapshot.data!} added",
+                              style: TextStyle(
+                                  fontSize: 20
+                              ),
+                            );
+                          }
+                          else {
+                            return CircularProgressIndicator();
+                          }
+                        },
                       ),
                       tileColor: Color(0xFFF5F5F5),
                       dense: false,
@@ -270,7 +285,7 @@ class AccountPage extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => EditAccount()),
-                                );
+                                ).then((_) => setState(() {}));
                               })
                         ]
                     ),
@@ -282,5 +297,14 @@ class AccountPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<int> getFriendNum(String uid) async {
+      var snap = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(uid)
+          .collection('friends')
+          .get();
+      return snap.size;
   }
 }

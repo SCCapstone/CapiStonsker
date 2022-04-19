@@ -14,6 +14,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:capi_stonsker/user_collections/friend.dart';
+import 'package:capi_stonsker/user_collections/friends_vis.dart';
 import 'package:provider/provider.dart';
 
 class FriendsPage extends StatefulWidget {
@@ -28,22 +29,9 @@ class _FriendsPageState extends State<FriendsPage>  {
 
   @override
   Widget build(BuildContext context) {
-
     //Gets stream of friends list
-    //var all_friends = Provider.of<List<Friend>?>(context);
     List<Friend> pending = [];
     List<Friend> friends = [];
-    //Filter friend list into pending and friends
-    /*
-    if (all_friends != null) {
-      all_friends.forEach((f) {
-        if (f.has_accepted == false)
-          pending.add(f);
-        else
-          friends.add(f);
-      });
-    }
-     */
 
     return Scaffold(
       extendBody: true,
@@ -83,10 +71,14 @@ class _FriendsPageState extends State<FriendsPage>  {
           if (!snapshot.hasData) return new Text('Loading...');
             var allfriends = snapshot.data!.docs.map((doc) => Friend.fromFirestore(doc)).toList();
             allfriends.forEach((f) {
-              if (f.has_accepted == false)
-                pending.add(f);
-              else
-                friends.add(f);
+              if (f.has_accepted == false) {
+                if (!pending.contains(f))
+                  pending.add(f);
+              }
+              else {
+                if(!friends.contains(f))
+                  friends.add(f);
+              }
             });
             return buildListDisplay(context, pending, friends);
         },
@@ -96,12 +88,10 @@ class _FriendsPageState extends State<FriendsPage>  {
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
       //body: ,
     );
-
   }
 
   //List Builder
   Widget buildListDisplay(BuildContext context, List<Friend> pending, List<Friend> friends) {
-
     pending.sort((a,b) => a.pendingSort(b));
     List<Widget> pendingList = pending.map(
             (f) {
@@ -121,6 +111,10 @@ class _FriendsPageState extends State<FriendsPage>  {
 
 //Creates ListTile widget from given Friend
   Widget _buildRow(BuildContext context, Friend f) {
+    return (f.has_accepted ? friendCard(f) : pendingCard(f));
+  }
+
+  Card pendingCard(Friend f) {
     DocumentReference forThis = FirebaseFirestore.instance
         .collection('Users')
         .doc(FireAuth.auth.currentUser!.uid)
@@ -132,54 +126,84 @@ class _FriendsPageState extends State<FriendsPage>  {
         .collection('friends')
         .doc(FireAuth.auth.currentUser!.email);
 
-    Widget subTitle;
-    if (f.has_accepted == false) {
-      if (f.from_me == true) {
-        subTitle = Text("Response pending...");
-      }
-      else { //f.from_me == false
-        subTitle = ButtonBar(
-          children: [
-            OutlinedButton(
-              child: Text("Accept"),
-              style: OutlinedButton.styleFrom(primary: Colors.blue),
-              onPressed: (){
-                //TODO Firebase edits
+    return Card(child: ListTile(
+      title: Text(f.email),
+      subtitle: (f.from_me) ? Text("Response pending...") : null,
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          IconButton(
+            icon: (f.from_me) ? Icon(Icons.check_circle) : Icon(Icons.check_circle_outline),
+            color: Colors.blue,
+            onPressed: (){
+              if (!f.from_me) {
                 forThis.update(<String, dynamic>{
                   'has_accepted': true,
                 });
                 forOther.update(<String, dynamic>{
                   'has_accepted': true,
                 });
-              },
-            ),
-            OutlinedButton(
-              child: Text("Deny"),
-              style: OutlinedButton.styleFrom(primary: Colors.red),
-              onPressed: (){
-                //Deletes for this user
-                forThis.delete();
-                //Deletes for other user
-                forOther.delete();
-              },
-            ),
-          ],
-        );
-      }
-    }
-    else { //TODO what to show here
-      subTitle = Text("Yay friends!");
-    }
+                setState(() { });
+              }
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.cancel_outlined),
+            color: Colors.red,
+            onPressed: (){
+              //Deletes for this user
+              forThis.delete();
+              //Deletes for other user
+              forOther.delete();
+              setState(() { });
+            },
+          ),
+        ],
+      )
+    ));
+  }
 
+  Card friendCard(Friend f) {
     return Card(child: ListTile(
       title: Text(f.email),
-      subtitle: subTitle,
+      subtitle: FutureBuilder(
+        future: getFriendVis(f.uid),
+        builder: (context, AsyncSnapshot<int> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+            return Text("${snapshot.data} markers visited!");
+          }
+          else {
+            return CircularProgressIndicator();
+          }
+        },
+      ),
+      trailing: IconButton(
+        icon: const Icon(Icons.arrow_forward),
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => FriendVisPage(fUID: f.uid)
+              )
+          );
+        },
+      ),
     ));
+  }
+
+  Future<int> getFriendVis(String fUID) async {
+    var snap = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(fUID)
+        .collection('visited')
+        .get();
+    return snap.size;
   }
 
   AlertDialog addFriend() {
     User? user = Provider.of<User?>(context);
     bool logged_in = user != null;
+    final _emailAdd = GlobalKey<FormState>();
 
     String email = "";
     return AlertDialog(
@@ -188,17 +212,10 @@ class _FriendsPageState extends State<FriendsPage>  {
           builder: (BuildContext context, StateSetter setState) {
             return SingleChildScrollView(
               child: TextFormField(
+                key: _emailAdd,
                 keyboardType: TextInputType.emailAddress,
                 onChanged: (value) {
                   email = value;
-                },
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Please enter an Email.";
-                  }
-                  if (logged_in && value == user.email) {
-                    return "You cannot add yourself as a friend.";
-                  }
                 },
                 textAlign: TextAlign.center,
               ),
@@ -215,17 +232,43 @@ class _FriendsPageState extends State<FriendsPage>  {
           ),
           onPressed: () async {
             //Query Firebase for user with that email
-            QuerySnapshot snapshot = await FirebaseFirestore.instance
+            QuerySnapshot userDupe = await FirebaseFirestore.instance
                 .collection('Users')
                 .where("email", isEqualTo: email)
                 .get();
-            bool userExists = snapshot.docs.length == 1; //No duplicate emails, so as long as one exists
+            QuerySnapshot friendDupeSnap = await FirebaseFirestore.instance
+                .collection('Users')
+                .doc(FireAuth.auth.currentUser!.uid)
+                .collection('friends')
+                .get();
+            //No duplicate emails, so as long as one user with it exists then it is that user
+            List<Friend> friendDupeList = friendDupeSnap.docs.map((doc) =>
+                Friend.fromFirestore(doc)).toList();
 
-            setState(() {
-              //If email is contained, call setState
-              if (userExists) {
-                if (logged_in) {
-                  String uid = snapshot.docs[0].id; //uid of that email
+            String error = "";
+            bool userValid = false;
+            if (email.isEmpty) {
+              error = "Please enter an email.";
+            }
+            else if (logged_in && email == user.email) {
+              error = "You cannot add yourself as a friend.";
+            }
+            else if (!(userDupe.docs.length == 1)) {
+              error = "This email is not associated with an account.";
+            }
+            else if (friendDupeList.any((element) => element.email == email)) {
+              error =
+              "This user is already on your Friends list, or a response is pending.";
+            }
+            else {
+              userValid = true;
+            }
+
+            //If email is contained, call setState
+            if (userValid) {
+              if (logged_in) {
+                setState(() {
+                  String uid = userDupe.docs[0].id; //uid of that email
                   //Add R to S's friend list
                   FirebaseFirestore.instance
                       .collection('Users')
@@ -233,10 +276,10 @@ class _FriendsPageState extends State<FriendsPage>  {
                       .collection('friends')
                       .doc(email)
                       .set(<String, dynamic>{
-                        'from_me': true,
-                        'has_accepted': false,
-                        'uid': uid,
-                      });
+                    'from_me': true,
+                    'has_accepted': false,
+                    'uid': uid,
+                  });
                   //Add S to R's friend list
                   FirebaseFirestore.instance
                       .collection('Users')
@@ -248,19 +291,22 @@ class _FriendsPageState extends State<FriendsPage>  {
                     'has_accepted': false,
                     'uid': FireAuth.auth.currentUser!.uid,
                   });
-                }
-                Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                });
               }
-              else {
+            }
+            else {
+              setState(() {
                 showDialog(context: context, builder: (context) {
                   return new SimpleDialog(
                       children: <Widget>[
-                        new Center(child: new Container(child: new Text('Not a valid user.')))
+                        new Center(child: new Container(child: new Text(
+                            'Invalid. ' + error)))
                       ]);
                 });
-              }
-            });
-          },
+              });
+            }
+          }
         ),
       ],
     );

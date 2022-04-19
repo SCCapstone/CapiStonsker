@@ -1,9 +1,8 @@
+/*
+ * This page creates a friend object to build friend functionality for app
+ */
 
-import 'package:flutter/cupertino.dart' show BuildContext, Icon, ListView, Navigator, Text, Widget;
-import 'package:flutter/material.dart';// show IconButton, Icons, ListTile, MaterialPageRoute, ButtonBar;
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-
 
 class Friend extends Comparable {
   final String email;
@@ -37,4 +36,15 @@ class Friend extends Comparable {
     }
   }
 
+  @override
+  bool operator ==(other) {
+    Friend o = other as Friend;
+    if (this.has_accepted == o.has_accepted &&
+        this.from_me == o.from_me &&
+        this.email == o.email &&
+        this.uid == o.uid) {
+      return true;
+    }
+    return false;
+  }
 }

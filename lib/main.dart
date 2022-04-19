@@ -2,7 +2,7 @@
  * This app was written by Matt Duggan, Joe Cammarata, James Davis,
  * Lauren Hodges, and Ian Urton
  *
- * We are currently in the Beta Release stage of app development
+ * We are currently in the Release Candidate 1 stage of app development
  *
  * This page is the one that opens on startup and contains a search bar,
  * map that displays historical markers, a tutorial for new users, and a
@@ -11,7 +11,6 @@
 
 
 import 'dart:io';
-
 import 'package:camera/camera.dart';
 import 'package:capi_stonsker/ui/splash.dart';
 import 'package:capi_stonsker/user_collections/my_markers_page.dart';
@@ -19,6 +18,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -27,11 +27,11 @@ import 'package:capi_stonsker/markers/locations.dart' as locs;
 import 'package:capi_stonsker/src/map_page.dart';
 import 'package:capi_stonsker/app_nav/bottom_nav_bar.dart';
 import 'package:capi_stonsker/app_nav/side_menu.dart';
-import 'package:capi_stonsker/user_collections/friend.dart';
-import 'package:capi_stonsker/auth/fire_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:latlong2/latlong.dart' as latLng;
+
+import 'auth/fire_auth.dart';
 
 SharedPreferences sharedPreferences = SharedPreferences.getInstance() as SharedPreferences;
 
@@ -42,9 +42,6 @@ double dur = 0.0;
 double dist = 0.0;
 
 Future<void> main() async{
-
-
-
   //Ensures Firebase connection initialized
   WidgetsFlutterBinding.ensureInitialized();
   sharedPreferences = await SharedPreferences.getInstance();
@@ -123,13 +120,13 @@ class _MyHomePageState extends State<MyHomePage> {
   List<String> selectedCounties = [];
   int selectedList = 3;
 
-
-
   @override
   void initState() {
-    if(widget.show == true) {
+    // only show tutorial if user is going to home screen for the first time and is not logged in
+    if(widget.show == true && FireAuth.auth.currentUser == null) {
       Future.delayed(Duration.zero, showTutorial);
     }
+
     MapController mapController = MapController();
 
     super.initState();
@@ -137,6 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
 
     //String search_val = "";
     //String searchKey;
@@ -177,6 +175,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   hintText: 'Search for markers by name',
                   border: InputBorder.none,
+
                 ),
               ),
             ),
@@ -216,6 +215,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     }
 
 
+
                   }),
                 )
             )
@@ -237,6 +237,45 @@ class _MyHomePageState extends State<MyHomePage> {
                     points: path,
                 )
             ),
+
+                  }).toList();
+                },
+                onChanged: (String? value) => setState(() {
+                  selectedDrop = value!;
+                  switch (value) {
+                    case "County": {
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => countySelect(),
+                      );
+                    } break;
+                    case "Visited": {
+                      selectedList = 2;
+                    } break;
+                    case "Wishlist": { selectedList = 1; } break;
+                    default: { selectedList = 3; }
+                  }
+                }),
+              )
+          )
+        ],
+      ),
+
+      body:Stack(
+        children: [
+          Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: MapPage(
+                  list: selectedList,
+                  counties: selectedCounties,
+                  searchText: searchText,
+                  controller: mapController,
+                  popup: widget.popup,
+                  points: path,
+              )
+          ),
+
 
             Padding(
               padding: const EdgeInsets.all(10.0),
@@ -280,16 +319,36 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
                         ),
+                      ),
+                  ),
+                  Spacer(),
+                  Container(
+                    alignment: Alignment.topRight,
+                    child: Column(
+                      children: [
+                        Container(
+                          child: CircleAvatar(
+                            backgroundColor: Colors.blueGrey,
+                            radius: 25,
+                            child: IconButton(
+                              //key: widget.menu_button,
+                              //tooltip: 'Open Menu',
+                              icon: Icon(Icons.my_location),
+                              color: Colors.white,
+                              iconSize: 35,
+                              onPressed: (){
+                                setState(() {
+                                  mapController.move(locs.userPos, 15);
+                                });
 
-
-                    ),
-
-                    Spacer(),
-                    Container(
-                      alignment: Alignment.topRight,
-                      child: Column(
-                        children: [
-                          Container(
+                              },
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                          child: Container(
+                            alignment: Alignment.topRight,
                             child: CircleAvatar(
                               backgroundColor: Colors.blueGrey,
                               radius: 25,
@@ -303,7 +362,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                   setState(() {
                                     mapController.move(locs.userPos, 15);
                                   });
-
                                 },
                               ),
                             ),
@@ -371,7 +429,6 @@ class _MyHomePageState extends State<MyHomePage> {
         //floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       ),
     );
-
   }
 
   AlertDialog countySelect() {
@@ -389,7 +446,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 isSelected: isSelected,
                 direction: Axis.vertical,
-                //selectedColor: Colors.lightBlueAccent,
               ),
             );
           }

@@ -13,16 +13,52 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'marker.dart';
 import '../user_collections/fav_button.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'locations.dart' as locs;
 
+
 class FullInfoPage extends StatelessWidget {
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   final Marker sentMarker;
+  final List<String> picIDs = ["RICHLAND111", "RICHLAND55", "RICHLAND192", "RICHLAND56", "RICHLAND63", "RICHLAND208", "RICHLAND71"];
+  FirebaseStorage storage = FirebaseStorage.instance;
+
   FullInfoPage({Key? key, required this.sentMarker}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     bool isVis = locs.visitedDupe(sentMarker);
+
+    Widget markerPic = Padding(padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0));
+    if (picIDs.contains(sentMarker.id)) {
+      markerPic = FutureBuilder(
+          future: _loadImage(sentMarker.id),
+          builder: (context,
+              AsyncSnapshot<String> snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              String imageUrl = snapshot.data!;
+                return Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                    child: Card(
+                      margin: const EdgeInsets.symmetric(vertical: 10),
+                      child: InkWell(
+                          child: Ink.image(
+                              image: Image.network(imageUrl).image,
+                              height: 360,
+                              width: 120,
+                              fit: BoxFit.cover
+                          )
+                      )
+                    ),
+                  );
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+      );
+    }
 
     return Scaffold(
       extendBody: true,
@@ -92,6 +128,8 @@ class FullInfoPage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  //markerPic is either a 0 size padding or image
+                  markerPic,
                   Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
                     child: Card(
@@ -184,5 +222,12 @@ class FullInfoPage extends StatelessWidget {
       drawer: const SideMenu(),
       bottomNavigationBar: BottomNavBar(scaffoldKey: _scaffoldKey,),
     );
+  }
+
+  // Retrieve the image of the marker
+  Future<String> _loadImage(String id) async {
+    Reference result = await storage.ref("/files/Markers/" + sentMarker.id + ".JPG");
+    String fileUrl = await result.getDownloadURL();
+    return fileUrl;
   }
 }

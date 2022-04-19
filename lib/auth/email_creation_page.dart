@@ -1,6 +1,5 @@
 /*
  * This page allows a user to create an account using an email and password
- *
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,6 +18,8 @@ class _AccountCreation extends State<AccountCreation> {
   final _auth = FirebaseAuth.instance;
   String email = '';
   String password = '';
+  String photo_url = 'https://picsum'
+      '.photos/seed/264/600';
   bool isloading = false;
 
 
@@ -115,15 +116,18 @@ class _AccountCreation extends State<AccountCreation> {
                               isloading = true;
                             });
                             try {
-                              await FireAuth.registerUsingEmailPassword(email: email, password: password);
-
+                              FirebaseAuthException? e = await FireAuth.registerUsingEmailPassword(email: email, password: password);
+                              if (e != null) {
+                                throw new FirebaseAuthException(message: e.message, code: e.code);
+                              }
+                              FireAuth.auth.currentUser?.updatePhotoURL(photo_url);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   backgroundColor: Colors.blueGrey,
                                   content: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
-                                        'Sucessfully Registered. You are now logged in.'),
+                                        'Sucessfully Registered.'),
                                   ),
                                   duration: Duration(seconds: 5),
                                 ),
@@ -217,5 +221,3 @@ const kTextFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(7)),
   ),
 );
-
-

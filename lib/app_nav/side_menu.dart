@@ -1,11 +1,9 @@
 /*
  * The side menu, accessible at all times from the menu button at the
  * left of the bottom menu bar, allows a user to navigate throughout the app
- *
- * TODO pull user name, level, avatar, etc from Firebase to display at the top of the header.
  */
 
-
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:capi_stonsker/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,19 +16,44 @@ import 'package:capi_stonsker/src/help_page.dart';
 import 'package:capi_stonsker/user_collections/my_markers_page.dart';
 import 'package:capi_stonsker/user_collections/friends_page.dart';
 import 'package:provider/provider.dart';
+import 'package:capi_stonsker/markers/locations.dart' as locs;
 
 class SideMenu extends StatefulWidget {
   const SideMenu({Key? key}) : super(key: key);
+
 
   @override
   _SideMenuState createState() => _SideMenuState();
 }
 
 class _SideMenuState extends State<SideMenu> {
+
+  String getBadge() {
+    int amount = locs.visited.length.toInt();
+    String badge="";
+    if(amount>=0&&amount<=414){
+      badge="Novice";
+    }
+    if(amount>=415&&amount<=1034){
+      badge="Intermediate";
+    }
+    if(amount>=1035&&amount<=2064){
+      badge="Advanced";
+    }
+    if(amount>=2065&&amount<=3094){
+      badge="Expert";
+    }
+    if(amount>=3095&&amount<=4130){
+      badge="Legend";
+    }
+    if(amount==4131){
+      badge="Capistonktastic";
+    }
+    return badge;
+  }
   // get text for log in/ log out button
   String getText() {
-    var user = FireAuth.auth.currentUser;
-    if (user != null) {
+    if (FireAuth.auth.currentUser != null) {
       // user is logged in
       return "Log out";
     }
@@ -42,6 +65,10 @@ class _SideMenuState extends State<SideMenu> {
   Widget build(BuildContext context) {
     var user = Provider.of<User?>(context);
     bool loggedin = user != null;
+    String? image_url;
+    if (loggedin) {
+      image_url = FireAuth.auth.currentUser!.photoURL;
+    }
 
     return Drawer(
       key: const Key('drawer'),
@@ -53,67 +80,124 @@ class _SideMenuState extends State<SideMenu> {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blueGrey,
-            ),
-            child: Stack(
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                    radius: 45,
-                )
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child:
-                  FutureBuilder(
-                      future: FireAuth.getName(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return Text(
-                            "${snapshot.data}",
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 25,
-                            ),
-                          );
-                        }
-                        else {
-                          return CircularProgressIndicator();
-                        }
-                      }
+              decoration: BoxDecoration(
+                color: Colors.blueGrey,
+              ),
+              child: Stack(
+                children: [
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: CircleAvatar(
+                        radius: 55,
+                        backgroundColor: Colors.white,
+                        child: CircleAvatar(
+                          foregroundImage: (loggedin && image_url != null) ? Image.network(image_url).image : Image.asset('assets/image/icon.png').image,
+                          backgroundColor: Colors.white,
+                          radius: 50,
+                        ),
+                      ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment.centerRight + Alignment(0,0.45),
-                  child: RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                            text: "Novice ",
-                            style: TextStyle(
-                                color: Colors.white54,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w900
-                            )
-                        ),
-                        TextSpan(
-                          //TODO update according to user
-                            text: "(7/4131)",
-                            style: TextStyle(
-                                color: Colors.white54,
-                                fontSize: 16
-                            )
-                        ),
-                      ],
-                    ),
 
+                  Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 10),
+                        child:
+                        FutureBuilder(
+                            future: FireAuth.getName(),
+                            builder: (context, snapshot) {
+                              if(user==null){
+                                return Text(
+                                  "Welcome!",
+                                  style: TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 25,
+                                  ),
+                                );
+                              }
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                return Row(
+                                  textDirection: TextDirection.rtl,
+                                  children: <Widget>[
+                                    Container(
+                                      width: 150,
+                                      height: 50,
+                                      child: AutoSizeText(
+                                        "${snapshot.data}",
+                                        maxLines: 3,
+                                        textDirection: TextDirection.rtl,
+                                        style: TextStyle(
+                                          fontFamily: 'Poppins',
+                                          fontSize: 25,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }
+                              else {
+                                return CircularProgressIndicator();
+                              }
+                            }
+                        ),
+                        /*child: (!loggedin) ? Text(
+                          "Welcome!",
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 25,
+                          ),
+                        ) : Row(
+                        textDirection: TextDirection.rtl,
+                        children: <Widget>[
+                          Container(
+                            width: 150,
+                            height: 75,
+                            child: AutoSizeText(
+                              user.email!,
+                              maxLines: 3,
+                              textDirection: TextDirection.rtl,
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 25,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),*/
+                    )
                   ),
-                )
-              ],
-            )
+                  Align(
+                      alignment: Alignment.centerRight + Alignment(0,0.45),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                  text: getBadge(),
+                                  style: TextStyle(
+                                      color: Colors.white54,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w900
+                                  )
+                              ),
+                              TextSpan(
+                                  text: "(${locs.visited.length.toString()}/4131)",
+                                  style: TextStyle(
+                                      color: Colors.white54,
+                                      fontSize: 16
+                                  )
+                              ),
+                            ],
+                          ),
+
+                        ),
+
+
+                      ))
+                ],
+              )
           ),
           ListTile(
             title: const Text('HOME'),
@@ -137,6 +221,10 @@ class _SideMenuState extends State<SideMenu> {
                 // ...
                 // Then close the drawer
                 Navigator.pop(context);
+                Navigator.of(context).popUntil((route) => route.isFirst);
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+                ));
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -160,6 +248,10 @@ class _SideMenuState extends State<SideMenu> {
               // ...
               // Then close the drawer
               Navigator.pop(context);
+              Navigator.of(context).popUntil((route) => route.isFirst);
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+              ));
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -176,6 +268,10 @@ class _SideMenuState extends State<SideMenu> {
                 // ...
                 // Then close the drawer
                 Navigator.pop(context);
+                Navigator.of(context).popUntil((route) => route.isFirst);
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+                ));
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -200,6 +296,10 @@ class _SideMenuState extends State<SideMenu> {
                 // ...
                 // Then close the drawer
                 Navigator.pop(context);
+                Navigator.of(context).popUntil((route) => route.isFirst);
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+                ));
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -223,6 +323,10 @@ class _SideMenuState extends State<SideMenu> {
               // ...
               // Then close the drawer
               Navigator.pop(context);
+              Navigator.of(context).popUntil((route) => route.isFirst);
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+              ));
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -238,6 +342,10 @@ class _SideMenuState extends State<SideMenu> {
                 if(loggedin){
                   // user is logged in
                   Navigator.pop(context);
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+                  ));
                   Navigator.push(context,
                       MaterialPageRoute(
                           builder: (context) => LogoutPage()
@@ -247,6 +355,10 @@ class _SideMenuState extends State<SideMenu> {
                 else {
                   //no user is signed in
                   Navigator.pop(context);
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+                  ));
                   Navigator.push(context,
                       MaterialPageRoute(
                           builder: (context) => LoginScreen()
@@ -312,3 +424,13 @@ class _SideMenuState extends State<SideMenu> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+

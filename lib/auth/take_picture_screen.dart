@@ -1,9 +1,22 @@
+/*
+ * This file sets up the page where a user can take a picture for their profile
+ */
+
 import 'dart:io';
+import 'dart:math';
 import 'package:camera/camera.dart';
 import 'package:capi_stonsker/auth/account_page.dart';
-import 'package:capi_stonsker/main.dart';
+import 'package:capi_stonsker/auth/fire_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:path/path.dart';
+
+FirebaseAuth auth = FirebaseAuth.instance;
+firebase_storage.FirebaseStorage storage =
+    firebase_storage.FirebaseStorage.instance;
+var r = Random();
 
 class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({
@@ -43,7 +56,6 @@ class TakePictureScreenState extends State<TakePictureScreen> {
     _controller.dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -99,52 +111,67 @@ class DisplayPictureScreen extends StatelessWidget {
   const DisplayPictureScreen({Key? key, required this.imagePath})
       : super(key: key);
 
+  Future uploadImageToFirebase(BuildContext context) async {
+    String? uid = auth.currentUser?.uid;
+    final fileName = basename(imagePath);
+    final destination = 'files/$uid';
+    try {
+      //Upload to firestore
+      final ref = firebase_storage.FirebaseStorage.instance
+          .ref(destination)
+          .child('profile_image/');
+      await ref.putFile(File(imagePath));
+
+      final String downloadUrl = await ref.getDownloadURL();
+
+      // Update the UserPHOTO url
+      await FireAuth.auth.currentUser!.updatePhotoURL(downloadUrl + "?v=" + r.nextInt(100000).toString());
+    } catch (e) {
+      print('error occured');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Profile Picture'), backgroundColor:
+        appBar: AppBar(title: const Text('Profile Picture'), backgroundColor:
         Colors.blueGrey,),
-      // The image is stored as a file on the device. Use the `Image.file`
-      // constructor with the given path to display the image.
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Image.file(File(imagePath)),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blueGrey)
+        // The image is stored as a file on the device. Use the `Image.file`
+        // constructor with the given path to display the image.
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Image.file(File(imagePath)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.blueGrey)
+                    ),
+                    child: new Text("Confirm"),
+                    onPressed: () {
+                      uploadImageToFirebase(context);
+                      Navigator.of(context).pop(context);
+                      Navigator.of(context).pop(context);
+                    }
                 ),
-                child: new Text("Confirm"),
-                onPressed: () {
-                  //TODO: Save this Image to firebase
-                  Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                      builder: (context) => AccountPage()
-                      )
-                  );
-                }
-              ),
-              ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.blueGrey)
-                ),
-                  child: new Text("Retake"),
+                ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.blueGrey)
+                  ),
+                  child: new Text("Cancel"),
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.of(context).pop(context);
                   },
-              )
-
-            ],
+                )
+              ],
             )
           ],
         )
-      );
+    );
   }
 }
+

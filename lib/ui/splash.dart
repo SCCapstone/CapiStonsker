@@ -2,18 +2,19 @@
 import 'dart:convert';
 import 'dart:io';
 
+/*
+ * This page is our splash screen, which displays while the app is loading
+ */
+
+
 import 'package:capi_stonsker/ui/error.dart';
 import 'package:flutter/foundation.dart';
 import 'package:location/location.dart' as locations;
-import 'package:capi_stonsker/helpers/directions_handler.dart';
 import 'package:capi_stonsker/main.dart';
 import 'package:flutter/material.dart';
 import 'package:capi_stonsker/markers/locations.dart' as locs;
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:user_location/user_location.dart';
 import 'package:latlong2/latlong.dart' as ll;
 
 class Splash extends StatefulWidget {
@@ -26,6 +27,7 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
   late AnimationController _controller;
   late Animation<double> _animation;
+
 
   bool? _isConnected;
 
@@ -60,11 +62,9 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
     _controller.repeat();
     super.initState();
     initializeLocationAndSave();
-
   }
 
   void dispose() {
-    // TODO: implement dispose
     _controller.dispose();
     super.dispose();
   }
@@ -86,9 +86,9 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
 
     locations.LocationData _locationData = await _location.getLocation();
 
-
     LatLng currentLatLng = LatLng(_locationData.latitude!, _locationData.longitude!);
     await locs.updatePos(ll.LatLng(_locationData.latitude!, _locationData.longitude!));
+
 
     final response = await InternetAddress.lookup('www.github.com');
     if(response.isNotEmpty){
@@ -111,18 +111,16 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
       }
    }
 
+
   @override
   Widget build(BuildContext context) {
-
-
-
     return Column(
       children: [
         Container(
           height: 550,
           child: Material(
               color: Colors.black,
-              child: Center(child: Image.asset('assets/image/logo.png')),
+              child: Center(child: Image.asset('assets/image/logo.PNG')),
           ),
         ),
         Container(
@@ -137,11 +135,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
             ),
           ),
         ),
-
-
-
       ],
-
     );
   }
 }

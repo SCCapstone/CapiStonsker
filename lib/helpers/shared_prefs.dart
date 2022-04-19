@@ -6,10 +6,7 @@
  */
 
 import 'dart:convert';
-
 import 'package:mapbox_gl/mapbox_gl.dart';
-
-
 import 'package:capi_stonsker/main.dart';
 
 LatLng getLatLngFromSharedPrefs() {
