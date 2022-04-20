@@ -35,4 +35,16 @@ class Friend extends Comparable {
       return 0;
     }
   }
+
+  @override
+  bool operator ==(other) {
+    Friend o = other as Friend;
+    if (this.has_accepted == o.has_accepted &&
+        this.from_me == o.from_me &&
+        this.email == o.email &&
+        this.uid == o.uid) {
+      return true;
+    }
+    return false;
+  }
 }

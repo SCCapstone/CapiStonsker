@@ -24,14 +24,18 @@ import 'package:capi_stonsker/app_nav/side_menu.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:latlong2/latlong.dart' as latLng;
-
+import 'package:url_launcher/url_launcher.dart';
 import 'auth/fire_auth.dart';
+import 'package:quiver/iterables.dart';
 
 SharedPreferences sharedPreferences = SharedPreferences.getInstance() as SharedPreferences;
 
 // Global for access across pages
 List<CameraDescription> cameras = [];
 List<latLng.LatLng> path = [];
+List<double> coords = [];
+List<double> waypointLats = [];
+List<double> waypointLngs = [];
 double dur = 0.0;
 double dist = 0.0;
 
@@ -86,10 +90,14 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   bool show;
   bool popup;
+  bool isNav;
   List<LatLng> points;
+  List<double> waypointLat;
+  List<double> waypointLng;
   double distance;
   double duration;
-  MyHomePage({Key? key, required this.points, required this.show, required this.popup, required this.distance, required this.duration}) : super(key: key);
+
+  MyHomePage({Key? key, required this.isNav, required this.waypointLat, required this.waypointLng, required this.points, required this.show, required this.popup, required this.distance, required this.duration}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -114,6 +122,8 @@ class _MyHomePageState extends State<MyHomePage> {
   List<String> selectedCounties = [];
   int selectedList = 3;
 
+
+
   @override
   void initState() {
     // only show tutorial if user is going to home screen for the first time and is not logged in
@@ -125,106 +135,110 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true, //TODO change position of move to current loc button
-      key: _scaffoldKey,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.blueGrey,
-        title: Container(
-          width: MediaQuery.of(context).size.width,
-          height: 40,
-          decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(5)),
-          child: Center(
-            child: TextField(
-              key: search_bar,
-              controller: _controller,
-              onChanged: (value) => setState(() {
-                searchText = value;
-                selectedList = 5;
-              }
-              ),
-              decoration: InputDecoration(
-                prefixIcon: Icon(Icons.search),
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.clear),
-                  onPressed: () {
-                    this.setState(() {
-                      _controller.text = "";
-                      searchText = "";
-                    }
-                    );
-                  },
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        extendBody: true, //TODO change position of move to current loc button
+        key: _scaffoldKey,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.blueGrey,
+          title: Container(
+            width: MediaQuery.of(context).size.width,
+            height: 40,
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(5)),
+            child: Center(
+              child: TextField(
+                key: search_bar,
+                controller: _controller,
+                onChanged: (value) => setState(() {
+                  searchText = value;
+                  selectedList = 5;
+                }
                 ),
-                hintText: 'Search for markers by name',
-                border: InputBorder.none,
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.search),
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.clear),
+                    onPressed: () {
+                      this.setState(() {
+                        _controller.text = "";
+                        searchText = "";
+                      }
+                      );
+                    },
+                  ),
+                  hintText: 'Search for markers by name',
+                  border: InputBorder.none,
+                ),
               ),
             ),
           ),
-        ),
-        actions: <Widget>[
-          DropdownButtonHideUnderline(
-              child: DropdownButton(
-                iconSize: 30,
-                value: selectedDrop,
-                hint: Icon(Icons.filter_list),
-                items: items.map<DropdownMenuItem<String>>((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
-                selectedItemBuilder: (BuildContext context) {
-                  return items.map<Widget>((String item) {
-                    switch (item) {
-                      case "County": { return Icon(Icons.map_outlined); }
-                      case "Visited": { return Icon(Icons.location_on); }
-                      case "Wishlist": { return Icon(Icons.star); }
-                      default: { return Icon(Icons.filter_list); }
+          actions: <Widget>[
+            DropdownButtonHideUnderline(
+                child: DropdownButton(
+                  iconSize: 30,
+                  value: selectedDrop,
+                  hint: Icon(Icons.filter_list),
+                  items: items.map<DropdownMenuItem<String>>((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
+                  selectedItemBuilder: (BuildContext context) {
+                    return items.map<Widget>((String item) {
+                      switch (item) {
+                        case "County": { return Icon(Icons.map_outlined); }
+                        case "Visited": { return Icon(Icons.location_on); }
+                        case "Wishlist": { return Icon(Icons.star); }
+                        default: { return Icon(Icons.filter_list); }
+                      }
+                    }).toList();
+                  },
+                  onChanged: (String? value) => setState(() {
+                    selectedDrop = value!;
+                    switch (value) {
+                      case "County": {
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => countySelect(),
+                        );
+                      } break;
+                      case "Visited": {
+                        selectedList = 2;
+                      } break;
+                      case "Wishlist": { selectedList = 1; } break;
+                      default: { selectedList = 3; }
                     }
-                  }).toList();
-                },
-                onChanged: (String? value) => setState(() {
-                  selectedDrop = value!;
-                  switch (value) {
-                    case "County": {
-                      showDialog<String>(
-                        context: context,
-                        builder: (BuildContext context) => countySelect(),
-                      );
-                    } break;
-                    case "Visited": {
-                      selectedList = 2;
-                    } break;
-                    case "Wishlist": { selectedList = 1; } break;
-                    default: { selectedList = 3; }
-                  }
-                }),
-              )
-          )
-        ],
-      ),
+                  }),
+                )
+            )
+          ],
+        ),
 
-      body:Stack(
-        children: [
-          Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: MapPage(
+        body:Stack(
+          children: [
+            Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: MapPage(
                   list: selectedList,
                   counties: selectedCounties,
                   searchText: searchText,
                   controller: mapController,
                   popup: widget.popup,
                   points: path,
-              )
-          ),
+                  waypointsLat: waypointLats,
+                  waypointsLng: waypointLngs,
+                )
+            ),
 
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Container(
-              child: (path.isNotEmpty )
-              ?Row(
-                children: [
-                  Container(
-                    alignment: Alignment.topLeft,
-                    child: Container(
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Container(
+                child: (path.isNotEmpty )
+                    ?Row(
+                  children: [
+                    Container(
+                      alignment: Alignment.topLeft,
+                      child: Container(
                         height: MediaQuery.of(context).size.height/10,
                         width: MediaQuery.of(context).size.width/1.75,
                         decoration: BoxDecoration(
@@ -236,11 +250,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'Distance: ' + (dist+widget.distance).toString() + ' miles',
-                                  style: TextStyle(fontSize: 18),
+                                  style: TextStyle(fontSize: MediaQuery.of(context).size.height/50),
                                   textAlign: TextAlign.left,
                                   overflow: TextOverflow.fade,
                                 ),
@@ -249,7 +263,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                                 Text(
                                   'Duration: ' + (dur+widget.duration).toString() + ' min',
-                                  style: TextStyle(fontSize: 18),
+                                  style: TextStyle(fontSize: MediaQuery.of(context).size.height/50),
                                   textAlign: TextAlign.left,
                                   overflow: TextOverflow.fade,
                                 ),
@@ -258,89 +272,121 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ),
-                  ),
-                  Spacer(),
-                  Container(
-                    alignment: Alignment.topRight,
-                    child: Column(
-                      children: [
-                        Container(
-                          child: CircleAvatar(
-                            backgroundColor: Colors.blueGrey,
-                            radius: 25,
-                            child: IconButton(
-                              //key: widget.menu_button,
-                              //tooltip: 'Open Menu',
-                              icon: Icon(Icons.my_location),
-                              color: Colors.white,
-                              iconSize: 35,
-                              onPressed: (){
-                                setState(() {
-                                  mapController.move(locs.userPos, 15);
-                                });
-
-                              },
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                          child: Container(
-                            alignment: Alignment.topRight,
+                    ),
+                    Spacer(),
+                    Container(
+                      alignment: Alignment.topRight,
+                      child: Column(
+                        children: [
+                          Container(
                             child: CircleAvatar(
                               backgroundColor: Colors.blueGrey,
                               radius: 25,
                               child: IconButton(
                                 //key: widget.menu_button,
                                 //tooltip: 'Open Menu',
-                                icon: Icon(Icons.clear),
+                                icon: Icon(Icons.my_location),
                                 color: Colors.white,
                                 iconSize: 35,
                                 onPressed: (){
                                   setState(() {
-                                    path = [];
-                                    dist = 0.0;
-                                    dur = 0.0;
+                                    mapController.move(locs.userPos, 15);
                                   });
+
                                 },
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ):Container(
-                alignment: Alignment.topRight,
-                child: CircleAvatar(
-                  backgroundColor: Colors.blueGrey,
-                  radius: 25,
-                  child: IconButton(
-                    //key: widget.menu_button,
-                    //tooltip: 'Open Menu',
-                    icon: Icon(Icons.my_location),
-                    color: Colors.white,
-                    iconSize: 35,
-                    onPressed: (){
-                      setState(() {
-                        mapController.move(locs.userPos, 15);
-                      });
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                            child: Container(
+                              alignment: Alignment.topRight,
+                              child: CircleAvatar(
+                                backgroundColor: Colors.blueGrey,
+                                radius: 25,
+                                child: IconButton(
+                                  //key: widget.menu_button,
+                                  //tooltip: 'Open Menu',
+                                  icon: Icon(Icons.directions),
+                                  color: Colors.white,
+                                  iconSize: 35,
+                                  onPressed: (){
+                                    List<String> c = [];
 
-                    },
+                                    for (var pair in zip([waypointLats, waypointLngs])) {
+                                      double lat = pair[0];
+                                      double lng = pair[1];
+                                      c.add("$lat,$lng");
+                                    }
+
+                                    String temp = c.join("|");
+                                    navigateTo(waypointLats[0], waypointLngs[0], temp);
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                            child: Container(
+                              alignment: Alignment.topRight,
+                              child: CircleAvatar(
+                                backgroundColor: Colors.blueGrey,
+                                radius: 25,
+                                child: IconButton(
+                                  //key: widget.menu_button,
+                                  //tooltip: 'Open Menu',
+                                  icon: Icon(Icons.clear),
+                                  color: Colors.white,
+                                  iconSize: 35,
+                                  onPressed: (){
+                                    setState(() {
+                                      path = [];
+                                      dist = 0.0;
+                                      dur = 0.0;
+                                      waypointLats = [];
+                                      waypointLngs = [];
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ):Container(
+                  alignment: Alignment.topRight,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.blueGrey,
+                    radius: 25,
+                    child: IconButton(
+                      //key: widget.menu_button,
+                      //tooltip: 'Open Menu',
+                      icon: Icon(Icons.my_location),
+                      color: Colors.white,
+                      iconSize: 35,
+                      onPressed: (){
+                        setState(() {
+                          mapController.move(locs.userPos, 15);
+                        });
+
+                      },
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
 
-      drawer: SideMenu(),
-      bottomNavigationBar: BottomNavBarHome(
-        scaffoldKey: _scaffoldKey,
-        menu_button: menu_button,
-        marker_list: marker_list,
+        drawer: SideMenu(),
+        bottomNavigationBar: BottomNavBarHome(
+          scaffoldKey: _scaffoldKey,
+          menu_button: menu_button,
+          marker_list: marker_list,
+        ),
       ),
     );
   }
@@ -417,6 +463,16 @@ class _MyHomePageState extends State<MyHomePage> {
     )..show();
   }
 
+  static void navigateTo(double lat, double lng, String waypoints) async {
+    double userLat = locs.userPos.latitude;
+    double userLon = locs.userPos.longitude;
+    var uri = Uri.parse("https://www.google.com/maps/dir/?api=1&origin=$userLat,$userLon&destination=$lat,$lng&waypoints=$waypoints&travelmode=walking");
+    if (await canLaunch(uri.toString())) {
+      await launch(uri.toString());
+    } else {
+      throw 'Could not launch ${uri.toString()}';
+    }
+  }
   void initTargets() {
     targets.clear();
     targets.add(

@@ -35,8 +35,9 @@ class _EditAccount extends State<EditAccount> {
         leading: new IconButton(
             icon: const Icon(Icons.arrow_back),
             color: Colors.white,
-            onPressed: () {
-              Navigator.of(context).pop();
+            onPressed: () async {
+              await auth.currentUser!.reload();
+              Navigator.of(context).pop(context);
             }
         ),
         backgroundColor: Colors.blueGrey,
@@ -102,14 +103,7 @@ class _EditAccount extends State<EditAccount> {
                                 .doc(FireAuth.auth.currentUser!.uid)
                                 .set(<String, dynamic>{'bio': bioV});
                             await auth.currentUser!.reload();
-                            Navigator.of(context).pop();
-                            Navigator.of(context).pop();
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AccountPage()
-                                )
-                            );
+                            Navigator.of(context).pop(context);
                           }
                       ),
                     ],

@@ -20,7 +20,10 @@ class MapPage extends StatefulWidget {
   MapController controller;
   bool popup;
   List<LatLng> points;
-  MapPage({Key? key, required this.points, required this.popup, required this.list, required this.counties, required this.searchText, required this.controller}) : super(key: key);
+  List<double> waypointsLat;
+  List<double> waypointsLng;
+
+  MapPage({Key? key, required this.waypointsLat, required this.waypointsLng, required this.points, required this.popup, required this.list, required this.counties, required this.searchText, required this.controller}) : super(key: key);
 
   @override
   _MapPageState createState() => _MapPageState();
@@ -96,7 +99,7 @@ class _MapPageState extends State<MapPage> {
                             ),
                           ),
                     )
-                ) + selectList().map((m) => mBox.createMapMarker(context, m, widget.popup, path)).toList(),
+                ) + selectList().map((m) => mBox.createMapMarker(context, m, widget.popup, path, waypointLats, waypointLngs)).toList(),
         ),
         userLocationOptions,
       ],

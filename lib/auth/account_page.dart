@@ -47,7 +47,7 @@ class AccountPage extends StatefulWidget {
             icon: const Icon(Icons.arrow_back),
             color: Colors.white,
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).pop(context);
             }
         ),
         title: Text("Account Page"),
@@ -83,7 +83,7 @@ class AccountPage extends StatefulWidget {
                                                   builder: (context) => TakePictureScreen(camera:
                                                   cameras.first)
                                               )
-                                          )
+                                          ).then((_) => setState(() {}))
                                         },
                                         style: ElevatedButton.styleFrom(
                                           primary: Colors.blueGrey,
@@ -107,7 +107,7 @@ class AccountPage extends StatefulWidget {
                                                     imagePath: gallery_image.path,
                                                   ),
                                                 ),
-                                              );
+                                              ).then((_) => setState(() {}));
                                           } catch (e) {
                                             // If an error occurs, log the error to the console.
                                             print(e);
@@ -285,7 +285,7 @@ class AccountPage extends StatefulWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => EditAccount()),
-                                );
+                                ).then((_) => setState(() {}));
                               })
                         ]
                     ),

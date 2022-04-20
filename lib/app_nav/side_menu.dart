@@ -208,7 +208,7 @@ class _SideMenuState extends State<SideMenu> {
               Navigator.pop(context);
               Navigator.of(context).popUntil((route) => route.isFirst);
               Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+                  builder: (context) => MyHomePage(show: false, popup: true, isNav: true, points: path, duration: dur, distance: dist, waypointLat: waypointLats, waypointLng: waypointLngs,)
               ));
               //Navigator.of(context).pop();
             },
@@ -223,7 +223,7 @@ class _SideMenuState extends State<SideMenu> {
                 Navigator.pop(context);
                 Navigator.of(context).popUntil((route) => route.isFirst);
                 Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+                    builder: (context) => MyHomePage(show: false, popup: true, isNav: true, points: path, duration: dur, distance: dist, waypointLat: waypointLats, waypointLng: waypointLngs,)
                 ));
                 Navigator.push(
                     context,
@@ -250,12 +250,12 @@ class _SideMenuState extends State<SideMenu> {
               Navigator.pop(context);
               Navigator.of(context).popUntil((route) => route.isFirst);
               Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+                  builder: (context) => MyHomePage(show: false, popup: true, isNav: true, points: path, duration: dur, distance: dist, waypointLat: waypointLats, waypointLng: waypointLngs,)
               ));
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MyHomePage(show: false, popup: false, points: path, duration: dur, distance: dist,)
+                      builder: (context) => MyHomePage(show: false, popup: false, isNav: true, points: path, duration: dur, distance: dist, waypointLat: waypointLats, waypointLng: waypointLngs,)
                   )
               );
             },
@@ -270,7 +270,7 @@ class _SideMenuState extends State<SideMenu> {
                 Navigator.pop(context);
                 Navigator.of(context).popUntil((route) => route.isFirst);
                 Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+                    builder: (context) => MyHomePage(show: false, popup: true, isNav: true, points: path, duration: dur, distance: dist, waypointLat: waypointLats, waypointLng: waypointLngs,)
                 ));
                 Navigator.push(
                     context,
@@ -298,7 +298,7 @@ class _SideMenuState extends State<SideMenu> {
                 Navigator.pop(context);
                 Navigator.of(context).popUntil((route) => route.isFirst);
                 Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+                    builder: (context) => MyHomePage(show: false, popup: true, isNav: true, points: path, duration: dur, distance: dist, waypointLat: waypointLats, waypointLng: waypointLngs,)
                 ));
                 Navigator.push(
                     context,
@@ -325,7 +325,7 @@ class _SideMenuState extends State<SideMenu> {
               Navigator.pop(context);
               Navigator.of(context).popUntil((route) => route.isFirst);
               Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+                  builder: (context) => MyHomePage(show: false, popup: true, isNav: true, points: path, duration: dur, distance: dist, waypointLat: waypointLats, waypointLng: waypointLngs,)
               ));
               Navigator.push(
                   context,
@@ -344,7 +344,7 @@ class _SideMenuState extends State<SideMenu> {
                   Navigator.pop(context);
                   Navigator.of(context).popUntil((route) => route.isFirst);
                   Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+                      builder: (context) => MyHomePage(show: false, popup: true, isNav: true, points: path, duration: dur, distance: dist, waypointLat: waypointLats, waypointLng: waypointLngs,)
                   ));
                   Navigator.push(context,
                       MaterialPageRoute(
@@ -357,7 +357,7 @@ class _SideMenuState extends State<SideMenu> {
                   Navigator.pop(context);
                   Navigator.of(context).popUntil((route) => route.isFirst);
                   Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => MyHomePage(show: false, popup: true, points: path, duration: dur, distance: dist,)
+                      builder: (context) => MyHomePage(show: false, popup: true, isNav: true, points: path, duration: dur, distance: dist, waypointLat: waypointLats, waypointLng: waypointLngs,)
                   ));
                   Navigator.push(context,
                       MaterialPageRoute(

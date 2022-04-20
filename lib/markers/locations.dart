@@ -14,6 +14,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:capi_stonsker/markers/marker.dart';
 import 'package:capi_stonsker/markers/full_info.dart';
 import 'package:capi_stonsker/auth/fire_auth.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // Instance definition of Markers collection
 int len = 0;
@@ -270,22 +271,7 @@ Widget _buildRow(BuildContext context, Marker m, double d) {
     trailing: IconButton(
       icon: const Icon(Icons.directions),
       onPressed: () async {
-        var wayPoints = <WayPoint>[];
-        wayPoints.add(WayPoint(name: "origin", latitude:  userPos.latitude, longitude:  userPos.longitude));
-        wayPoints.add(WayPoint(name: "marker", latitude: m.gps.first, longitude:  -m.gps.last));
-
-        await _directions.startNavigation(
-            wayPoints: wayPoints,
-            options: MapBoxOptions(
-                initialLatitude: userPos.latitude,
-                initialLongitude: userPos.longitude,
-                animateBuildRoute: false,
-                zoom: 10.0,
-                mode: MapBoxNavigationMode.walking,
-                simulateRoute: false,
-                language: "en",
-                units: VoiceUnits.imperial)
-        );
+        navigateTo(m.gps.first, m.gps.last * -1, "");
       },
     ),
     title: Text(m.name),
@@ -302,4 +288,15 @@ Widget _buildRow(BuildContext context, Marker m, double d) {
       );
     },
   );
+}
+
+void navigateTo(double lat, double lng, String waypoints) async {
+  double userLat = userPos.latitude;
+  double userLon = userPos.longitude;
+  var uri = Uri.parse("https://www.google.com/maps/dir/?api=1&origin=$userLat,$userLon&destination=$lat,$lng&travelmode=walking");
+  if (await canLaunch(uri.toString())) {
+    await launch(uri.toString());
+  } else {
+    throw 'Could not launch ${uri.toString()}';
+  }
 }
