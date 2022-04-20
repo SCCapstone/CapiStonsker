@@ -97,7 +97,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
               () =>
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => MyHomePage(waypointLat: waypointLats, waypointLng: waypointLngs,points: path,show: true, popup: true, duration: -1.0, distance: -1.0,))));
+                  MaterialPageRoute(builder: (_) => MyHomePage(isNav: true, waypointLat: waypointLats, waypointLng: waypointLngs,points: path,show: true, popup: true, duration: -1.0, distance: -1.0,))));
 
     } else{
       Future.delayed(

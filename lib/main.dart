@@ -90,12 +90,14 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   bool show;
   bool popup;
+  bool isNav;
   List<LatLng> points;
   List<double> waypointLat;
   List<double> waypointLng;
   double distance;
   double duration;
-  MyHomePage({Key? key, required this.waypointLat, required this.waypointLng, required this.points, required this.show, required this.popup, required this.distance, required this.duration}) : super(key: key);
+
+  MyHomePage({Key? key, required this.isNav, required this.waypointLat, required this.waypointLng, required this.points, required this.show, required this.popup, required this.distance, required this.duration}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();

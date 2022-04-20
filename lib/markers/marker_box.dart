@@ -115,15 +115,38 @@ f_map.Marker createMapMarker(BuildContext context, Marker m, bool popup, List<la
                     dist = (response['routes'][0]['distance']*0.000621371)+ dist;
                     dur = double.parse(dur.toStringAsFixed(2));
                     dist = double.parse(dist.toStringAsFixed(2));
-
+                    bool isNav = true;
                     latLng.LatLng coord = latLng.LatLng(m.gps.first, m.gps.last * -1);
-                    waypointLat.add(coord.latitude.toDouble());
-                    waypointLng.add(coord.longitude.toDouble());
+                    if (waypointLng.length < 8) {
+                      waypointLat.add(coord.latitude.toDouble());
+                      waypointLng.add(coord.longitude.toDouble());
+
+                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                          builder: (context) => MyHomePage(show: false, popup: false, isNav: isNav, waypointLat: waypointLat, waypointLng: waypointLng, points: path, duration: dur, distance: dist)
+                      ), (route) => false);
+                    }
+                    else{
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('To Many Markers!'),
+                          content: const Text('Directions are currently only available for the first eight markers, but path is still available on Capistonsker :).'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'Cancel'),
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+
+                    }
 
 
-                    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-                        builder: (context) => MyHomePage(show: false, popup: false, waypointLat: waypointLat, waypointLng: waypointLng, points: path, duration: dur, distance: dist)
-                    ), (route) => false);
                   }
                 },
           ),
