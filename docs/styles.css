@@ -9,19 +9,27 @@
 body {
     background-color: #ffffff;
     margin: 0px;
-    padding-bottom: 150px;
+    min-height:100%;
+    position:relative;
+
 }
+
+body::after{ content:''; display:block; height:100px; }
+
 /* define properties for paragraphs */
 p {
-	
+
 }
 /* define properties for heading 1 text */
 h1 {
-  
+    font-weight: bold;
+    text-align: center;
+    font-size: xx-large;
+    color: #ffffff;
 }
 /* define properties for lower headings */
 h2, h3, h4 {
-  
+
 }
 pTitle {
     background-color: #607d8b;
@@ -49,26 +57,49 @@ navbar a {
 }
 /* define the properties of visited links within the navbar id */
 #navbar a:link, a:visited {
-	
+
 }
 /* define the properties that are hovered over within the navbar id */
 #navbar a:hover {
-	
+
 }
 /* define the properties of active links within the navbar id */
 #navbar a.active {
-  
+
 }
 /* define a class called flex container*/
 .flex-container {
-  
+
 }
 /* define a class for links that have been visited */
 a:link, a:visited {
-  
+
 }
 /* define a class for links when the mouse hovers on them or they're active */
 a:hover, a:active {
-  
+
 }
+
+.row {
+    text-align: center;
+    padding-top: 2em;
+}
+
+.blue_accent{
+  background-color: #607d8b;
+}
+
+
+.footer{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:100px;
+  background-color: #607d8b;
+}
+
+
+
+
+
 
