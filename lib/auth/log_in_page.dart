@@ -156,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   isloading = true;
                 });
                 //try {
-                FireAuth.signInUsingEmailPassword(email: email, password: password, context: context) ;
+                await FireAuth.signInUsingEmailPassword(email: email, password: password, context: context);
 
                 if(auth.currentUser!=null){
                   Navigator.of(context).pop();
@@ -169,7 +169,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     isloading = false;
                   });
                 }
-                else if (FireAuth.user==null){
+                /*
+                else {
                   showDialog(
                     context: context,
                     builder: (ctx) => AlertDialog(
@@ -186,9 +187,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   );
                 }
-                setState(() {
-                  isloading = false;
-                });
+                */
+                setState(() { isloading = false; });
               }
             }
           },
