@@ -68,15 +68,17 @@ class _FriendsPageState extends State<FriendsPage>  {
             .collection('friends')
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          pending = [];
+          friends = [];
           if (!snapshot.hasData) return new Text('Loading...');
             var allfriends = snapshot.data!.docs.map((doc) => Friend.fromFirestore(doc)).toList();
             allfriends.forEach((f) {
               if (f.has_accepted == false) {
-                if (!pending.contains(f))
+                //if (!pending.contains(f))
                   pending.add(f);
               }
               else {
-                if(!friends.contains(f))
+                //if(!friends.contains(f))
                   friends.add(f);
               }
             });

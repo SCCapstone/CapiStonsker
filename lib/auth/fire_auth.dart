@@ -64,11 +64,20 @@ class FireAuth {
       //createListener();
 
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Password is incorrect');
-      }
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text("Login Failed.\n" + e.code),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: Text('Okay'),
+            )
+          ],
+        ),
+      );
     }
 
     //return user;
