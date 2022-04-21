@@ -18,17 +18,21 @@ body::after{ content:''; display:block; height:100px; }
 
 /* define properties for paragraphs */
 p {
-
+    margin: 10px;
 }
 /* define properties for heading 1 text */
 h1 {
     font-weight: bold;
     text-align: center;
     font-size: xx-large;
-    color: #ffffff;
+    color: white;
 }
 /* define properties for lower headings */
 h2, h3, h4 {
+    font-weight: bold;
+    text-align: center;
+    font-size: xx-large;
+    color: black;
 
 }
 pTitle {
