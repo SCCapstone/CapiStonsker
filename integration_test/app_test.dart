@@ -11,7 +11,7 @@ void main() {
     testWidgets('tap on icon button and open drawer',
             (WidgetTester tester) async {
           app.main();
-          await tester.pumpAndSettle(Duration(seconds: 3));
+          await tester.pumpAndSettle(Duration(seconds: 10));
 
           // Finds the menu button to open the drawer.
           final Finder menu = find.byTooltip('Open Menu');

@@ -67,61 +67,7 @@ class AccountPage extends StatefulWidget {
                     shape: CircleBorder(),
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     child: InkWell(
-                        onTap: () {
-                          showModalBottomSheet(
-                              context: context,
-                              builder: (context) {
-                                return Container(
-                                    height: 100,
-                                    child: Column(children: <Widget>[
-                                      ElevatedButton(
-                                        child: const Text('Take Picture'),
-                                        onPressed: () => {
-                                          Navigator.pop(context),
-                                          Navigator.push(context,
-                                              MaterialPageRoute(
-                                                  builder: (context) => TakePictureScreen(camera:
-                                                  cameras.first)
-                                              )
-                                          ).then((_) => setState(() {}))
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          primary: Colors.blueGrey,
-                                        ),
-                                      ),
-                                      ElevatedButton(
-                                        child: const Text('Choose Photo from '
-                                            'Library'),
-                                        onPressed: () async {
-                                          // Try to take the picture
-                                          try {
-                                            final gallery_image = await _picker
-                                                .pickImage(source: ImageSource
-                                                .gallery);
 
-                                            // If the picture was chosen display
-                                            if (gallery_image != null)
-                                              Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                  builder: (context) => DisplayPictureScreen(
-                                                    imagePath: gallery_image.path,
-                                                  ),
-                                                ),
-                                              ).then((_) => setState(() {}));
-                                          } catch (e) {
-                                            // If an error occurs, log the error to the console.
-                                            print(e);
-                                          }
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          primary: Colors.blueGrey,
-                                        ),
-                                      ),
-                                    ])
-                                );
-                              }
-                          );
-                        },
                         child: Ink.image(
                             image: (loggedin && image_url != null) ? Image.network(image_url).image : Image.asset('assets/image/icon.png').image,
                             height: 120,

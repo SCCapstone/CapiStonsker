@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart' as f_map;
 import 'package:latlong2/latlong.dart' as latLng;
 import 'package:capi_stonsker/markers/full_info.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 import 'marker.dart';
 import '../user_collections/fav_button.dart';
@@ -49,6 +50,7 @@ class MarkerBox extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
+
                 FavButton(sentM: sentM),
                 const SizedBox(width: 8),
                 TextButton(
@@ -72,6 +74,8 @@ class MarkerBox extends StatelessWidget {
       ),
     );
   }
+
+
 }
 
 f_map.Marker createMapMarker(BuildContext context, Marker m, bool popup, List<latLng.LatLng> path, List<double> waypointLat, List<double> waypointLng) {
