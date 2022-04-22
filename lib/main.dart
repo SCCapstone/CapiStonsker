@@ -62,20 +62,6 @@ class MyApp extends StatelessWidget {
         providers: [
           // Make user stream available
           StreamProvider<User?>.value(value: FirebaseAuth.instance.idTokenChanges(), initialData: null),
-
-          // Make total friends stream available
-          /*
-          StreamProvider<List<Friend>>.value(
-            value: FirebaseFirestore.instance
-                .collection('Users')
-                .doc(FireAuth.auth.currentUser?.uid)
-                .collection('friends')
-                .snapshots()
-                .map((snap) =>
-                snap.docs.map((doc) => Friend.fromFirestore(doc)).toList()),
-            initialData: [],
-          ),
-          */
         ],
 
         // All data will be available in this child and descendants

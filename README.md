@@ -56,12 +56,13 @@ Before building this project, install the following:
 
 ## Testing
 
+### Unit Tests can be found in the `tests` folder
 ### Run unit tests
 * To run the unit test for full_info page, run the following command: `flutter test tests/full_info_test.dart`
 * To run the unit test for calcDist method, run the following command: `flutter test tests/loc_calcdist_test.dart`
+* To run the unit test for Firebase Marker ID structure, run the following command: `flutter test tests/firebase_marker_test.dart`
+* To run the unit test for Firebase Friends structure, run the following command: `flutter test tests/firebase_friends_test.dart`
 * To run all unit tests, run the following command: `flutter test tests`
-
-### Unit Tests can be found in the `tests` folder
 
 ### Run Behavorial/Integration tests
 * To run the integration test for drawer, open an emulator then run the following command: `flutter drive --driver=test_driver/test_driver.dart --target=integration_test/app_test.dart`
