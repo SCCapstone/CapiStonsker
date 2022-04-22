@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart' as f_map;
 import 'package:latlong2/latlong.dart' as latLng;
 import 'package:capi_stonsker/markers/full_info.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 import 'marker.dart';
 import '../user_collections/fav_button.dart';
@@ -49,6 +50,7 @@ class MarkerBox extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
+
                 FavButton(sentM: sentM),
                 const SizedBox(width: 8),
                 TextButton(
@@ -72,6 +74,8 @@ class MarkerBox extends StatelessWidget {
       ),
     );
   }
+
+
 }
 
 f_map.Marker createMapMarker(BuildContext context, Marker m, bool popup, List<latLng.LatLng> path, List<double> waypointLat, List<double> waypointLng) {
@@ -111,11 +115,12 @@ f_map.Marker createMapMarker(BuildContext context, Marker m, bool popup, List<la
                     for (var i = 0; i<geometry.length;i++){
                       path.add(latLng.LatLng(geometry[i][1], geometry[i][0]));
                     }
-                    dur = (response['routes'][0]['duration']/60) + dur;
-                    dist = (response['routes'][0]['distance']*0.000621371)+ dist;
+                    dur = (response['routes'][0]['duration']/120) + dur;
+                    dist = (response['routes'][0]['distance']*0.000311371)+ dist;
                     dur = double.parse(dur.toStringAsFixed(2));
                     dist = double.parse(dist.toStringAsFixed(2));
                     bool isNav = true;
+                    count += 1;
                     latLng.LatLng coord = latLng.LatLng(m.gps.first, m.gps.last * -1);
                     if (waypointLng.length < 8) {
                       waypointLat.add(coord.latitude.toDouble());
@@ -125,7 +130,7 @@ f_map.Marker createMapMarker(BuildContext context, Marker m, bool popup, List<la
                           builder: (context) => MyHomePage(show: false, popup: false, isNav: isNav, waypointLat: waypointLat, waypointLng: waypointLng, points: path, duration: dur, distance: dist)
                       ), (route) => false);
                     }
-                    else{
+                    if (count == 8) {
                       showDialog<String>(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(

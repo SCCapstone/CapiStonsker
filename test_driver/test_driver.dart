@@ -6,6 +6,7 @@ import 'package:integration_test/integration_test_driver.dart';
 
 Future<void> main() async {
   final Map<String, String> envVars = Platform.environment;
+
   String loc = envVars['LOCALAPPDATA']!;
   
   print(loc+'/Android/Sdk/platform-tools/adb.exe');

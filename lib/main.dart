@@ -38,6 +38,7 @@ List<double> waypointLats = [];
 List<double> waypointLngs = [];
 double dur = 0.0;
 double dist = 0.0;
+int count = 0;
 
 Future<void> main() async{
   //Ensures Firebase connection initialized
@@ -239,7 +240,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Distance: ' + (dist+widget.distance).toString() + ' miles',
+                                  'Distance: ~' + (dist+widget.distance).toString() + ' miles',
                                   style: TextStyle(fontSize: MediaQuery.of(context).size.height/50),
                                   textAlign: TextAlign.left,
                                   overflow: TextOverflow.fade,
@@ -248,7 +249,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   height: 10,
                                 ),
                                 Text(
-                                  'Duration: ' + (dur+widget.duration).toString() + ' min',
+                                  'Duration: ~' + (dur+widget.duration).toString() + ' min',
                                   style: TextStyle(fontSize: MediaQuery.of(context).size.height/50),
                                   textAlign: TextAlign.left,
                                   overflow: TextOverflow.fade,
@@ -332,6 +333,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       dur = 0.0;
                                       waypointLats = [];
                                       waypointLngs = [];
+                                      count = 0;
                                     });
                                   },
                                 ),
