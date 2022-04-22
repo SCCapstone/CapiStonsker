@@ -19,12 +19,14 @@ body::after{ content:''; display:block; height:100px; }
 /* define properties for paragraphs */
 p {
     margin: 10px;
+    font-family: Helvetica;
 }
 /* define properties for heading 1 text */
 h1 {
     font-weight: bold;
     text-align: center;
     font-size: xx-large;
+    font-family: Helvetica;
     color: white;
 }
 /* define properties for lower headings */
@@ -33,6 +35,7 @@ h2, h3, h4 {
     text-align: center;
     font-size: xx-large;
     color: black;
+    font-family: Helvetica;
 
 }
 pTitle {
@@ -41,6 +44,7 @@ pTitle {
     font-weight: bold;
     font-size: xx-large;
     color: #ffffff;
+    font-family: Helvetica;
 }
 /* define an id called navbar */
 navbar {
@@ -58,6 +62,7 @@ navbar a {
     color: #ffffff;
     font-size: 15px;
     font-weight: 700;
+    font-family: Helvetica;
 }
 /* define the properties of visited links within the navbar id */
 #navbar a:link, a:visited {
