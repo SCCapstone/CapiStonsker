@@ -120,6 +120,7 @@ f_map.Marker createMapMarker(BuildContext context, Marker m, bool popup, List<la
                     dur = double.parse(dur.toStringAsFixed(2));
                     dist = double.parse(dist.toStringAsFixed(2));
                     bool isNav = true;
+                    count += 1;
                     latLng.LatLng coord = latLng.LatLng(m.gps.first, m.gps.last * -1);
                     if (waypointLng.length < 8) {
                       waypointLat.add(coord.latitude.toDouble());
@@ -129,7 +130,7 @@ f_map.Marker createMapMarker(BuildContext context, Marker m, bool popup, List<la
                           builder: (context) => MyHomePage(show: false, popup: false, isNav: isNav, waypointLat: waypointLat, waypointLng: waypointLng, points: path, duration: dur, distance: dist)
                       ), (route) => false);
                     }
-                    else{
+                    if (count == 8) {
                       showDialog<String>(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(

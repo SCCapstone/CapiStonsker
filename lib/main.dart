@@ -38,6 +38,7 @@ List<double> waypointLats = [];
 List<double> waypointLngs = [];
 double dur = 0.0;
 double dist = 0.0;
+int count = 0;
 
 Future<void> main() async{
   //Ensures Firebase connection initialized
@@ -346,6 +347,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       dur = 0.0;
                                       waypointLats = [];
                                       waypointLngs = [];
+                                      count = 0;
                                     });
                                   },
                                 ),
