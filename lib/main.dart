@@ -254,7 +254,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Distance: ' + (dist+widget.distance).toString() + ' miles',
+                                  'Distance: ~' + (dist+widget.distance).toString() + ' miles',
                                   style: TextStyle(fontSize: MediaQuery.of(context).size.height/50),
                                   textAlign: TextAlign.left,
                                   overflow: TextOverflow.fade,
@@ -263,7 +263,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   height: 10,
                                 ),
                                 Text(
-                                  'Duration: ' + (dur+widget.duration).toString() + ' min',
+                                  'Duration: ~' + (dur+widget.duration).toString() + ' min',
                                   style: TextStyle(fontSize: MediaQuery.of(context).size.height/50),
                                   textAlign: TextAlign.left,
                                   overflow: TextOverflow.fade,
