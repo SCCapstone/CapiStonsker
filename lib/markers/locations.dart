@@ -93,6 +93,7 @@ calcDist({double lat = 0.0, double long = 0.0}) {
 }
 
 getMarkers() async {
+  markers = [];
   QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('Markers').get();
   snapshot.docs.forEach((doc) {
     Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
