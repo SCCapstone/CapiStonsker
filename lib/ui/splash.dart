@@ -1,5 +1,4 @@
 
-import 'dart:convert';
 import 'dart:io';
 
 /*
@@ -8,6 +7,7 @@ import 'dart:io';
 
 
 import 'package:capi_stonsker/ui/error.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:location/location.dart' as locations;
 import 'package:capi_stonsker/main.dart';
@@ -71,7 +71,9 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
 
   void initializeLocationAndSave() async{
 
-    await locs.getMarkers();
+    //await locs.getMarkers();
+    Firebase.initializeApp();
+
     await locs.getWish();
     await locs.getVis();
 
@@ -115,12 +117,13 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return Column(
+      key: Key("splash"),
       children: [
         Container(
           height: 550,
           child: Material(
               color: Colors.black,
-              child: Center(child: Image.asset('assets/image/logo.PNG')),
+              child: Center(child: Image.asset('assets/image/logo.png')),
           ),
         ),
         Container(
