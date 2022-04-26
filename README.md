@@ -58,7 +58,6 @@ Before building this project, install the following:
 
 ### Unit Tests can be found in the `tests` folder
 ### Run unit tests
-* To run the unit test for full_info page, run the following command: `flutter test tests/full_info_test.dart`
 * To run the unit test for calcDist method, run the following command: `flutter test tests/loc_calcdist_test.dart`
 * To run the unit test for Firebase Marker ID structure, run the following command: `flutter test tests/firebase_marker_test.dart`
 * To run the unit test for Firebase Friends structure, run the following command: `flutter test tests/firebase_friends_test.dart`
