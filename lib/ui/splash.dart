@@ -70,9 +70,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
 
   void initializeLocationAndSave() async{
 
-    //await locs.getMarkers();
-
-
+    await locs.getMarkers();
     await locs.getWish();
     await locs.getVis();
 
