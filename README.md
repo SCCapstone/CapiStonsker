@@ -64,10 +64,12 @@ Before building this project, install the following:
 * To run the unit test for Firebase Friends structure, run the following command: `flutter test tests/firebase_friends_test.dart`
 * To run all unit tests, run the following command: `flutter test tests`
 
-### Run Behavorial/Integration tests
-* To run the integration test for drawer, open an emulator then run the following command: `flutter drive --driver=test_driver/test_driver.dart --target=integration_test/app_test.dart`
-
 ### Behavioral/Integration Tests can be found in the `integration_test` folder
+### Run Behavorial/Integration tests
+* To run the integration test for drawer, run the following command: `flutter drive --driver=test_driver/test_driver.dart --target=integration_test/drawer_test.dart`
+* To run the integration test for splash screen, run the following command: `flutter drive --driver=test_driver/test_driver.dart --target=integration_test/splash_test.dart`
+* To run the integration test for plan route screen, run the following command: `flutter drive --driver=test_driver/test_driver.dart --target=integration_test/plan_route_test.dart`
+* To run the integration test for all, open an emulator then run the following command: `flutter drive --driver=test_driver/test_driver.dart --target=integration_test/app_test.dart`
 
 
 ## Authors
