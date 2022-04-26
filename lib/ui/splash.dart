@@ -1,5 +1,4 @@
 
-import 'dart:convert';
 import 'dart:io';
 
 /*
@@ -115,6 +114,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return Column(
+      key: Key("splash"),
       children: [
         Container(
           height: 550,
